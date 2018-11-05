@@ -3,10 +3,96 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MHWAppearanceEditor"
+        xmlns:root="clr-namespace:MHWAppearanceEditor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Monster Hunter World - Appearance Import/Export" 
+        Height="450" Width="800"
+        ResizeMode="CanResizeWithGrip">
+    <Window.DataContext>
+        <root:MainWindowViewModel x:Name="vm"/>
+    </Window.DataContext>
+    
     <Grid>
-        
+        <DockPanel>
+            <Menu DockPanel.Dock="Top" Background="White">
+                <MenuItem Header="File">
+                    <MenuItem Header="Open" Command="{Binding OpenFileCommand}"/>
+                    <MenuItem Header="Save as" Command="{Binding SaveFileCommand}"/>
+                </MenuItem>
+            </Menu>
+
+            <StatusBar DockPanel.Dock="Bottom">
+                <StatusBarItem Content="Version: 0.0.1"/>
+            </StatusBar>
+
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <ListView Grid.Row="0" ItemsSource="{Binding SaveSlots}" SelectedItem="{Binding SelectedSaveSlot}">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding HunterName}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <TabControl Grid.Row="2" DataContext="{Binding SelectedSaveSlot}">
+                    <TabItem Header="Hunter">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+
+                            <WrapPanel Orientation="Vertical" root:MarginSetter.Margin="0, 0, 20, 0" root:MarginSetter.LastItemMargin="0, 0, 20, 0">
+                                <Label Content="{Binding HunterName}" ContentStringFormat="Name: {0}"/>
+                                <Label Content="{Binding HunterRank}" ContentStringFormat="Rank: {0}"/>
+                                <Label Content="{Binding HunterXp}" ContentStringFormat="XP: {0}"/>
+                                <Label Content="{Binding Zeni}" ContentStringFormat="Zeni: {0}"/>
+                                <Label Content="{Binding ResearchPoints}" ContentStringFormat="Research Points: {0}"/>
+                            </WrapPanel>
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem Header="Import Appearance">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <GridSplitter Grid.Column="1" Background="WhiteSmoke" HorizontalAlignment="Stretch"/>
+
+                            <TextBox Grid.Column="2" BorderThickness="0" Text="{Binding ExportText}"/>
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem Header="Export Appearance">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <GridSplitter Grid.Column="1" Background="WhiteSmoke" HorizontalAlignment="Stretch"/>
+
+                            <TextBox Grid.Column="2" IsReadOnly="True" BorderThickness="0" Text="{Binding ExportText}"/>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </DockPanel>
     </Grid>
 </Window>
