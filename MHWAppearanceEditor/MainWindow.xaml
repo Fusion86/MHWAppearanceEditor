@@ -27,7 +27,7 @@
             </Menu>
 
             <StatusBar DockPanel.Dock="Bottom">
-                <StatusBarItem Content="Version: 0.0.1"/>
+                <StatusBarItem Content=""/>
             </StatusBar>
 
             <Grid Margin="5">
