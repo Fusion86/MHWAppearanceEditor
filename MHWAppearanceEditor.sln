@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MHWAppearanceEditor", "MHWAppearanceEditor\MHWAppearanceEditor.csproj", "{11FE4ACF-7697-4BD1-8723-8B77F690A917}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cirilla.Core", "Cirilla.Core\Cirilla.Core.csproj", "{7ED71961-026E-4E68-8FA0-A07619B7AC7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{11FE4ACF-7697-4BD1-8723-8B77F690A917}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11FE4ACF-7697-4BD1-8723-8B77F690A917}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11FE4ACF-7697-4BD1-8723-8B77F690A917}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ED71961-026E-4E68-8FA0-A07619B7AC7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ED71961-026E-4E68-8FA0-A07619B7AC7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ED71961-026E-4E68-8FA0-A07619B7AC7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ED71961-026E-4E68-8FA0-A07619B7AC7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

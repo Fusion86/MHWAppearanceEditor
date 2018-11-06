@@ -57,7 +57,7 @@ namespace MHWAppearanceEditor
     public class RelayCommand : RelayCommand<object>
     {
         public RelayCommand(Action execute)
-            : this(execute, null) { }
+            : this(execute, () => true) { }
 
         public RelayCommand(Action execute, Func<bool> canExecute)
             : base(param => execute(), param => canExecute()) { }
