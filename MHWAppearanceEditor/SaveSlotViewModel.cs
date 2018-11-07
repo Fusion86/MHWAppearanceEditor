@@ -48,29 +48,10 @@ namespace MHWAppearanceEditor
             set => _saveSlot.HunterName = value;
         }
 
-        public int HunterRank
-        {
-            get => _saveSlot.HunterRank;
-            set => _saveSlot.HunterRank = value;
-        }
-
-        public int Zenny
-        {
-            get => _saveSlot.Zenny;
-            set => _saveSlot.Zenny = value;
-        }
-
-        public int ResearchPoints
-        {
-            get => _saveSlot.ResearchPoints;
-            set => _saveSlot.ResearchPoints = value;
-        }
-
-        public int HunterXp
-        {
-            get => _saveSlot.HunterXp;
-            set => _saveSlot.HunterXp = value;
-        }
+        public int HunterRank { get => _saveSlot.HunterRank; set => _saveSlot.HunterRank = value; }
+        public int Zenny { get => _saveSlot.Zenny; set => _saveSlot.Zenny = value; }
+        public int ResearchPoints { get => _saveSlot.ResearchPoints; set => _saveSlot.ResearchPoints = value; }
+        public int HunterXp { get => _saveSlot.HunterXp; set => _saveSlot.HunterXp = value; }
 
         public bool IsJsonValid { get; set; }
         public string ImportJsonText { get; set; }
