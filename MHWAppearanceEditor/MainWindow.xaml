@@ -63,7 +63,7 @@
                                 <Label Content="{Binding HunterName}" ContentStringFormat="Name: {0}"/>
                                 <Label Content="{Binding HunterRank}" ContentStringFormat="Rank: {0}"/>
                                 <Label Content="{Binding HunterXp}" ContentStringFormat="XP: {0}"/>
-                                <Label Content="{Binding Zeni}" ContentStringFormat="Zeni: {0}"/>
+                                <Label Content="{Binding Zenny}" ContentStringFormat="Zenny: {0}"/>
                                 <Label Content="{Binding ResearchPoints}" ContentStringFormat="Research Points: {0}"/>
                             </WrapPanel>
                         </Grid>

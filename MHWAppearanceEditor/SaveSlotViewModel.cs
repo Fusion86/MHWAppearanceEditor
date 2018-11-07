@@ -42,11 +42,35 @@ namespace MHWAppearanceEditor
 
         private SaveSlot _saveSlot; // Remember, this is a reference to SaveData.SaveSlot[x]  0, 1 or 2
 
-        public string HunterName => _saveSlot.HunterName;
-        public int HunterRank => _saveSlot.HunterRank;
-        public int Zeni => _saveSlot.Zeni;
-        public int ResearchPoints => _saveSlot.ResearchPoints;
-        public int HunterXp => _saveSlot.HunterXp;
+        public string HunterName
+        {
+            get => _saveSlot.HunterName;
+            set => _saveSlot.HunterName = value;
+        }
+
+        public int HunterRank
+        {
+            get => _saveSlot.HunterRank;
+            set => _saveSlot.HunterRank = value;
+        }
+
+        public int Zenny
+        {
+            get => _saveSlot.Zenny;
+            set => _saveSlot.Zenny = value;
+        }
+
+        public int ResearchPoints
+        {
+            get => _saveSlot.ResearchPoints;
+            set => _saveSlot.ResearchPoints = value;
+        }
+
+        public int HunterXp
+        {
+            get => _saveSlot.HunterXp;
+            set => _saveSlot.HunterXp = value;
+        }
 
         public bool IsJsonValid { get; set; }
         public string ImportJsonText { get; set; }
