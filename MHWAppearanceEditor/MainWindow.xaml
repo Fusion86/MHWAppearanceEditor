@@ -19,9 +19,10 @@
                     <MenuItem Header="Open" Command="{Binding OpenFileCommand}"/>
                     <MenuItem Header="Save as" Command="{Binding SaveFileCommand}"/>
                     <Separator/>
-                    <MenuItem Header="Import Character Appearace JSON file" Command="{Binding ImportCharacterJsonCommand}"
+                    <MenuItem Header="Import Character Preset (.cmp)" Command="{Binding ImportCmpCommand}"/>
+                    <MenuItem Header="Import Character Appearance (.json)" Command="{Binding ImportCharacterJsonCommand}"
                               ToolTip="This pastes the contents of a file in the Import Appearance tab for the selected saveslot"/>
-                    <MenuItem Header="Export Character Appearace as JSON file" Command="{Binding ExportCharacterJsonCommand}"
+                    <MenuItem Header="Export Character Appearance (.json)" Command="{Binding ExportCharacterJsonCommand}"
                               ToolTip="This saves the selected characters appearance to a JSON file"/>
                 </MenuItem>
 

@@ -1,4 +1,6 @@
-﻿using Cirilla.Core.Models;
+﻿using Cirilla.Core.Enums;
+using Cirilla.Core.Interfaces;
+using Cirilla.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -75,10 +77,10 @@ namespace MHWAppearanceEditor
 
         }
 
-        public SerializableAppearance(SaveSlot saveSlot)
+        public SerializableAppearance(IAppearanceProperties objWithAppearanceProperties)
         {
             Type thisType = GetType();
-            Type saveSlotAppearanceType = typeof(ISaveSlotAppearanceMethods);
+            Type saveSlotAppearanceType = typeof(IAppearanceProperties);
 
             // Foreach property in this class
             foreach (var prop in thisType.GetProperties())
@@ -89,7 +91,7 @@ namespace MHWAppearanceEditor
                 // And if it has the same property then set __this__ classes property to the same value
                 if (saveSlotProp != null)
                 {
-                    prop.SetValue(this, saveSlotProp.GetValue(saveSlot));
+                    prop.SetValue(this, saveSlotProp.GetValue(objWithAppearanceProperties));
                 }
             }
         }
@@ -97,7 +99,7 @@ namespace MHWAppearanceEditor
         public void ApplyToSaveSlot(SaveSlot saveSlot)
         {
             Type thisType = GetType();
-            Type saveSlotAppearanceType = typeof(ISaveSlotAppearanceMethods);
+            Type saveSlotAppearanceType = typeof(IAppearanceProperties);
 
             // Foreach property in this class
             foreach (var prop in thisType.GetProperties())

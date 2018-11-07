@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,18 +30,18 @@ namespace MHWAppearanceEditor
         public RelayCommand OpenFileCommand { get; }
         public RelayCommand SaveFileCommand { get; }
         public RelayCommand OpenSaveDataFolderCommand { get; }
+        public RelayCommand ImportCmpCommand { get; }
         public RelayCommand ImportCharacterJsonCommand { get; }
         public RelayCommand ExportCharacterJsonCommand { get; }
 
         #endregion
-
-        private bool _openFilePathSetOnce; // We only want to set it once, because maybe someone keeps their saves on their desktop?
 
         public MainWindowViewModel()
         {
             OpenFileCommand = new RelayCommand(OpenFile, CanOpenFile);
             SaveFileCommand = new RelayCommand(SaveFile, CanSaveFile);
             OpenSaveDataFolderCommand = new RelayCommand(OpenSaveDataFolder, CanOpenSaveDataFolder);
+            ImportCmpCommand = new RelayCommand(ImportCmp, CanImportCmp);
             ImportCharacterJsonCommand = new RelayCommand(ImportCharacterJson, CanImportCharacterJson);
             ExportCharacterJsonCommand = new RelayCommand(ExportCharacterJson, CanExportCharacterJson);
         }
@@ -53,14 +54,10 @@ namespace MHWAppearanceEditor
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.CheckFileExists = true;
 
-            if (!_openFilePathSetOnce)
-            {
-                string savePath = Utility.GetMhwSaveDir();
-                if (savePath != null)
-                    ofd.InitialDirectory = savePath;
+            string savePath = Utility.GetMhwSaveDir();
+            if (savePath != null)
+                ofd.InitialDirectory = savePath;
 
-                _openFilePathSetOnce = true;
-            }
 
             if (ofd.ShowDialog() == true)
             {
@@ -80,6 +77,11 @@ namespace MHWAppearanceEditor
         private async void SaveFile()
         {
             SaveFileDialog sfd = new SaveFileDialog();
+
+            string savePath = Utility.GetMhwSaveDir();
+            if (savePath != null)
+                sfd.InitialDirectory = savePath;
+
             if (sfd.ShowDialog() == true)
             {
                 await Task.Run(() => SaveData.Save(sfd.FileName));
@@ -100,24 +102,81 @@ namespace MHWAppearanceEditor
             Log.Information($"Started explorer in {path}");
         }
 
-        public bool CanImportCharacterJson() => SelectedSaveSlot != null;
-        public void ImportCharacterJson()
+        public bool CanImportCmp() => SelectedSaveSlot != null;
+        public void ImportCmp()
         {
             OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Character Preset|*.cmp";
+
             if (ofd.ShowDialog() == true)
             {
                 try
                 {
-                    string str = File.ReadAllText(ofd.FileName);
+                    // Bit hacky and not very performance friendly
+                    CMP cmp = new CMP(ofd.FileName);
+                    SerializableAppearance appearance = new SerializableAppearance(cmp);
+
+                    SelectedSaveSlot.ImportJsonText = JsonConvert.SerializeObject(appearance, Formatting.Indented);
+                    Log.Information($"Imported Character Preset from {ofd.FileName}");
+
+                    // Select "Import Appearance" tab
+                    SelectedSaveSlot.SelectedTabIndex = 1;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex.Message);
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        public bool CanImportCharacterJson() => SelectedSaveSlot != null;
+        public void ImportCharacterJson()
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Shareable Character Appearance|*.json;*.zip";
+
+            if (ofd.ShowDialog() == true)
+            {
+                try
+                {
+                    string jsonFile = ofd.FileName;
+
+                    // If zip file
+                    if (new FileInfo(ofd.FileName).Extension.ToLower() == ".zip")
+                    {
+                        string tempFolder = "cirilla_temp";
+
+                        ZipFile.ExtractToDirectory(ofd.FileName, tempFolder);
+                        var jsonFiles = new DirectoryInfo(tempFolder).GetFiles().Where(x => x.Extension.ToLower() == ".json").ToList();
+
+                        if (jsonFiles.Count > 0)
+                        {
+                            // Show selector
+                            MessageBox.Show("This tool currently doesn't support multiple JSON files in a zip.\nFor now we'll just use the first JSON file in the zip.");
+                            jsonFile = jsonFiles[0].FullName;
+                        }
+                        else if (jsonFiles.Count == 0)
+                        {
+                            MessageBox.Show("This zip file doesn't contain any JSON files!");
+                            return;
+                        }
+                        else
+                        {
+                            jsonFile = jsonFiles[0].FullName;
+                        }
+                    }
+
+                    string str = File.ReadAllText(jsonFile);
                     bool isValid = true;
 
                     try
                     {
                         JToken.Parse(str);
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        Log.Information("Invalid JSON file!");
+                        Log.Error(ex.Message);
                         MessageBox.Show("Invalid JSON file!", "Error");
                         isValid = false;
                     }
