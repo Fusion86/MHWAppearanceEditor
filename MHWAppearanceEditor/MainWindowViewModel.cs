@@ -1,10 +1,14 @@
 ﻿using Cirilla.Core.Models;
 using Microsoft.Win32;
+using Newtonsoft.Json.Linq;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace MHWAppearanceEditor
@@ -23,7 +27,9 @@ namespace MHWAppearanceEditor
 
         public RelayCommand OpenFileCommand { get; }
         public RelayCommand SaveFileCommand { get; }
-        public RelayCommand OpenSaveDataFolderCommand { get; set; }
+        public RelayCommand OpenSaveDataFolderCommand { get; }
+        public RelayCommand ImportCharacterJsonCommand { get; }
+        public RelayCommand ExportCharacterJsonCommand { get; }
 
         #endregion
 
@@ -34,12 +40,14 @@ namespace MHWAppearanceEditor
             OpenFileCommand = new RelayCommand(OpenFile, CanOpenFile);
             SaveFileCommand = new RelayCommand(SaveFile, CanSaveFile);
             OpenSaveDataFolderCommand = new RelayCommand(OpenSaveDataFolder, CanOpenSaveDataFolder);
+            ImportCharacterJsonCommand = new RelayCommand(ImportCharacterJson, CanImportCharacterJson);
+            ExportCharacterJsonCommand = new RelayCommand(ExportCharacterJson, CanExportCharacterJson);
         }
 
         #region Commands
 
         private bool CanOpenFile() => true;
-        private void OpenFile()
+        private async void OpenFile()
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.CheckFileExists = true;
@@ -48,7 +56,7 @@ namespace MHWAppearanceEditor
             {
                 string savePath = Utility.GetMhwSaveDir();
                 if (savePath != null)
-                    ofd.FileName = savePath;
+                    ofd.InitialDirectory = savePath;
 
                 _openFilePathSetOnce = true;
             }
@@ -57,7 +65,8 @@ namespace MHWAppearanceEditor
             {
                 try
                 {
-                    SaveData = new SaveData(ofd.FileName);
+                    await Task.Run(() => SaveData = new SaveData(ofd.FileName));
+                    Log.Information($"Opened {ofd.FileName}");
                 }
                 catch (Exception ex)
                 {
@@ -67,19 +76,75 @@ namespace MHWAppearanceEditor
         }
 
         private bool CanSaveFile() => true;
-        private void SaveFile()
+        private async void SaveFile()
         {
             SaveFileDialog sfd = new SaveFileDialog();
             if (sfd.ShowDialog() == true)
             {
-                SaveData.Save(sfd.FileName);
+                await Task.Run(() => SaveData.Save(sfd.FileName));
+                Log.Information($"Saved SaveData to {sfd.FileName}");
             }
         }
 
         public bool CanOpenSaveDataFolder() => Utility.GetMhwSaveDir() != null;
         public void OpenSaveDataFolder()
         {
-            Process.Start("explorer.exe", Utility.GetMhwSaveDir());
+            string path = Utility.GetMhwSaveDir();
+
+            // This should never happen because CanOpenSaveDataFolder(), but no reason not to include it (e.g for when called manually)
+            if (path == null)
+                return;
+
+            Process.Start("explorer.exe", path);
+            Log.Information($"Started explorer in {path}");
+        }
+
+        public bool CanImportCharacterJson() => SelectedSaveSlot != null;
+        public void ImportCharacterJson()
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() == true)
+            {
+                try
+                {
+                    string str = File.ReadAllText(ofd.FileName);
+                    bool isValid = true;
+
+                    try
+                    {
+                        JToken.Parse(str);
+                    }
+                    catch
+                    {
+                        Log.Information("Invalid JSON file!");
+                        isValid = false;
+                    }
+
+                    if (isValid)
+                    {
+                        SelectedSaveSlot.ImportJsonText = str;
+                        Log.Information($"Imported Character JSON from {ofd.FileName}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error");
+                }
+            }
+        }
+
+        public bool CanExportCharacterJson() => SelectedSaveSlot != null;
+        public void ExportCharacterJson()
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.FileName = Utility.GetSafeFilename(SelectedSaveSlot.HunterName) + ".json";
+            sfd.Filter = "Shareable Character Appearance|*.json";
+
+            if (sfd.ShowDialog() == true)
+            {
+                File.WriteAllText(sfd.FileName, SelectedSaveSlot.ExportJsonText);
+                Log.Information($"Exported Character JSON to {sfd.FileName}");
+            }
         }
 
         #endregion

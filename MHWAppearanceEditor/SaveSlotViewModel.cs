@@ -5,6 +5,7 @@ using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows;
 
 namespace MHWAppearanceEditor
 {
@@ -45,7 +46,19 @@ namespace MHWAppearanceEditor
         public string HunterName
         {
             get => _saveSlot.HunterName;
-            set => _saveSlot.HunterName = value;
+            set
+            {
+                try
+                {
+                    // The setter will throw an exception if the name is too large (large as in: number of bytes) or invalid (when not UTF-8)
+                    _saveSlot.HunterName = value;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex.Message);
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
 
         public int HunterRank { get => _saveSlot.HunterRank; set => _saveSlot.HunterRank = value; }

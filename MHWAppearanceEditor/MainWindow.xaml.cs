@@ -9,13 +9,15 @@ namespace MHWAppearanceEditor
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly InMemorySink _sink = new InMemorySink();
+        private readonly InMemorySink _sink;
 
         public MainWindow()
         {
             InitializeComponent();
 
             // Setup logging
+            _sink = new InMemorySink(statusText);
+
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.Sink(_sink)
                 .CreateLogger();

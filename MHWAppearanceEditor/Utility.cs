@@ -38,5 +38,10 @@ namespace MHWAppearanceEditor
 
             return null;
         }
+
+        public static string GetSafeFilename(string filename)
+        {
+            return string.Join("", filename.Split(Path.GetInvalidFileNameChars()));
+        }
     }
 }

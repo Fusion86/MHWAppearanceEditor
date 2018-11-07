@@ -18,6 +18,11 @@
                 <MenuItem Header="File">
                     <MenuItem Header="Open" Command="{Binding OpenFileCommand}"/>
                     <MenuItem Header="Save as" Command="{Binding SaveFileCommand}"/>
+                    <Separator/>
+                    <MenuItem Header="Import Character Appearace JSON file" Command="{Binding ImportCharacterJsonCommand}"
+                              ToolTip="This pastes the contents of a file in the Import Appearance tab for the selected saveslot"/>
+                    <MenuItem Header="Export Character Appearace as JSON file" Command="{Binding ExportCharacterJsonCommand}"
+                              ToolTip="This saves the selected characters appearance to a JSON file"/>
                 </MenuItem>
 
                 <MenuItem Header="Tools">
@@ -27,7 +32,7 @@
             </Menu>
 
             <StatusBar DockPanel.Dock="Bottom">
-                <StatusBarItem Content=""/>
+                <StatusBarItem x:Name="statusText"/>
             </StatusBar>
 
             <Grid Margin="5">
@@ -59,12 +64,31 @@
                                 <ColumnDefinition Width="200"/>
                             </Grid.ColumnDefinitions>
 
-                            <WrapPanel Orientation="Vertical" root:MarginSetter.Margin="0, 0, 20, 0" root:MarginSetter.LastItemMargin="0, 0, 20, 0">
-                                <Label Content="{Binding HunterName}" ContentStringFormat="Name: {0}"/>
-                                <Label Content="{Binding HunterRank}" ContentStringFormat="Rank: {0}"/>
-                                <Label Content="{Binding HunterXp}" ContentStringFormat="XP: {0}"/>
-                                <Label Content="{Binding Zenny}" ContentStringFormat="Zenny: {0}"/>
-                                <Label Content="{Binding ResearchPoints}" ContentStringFormat="Research Points: {0}"/>
+                            <WrapPanel Orientation="Vertical" root:MarginSetter.Margin="5, 5, 20, 0" root:MarginSetter.LastItemMargin="5, 5, 20, 5">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Name: "/>
+                                    <TextBox Text="{Binding HunterName, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" MaxLength="16"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Rank: "/>
+                                    <TextBlock Text="{Binding HunterRank}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="XP: "/>
+                                    <TextBlock Text="{Binding HunterXp}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Zenny: "/>
+                                    <TextBlock Text="{Binding Zenny}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="ResearchPoints: "/>
+                                    <TextBlock Text="{Binding ResearchPoints}"/>
+                                </StackPanel>
                             </WrapPanel>
                         </Grid>
                     </TabItem>
@@ -85,7 +109,7 @@
                             <TextBlock Grid.Column="0" Grid.Row="0" Text="Options" Margin="5"/>
 
                             <DockPanel Grid.Column="0" Grid.Row="1">
-                                <Button Content="Import" DockPanel.Dock="Bottom" Command="{Binding ImportJsonCommand}"/>
+                                <Button Content="Import into selected slot" DockPanel.Dock="Bottom" Command="{Binding ImportJsonCommand}"/>
 
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -174,6 +198,14 @@
                                 <ColumnDefinition Width="5"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
+
+                            <DockPanel>
+                                <Button DockPanel.Dock="Bottom" Content="Export to file" Command="{Binding ExportCharacterJsonCommand}"/>
+
+                                <Grid>
+                                    
+                                </Grid>
+                            </DockPanel>
 
                             <GridSplitter Grid.Column="1" Background="WhiteSmoke" HorizontalAlignment="Stretch"/>
 

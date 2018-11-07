@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace MHWAppearanceEditor
@@ -23,7 +24,7 @@ namespace MHWAppearanceEditor
         {
             while (readEvents)
             {
-                textBox.Dispatcher.Invoke(() => textBox.Text = _sink.Log);
+                textBox.Dispatcher.Invoke(() => textBox.Text = string.Join(Environment.NewLine, _sink.Events));
                 await Task.Delay(100);
             }
         }
