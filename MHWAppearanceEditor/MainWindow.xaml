@@ -56,7 +56,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <TabControl Grid.Row="2" DataContext="{Binding SelectedSaveSlot}">
+                <TabControl Grid.Row="2" DataContext="{Binding SelectedSaveSlot}" SelectedIndex="{Binding SelectedTabIndex}">
                     <TabItem Header="Hunter">
                         <Grid>
                             <Grid.ColumnDefinitions>

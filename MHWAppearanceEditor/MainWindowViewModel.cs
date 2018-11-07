@@ -1,5 +1,6 @@
 ﻿using Cirilla.Core.Models;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Serilog;
 using System;
@@ -117,13 +118,26 @@ namespace MHWAppearanceEditor
                     catch
                     {
                         Log.Information("Invalid JSON file!");
+                        MessageBox.Show("Invalid JSON file!", "Error");
                         isValid = false;
                     }
 
                     if (isValid)
                     {
+                        SerializableMetadata metaData = JsonConvert.DeserializeObject<SerializableMetadata>(str);
+
+                        if (metaData.Author != null || metaData.Description != null || metaData.PreviewImage != null || metaData.Website != null || metaData.Title != null)
+                        {
+                            PreviewPreset popup = new PreviewPreset(metaData);
+                            if (popup.ShowDialog() != true)
+                                return;
+                        }
+
                         SelectedSaveSlot.ImportJsonText = str;
                         Log.Information($"Imported Character JSON from {ofd.FileName}");
+
+                        // Select "Import Appearance" tab
+                        SelectedSaveSlot.SelectedTabIndex = 1;
                     }
                 }
                 catch (Exception ex)

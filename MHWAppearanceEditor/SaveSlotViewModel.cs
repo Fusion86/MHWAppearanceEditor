@@ -70,6 +70,8 @@ namespace MHWAppearanceEditor
         public string ImportJsonText { get; set; }
         public ImportExportOptions ImportOptions { get; private set; } = new ImportExportOptions();
 
+        public int SelectedTabIndex { get; set; }
+
         #region Commands
 
         public RelayCommand ImportJsonCommand { get; set; }
