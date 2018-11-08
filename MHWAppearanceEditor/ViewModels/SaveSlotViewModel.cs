@@ -1,12 +1,10 @@
 ﻿using Serilog;
 using Cirilla.Core.Models;
 using Newtonsoft.Json;
-using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
-using Cirilla.Core.Structs.Native;
 using ICSharpCode.AvalonEdit.Document;
 using MHWAppearanceEditor.Models;
 using System.Timers;
