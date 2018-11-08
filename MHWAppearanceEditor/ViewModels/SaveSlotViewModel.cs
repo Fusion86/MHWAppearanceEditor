@@ -6,8 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
+using Cirilla.Core.Structs.Native;
+using ICSharpCode.AvalonEdit.Document;
+using MHWAppearanceEditor.Models;
+using System.Timers;
 
-namespace MHWAppearanceEditor
+namespace MHWAppearanceEditor.ViewModels
 {
     public class AppearanceValueDiff : INotifyPropertyChanged
     {
@@ -41,33 +45,33 @@ namespace MHWAppearanceEditor
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private SaveSlot _saveSlot; // Remember, this is a reference to SaveData.SaveSlot[x]  0, 1 or 2
+        public SaveSlot SaveSlot { get; } // Remember, this is a reference to SaveData.SaveSlot[x]  0, 1 or 2
 
         public string HunterName
         {
-            get => _saveSlot.HunterName;
+            get => SaveSlot.HunterName;
             set
             {
                 try
                 {
                     // The setter will throw an exception if the name is too large (large as in: number of bytes) or invalid (when not UTF-8)
-                    _saveSlot.HunterName = value;
+                    SaveSlot.HunterName = value;
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex.Message);
+                    Log.Error("[{HunterName}] " + ex.Message);
                     MessageBox.Show(ex.Message);
                 }
             }
         }
 
-        public int HunterRank { get => _saveSlot.HunterRank; set => _saveSlot.HunterRank = value; }
-        public int Zenny { get => _saveSlot.Zenny; set => _saveSlot.Zenny = value; }
-        public int ResearchPoints { get => _saveSlot.ResearchPoints; set => _saveSlot.ResearchPoints = value; }
-        public int HunterXp { get => _saveSlot.HunterXp; set => _saveSlot.HunterXp = value; }
+        public int HunterRank { get => SaveSlot.HunterRank; set => SaveSlot.HunterRank = value; }
+        public int Zenny { get => SaveSlot.Zenny; set => SaveSlot.Zenny = value; }
+        public int ResearchPoints { get => SaveSlot.ResearchPoints; set => SaveSlot.ResearchPoints = value; }
+        public int HunterXp { get => SaveSlot.HunterXp; set => SaveSlot.HunterXp = value; }
 
         public bool IsJsonValid { get; set; }
-        public string ImportJsonText { get; set; }
+        public TextDocument ImportJsonDocument { get; set; } = new TextDocument();
         public ImportExportOptions ImportOptions { get; private set; } = new ImportExportOptions();
 
         public int SelectedTabIndex { get; set; }
@@ -79,12 +83,45 @@ namespace MHWAppearanceEditor
 
         #endregion
 
+        private int _propertyChangedDelay;
+
         public SaveSlotViewModel(SaveSlot saveSlot)
         {
-            _saveSlot = saveSlot;
+            SaveSlot = saveSlot;
 
             ImportJsonCommand = new RelayCommand(ImportJson, CanImportJson);
             FillWithCurrentAppearanceCommand = new RelayCommand(FillWithCurrentAppearance, CanFillWithCurrentAppearance);
+
+            // We put this in a timer to make sure that we don't do any intensive work while a user is typing in the json import tab
+            Timer propertyChangedTimer = new Timer();
+            propertyChangedTimer.Interval = 100;
+            propertyChangedTimer.Elapsed += (sender, e) =>
+            {
+                // -1   = already updated
+                //  0   = should update now
+                // >0   = count down to zero
+
+                if (_propertyChangedDelay != -1)
+                {
+                    if (_propertyChangedDelay == 0)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs(nameof(ImportDiff)));
+                        _propertyChangedDelay = -1;
+                    }
+                    else
+                    {
+                        _propertyChangedDelay -= Math.Min(_propertyChangedDelay, (int)propertyChangedTimer.Interval);
+                    }
+                }
+            };
+            propertyChangedTimer.Start();
+
+            // On text changed queue PropertyChangedEvent for ImportDiff
+            ImportJsonDocument.PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName == "Text")
+                    _propertyChangedDelay = 1000; // (Re)set update delay to 1 second
+            };
         }
 
         #region Calculated properties
@@ -97,7 +134,11 @@ namespace MHWAppearanceEditor
             }
         }
 
-        [DependsOn(nameof(ImportJsonText))]
+        /// <summary>
+        /// Returns list of AppearanceValueDiff comparing the current saveslots appearance and the import tab appearance
+        /// 
+        /// PropertyChangedEvent is called 1 second after the most recent update to ImportJsonDocument.Text
+        /// </summary>
         public List<AppearanceValueDiff> ImportDiff
         {
             get
@@ -129,7 +170,7 @@ namespace MHWAppearanceEditor
         public bool CanImportJson() => GetImportAppearance() != null;
         public void ImportJson()
         {
-            GetImportAppearance()?.ApplyToSaveSlot(_saveSlot);
+            GetImportAppearance()?.ApplyToSaveSlot(SaveSlot);
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(ImportDiff)));
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(ExportJsonText)));
         }
@@ -137,30 +178,30 @@ namespace MHWAppearanceEditor
         public bool CanFillWithCurrentAppearance() => GetAppearance() != null;
         public void FillWithCurrentAppearance()
         {
-            ImportJsonText = ExportJsonText;
+            ImportJsonDocument.Text = ExportJsonText;
         }
 
         #endregion
 
         #region Methods
 
-        private SerializableAppearance GetAppearance() => new SerializableAppearance(_saveSlot);
+        private SerializableAppearance GetAppearance() => new SerializableAppearance(SaveSlot);
 
         public SerializableAppearance GetImportAppearance()
         {
-            if (ImportJsonText == null)
+            if (ImportJsonDocument.Text == null)
                 return null;
 
             try
             {
-                var obj = JsonConvert.DeserializeObject<SerializableAppearance>(ImportJsonText);
+                var obj = JsonConvert.DeserializeObject<SerializableAppearance>(ImportJsonDocument.Text);
                 IsJsonValid = true;
                 return obj;
             }
             catch (Exception ex)
             {
                 IsJsonValid = false;
-                Log.Error(ex.Message);
+                Log.Error("[{HunterName}] " + ex.Message);
                 return null;
             }
         }

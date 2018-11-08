@@ -1,4 +1,7 @@
 ﻿using Cirilla.Core.Models;
+using MHWAppearanceEditor.Helpers;
+using MHWAppearanceEditor.Models;
+using MHWAppearanceEditor.Windows;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -13,7 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace MHWAppearanceEditor
+namespace MHWAppearanceEditor.ViewModels
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
@@ -31,8 +34,10 @@ namespace MHWAppearanceEditor
         public RelayCommand SaveFileCommand { get; }
         public RelayCommand OpenSaveDataFolderCommand { get; }
         public RelayCommand ImportCmpCommand { get; }
+        public RelayCommand ExportCmpCommand { get; }
         public RelayCommand ImportCharacterJsonCommand { get; }
         public RelayCommand ExportCharacterJsonCommand { get; }
+        public RelayCommand CloseWorkbenchCommand { get; }
 
         #endregion
 
@@ -42,8 +47,10 @@ namespace MHWAppearanceEditor
             SaveFileCommand = new RelayCommand(SaveFile, CanSaveFile);
             OpenSaveDataFolderCommand = new RelayCommand(OpenSaveDataFolder, CanOpenSaveDataFolder);
             ImportCmpCommand = new RelayCommand(ImportCmp, CanImportCmp);
+            ExportCmpCommand = new RelayCommand(ExportCmp, CanExportCmp);
             ImportCharacterJsonCommand = new RelayCommand(ImportCharacterJson, CanImportCharacterJson);
             ExportCharacterJsonCommand = new RelayCommand(ExportCharacterJson, CanExportCharacterJson);
+            CloseWorkbenchCommand = new RelayCommand(CloseWorkbench);
         }
 
         #region Commands
@@ -116,7 +123,7 @@ namespace MHWAppearanceEditor
                     CMP cmp = new CMP(ofd.FileName);
                     SerializableAppearance appearance = new SerializableAppearance(cmp);
 
-                    SelectedSaveSlot.ImportJsonText = JsonConvert.SerializeObject(appearance, Formatting.Indented);
+                    SelectedSaveSlot.ImportJsonDocument.Text = JsonConvert.SerializeObject(appearance, Formatting.Indented);
                     Log.Information($"Imported Character Preset from {ofd.FileName}");
 
                     // Select "Import Appearance" tab
@@ -127,6 +134,22 @@ namespace MHWAppearanceEditor
                     Log.Error(ex.Message);
                     MessageBox.Show(ex.Message);
                 }
+            }
+        }
+
+        public bool CanExportCmp() => SelectedSaveSlot != null;
+        public void ExportCmp()
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.FileName = Utility.GetSafeFilename(SelectedSaveSlot.HunterName) + ".cmp";
+            sfd.Filter = "NPC Character Preset|*.cmp";
+
+            if (sfd.ShowDialog() == true)
+            {
+                CMP cmp = new CMP(SelectedSaveSlot.SaveSlot.Native.Appearance);
+                cmp.Save(sfd.FileName);
+
+                Log.Information($"Exported NPC Character Preset to {sfd.FileName}");
             }
         }
 
@@ -192,7 +215,7 @@ namespace MHWAppearanceEditor
                                 return;
                         }
 
-                        SelectedSaveSlot.ImportJsonText = str;
+                        SelectedSaveSlot.ImportJsonDocument.Text = str;
                         Log.Information($"Imported Character JSON from {ofd.FileName}");
 
                         // Select "Import Appearance" tab
@@ -218,6 +241,13 @@ namespace MHWAppearanceEditor
                 File.WriteAllText(sfd.FileName, SelectedSaveSlot.ExportJsonText);
                 Log.Information($"Exported Character JSON to {sfd.FileName}");
             }
+        }
+
+        public void CloseWorkbench()
+        {
+            SaveData = null;
+            SelectedSaveSlot = null;
+            GC.Collect();
         }
 
         #endregion

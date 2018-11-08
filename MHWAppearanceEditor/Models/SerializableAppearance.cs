@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace MHWAppearanceEditor
+namespace MHWAppearanceEditor.Models
 {
     public class SerializableAppearance
     {

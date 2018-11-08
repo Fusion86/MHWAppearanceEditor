@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace MHWAppearanceEditor
+namespace MHWAppearanceEditor.Models
 {
     public class SerializableMetadata
     {

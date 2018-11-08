@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace MHWAppearanceEditor
+namespace MHWAppearanceEditor.Helpers
 {
     static class Utility
     {

@@ -1,4 +1,4 @@
-﻿<Window x:Class="MHWAppearanceEditor.LogViewer"
+﻿<Window x:Class="MHWAppearanceEditor.Windows.LogViewer"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,5 +7,5 @@
         mc:Ignorable="d"
         Title="LogViewer" Height="450" Width="800"
         Closing="Window_Closing">
-    <TextBox x:Name="textBox"/>
+    <TextBox x:Name="textBox" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
 </Window>

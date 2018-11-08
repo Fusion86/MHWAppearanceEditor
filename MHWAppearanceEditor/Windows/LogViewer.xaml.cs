@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace MHWAppearanceEditor
+namespace MHWAppearanceEditor.Windows
 {
     /// <summary>
     /// Interaction logic for LogViewer.xaml

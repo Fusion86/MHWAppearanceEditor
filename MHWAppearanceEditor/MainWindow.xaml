@@ -4,13 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:root="clr-namespace:MHWAppearanceEditor"
+        xmlns:vm="clr-namespace:MHWAppearanceEditor.ViewModels"
+        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+        xmlns:valueConverters="clr-namespace:MHWAppearanceEditor.ValueConverters"
         mc:Ignorable="d"
         Title="Monster Hunter World - Appearance Import/Export" 
         Height="450" Width="840"
         ResizeMode="CanResizeWithGrip">
     <Window.DataContext>
-        <root:MainWindowViewModel x:Name="vm"/>
+        <vm:MainWindowViewModel x:Name="vm"/>
     </Window.DataContext>
+
+    <Window.Resources>
+        <valueConverters:NullVisibilityConverter x:Key="NullToVisibilityConverter"/>
+    </Window.Resources>
 
     <Grid>
         <DockPanel>
@@ -19,11 +26,15 @@
                     <MenuItem Header="Open" Command="{Binding OpenFileCommand}"/>
                     <MenuItem Header="Save as" Command="{Binding SaveFileCommand}"/>
                     <Separator/>
-                    <MenuItem Header="Import Character Preset (.cmp)" Command="{Binding ImportCmpCommand}"/>
+                    <MenuItem Header="Import NPC Character Preset (.cmp)" Command="{Binding ImportCmpCommand}"/>
+                    <MenuItem Header="Export NPC Character Preset (.cmp)" Command="{Binding ExportCmpCommand}"/>
+                    <Separator/>
                     <MenuItem Header="Import Character Appearance (.json)" Command="{Binding ImportCharacterJsonCommand}"
                               ToolTip="This pastes the contents of a file in the Import Appearance tab for the selected saveslot"/>
                     <MenuItem Header="Export Character Appearance (.json)" Command="{Binding ExportCharacterJsonCommand}"
                               ToolTip="This saves the selected characters appearance to a JSON file"/>
+                    <Separator/>
+                    <MenuItem Header="Close" Command="{Binding CloseWorkbenchCommand}"/>
                 </MenuItem>
 
                 <MenuItem Header="Tools">
@@ -57,7 +68,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <TabControl Grid.Row="2" DataContext="{Binding SelectedSaveSlot}" SelectedIndex="{Binding SelectedTabIndex}">
+                <TabControl Grid.Row="2" DataContext="{Binding SelectedSaveSlot}" SelectedIndex="{Binding SelectedTabIndex}" Visibility="{Binding Path=., Converter={StaticResource NullToVisibilityConverter}}">
                     <TabItem Header="Hunter">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -187,8 +198,9 @@
                                         Command="{Binding FillWithCurrentAppearanceCommand}"/>
                             </Grid>
 
-                            <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding ImportJsonText, UpdateSourceTrigger=PropertyChanged}"
-                                     HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" AcceptsReturn="True"/>
+                            <avalonEdit:TextEditor Grid.Column="2" Grid.Row="1"
+                                                   Document="{Binding ImportJsonDocument}"
+                                                   SyntaxHighlighting="JSON"/>
                         </Grid>
                     </TabItem>
 
@@ -200,14 +212,6 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <DockPanel>
-                                <Button DockPanel.Dock="Bottom" Content="Export to file" Command="{Binding ExportCharacterJsonCommand}"/>
-
-                                <Grid>
-                                    
-                                </Grid>
-                            </DockPanel>
-
                             <GridSplitter Grid.Column="1" Background="WhiteSmoke" HorizontalAlignment="Stretch"/>
 
                             <TextBox Grid.Column="2" IsReadOnly="True" Text="{Binding ExportJsonText, Mode=OneWay}"
@@ -215,6 +219,14 @@
                         </Grid>
                     </TabItem>
                 </TabControl>
+
+                <TextBlock Grid.Row="2" FontSize="18" Foreground="Gray" TextAlignment="Center" VerticalAlignment="Center" Panel.ZIndex="-1">
+                    <Run Text="Go to"/>
+                    <Run Text="File -> Open" FontWeight="Bold"/>
+                    <Run Text="and select your"/>
+                    <Run Text="SAVEDATA1000" FontWeight="Bold"/>
+                    <Run Text="to get started"/>
+                </TextBlock>
             </Grid>
         </DockPanel>
     </Grid>

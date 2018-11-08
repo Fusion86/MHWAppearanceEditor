@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using MHWAppearanceEditor.Windows;
+using Serilog;
 using System.Reflection;
 using System.Windows;
 

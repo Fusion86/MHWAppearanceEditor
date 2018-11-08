@@ -1,7 +1,8 @@
-﻿using System.Diagnostics;
+﻿using MHWAppearanceEditor.Models;
+using System.Diagnostics;
 using System.Windows;
 
-namespace MHWAppearanceEditor
+namespace MHWAppearanceEditor.Windows
 {
     /// <summary>
     /// Interaction logic for PreviewPreset.xaml
