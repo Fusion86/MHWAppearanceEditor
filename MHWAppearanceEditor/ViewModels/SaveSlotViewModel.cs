@@ -29,16 +29,6 @@ namespace MHWAppearanceEditor.ViewModels
         public bool HasChanges => !CurrentValue.Equals(NewValue);
     }
 
-    public class ImportExportOptions : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public bool SetGender { get; set; } = true;
-        public bool SetHair { get; set; } = true;
-        public bool SetMakeup1 { get; set; } = true;
-        public bool SetMakeup2 { get; set; } = true;
-    }
-
     public class SaveSlotViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -70,14 +60,13 @@ namespace MHWAppearanceEditor.ViewModels
 
         public bool IsJsonValid { get; set; }
         public TextDocument ImportJsonDocument { get; set; } = new TextDocument();
-        public ImportExportOptions ImportOptions { get; private set; } = new ImportExportOptions();
 
         public int SelectedTabIndex { get; set; }
 
         #region Commands
 
-        public RelayCommand ImportJsonCommand { get; set; }
-        public RelayCommand FillWithCurrentAppearanceCommand { get; set; }
+        public RelayCommand ImportJsonCommand { get; }
+        public RelayCommand FillWithCurrentAppearanceCommand { get; }
 
         #endregion
 

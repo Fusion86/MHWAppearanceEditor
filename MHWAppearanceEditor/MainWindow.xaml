@@ -118,69 +118,52 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <TextBlock Grid.Column="0" Grid.Row="0" Text="Options" Margin="5"/>
+                            <TextBlock Grid.Column="0" Grid.Row="0" Text="Changes:" Margin="5"/>
 
                             <DockPanel Grid.Column="0" Grid.Row="1">
                                 <Button Content="Import into selected slot" DockPanel.Dock="Bottom" Command="{Binding ImportJsonCommand}"/>
 
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
+                                <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                    <ItemsControl ItemsSource="{Binding ImportDiff}" Margin="5">
+                                        <ItemsControl.Resources>
+                                            <DataTemplate x:Key="NoChangesTemplate">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Name}"/>
+                                                    <TextBlock Text=": "/>
+                                                    <TextBlock Text="{Binding CurrentValue}"/>
+                                                </StackPanel>
+                                            </DataTemplate>
 
-                                    <StackPanel Grid.Row="0" Margin="5">
-                                        <CheckBox Content="Import gender" IsChecked="{Binding ImportOptions.SetGender}" IsEnabled="False"/>
-                                        <CheckBox Content="Import hair" IsChecked="{Binding ImportOptions.SetHair}" IsEnabled="False"/>
-                                        <CheckBox Content="Import makeup 1" IsChecked="{Binding ImportOptions.SetMakeup1}" IsEnabled="False"/>
-                                        <CheckBox Content="Import makeup 2" IsChecked="{Binding ImportOptions.SetMakeup2}" IsEnabled="False"/>
-                                    </StackPanel>
+                                            <DataTemplate x:Key="HasChangesTemplate">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Name}"/>
+                                                    <TextBlock Text=": "/>
+                                                    <TextBlock Text="{Binding CurrentValue}" Foreground="Red"/>
+                                                    <TextBlock Text=" "/>
+                                                    <TextBlock Text="{Binding NewValue}" Foreground="Green"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.Resources>
 
-                                    <TextBlock Grid.Row="1" Text="Changes:" Margin="5"/>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <ContentControl Content="{Binding}">
+                                                    <ContentControl.Style>
+                                                        <Style TargetType="{x:Type ContentControl}">
+                                                            <Setter Property="ContentTemplate" Value="{StaticResource NoChangesTemplate}"/>
 
-                                    <ScrollViewer Grid.Row="2" Margin="5" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                        <ItemsControl ItemsSource="{Binding ImportDiff}">
-                                            <ItemsControl.Resources>
-                                                <DataTemplate x:Key="NoChangesTemplate">
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="{Binding Name}"/>
-                                                        <TextBlock Text=": "/>
-                                                        <TextBlock Text="{Binding CurrentValue}"/>
-                                                    </StackPanel>
-                                                </DataTemplate>
-
-                                                <DataTemplate x:Key="HasChangesTemplate">
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="{Binding Name}"/>
-                                                        <TextBlock Text=": "/>
-                                                        <TextBlock Text="{Binding CurrentValue}" Foreground="Red"/>
-                                                        <TextBlock Text=" "/>
-                                                        <TextBlock Text="{Binding NewValue}" Foreground="Green"/>
-                                                    </StackPanel>
-                                                </DataTemplate>
-                                            </ItemsControl.Resources>
-
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <ContentControl Content="{Binding}">
-                                                        <ContentControl.Style>
-                                                            <Style TargetType="{x:Type ContentControl}">
-                                                                <Setter Property="ContentTemplate" Value="{StaticResource NoChangesTemplate}"/>
-
-                                                                <Style.Triggers>
-                                                                    <DataTrigger Binding="{Binding HasChanges}" Value="True">
-                                                                        <Setter Property="ContentTemplate" Value="{StaticResource HasChangesTemplate}" />
-                                                                    </DataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </ContentControl.Style>
-                                                    </ContentControl>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </ScrollViewer>
-                                </Grid>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding HasChanges}" Value="True">
+                                                                    <Setter Property="ContentTemplate" Value="{StaticResource HasChangesTemplate}" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </ContentControl.Style>
+                                                </ContentControl>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
                             </DockPanel>
 
                             <GridSplitter Grid.Column="1" Grid.Row="1" Background="WhiteSmoke" HorizontalAlignment="Stretch"/>
