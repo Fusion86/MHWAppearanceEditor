@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Windows;
 using ICSharpCode.AvalonEdit.Document;
 using MHWAppearanceEditor.Models;
-using System.Timers;
+using System.Threading;
 
 namespace MHWAppearanceEditor.ViewModels
 {
@@ -57,7 +57,7 @@ namespace MHWAppearanceEditor.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    Log.Error("[{HunterName}] " + ex.Message);
+                    Log.Error($"[{HunterName}] " + ex.Message);
                     MessageBox.Show(ex.Message);
                 }
             }
@@ -81,17 +81,20 @@ namespace MHWAppearanceEditor.ViewModels
 
         #endregion
 
-        private int _propertyChangedDelay;
+        private MainWindowViewModel _parent;
+        private long _propertyChangedDelay;
 
-        public SaveSlotViewModel(SaveSlot saveSlot)
+        public SaveSlotViewModel(SaveSlot saveSlot, MainWindowViewModel mainWindowViewModel)
         {
             SaveSlot = saveSlot;
+
+            _parent = mainWindowViewModel;
 
             ImportJsonCommand = new RelayCommand(ImportJson, CanImportJson);
             FillWithCurrentAppearanceCommand = new RelayCommand(FillWithCurrentAppearance, CanFillWithCurrentAppearance);
 
             // We put this in a timer to make sure that we don't do any intensive work while a user is typing in the json import tab
-            Timer propertyChangedTimer = new Timer();
+            var propertyChangedTimer = new System.Timers.Timer();
             propertyChangedTimer.Interval = 100;
             propertyChangedTimer.Elapsed += (sender, e) =>
             {
@@ -99,16 +102,19 @@ namespace MHWAppearanceEditor.ViewModels
                 //  0   = should update now
                 // >0   = count down to zero
 
-                if (_propertyChangedDelay != -1)
+                long nr = Interlocked.Read(ref _propertyChangedDelay);
+
+                if (nr != -1)
                 {
-                    if (_propertyChangedDelay == 0)
+                    if (nr == 0)
                     {
-                        PropertyChanged(this, new PropertyChangedEventArgs(nameof(ImportDiff)));
-                        _propertyChangedDelay = -1;
+                        Interlocked.Exchange(ref _propertyChangedDelay, -1);
+                        Application.Current.Dispatcher.Invoke(() => PropertyChanged(this, new PropertyChangedEventArgs(nameof(ImportDiff))));  
                     }
                     else
                     {
-                        _propertyChangedDelay -= Math.Min(_propertyChangedDelay, (int)propertyChangedTimer.Interval);
+                        nr -= Math.Min(nr, (int)propertyChangedTimer.Interval);
+                        Interlocked.Exchange(ref _propertyChangedDelay, nr);
                     }
                 }
             };
@@ -118,7 +124,7 @@ namespace MHWAppearanceEditor.ViewModels
             ImportJsonDocument.PropertyChanged += (sender, e) =>
             {
                 if (e.PropertyName == "Text")
-                    _propertyChangedDelay = 1000; // (Re)set update delay to 1 second
+                    Interlocked.Exchange(ref _propertyChangedDelay, 500); // (Re)set update delay to {} milliseconds
             };
         }
 
@@ -157,6 +163,9 @@ namespace MHWAppearanceEditor.ViewModels
                         list.Add(new AppearanceValueDiff(entry.Key, entry.Value, import[entry.Key])); // Show current and new values and compare them
                 }
 
+                if (import != null)
+                    _parent.StatusText = $"[{HunterName}] Successfully parsed JSON";
+                
                 return list;
             }
         }
@@ -165,7 +174,7 @@ namespace MHWAppearanceEditor.ViewModels
 
         #region Commands
 
-        public bool CanImportJson() => GetImportAppearance() != null;
+        public bool CanImportJson() => IsJsonValid;
         public void ImportJson()
         {
             GetImportAppearance()?.ApplyToSaveSlot(SaveSlot);
@@ -199,7 +208,7 @@ namespace MHWAppearanceEditor.ViewModels
             catch (Exception ex)
             {
                 IsJsonValid = false;
-                Log.Error("[{HunterName}] " + ex.Message);
+                Log.Error($"[{HunterName}] " + ex.Message);
                 return null;
             }
         }

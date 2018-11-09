@@ -44,7 +44,7 @@
             </Menu>
 
             <StatusBar DockPanel.Dock="Bottom">
-                <StatusBarItem x:Name="statusText"/>
+                <StatusBarItem Content="{Binding StatusText}"/>
             </StatusBar>
 
             <Grid Margin="5">

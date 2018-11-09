@@ -23,10 +23,11 @@ namespace MHWAppearanceEditor.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         public SaveData SaveData { get; set; }
-        public List<SaveSlotViewModel> SaveSlots => SaveData?.SaveSlots.Select(x => new SaveSlotViewModel(x)).ToList();
+        public List<SaveSlotViewModel> SaveSlots => SaveData?.SaveSlots.Select(x => new SaveSlotViewModel(x, this)).ToList();
         public SaveSlotViewModel SelectedSaveSlot { get; set; }
 
         public string ExportText { get; set; }
+        public string StatusText { get; set; }
 
         #region Commands
 

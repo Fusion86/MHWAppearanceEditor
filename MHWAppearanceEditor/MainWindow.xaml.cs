@@ -17,7 +17,7 @@ namespace MHWAppearanceEditor
             InitializeComponent();
 
             // Setup logging
-            _sink = new InMemorySink(statusText);
+            _sink = new InMemorySink(vm);
 
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.Sink(_sink)

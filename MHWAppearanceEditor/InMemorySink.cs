@@ -1,4 +1,5 @@
-﻿using Serilog.Core;
+﻿using MHWAppearanceEditor.ViewModels;
+using Serilog.Core;
 using Serilog.Events;
 using Serilog.Formatting;
 using Serilog.Formatting.Display;
@@ -6,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Windows.Controls.Primitives;
 
 namespace MHWAppearanceEditor
 {
@@ -17,11 +17,11 @@ namespace MHWAppearanceEditor
 
         public List<string> Events = new List<string>();
 
-        private StatusBarItem _item;
+        private MainWindowViewModel _mainWindowViewModel;
 
-        public InMemorySink(StatusBarItem item)
+        public InMemorySink(MainWindowViewModel mainWindowViewModel)
         {
-            _item = item;
+            _mainWindowViewModel = mainWindowViewModel;
         }
 
         public void Emit(LogEvent logEvent)
@@ -31,7 +31,7 @@ namespace MHWAppearanceEditor
             _textFormatter.Format(logEvent, renderSpace);
 
             Events.Add(renderSpace.ToString());
-            _item.Dispatcher.Invoke(() => _item.Content = logEvent.MessageTemplate.Text);
+            _mainWindowViewModel.StatusText = logEvent.MessageTemplate.Text;
         }
     }
 }
