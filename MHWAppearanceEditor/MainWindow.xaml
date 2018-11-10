@@ -37,6 +37,10 @@
                     <MenuItem Header="Close" Command="{Binding CloseWorkbenchCommand}"/>
                 </MenuItem>
 
+                <MenuItem Header="Edit">
+                    <MenuItem Header="Fill text editor with current appearance JSON" Command="{Binding FillWithCurrentAppearanceCommand}"/>
+                </MenuItem>
+
                 <MenuItem Header="Tools">
                     <MenuItem Header="Open SaveData folder" Command="{Binding OpenSaveDataFolderCommand}"/>
                     <MenuItem Header="Show log" Click="ShowLog_Click"/>
@@ -105,7 +109,7 @@
                         </Grid>
                     </TabItem>
 
-                    <TabItem Header="Import Appearance">
+                    <TabItem Header="Appearance Editor">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="300"/>
@@ -113,14 +117,9 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-
-                            <TextBlock Grid.Column="0" Grid.Row="0" Text="Changes:" Margin="5"/>
-
-                            <DockPanel Grid.Column="0" Grid.Row="1">
+                            <DockPanel Grid.Column="0">
+                                <TextBlock DockPanel.Dock="Top" Text="Changes:" Margin="5"/>
+                                
                                 <Button Content="Import into selected slot" DockPanel.Dock="Bottom" Command="{Binding ImportJsonCommand}"/>
 
                                 <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
@@ -168,37 +167,8 @@
 
                             <GridSplitter Grid.Column="1" Grid.Row="1" Background="WhiteSmoke" HorizontalAlignment="Stretch"/>
 
-                            <Grid Grid.Column="2" Grid.Row="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-
-                                <TextBlock Grid.Column="0" Text="Paste your Character Appearance JSON in the textfield below" Margin="5"/>
-
-                                <Button Grid.Column="2" Content="Fill with current appearance" Margin="2" Padding="5, 2"
-                                        Command="{Binding FillWithCurrentAppearanceCommand}"/>
-                            </Grid>
-
-                            <avalonEdit:TextEditor Grid.Column="2" Grid.Row="1"
-                                                   Document="{Binding ImportJsonDocument}"
-                                                   SyntaxHighlighting="JSON"/>
-                        </Grid>
-                    </TabItem>
-
-                    <TabItem Header="Export Appearance">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="300"/>
-                                <ColumnDefinition Width="5"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <GridSplitter Grid.Column="1" Background="WhiteSmoke" HorizontalAlignment="Stretch"/>
-
-                            <TextBox Grid.Column="2" IsReadOnly="True" Text="{Binding ExportJsonText, Mode=OneWay}"
-                                     HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
+                            <avalonEdit:TextEditor Grid.Column="2" Document="{Binding ImportJsonDocument}"
+                                                   SyntaxHighlighting="JSON" Background="WhiteSmoke"/>
                         </Grid>
                     </TabItem>
                 </TabControl>

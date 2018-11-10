@@ -39,6 +39,7 @@ namespace MHWAppearanceEditor.ViewModels
         public RelayCommand ImportCharacterJsonCommand { get; }
         public RelayCommand ExportCharacterJsonCommand { get; }
         public RelayCommand CloseWorkbenchCommand { get; }
+        public RelayCommand FillWithCurrentAppearanceCommand { get; }
 
         #endregion
 
@@ -52,6 +53,7 @@ namespace MHWAppearanceEditor.ViewModels
             ImportCharacterJsonCommand = new RelayCommand(ImportCharacterJson, CanImportCharacterJson);
             ExportCharacterJsonCommand = new RelayCommand(ExportCharacterJson, CanExportCharacterJson);
             CloseWorkbenchCommand = new RelayCommand(CloseWorkbench);
+            FillWithCurrentAppearanceCommand = new RelayCommand(FillWithCurrentAppearance, CanFillWithCurrentAppearance);
         }
 
         #region Commands
@@ -239,7 +241,7 @@ namespace MHWAppearanceEditor.ViewModels
 
             if (sfd.ShowDialog() == true)
             {
-                File.WriteAllText(sfd.FileName, SelectedSaveSlot.ExportJsonText);
+                File.WriteAllText(sfd.FileName, SelectedSaveSlot.GetExportJsonText());
                 Log.Information($"Exported Character JSON to {sfd.FileName}");
             }
         }
@@ -249,6 +251,12 @@ namespace MHWAppearanceEditor.ViewModels
             SaveData = null;
             SelectedSaveSlot = null;
             GC.Collect();
+        }
+
+        public bool CanFillWithCurrentAppearance() => SelectedSaveSlot != null;
+        public void FillWithCurrentAppearance()
+        {
+            SelectedSaveSlot.ImportJsonDocument.Text = SelectedSaveSlot.GetExportJsonText();
         }
 
         #endregion

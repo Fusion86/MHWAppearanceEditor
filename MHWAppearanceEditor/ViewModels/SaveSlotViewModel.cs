@@ -66,7 +66,6 @@ namespace MHWAppearanceEditor.ViewModels
         #region Commands
 
         public RelayCommand ImportJsonCommand { get; }
-        public RelayCommand FillWithCurrentAppearanceCommand { get; }
 
         #endregion
 
@@ -80,7 +79,6 @@ namespace MHWAppearanceEditor.ViewModels
             _parent = mainWindowViewModel;
 
             ImportJsonCommand = new RelayCommand(ImportJson, CanImportJson);
-            FillWithCurrentAppearanceCommand = new RelayCommand(FillWithCurrentAppearance, CanFillWithCurrentAppearance);
 
             // We put this in a timer to make sure that we don't do any intensive work while a user is typing in the json import tab
             var propertyChangedTimer = new System.Timers.Timer();
@@ -98,7 +96,7 @@ namespace MHWAppearanceEditor.ViewModels
                     if (nr == 0)
                     {
                         Interlocked.Exchange(ref _propertyChangedDelay, -1);
-                        Application.Current.Dispatcher.Invoke(() => PropertyChanged(this, new PropertyChangedEventArgs(nameof(ImportDiff))));  
+                        Application.Current.Dispatcher.Invoke(() => PropertyChanged(this, new PropertyChangedEventArgs(nameof(ImportDiff))));
                     }
                     else
                     {
@@ -118,14 +116,6 @@ namespace MHWAppearanceEditor.ViewModels
         }
 
         #region Calculated properties
-
-        public string ExportJsonText
-        {
-            get
-            {
-                return JsonConvert.SerializeObject(GetAppearance(), Formatting.Indented);
-            }
-        }
 
         /// <summary>
         /// Returns list of AppearanceValueDiff comparing the current saveslots appearance and the import tab appearance
@@ -154,7 +144,7 @@ namespace MHWAppearanceEditor.ViewModels
 
                 if (import != null)
                     _parent.StatusText = $"[{HunterName}] Successfully parsed JSON";
-                
+
                 return list;
             }
         }
@@ -168,13 +158,6 @@ namespace MHWAppearanceEditor.ViewModels
         {
             GetImportAppearance()?.ApplyToSaveSlot(SaveSlot);
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(ImportDiff)));
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(ExportJsonText)));
-        }
-
-        public bool CanFillWithCurrentAppearance() => GetAppearance() != null;
-        public void FillWithCurrentAppearance()
-        {
-            ImportJsonDocument.Text = ExportJsonText;
         }
 
         #endregion
@@ -200,6 +183,11 @@ namespace MHWAppearanceEditor.ViewModels
                 Log.Error($"[{HunterName}] " + ex.Message);
                 return null;
             }
+        }
+
+        public string GetExportJsonText()
+        {
+            return JsonConvert.SerializeObject(GetAppearance(), Formatting.Indented);
         }
 
         #endregion
