@@ -10,7 +10,8 @@
         mc:Ignorable="d"
         Title="Monster Hunter World - Appearance Import/Export" 
         Height="450" Width="840"
-        ResizeMode="CanResizeWithGrip">
+        ResizeMode="CanResizeWithGrip"
+        Closing="Window_Closing">
     <Window.DataContext>
         <vm:MainWindowViewModel x:Name="vm"/>
     </Window.DataContext>
@@ -167,7 +168,7 @@
 
                             <GridSplitter Grid.Column="1" Grid.Row="1" Background="WhiteSmoke" HorizontalAlignment="Stretch"/>
 
-                            <avalonEdit:TextEditor Grid.Column="2" Document="{Binding ImportJsonDocument}"
+                            <avalonEdit:TextEditor x:Name="codeEditor" Grid.Column="2" Document="{Binding ImportJsonDocument}"
                                                    SyntaxHighlighting="JSON" Background="WhiteSmoke"/>
                         </Grid>
                     </TabItem>

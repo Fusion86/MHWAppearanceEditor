@@ -29,6 +29,9 @@ namespace MHWAppearanceEditor.ViewModels
         public string ExportText { get; set; }
         public string StatusText { get; set; }
 
+        public bool IsOpening;
+        public bool IsSaving;
+
         #region Commands
 
         public RelayCommand OpenFileCommand { get; }
@@ -58,9 +61,11 @@ namespace MHWAppearanceEditor.ViewModels
 
         #region Commands
 
-        private bool CanOpenFile() => true;
+        private bool CanOpenFile() => !IsOpening;
         private async void OpenFile()
         {
+            IsOpening = true;
+
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.CheckFileExists = true;
 
@@ -81,11 +86,15 @@ namespace MHWAppearanceEditor.ViewModels
                     MessageBox.Show(ex.Message, "Error while opening file");
                 }
             }
+
+            IsOpening = false;
         }
 
-        private bool CanSaveFile() => true;
+        private bool CanSaveFile() => !IsSaving && SaveData != null;
         private async void SaveFile()
         {
+            IsSaving = true;
+
             SaveFileDialog sfd = new SaveFileDialog();
 
             string savePath = Utility.GetMhwSaveDir();
@@ -97,6 +106,8 @@ namespace MHWAppearanceEditor.ViewModels
                 await Task.Run(() => SaveData.Save(sfd.FileName));
                 Log.Information($"Saved SaveData to {sfd.FileName}");
             }
+
+            IsSaving = false;
         }
 
         public bool CanOpenSaveDataFolder() => Utility.GetMhwSaveDir() != null;
