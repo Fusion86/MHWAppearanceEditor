@@ -77,10 +77,10 @@ namespace MHWAppearanceEditor.Models
 
         }
 
-        public SerializableAppearance(IAppearanceProperties objWithAppearanceProperties)
+        public SerializableAppearance(ICharacterAppearanceProperties objWithAppearanceProperties)
         {
             Type thisType = GetType();
-            Type saveSlotAppearanceType = typeof(IAppearanceProperties);
+            Type saveSlotAppearanceType = typeof(ICharacterAppearanceProperties);
 
             // Foreach property in this class
             foreach (var prop in thisType.GetProperties())
@@ -99,7 +99,7 @@ namespace MHWAppearanceEditor.Models
         public void ApplyToSaveSlot(SaveSlot saveSlot)
         {
             Type thisType = GetType();
-            Type saveSlotAppearanceType = typeof(IAppearanceProperties);
+            Type saveSlotAppearanceType = typeof(ICharacterAppearanceProperties);
 
             // Foreach property in this class
             foreach (var prop in thisType.GetProperties())

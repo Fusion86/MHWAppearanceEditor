@@ -43,6 +43,7 @@ namespace MHWAppearanceEditor.ViewModels
         public RelayCommand ExportCharacterJsonCommand { get; }
         public RelayCommand CloseWorkbenchCommand { get; }
         public RelayCommand FillWithCurrentAppearanceCommand { get; }
+        public RelayCommand ShowAllSaveLocationsCommand { get; }
 
         #endregion
 
@@ -57,6 +58,7 @@ namespace MHWAppearanceEditor.ViewModels
             ExportCharacterJsonCommand = new RelayCommand(ExportCharacterJson, CanExportCharacterJson);
             CloseWorkbenchCommand = new RelayCommand(CloseWorkbench);
             FillWithCurrentAppearanceCommand = new RelayCommand(FillWithCurrentAppearance, CanFillWithCurrentAppearance);
+            ShowAllSaveLocationsCommand = new RelayCommand(ShowAllSaveLocations);
         }
 
         #region Commands
@@ -160,7 +162,7 @@ namespace MHWAppearanceEditor.ViewModels
 
             if (sfd.ShowDialog() == true)
             {
-                CMP cmp = new CMP(SelectedSaveSlot.SaveSlot.Native.Appearance);
+                CMP cmp = new CMP(SelectedSaveSlot.SaveSlot.Native.CharacterAppearance);
                 cmp.Save(sfd.FileName);
 
                 Log.Information($"Exported NPC Character Preset to {sfd.FileName}");
@@ -268,6 +270,11 @@ namespace MHWAppearanceEditor.ViewModels
         public void FillWithCurrentAppearance()
         {
             SelectedSaveSlot.ImportJsonDocument.Text = SelectedSaveSlot.GetExportJsonText();
+        }
+        
+        public void ShowAllSaveLocations()
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

@@ -44,6 +44,7 @@
 
                 <MenuItem Header="Tools">
                     <MenuItem Header="Open SaveData folder" Command="{Binding OpenSaveDataFolderCommand}"/>
+                    <MenuItem Header="Show all save locations" Command="{Binding ShowAllSaveLocationsCommand}"/>
                     <MenuItem Header="Show log" Click="ShowLog_Click"/>
                 </MenuItem>
             </Menu>
@@ -110,7 +111,7 @@
                         </Grid>
                     </TabItem>
 
-                    <TabItem Header="Appearance Editor">
+                    <TabItem Header="Character Editor">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="300"/>
@@ -171,6 +172,133 @@
                             <avalonEdit:TextEditor x:Name="codeEditor" Grid.Column="2" Document="{Binding ImportJsonDocument}"
                                                    SyntaxHighlighting="JSON" Background="WhiteSmoke"/>
                         </Grid>
+                    </TabItem>
+
+                    <TabItem Header="Palico Editor">
+                        <WrapPanel>
+                            <GroupBox Header="Pattern" Margin="5">
+                                <Grid Margin="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="5"/>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="5"/>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="5"/>
+                                        <RowDefinition Height="22"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Type" VerticalAlignment="Center"/>
+                                    <ComboBox Grid.Column="2" Grid.Row="0" Width="50"/>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Color 1" VerticalAlignment="Center"/>
+                                    <Rectangle Grid.Column="2" Grid.Row="2" Fill="Red"/>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="4" Text="Color 2" VerticalAlignment="Center"/>
+                                    <Rectangle Grid.Column="2" Grid.Row="4" Fill="Green"/>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="6" Text="Color 3" VerticalAlignment="Center"/>
+                                    <Rectangle Grid.Column="2" Grid.Row="6" Fill="Blue"/>
+                                </Grid>
+                            </GroupBox>
+
+                            <GroupBox Header="Fur" Margin="5">
+                                <Grid Margin="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="5"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="5"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Color" VerticalAlignment="Center"/>
+                                    <Rectangle Grid.Column="2" Grid.Row="0" Fill="Red" Width="50"/>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Length" VerticalAlignment="Center"/>
+                                    <ComboBox Grid.Column="2" Grid.Row="2"/>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="4" Text="Thickness" VerticalAlignment="Center"/>
+                                    <ComboBox Grid.Column="2" Grid.Row="4"/>
+                                </Grid>
+                            </GroupBox>
+
+                            <GroupBox Header="Other &amp; Voice" Margin="5">
+                                <Grid Margin="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="5"/>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="5"/>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="5"/>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="5"/>
+                                        <RowDefinition Height="22"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Eye Type" VerticalAlignment="Center"/>
+                                    <ComboBox Grid.Column="2" Grid.Row="0" Width="50"/>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Ear Type" VerticalAlignment="Center"/>
+                                    <ComboBox Grid.Column="2" Grid.Row="2" Width="50"/>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="4" Text="Tail Type" VerticalAlignment="Center"/>
+                                    <ComboBox Grid.Column="2" Grid.Row="4" Width="50"/>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="6" Text="Voice Type" VerticalAlignment="Center"/>
+                                    <ComboBox Grid.Column="2" Grid.Row="6" Width="50"/>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="8" Text="Voice Pitch" VerticalAlignment="Center"/>
+                                    <ComboBox Grid.Column="2" Grid.Row="8" Width="50"/>
+                                </Grid>
+                            </GroupBox>
+
+                            <GroupBox Header="Cloting &amp; Eye Color" Margin="5">
+                                <Grid Margin="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="5"/>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="5"/>
+                                        <RowDefinition Height="22"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Clothing" VerticalAlignment="Center"/>
+                                    <Rectangle Grid.Column="2" Grid.Row="0" Fill="Brown" Width="50"/>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Left Eye" VerticalAlignment="Center"/>
+                                    <Rectangle Grid.Column="2" Grid.Row="2" Fill="LightBlue" Width="50"/>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="4" Text="Right Eye" VerticalAlignment="Center"/>
+                                    <Rectangle Grid.Column="2" Grid.Row="4" Fill="LightBlue" Width="50"/>
+                                </Grid>
+                            </GroupBox>
+                        </WrapPanel>
                     </TabItem>
                 </TabControl>
 
