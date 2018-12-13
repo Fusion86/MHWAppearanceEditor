@@ -35,6 +35,8 @@ namespace MHWAppearanceEditor.ViewModels
 
         public SaveSlot SaveSlot { get; } // Remember, this is a reference to SaveData.SaveSlot[x]  0, 1 or 2
 
+        public PalicoAppearanceViewModel PalicoAppearance { get; }
+
         public string HunterName
         {
             get => SaveSlot.HunterName;
@@ -113,6 +115,8 @@ namespace MHWAppearanceEditor.ViewModels
                 if (e.PropertyName == "Text")
                     Interlocked.Exchange(ref _propertyChangedDelay, 500); // (Re)set update delay to {} milliseconds
             };
+
+            PalicoAppearance = new PalicoAppearanceViewModel(SaveSlot);
         }
 
         #region Calculated properties

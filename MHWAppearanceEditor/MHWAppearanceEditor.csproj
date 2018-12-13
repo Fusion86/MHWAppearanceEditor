@@ -58,6 +58,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -78,7 +79,12 @@
     </ApplicationDefinition>
     <Compile Include="InMemorySink.cs" />
     <EmbeddedResource Include="SyntaxHighlighting\JSON.xshd" />
+    <Compile Include="Models\PalicoAppearanceValues.cs" />
+    <Compile Include="UserControls\ColorDisplayAndPicker.xaml.cs">
+      <DependentUpon>ColorDisplayAndPicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ValueConverters\NullVisibilityConverter.cs" />
+    <Compile Include="ViewModels\PalicoAppearanceViewModel.cs" />
     <Compile Include="Windows\LogViewer.xaml.cs">
       <DependentUpon>LogViewer.xaml</DependentUpon>
     </Compile>
@@ -92,6 +98,10 @@
     <Compile Include="Models\SerializableMetadata.cs" />
     <Compile Include="Spacing.cs" />
     <Compile Include="Helpers\Utility.cs" />
+    <Page Include="UserControls\ColorDisplayAndPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\LogViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

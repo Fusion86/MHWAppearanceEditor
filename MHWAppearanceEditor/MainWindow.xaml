@@ -7,6 +7,8 @@
         xmlns:vm="clr-namespace:MHWAppearanceEditor.ViewModels"
         xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
         xmlns:valueConverters="clr-namespace:MHWAppearanceEditor.ValueConverters"
+        xmlns:models="clr-namespace:MHWAppearanceEditor.Models"
+        xmlns:userControls="clr-namespace:MHWAppearanceEditor.UserControls"
         mc:Ignorable="d"
         Title="Monster Hunter World - Appearance Import/Export" 
         Height="450" Width="840"
@@ -175,6 +177,10 @@
                     </TabItem>
 
                     <TabItem Header="Palico Editor">
+                        <TabItem.Resources>
+                            <models:PalicoAppearanceValues x:Key="PalicoAppearanceValues"/>
+                        </TabItem.Resources>
+                        
                         <WrapPanel>
                             <GroupBox Header="Pattern" Margin="5">
                                 <Grid Margin="5">
@@ -195,16 +201,20 @@
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Type" VerticalAlignment="Center"/>
-                                    <ComboBox Grid.Column="2" Grid.Row="0" Width="50"/>
+                                    <ComboBox Grid.Column="2" Grid.Row="0"
+                                              ItemsSource="{Binding Source={StaticResource PalicoAppearanceValues}, Path=PatternTypes}"
+                                              SelectedValue="{Binding PalicoAppearance.PatternType}"
+                                              DisplayMemberPath="Key"
+                                              SelectedValuePath="Value"/>
 
                                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Color 1" VerticalAlignment="Center"/>
-                                    <Rectangle Grid.Column="2" Grid.Row="2" Fill="Red"/>
+                                    <userControls:ColorDisplayAndPicker Grid.Column="2" Grid.Row="2" SelectedColor="{Binding PalicoAppearance.PatternColor1}"/>
 
                                     <TextBlock Grid.Column="0" Grid.Row="4" Text="Color 2" VerticalAlignment="Center"/>
-                                    <Rectangle Grid.Column="2" Grid.Row="4" Fill="Green"/>
+                                    <userControls:ColorDisplayAndPicker Grid.Column="4" Grid.Row="4" SelectedColor="{Binding PalicoAppearance.PatternColor2}"/>
 
                                     <TextBlock Grid.Column="0" Grid.Row="6" Text="Color 3" VerticalAlignment="Center"/>
-                                    <Rectangle Grid.Column="2" Grid.Row="6" Fill="Blue"/>
+                                    <userControls:ColorDisplayAndPicker Grid.Column="2" Grid.Row="6" SelectedColor="{Binding PalicoAppearance.PatternColor3}"/>
                                 </Grid>
                             </GroupBox>
 
@@ -225,7 +235,7 @@
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Color" VerticalAlignment="Center"/>
-                                    <Rectangle Grid.Column="2" Grid.Row="0" Fill="Red" Width="50"/>
+                                    <userControls:ColorDisplayAndPicker Grid.Column="2" Grid.Row="0" SelectedColor="{Binding PalicoAppearance.FurColor}"/>
 
                                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Length" VerticalAlignment="Center"/>
                                     <ComboBox Grid.Column="2" Grid.Row="2"/>
@@ -256,16 +266,32 @@
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Eye Type" VerticalAlignment="Center"/>
-                                    <ComboBox Grid.Column="2" Grid.Row="0" Width="50"/>
+                                    <ComboBox Grid.Column="2" Grid.Row="0"
+                                              ItemsSource="{Binding Source={StaticResource PalicoAppearanceValues}, Path=EyeTypes}"
+                                              SelectedValue="{Binding PalicoAppearance.EyeType}"
+                                              DisplayMemberPath="Key"
+                                              SelectedValuePath="Value"/>
 
                                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Ear Type" VerticalAlignment="Center"/>
-                                    <ComboBox Grid.Column="2" Grid.Row="2" Width="50"/>
+                                    <ComboBox Grid.Column="2" Grid.Row="2"
+                                              ItemsSource="{Binding Source={StaticResource PalicoAppearanceValues}, Path=EarTypes}"
+                                              SelectedValue="{Binding PalicoAppearance.EarType}"
+                                              DisplayMemberPath="Key"
+                                              SelectedValuePath="Value"/>
 
                                     <TextBlock Grid.Column="0" Grid.Row="4" Text="Tail Type" VerticalAlignment="Center"/>
-                                    <ComboBox Grid.Column="2" Grid.Row="4" Width="50"/>
+                                    <ComboBox Grid.Column="2" Grid.Row="4"
+                                              ItemsSource="{Binding Source={StaticResource PalicoAppearanceValues}, Path=TailTypes}"
+                                              SelectedValue="{Binding PalicoAppearance.TailType}"
+                                              DisplayMemberPath="Key"
+                                              SelectedValuePath="Value"/>
 
                                     <TextBlock Grid.Column="0" Grid.Row="6" Text="Voice Type" VerticalAlignment="Center"/>
-                                    <ComboBox Grid.Column="2" Grid.Row="6" Width="50"/>
+                                    <ComboBox Grid.Column="2" Grid.Row="6"
+                                              ItemsSource="{Binding Source={StaticResource PalicoAppearanceValues}, Path=VoiceTypes}"
+                                              SelectedValue="{Binding PalicoAppearance.VoiceType}"
+                                              DisplayMemberPath="Key"
+                                              SelectedValuePath="Value"/>
 
                                     <TextBlock Grid.Column="0" Grid.Row="8" Text="Voice Pitch" VerticalAlignment="Center"/>
                                     <ComboBox Grid.Column="2" Grid.Row="8" Width="50"/>
@@ -289,13 +315,13 @@
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Clothing" VerticalAlignment="Center"/>
-                                    <Rectangle Grid.Column="2" Grid.Row="0" Fill="Brown" Width="50"/>
+                                    <userControls:ColorDisplayAndPicker Grid.Column="2" Grid.Row="0" SelectedColor="{Binding PalicoAppearance.ClothingColor}"/>
 
                                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Left Eye" VerticalAlignment="Center"/>
-                                    <Rectangle Grid.Column="2" Grid.Row="2" Fill="LightBlue" Width="50"/>
+                                    <userControls:ColorDisplayAndPicker Grid.Column="2" Grid.Row="2" SelectedColor="{Binding PalicoAppearance.LeftEyeColor}"/>
 
                                     <TextBlock Grid.Column="0" Grid.Row="4" Text="Right Eye" VerticalAlignment="Center"/>
-                                    <Rectangle Grid.Column="2" Grid.Row="4" Fill="LightBlue" Width="50"/>
+                                    <userControls:ColorDisplayAndPicker Grid.Column="2" Grid.Row="4" SelectedColor="{Binding PalicoAppearance.RightEyeColor}"/>
                                 </Grid>
                             </GroupBox>
                         </WrapPanel>
