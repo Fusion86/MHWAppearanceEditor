@@ -91,6 +91,11 @@
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Palico Name: "/>
+                                    <TextBox Text="{Binding PalicoName, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" MaxLength="16"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Rank: "/>
                                     <TextBlock Text="{Binding HunterRank}"/>
                                 </StackPanel>

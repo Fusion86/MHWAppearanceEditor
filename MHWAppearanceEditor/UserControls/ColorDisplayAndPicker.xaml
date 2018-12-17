@@ -6,6 +6,13 @@
              xmlns:local="clr-namespace:MHWAppearanceEditor.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="20" d:DesignWidth="100">
-    <Rectangle x:Name="rectColor"
-               MouseDown="RectColor_MouseDown"/>
+    <!--
+    Background="#01000000" is there to make the control clickable even if rectColor.Color = #00000000
+    
+    Giving the background a alpha value of 1 (out of 255) makes it clickable, whereas with an alpha value of
+    zero it wouldn't be clickable.
+    -->
+    <Grid MouseLeftButtonDown="MouseLeftButtonDown" Background="#01000000">
+        <Rectangle x:Name="rectColor"/>
+    </Grid>
 </UserControl>

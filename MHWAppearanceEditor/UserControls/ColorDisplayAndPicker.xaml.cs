@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using MHWAppearanceEditor.Extensions;
+using MHWAppearanceEditor.Popup;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using SDColor = System.Drawing.Color;
@@ -22,7 +24,8 @@ namespace MHWAppearanceEditor.UserControls
         }
 
         public static readonly DependencyProperty SelectedColorProperty =
-            DependencyProperty.Register("SelectedColor", typeof(SDColor), typeof(ColorDisplayAndPicker), new PropertyMetadata(OnSelectedColorCallback));
+            DependencyProperty.Register("SelectedColor", typeof(SDColor), typeof(ColorDisplayAndPicker),
+                new FrameworkPropertyMetadata(SDColor.FromArgb(0), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnSelectedColorCallback));
 
         private static void OnSelectedColorCallback(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
@@ -30,14 +33,21 @@ namespace MHWAppearanceEditor.UserControls
                 o.OnSelectedColorChanged();
         }
 
-        private void RectColor_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            MessageBox.Show("// TODO: Add color picker");
+            ColorPickerPopup popup = new ColorPickerPopup(SelectedColor.ToMediaColor());
+            popup.OnColorChanged += Popup_OnColorChanged;
+            popup.Show();
         }
-        
+
+        private void Popup_OnColorChanged(object sender, Color e)
+        {
+            SelectedColor = e.ToSDColor();
+        }
+
         private void OnSelectedColorChanged()
         {
-            rectColor.Fill = new SolidColorBrush(Color.FromArgb(SelectedColor.A, SelectedColor.R, SelectedColor.G, SelectedColor.B));
+            rectColor.Fill = new SolidColorBrush(SelectedColor.ToMediaColor());
         }
     }
 }

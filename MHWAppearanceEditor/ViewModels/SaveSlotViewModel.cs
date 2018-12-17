@@ -55,6 +55,24 @@ namespace MHWAppearanceEditor.ViewModels
             }
         }
 
+        public string PalicoName
+        {
+            get => SaveSlot.PalicoName;
+            set
+            {
+                try
+                {
+                    // The setter will throw an exception if the name is too large (large as in: number of bytes) or invalid (when not UTF-8)
+                    SaveSlot.PalicoName = value;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"[{PalicoName}] " + ex.Message);
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
         public int HunterRank { get => SaveSlot.HunterRank; set => SaveSlot.HunterRank = value; }
         public int Zenny { get => SaveSlot.Zenny; set => SaveSlot.Zenny = value; }
         public int ResearchPoints { get => SaveSlot.ResearchPoints; set => SaveSlot.ResearchPoints = value; }
