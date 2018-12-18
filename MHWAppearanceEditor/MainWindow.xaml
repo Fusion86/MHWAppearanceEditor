@@ -9,6 +9,7 @@
         xmlns:valueConverters="clr-namespace:MHWAppearanceEditor.ValueConverters"
         xmlns:models="clr-namespace:MHWAppearanceEditor.Models"
         xmlns:userControls="clr-namespace:MHWAppearanceEditor.UserControls"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Monster Hunter World - Appearance Import/Export" 
         Height="450" Width="840"
@@ -46,7 +47,7 @@
 
                 <MenuItem Header="Tools">
                     <MenuItem Header="Open SaveData folder" Command="{Binding OpenSaveDataFolderCommand}"/>
-                    <MenuItem Header="Show all save locations" Command="{Binding ShowAllSaveLocationsCommand}"/>
+                    <!--<MenuItem Header="Show all save locations" Command="{Binding ShowAllSaveLocationsCommand}"/>-->
                     <MenuItem Header="Show log" Click="ShowLog_Click"/>
                 </MenuItem>
             </Menu>
@@ -243,10 +244,12 @@
                                     <userControls:ColorDisplayAndPicker Grid.Column="2" Grid.Row="0" SelectedColor="{Binding PalicoAppearance.FurColor}"/>
 
                                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Length" VerticalAlignment="Center"/>
-                                    <ComboBox Grid.Column="2" Grid.Row="2"/>
+                                    <xctk:SingleUpDown Grid.Column="2" Grid.Row="2" Value="{Binding PalicoAppearance.FurLength}"
+                                                       Maximum="1" Minimum="0" Increment=".1"/>
 
                                     <TextBlock Grid.Column="0" Grid.Row="4" Text="Thickness" VerticalAlignment="Center"/>
-                                    <ComboBox Grid.Column="2" Grid.Row="4"/>
+                                    <xctk:SingleUpDown Grid.Column="2" Grid.Row="4" Value="{Binding PalicoAppearance.FurThickness}"
+                                                       Maximum="10" Minimum="0" Increment=".5"/>
                                 </Grid>
                             </GroupBox>
 
@@ -299,7 +302,7 @@
                                               SelectedValuePath="Value"/>
 
                                     <TextBlock Grid.Column="0" Grid.Row="8" Text="Voice Pitch" VerticalAlignment="Center"/>
-                                    <ComboBox Grid.Column="2" Grid.Row="8" Width="50"/>
+                                    <xctk:ShortUpDown Grid.Column="2" Grid.Row="8" Value="{Binding PalicoAppearance.VoicePitch}"/>
                                 </Grid>
                             </GroupBox>
 

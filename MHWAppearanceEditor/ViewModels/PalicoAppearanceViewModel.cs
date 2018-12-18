@@ -14,7 +14,7 @@ namespace MHWAppearanceEditor.ViewModels
         {
             _saveSlot = saveSlot;
         }
-        
+
         public Color PatternColor1
         {
             get => _saveSlot.PalicoAppearance.PatternColor1;
@@ -57,6 +57,18 @@ namespace MHWAppearanceEditor.ViewModels
             set => _saveSlot.PalicoAppearance.ClothingColor = value;
         }
 
+        public float FurLength
+        {
+            get => _saveSlot.PalicoAppearance.FurLength;
+            set => _saveSlot.PalicoAppearance.FurLength = value;
+        }
+
+        public float FurThickness
+        {
+            get => _saveSlot.PalicoAppearance.FurThickness;
+            set => _saveSlot.PalicoAppearance.FurThickness = value;
+        }
+
         public byte PatternType
         {
             get => _saveSlot.PalicoAppearance.PatternType;
@@ -85,6 +97,12 @@ namespace MHWAppearanceEditor.ViewModels
         {
             get => _saveSlot.PalicoAppearance.VoiceType;
             set => _saveSlot.PalicoAppearance.VoiceType = value;
+        }
+
+        public ushort VoicePitch
+        {
+            get => _saveSlot.PalicoAppearance.VoicePitch;
+            set => _saveSlot.PalicoAppearance.VoicePitch = value;
         }
     }
 }

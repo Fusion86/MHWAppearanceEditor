@@ -87,6 +87,9 @@
     <Compile Include="Popup\ColorPickerPopup.xaml.cs">
       <DependentUpon>ColorPickerPopup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Popup\StillSavingPopup.xaml.cs">
+      <DependentUpon>StillSavingPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ColorDisplayAndPicker.xaml.cs">
       <DependentUpon>ColorDisplayAndPicker.xaml</DependentUpon>
     </Compile>
@@ -106,6 +109,10 @@
     <Compile Include="Spacing.cs" />
     <Compile Include="Helpers\Utility.cs" />
     <Page Include="Popup\ColorPickerPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Popup\StillSavingPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

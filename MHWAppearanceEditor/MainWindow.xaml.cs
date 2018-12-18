@@ -1,4 +1,5 @@
-﻿using MHWAppearanceEditor.Windows;
+﻿using MHWAppearanceEditor.Popup;
+using MHWAppearanceEditor.Windows;
 using Serilog;
 using System.Reflection;
 using System.Threading;
@@ -50,8 +51,22 @@ namespace MHWAppearanceEditor
             window.Show();
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (vm.IsSaving)
+            {
+                e.Cancel = true;
+                StillSavingPopup popup = new StillSavingPopup();
+                popup.Owner = this;
+                popup.Show();
+
+                while (vm.IsSaving)
+                    await Task.Delay(100);
+
+                popup.Close();
+                Close(); // Exit
+            }
+
             _isOpen = false;
         }
     }
