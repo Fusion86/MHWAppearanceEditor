@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Windows;
 using ICSharpCode.AvalonEdit.Document;
 using MHWAppearanceEditor.Models;
-using System.Threading;
+using System.Windows.Input;
 
 namespace MHWAppearanceEditor.ViewModels
 {
@@ -79,16 +79,17 @@ namespace MHWAppearanceEditor.ViewModels
         public int HunterXp { get => SaveSlot.HunterXp; set => SaveSlot.HunterXp = value; }
 
         public bool IsJsonValid { get; set; }
+        public int LastJsonUpdate { get; private set; }
+        public int LastImportDiffUpdate { get; private set; }
         public TextDocument ImportJsonDocument { get; set; } = new TextDocument();
 
         #region Commands
 
-        public RelayCommand ImportJsonCommand { get; }
+        public RelayCommand ApplyJsonCommand { get; }
 
         #endregion
 
         private MainWindowViewModel _parent;
-        private long _propertyChangedDelay;
 
         public SaveSlotViewModel(SaveSlot saveSlot, MainWindowViewModel mainWindowViewModel)
         {
@@ -96,40 +97,13 @@ namespace MHWAppearanceEditor.ViewModels
 
             _parent = mainWindowViewModel;
 
-            ImportJsonCommand = new RelayCommand(ImportJson, CanImportJson);
+            ApplyJsonCommand = new RelayCommand(ApplyJson, CanApplyJson);
 
-            // We put this in a timer to make sure that we don't do any intensive work while a user is typing in the json import tab
-            var propertyChangedTimer = new System.Timers.Timer();
-            propertyChangedTimer.Interval = 100;
-            propertyChangedTimer.Elapsed += (sender, e) =>
-            {
-                // -1   = already updated
-                //  0   = should update now
-                // >0   = count down to zero
-
-                long nr = Interlocked.Read(ref _propertyChangedDelay);
-
-                if (nr != -1)
-                {
-                    if (nr == 0)
-                    {
-                        Interlocked.Exchange(ref _propertyChangedDelay, -1);
-                        Application.Current.Dispatcher.Invoke(() => PropertyChanged(this, new PropertyChangedEventArgs(nameof(ImportDiff))));
-                    }
-                    else
-                    {
-                        nr -= Math.Min(nr, (int)propertyChangedTimer.Interval);
-                        Interlocked.Exchange(ref _propertyChangedDelay, nr);
-                    }
-                }
-            };
-            propertyChangedTimer.Start();
-
-            // On text changed queue PropertyChangedEvent for ImportDiff
+            // Update LastJsonUpdate when text is changed 
             ImportJsonDocument.PropertyChanged += (sender, e) =>
             {
                 if (e.PropertyName == "Text")
-                    Interlocked.Exchange(ref _propertyChangedDelay, 500); // (Re)set update delay to {} milliseconds
+                    LastJsonUpdate = Environment.TickCount;
             };
 
             PalicoAppearance = new PalicoAppearanceViewModel(SaveSlot);
@@ -168,6 +142,8 @@ namespace MHWAppearanceEditor.ViewModels
                 if (import != null)
                     _parent.StatusText = $"[{HunterName}] Successfully parsed JSON";
 
+                LastImportDiffUpdate = Environment.TickCount;
+
                 return list;
             }
         }
@@ -176,8 +152,8 @@ namespace MHWAppearanceEditor.ViewModels
 
         #region Commands
 
-        public bool CanImportJson() => IsJsonValid;
-        public void ImportJson()
+        public bool CanApplyJson() => IsJsonValid;
+        public void ApplyJson()
         {
             GetImportAppearance()?.ApplyToSaveSlot(SaveSlot);
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(ImportDiff)));
@@ -198,11 +174,13 @@ namespace MHWAppearanceEditor.ViewModels
             {
                 var obj = JsonConvert.DeserializeObject<SerializableAppearance>(ImportJsonDocument.Text);
                 IsJsonValid = true;
+                CommandManager.InvalidateRequerySuggested(); // Needed because otherwise the "Apply changes" button does not update
                 return obj;
             }
             catch (Exception ex)
             {
                 IsJsonValid = false;
+                CommandManager.InvalidateRequerySuggested(); // Needed because otherwise the "Apply changes" button does not update
                 Log.Error($"[{HunterName}] " + ex.Message);
                 return null;
             }
@@ -211,6 +189,11 @@ namespace MHWAppearanceEditor.ViewModels
         public string GetExportJsonText()
         {
             return JsonConvert.SerializeObject(GetAppearance(), Formatting.Indented);
+        }
+
+        public void UpdateImportDiff()
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(nameof(ImportDiff)));
         }
 
         #endregion

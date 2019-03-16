@@ -60,6 +60,8 @@ namespace MHWAppearanceEditor.ViewModels
             CloseWorkbenchCommand = new RelayCommand(CloseWorkbench);
             FillWithCurrentAppearanceCommand = new RelayCommand(FillWithCurrentAppearance, CanFillWithCurrentAppearance);
             ShowAllSaveLocationsCommand = new RelayCommand(ShowAllSaveLocations);
+
+            UpdateImportDiff();
         }
 
         #region Commands
@@ -272,12 +274,35 @@ namespace MHWAppearanceEditor.ViewModels
         {
             SelectedSaveSlot.ImportJsonDocument.Text = SelectedSaveSlot.GetExportJsonText();
         }
-        
+
         public void ShowAllSaveLocations()
         {
             throw new NotImplementedException();
         }
 
         #endregion
+
+        private async void UpdateImportDiff()
+        {
+            while (true)
+            {
+                // Call PropertyChanged on ImportDiff if the last change is longer than 1 sec ago
+                if (SelectedSaveSlot != null)
+                {
+                    if (SelectedSaveSlot.LastJsonUpdate + 1000 < Environment.TickCount
+                        && SelectedSaveSlot.LastJsonUpdate > SelectedSaveSlot.LastImportDiffUpdate)
+                    {
+                        SelectedSaveSlot.UpdateImportDiff();
+                        Debug.WriteLine($"Updated ImportDiff for {SelectedSaveSlot.HunterName}");
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"Did not update ImportDiff for {SelectedSaveSlot.HunterName}");
+                    }
+                }
+
+                await Task.Delay(1000);
+            }
+        }
     }
 }
