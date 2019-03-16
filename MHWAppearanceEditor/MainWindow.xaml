@@ -77,7 +77,9 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <TabControl Grid.Row="2" DataContext="{Binding SelectedSaveSlot}" SelectedIndex="{Binding SelectedTabIndex}" Visibility="{Binding Path=., Converter={StaticResource NullToVisibilityConverter}}">
+                <TabControl Grid.Row="2" DataContext="{Binding SelectedSaveSlot}"
+                            SelectedIndex="{Binding DataContext.SelectedTabIndex, RelativeSource={RelativeSource AncestorType=Window}}"
+                            Visibility="{Binding Path=., Converter={StaticResource NullToVisibilityConverter}}">
                     <TabItem Header="Hunter">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -130,7 +132,8 @@
                             <DockPanel Grid.Column="0">
                                 <TextBlock DockPanel.Dock="Top" Text="Changes:" Margin="5"/>
                                 
-                                <Button Content="Import into selected slot" DockPanel.Dock="Bottom" Command="{Binding ImportJsonCommand}"/>
+                                <Button Content="Import into selected slot" DockPanel.Dock="Bottom" Command="{Binding ImportJsonCommand}"
+                                        BorderThickness="0" Padding="5" Margin="-2, 0, 0, -2"/>
 
                                 <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                                     <ItemsControl ItemsSource="{Binding ImportDiff}" Margin="5">
@@ -178,7 +181,7 @@
                             <GridSplitter Grid.Column="1" Grid.Row="1" Background="WhiteSmoke" HorizontalAlignment="Stretch"/>
 
                             <avalonEdit:TextEditor x:Name="codeEditor" Grid.Column="2" Document="{Binding ImportJsonDocument}"
-                                                   SyntaxHighlighting="JSON" Background="WhiteSmoke"/>
+                                                   SyntaxHighlighting="JSON" Background="WhiteSmoke" Margin="-1" Padding="10"/>
                         </Grid>
                     </TabItem>
 

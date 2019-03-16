@@ -28,6 +28,7 @@ namespace MHWAppearanceEditor.ViewModels
 
         public string ExportText { get; set; }
         public string StatusText { get; set; }
+        public int SelectedTabIndex { get; set; }
 
         public bool IsOpening;
         public bool IsSaving;
@@ -143,7 +144,7 @@ namespace MHWAppearanceEditor.ViewModels
                     Log.Information($"Imported Character Preset from {ofd.FileName}");
 
                     // Select "Import Appearance" tab
-                    SelectedSaveSlot.SelectedTabIndex = 1;
+                    SelectedTabIndex = 1;
                 }
                 catch (Exception ex)
                 {
@@ -235,7 +236,7 @@ namespace MHWAppearanceEditor.ViewModels
                         Log.Information($"Imported Character JSON from {ofd.FileName}");
 
                         // Select "Import Appearance" tab
-                        SelectedSaveSlot.SelectedTabIndex = 1;
+                        SelectedTabIndex = 1;
                     }
                 }
                 catch (Exception ex)

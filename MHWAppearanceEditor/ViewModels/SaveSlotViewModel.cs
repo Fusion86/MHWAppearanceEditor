@@ -81,8 +81,6 @@ namespace MHWAppearanceEditor.ViewModels
         public bool IsJsonValid { get; set; }
         public TextDocument ImportJsonDocument { get; set; } = new TextDocument();
 
-        public int SelectedTabIndex { get; set; }
-
         #region Commands
 
         public RelayCommand ImportJsonCommand { get; }
@@ -135,6 +133,9 @@ namespace MHWAppearanceEditor.ViewModels
             };
 
             PalicoAppearance = new PalicoAppearanceViewModel(SaveSlot);
+
+            // Fill text editor with current appearance
+            ImportJsonDocument.Text = GetExportJsonText();
         }
 
         #region Calculated properties
