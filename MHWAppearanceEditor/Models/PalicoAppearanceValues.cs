@@ -8,7 +8,8 @@ namespace MHWAppearanceEditor.Models
         public List<KeyValuePair<string, byte>> EyeTypes { get; }
         public List<KeyValuePair<string, byte>> EarTypes { get; }
         public List<KeyValuePair<string, byte>> TailTypes { get; }
-        public List<KeyValuePair<string, ushort>> VoiceTypes { get; }
+        public List<KeyValuePair<string, byte>> VoiceTypes { get; }
+        public List<KeyValuePair<string, byte>> VoicePitches { get; }
 
         public PalicoAppearanceValues()
         {
@@ -47,11 +48,18 @@ namespace MHWAppearanceEditor.Models
                 new KeyValuePair<string, byte>("Tail Type 4", 3),
             };
 
-            VoiceTypes = new List<KeyValuePair<string, ushort>>
+            VoiceTypes = new List<KeyValuePair<string, byte>>
             {
-                new KeyValuePair<string, ushort>("Voice Type 1", 0),
-                new KeyValuePair<string, ushort>("Voice Type 2", 1),
-                new KeyValuePair<string, ushort>("Voice Type 3", 2),
+                new KeyValuePair<string, byte>("Voice Type 1", 0),
+                new KeyValuePair<string, byte>("Voice Type 2", 1),
+                new KeyValuePair<string, byte>("Voice Type 3", 2),
+            };
+
+            VoicePitches = new List<KeyValuePair<string, byte>>
+            {
+                new KeyValuePair<string, byte>("Medium Pitch", 0),
+                new KeyValuePair<string, byte>("Low Pitch", 1),
+                new KeyValuePair<string, byte>("High Pitch", 2),
             };
         }
     }

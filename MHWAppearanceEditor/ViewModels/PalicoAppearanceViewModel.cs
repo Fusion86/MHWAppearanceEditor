@@ -93,13 +93,13 @@ namespace MHWAppearanceEditor.ViewModels
             set => _saveSlot.PalicoAppearance.TailType = value;
         }
 
-        public ushort VoiceType
+        public byte VoiceType
         {
             get => _saveSlot.PalicoAppearance.VoiceType;
             set => _saveSlot.PalicoAppearance.VoiceType = value;
         }
 
-        public ushort VoicePitch
+        public byte VoicePitch
         {
             get => _saveSlot.PalicoAppearance.VoicePitch;
             set => _saveSlot.PalicoAppearance.VoicePitch = value;

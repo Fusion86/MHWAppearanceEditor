@@ -190,7 +190,7 @@
                         <TabItem.Resources>
                             <models:PalicoAppearanceValues x:Key="PalicoAppearanceValues"/>
                         </TabItem.Resources>
-                        
+
                         <WrapPanel>
                             <GroupBox Header="Pattern" Margin="5">
                                 <Grid Margin="5">
@@ -199,7 +199,7 @@
                                         <ColumnDefinition Width="10"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    
+
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="22"/>
                                         <RowDefinition Height="5"/>
@@ -306,7 +306,11 @@
                                               SelectedValuePath="Value"/>
 
                                     <TextBlock Grid.Column="0" Grid.Row="8" Text="Voice Pitch" VerticalAlignment="Center"/>
-                                    <xctk:ShortUpDown Grid.Column="2" Grid.Row="8" Value="{Binding PalicoAppearance.VoicePitch}"/>
+                                    <ComboBox Grid.Column="2" Grid.Row="8"
+                                              ItemsSource="{Binding Source={StaticResource PalicoAppearanceValues}, Path=VoicePitches}"
+                                              SelectedValue="{Binding PalicoAppearance.VoicePitch}"
+                                              DisplayMemberPath="Key"
+                                              SelectedValuePath="Value"/>
                                 </Grid>
                             </GroupBox>
 
