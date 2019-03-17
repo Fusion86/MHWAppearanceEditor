@@ -45,6 +45,7 @@ namespace MHWAppearanceEditor.ViewModels
         public RelayCommand CloseWorkbenchCommand { get; }
         public RelayCommand FillWithCurrentAppearanceCommand { get; }
         public RelayCommand ShowAllSaveLocationsCommand { get; }
+        public RelayCommand OpenHelpCommand { get; }
 
         #endregion
 
@@ -60,6 +61,7 @@ namespace MHWAppearanceEditor.ViewModels
             CloseWorkbenchCommand = new RelayCommand(CloseWorkbench);
             FillWithCurrentAppearanceCommand = new RelayCommand(FillWithCurrentAppearance, CanFillWithCurrentAppearance);
             ShowAllSaveLocationsCommand = new RelayCommand(ShowAllSaveLocations);
+            OpenHelpCommand = new RelayCommand(OpenHelp);
 
             UpdateImportDiff();
         }
@@ -278,6 +280,11 @@ namespace MHWAppearanceEditor.ViewModels
         public void ShowAllSaveLocations()
         {
             throw new NotImplementedException();
+        }
+
+        public void OpenHelp()
+        {
+            new HelpWindow().Show();
         }
 
         #endregion

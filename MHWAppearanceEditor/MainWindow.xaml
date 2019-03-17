@@ -50,6 +50,8 @@
                     <!--<MenuItem Header="Show all save locations" Command="{Binding ShowAllSaveLocationsCommand}"/>-->
                     <MenuItem Header="Show log" Click="ShowLog_Click"/>
                 </MenuItem>
+
+                <MenuItem Header="Help" Command="{Binding OpenHelpCommand}"/>
             </Menu>
 
             <StatusBar DockPanel.Dock="Bottom">
@@ -182,7 +184,18 @@
 
                             <avalonEdit:TextEditor x:Name="codeEditor" Grid.Column="2" Document="{Binding ImportJsonDocument}"
                                                    SyntaxHighlighting="JSON" Background="WhiteSmoke" Margin="-1" Padding="10"
-                                                   ShowLineNumbers="True"/>
+                                                   ShowLineNumbers="True">
+                                <avalonEdit:TextEditor.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Copy selection" Click="codeEditor_CopySelection"/>
+                                        <MenuItem Header="Copy everything" Click="codeEditor_CopyAll"/>
+                                        <Separator/>
+                                        <MenuItem Header="Paste" Click="codeEditor_Paste"/>
+                                        <Separator/>
+                                        <MenuItem Header="Clear textfield" Click="codeEditor_Clear"/>
+                                    </ContextMenu>
+                                </avalonEdit:TextEditor.ContextMenu>
+                            </avalonEdit:TextEditor>
                         </Grid>
                     </TabItem>
 

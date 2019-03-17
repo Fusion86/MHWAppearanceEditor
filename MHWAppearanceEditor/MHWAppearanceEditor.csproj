@@ -95,6 +95,9 @@
     </Compile>
     <Compile Include="ValueConverters\NullVisibilityConverter.cs" />
     <Compile Include="ViewModels\PalicoAppearanceViewModel.cs" />
+    <Compile Include="Windows\HelpWindow.xaml.cs">
+      <DependentUpon>HelpWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\LogViewer.xaml.cs">
       <DependentUpon>LogViewer.xaml</DependentUpon>
     </Compile>
@@ -117,6 +120,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ColorDisplayAndPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\HelpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -178,7 +185,6 @@
       <Name>Cirilla.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.3.2.16\build\Fody.targets" Condition="Exists('..\packages\Fody.3.2.16\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

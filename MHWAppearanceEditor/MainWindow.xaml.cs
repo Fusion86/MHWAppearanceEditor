@@ -69,5 +69,25 @@ namespace MHWAppearanceEditor
 
             _isOpen = false;
         }
+
+        private void codeEditor_CopySelection(object sender, RoutedEventArgs e)
+        {
+            codeEditor.Copy();
+        }
+
+        private void codeEditor_CopyAll(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(codeEditor.Text);
+        }
+
+        private void codeEditor_Paste(object sender, RoutedEventArgs e)
+        {
+            codeEditor.Paste();
+        }
+
+        private void codeEditor_Clear(object sender, RoutedEventArgs e)
+        {
+            codeEditor.Clear();
+        }
     }
 }
