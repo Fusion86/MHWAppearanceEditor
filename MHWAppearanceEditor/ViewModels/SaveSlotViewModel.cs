@@ -8,6 +8,7 @@ using System.Windows;
 using ICSharpCode.AvalonEdit.Document;
 using MHWAppearanceEditor.Models;
 using System.Windows.Input;
+using System.Drawing;
 
 namespace MHWAppearanceEditor.ViewModels
 {
@@ -18,8 +19,28 @@ namespace MHWAppearanceEditor.ViewModels
         public AppearanceValueDiff(string name, object currentValue, object newValue = null)
         {
             Name = name;
-            CurrentValue = currentValue;
-            NewValue = newValue ?? currentValue; // Set to currentValue if there is no newValue
+
+            if (currentValue.GetType() == typeof(Color))
+            {
+                Color curColor = (Color)currentValue;
+                Color newColor = newValue != null ? (Color)newValue : (Color)currentValue;
+
+                // Set CurrentValue and NewValue to a string, because we don't want the ToString() method to be called on Color
+                // since in those scenarios #FF0000 != Color.Red (which, obiously, should be the same)
+                string ColorToString(Color c)
+                {
+                    TypeConverter converter = TypeDescriptor.GetConverter(c);
+                    return converter.ConvertToInvariantString(c);
+                }
+
+                CurrentValue = ColorToString(curColor);
+                NewValue = ColorToString(newColor);
+            }
+            else
+            {
+                CurrentValue = currentValue;
+                NewValue = newValue ?? currentValue; // Set to currentValue if there is no newValue
+            }
         }
 
         public string Name { get; set; }
