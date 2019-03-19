@@ -64,6 +64,16 @@ Inside the color picker you can click on the hex code to copy/paste it.
 
 ## Copy appearance from one character to another
 
+The main reason to use this tool is when you want to change your characters appearance (wow).  
+The easiest way to do this is to copy the appearance from another character and overwrite your existing character with this appearance.
+The method described below assumes that you have two saveslots.
+
+- In the first saveslot you have your main character (whose appearance you want to change).  
+- In the second slot you have a character whose appearance you want to have. You get this second saveslot by starting a new game and using the ingame character creator.
+
+You can speed up the character creation process by skipping the intro video using [UberGrainy's Skip Opening Cutscene Mod](https://www.nexusmods.com/monsterhunterworld/mods/374).  
+When you have these two saveslots you can continue with the steps below, which will overwrite your main character's appearance with the newly created character's appearance.  
+
 ![](img/copy_appearance.gif)
 
 1. Open your save
