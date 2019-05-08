@@ -28,27 +28,27 @@ Spritesheet = namedtuple("Spritesheet", ["category", "texture_name", "size", "co
 
 Items = [
     # Character
-    Spritesheet("Male brows", "thumb_brow00_ID", [126, 62], 16),
-    Spritesheet("Female brows", "thumb_brow01_ID", [126, 62], 16),
+    Spritesheet("Male eyebrows", "thumb_brow00_ID", [126, 62], 16),
+    Spritesheet("Female eyebrows", "thumb_brow01_ID", [126, 62], 16),
     Spritesheet("Male eyes", "thumb_eye00_ID", [126, 62], 30),
     Spritesheet("Female eyes", "thumb_eye01_ID", [126, 62], 30),
     Spritesheet("Male faces", "thumb_face00_ID", [102, 102], 24),
     Spritesheet("Female faces", "thumb_face01_ID", [102, 102], 24),
-    Spritesheet("Male foreheads", "thumb_forehead00_ID", [126, 62], 16),
-    Spritesheet("Female foreheads", "thumb_forehead01_ID", [126, 62], 16),
+    Spritesheet("Male brow types", "thumb_forehead00_ID", [126, 62], 24),
+    Spritesheet("Female brow types", "thumb_forehead01_ID", [126, 62], 24),
     Spritesheet("Male hairstyles", "thumb_hair00_ID", [102, 102], 28),
     Spritesheet("Female hairstyles", "thumb_hair01_ID", [102, 102], 28),
-    Spritesheet("Male inner armors", "thumb_inner00_ID", [102, 102], 4),
-    Spritesheet("Female inner armors", "thumb_inner01_ID", [102, 102], 4),
+    Spritesheet("Male clothing", "thumb_inner00_ID", [102, 102], 4),
+    Spritesheet("Female clothing", "thumb_inner01_ID", [102, 102], 4),
     Spritesheet("Male mouths", "thumb_hair00_ID", [102, 102], 24),
     Spritesheet("Female mouths", "thumb_hair01_ID", [102, 102], 24),
-    Spritesheet("Male mustaches", "thumb_mustache00_ID", [102, 102], 21),
-    Spritesheet("Female mustaches", "thumb_mustache01_ID", [102, 102], 21),  # heh
+    Spritesheet("Male facial hair", "thumb_mustache00_ID", [102, 102], 21),
+    Spritesheet("Female facial hair", "thumb_mustache01_ID", [102, 102], 21),  # heh 
     Spritesheet("Male noses", "thumb_nose00_ID", [102, 102], 24),
     Spritesheet("Female noses", "thumb_nose01_ID", [102, 102], 24),
-    # Character misc
-    Spritesheet("Male facepaints", "thumb_paint00_ID", [102, 102], 34),
-    Spritesheet("Female facepaints", "thumb_paint01_ID", [102, 102], 34),
+    Spritesheet("Male makeup", "thumb_paint00_ID", [102, 102], 34),
+    Spritesheet("Female makeup", "thumb_paint01_ID", [102, 102], 34),
+    # Presets for males and females are stored in the same file. 10 presets per gender + 1 line (5 presets) padding = 25
     Spritesheet("Character presets", "thumb_preset_ID", [102, 102], 25),
     # Palico
     Spritesheet("Palico coat types", "thumb_o_coattype_ID", [126, 126], 4),
