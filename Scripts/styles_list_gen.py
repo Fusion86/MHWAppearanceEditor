@@ -24,7 +24,7 @@ class Config:
     OUT = join(os.getcwd(), "styles_list_gen")
 
 
-Spritesheet = namedtuple("Thing", ["category", "texture_name", "size", "count"])
+Spritesheet = namedtuple("Spritesheet", ["category", "texture_name", "size", "count"])
 
 Items = [
     # Character
