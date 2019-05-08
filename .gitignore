@@ -261,4 +261,6 @@ __pycache__/
 *.pyc
 
 # Other
+.vscode/
 Cirilla.Core/
+styles_list_gen/
