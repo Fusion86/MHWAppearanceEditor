@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MHWAppearanceEditorNext.ResourceDictionaries">
+    <Color x:Key="DarkColor" R="26" G="26" B="26" A="255"/>
+    <Color x:Key="GrayColor" R="50" G="50" B="50" A="255"/>
+    <Color x:Key="GrayColorLight1" R="100" G="100" B="100" A="255"/>
+    <Color x:Key="PrimaryColor" R="0" G="120" B="216" A="255"/>
+    <Color x:Key="PrimaryColorLight1" R="66" G="156" B="227" A="255"/>
+
+    <SolidColorBrush x:Key="DarkColorBrush" Color="{StaticResource DarkColor}"/>
+    <SolidColorBrush x:Key="GrayColorBrush" Color="{StaticResource GrayColor}"/>
+    <SolidColorBrush x:Key="GrayColorLight1Brush" Color="{StaticResource GrayColorLight1}"/>
+    <SolidColorBrush x:Key="PrimaryColorBrush" Color="{StaticResource PrimaryColor}"/>
+    <SolidColorBrush x:Key="PrimaryColorLight1Brush" Color="{StaticResource PrimaryColorLight1}"/>
+</ResourceDictionary>

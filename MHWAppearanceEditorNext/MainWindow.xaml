@@ -1,0 +1,166 @@
+﻿<fw:AcrylicWindow x:Class="MHWAppearanceEditorNext.MainWindow"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:local="clr-namespace:MHWAppearanceEditorNext"
+                  xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+                  mc:Ignorable="d"
+                  Title="{Binding Title}" Height="450" Width="965"
+                  DataContext="{Binding Main, Source={StaticResource Locator}}"
+                  ResizeMode="CanResizeWithGrip"
+                  fw:AcrylicWindow.TintColor="{StaticResource DarkColor}"
+                  fw:AcrylicWindow.ShowTitleBar="False"
+                  fw:AcrylicWindow.FallbackColor="{StaticResource DarkColor}">
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" Height="30" Background="{StaticResource DarkColorBrush}"
+              MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseMove="Grid_MouseMove">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="32"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="{Binding Title}" VerticalAlignment="Center" Margin="12, 0, 0, 0" Foreground="White"/>
+
+            <Button Grid.Column="1" Content="X" Click="Button_Click"/>
+        </Grid>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="82"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.Background>
+                    <SolidColorBrush Color="#1a1a1a" Opacity="0.6"/>
+                </Grid.Background>
+
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="32"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Character" Foreground="White"/>
+                    <ComboBox Grid.Row="1" Grid.Column="0" Width="240" VerticalContentAlignment="Center">
+                        <ComboBoxItem Content="Fusion"/>
+                        <ComboBoxItem Content="Cirilla"/>
+                        <ComboBoxItem Content="Katarina"/>
+                    </ComboBox>
+
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="Target" Foreground="White"/>
+                    <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal">
+                        <Button Content="Character" Width="120" Command="{Binding ToggleTargetCommand}">
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource FlatButton}">
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsCharacterTarget}" Value="true">
+                                            <Setter Property="Background" Value="{StaticResource PrimaryColorBrush}"/>
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <Button Content="Palico" Width="120" Command="{Binding ToggleTargetCommand}">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource FlatButton}">
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsCharacterTarget}" Value="false">
+                                            <Setter Property="Background" Value="{StaticResource PrimaryColorBrush}"/>
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="0" Grid.Column="4" Text="Editor Type" Foreground="White"/>
+                    <StackPanel Grid.Row="1" Grid.Column="4" Orientation="Horizontal">
+                        <Button Content="Visual" Width="120" Command="{Binding ToggleEditorTypeCommand}">
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource FlatButton}">
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsEditorTypeVisual}" Value="true">
+                                            <Setter Property="Background" Value="{StaticResource PrimaryColorBrush}"/>
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <Button Content="Code" Width="120" Command="{Binding ToggleEditorTypeCommand}">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource FlatButton}">
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsEditorTypeVisual}" Value="false">
+                                            <Setter Property="Background" Value="{StaticResource PrimaryColorBrush}"/>
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </StackPanel>
+
+                    <Button Grid.Row="1" Grid.Column="6" Width="160" Command="{Binding ToggleDetailsEditorVisibilityCommand}">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource FlatButton}">
+                                <Setter Property="Content" Value="Hide Details Editor"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsDetailsEditorVisible}" Value="false">
+                                        <Setter Property="Content" Value="Show Details Editor"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.Style>
+                    <Style TargetType="{x:Type Grid}">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsDetailsEditorVisible}" Value="false">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2"/>
+                    <RowDefinition Height="80"/>
+                </Grid.RowDefinitions>
+
+                <Rectangle Grid.Row="0" Fill="White" Margin="10, 0, 10, 0" Opacity="0.5"/>
+
+                <Grid Grid.Row="1" Margin="0, -2, 0, 0">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#1a1a1a" Opacity="0.6"/>
+                    </Grid.Background>
+                </Grid>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</fw:AcrylicWindow>
