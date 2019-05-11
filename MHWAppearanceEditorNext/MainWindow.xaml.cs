@@ -48,7 +48,7 @@ namespace MHWAppearanceEditorNext
                 WindowState = WindowState.Normal;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnCloseWindow_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }

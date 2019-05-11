@@ -13,27 +13,59 @@
                   fw:AcrylicWindow.ShowTitleBar="False"
                   fw:AcrylicWindow.FallbackColor="{StaticResource DarkColor}">
     <DockPanel>
-        <Grid DockPanel.Dock="Top" Height="30" Background="{StaticResource DarkColorBrush}"
+
+        <!--
+        
+            The Titlebar is a temp solution, sometime in the future I'll do the same thing icons8 did with their Lunacy
+            program (which is using MetroApps and FluentWPF together, or something like that)
+        
+            Q: Why not just keep the manually implemented titlebar we have now?
+            A: Because then we have to implement all behaviours like minimizing/maximising (see Grid_MouseMove and Grid_MouseLeftButtonDown)
+        
+            See:
+            - Lunacy.Behaviors.WindowSizeBehavior
+            - lunacy\themedictionaries\styles\buttonstyles.xaml
+            - lunacy\mainwindow.xaml
+        
+        -->
+
+        <Grid DockPanel.Dock="Top" Background="{StaticResource DarkColorBrush}"
               MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseMove="Grid_MouseMove">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="32"/>
-            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-            <TextBlock Text="{Binding Title}" VerticalAlignment="Center" Margin="12, 0, 0, 0" Foreground="White"/>
+            <Grid Grid.Row="0" Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="1" Content="X" Click="Button_Click"/>
+                <TextBlock Text="{Binding Title}" VerticalAlignment="Center" Margin="12, 0, 0, 0" Foreground="White"/>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button x:Name="btnCloseWindow" Click="btnCloseWindow_Click" Content="X" Width="45"/>
+                </StackPanel>
+            </Grid>
+
+            <Menu Grid.Row="1">
+                <MenuItem Header="File">
+                    <MenuItem Header="Open SaveData"/>
+                </MenuItem>
+            </Menu>
         </Grid>
 
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="80"/>
-                <RowDefinition Height="82"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
                 <Grid.Background>
-                    <SolidColorBrush Color="#1a1a1a" Opacity="0.6"/>
+                    <SolidColorBrush Color="#1a1a1a" Opacity="0.8"/>
                 </Grid.Background>
 
                 <Grid Margin="10">
@@ -43,23 +75,23 @@
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="240"/>
                         <ColumnDefinition Width="20"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="240"/>
                         <ColumnDefinition Width="20"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="240"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="160"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Character" Foreground="White"/>
-                    <ComboBox Grid.Row="1" Grid.Column="0" Width="240" VerticalContentAlignment="Center">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Character"/>
+                    <ComboBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center">
                         <ComboBoxItem Content="Fusion"/>
                         <ComboBoxItem Content="Cirilla"/>
                         <ComboBoxItem Content="Katarina"/>
                     </ComboBox>
 
-                    <TextBlock Grid.Row="0" Grid.Column="2" Text="Target" Foreground="White"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="Target"/>
                     <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal">
                         <Button Content="Character" Width="120" Command="{Binding ToggleTargetCommand}">
                             <Button.Style>
@@ -90,7 +122,7 @@
                         </Button>
                     </StackPanel>
 
-                    <TextBlock Grid.Row="0" Grid.Column="4" Text="Editor Type" Foreground="White"/>
+                    <TextBlock Grid.Row="0" Grid.Column="4" Text="Editor Type"/>
                     <StackPanel Grid.Row="1" Grid.Column="4" Orientation="Horizontal">
                         <Button Content="Visual" Width="120" Command="{Binding ToggleEditorTypeCommand}">
                             <Button.Style>
@@ -121,7 +153,7 @@
                         </Button>
                     </StackPanel>
 
-                    <Button Grid.Row="1" Grid.Column="6" Width="160" Command="{Binding ToggleDetailsEditorVisibilityCommand}">
+                    <Button Grid.Row="1" Grid.Column="6" Command="{Binding ToggleDetailsEditorVisibilityCommand}">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource FlatButton}">
                                 <Setter Property="Content" Value="Hide Details Editor"/>
@@ -147,20 +179,73 @@
                         </Style.Triggers>
                     </Style>
                 </Grid.Style>
-                
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2"/>
-                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <Rectangle Grid.Row="0" Fill="White" Margin="10, 0, 10, 0" Opacity="0.5"/>
 
+                <!-- Negative margin to also change the background color behind the <Rectangle> separator -->
                 <Grid Grid.Row="1" Margin="0, -2, 0, 0">
                     <Grid.Background>
-                        <SolidColorBrush Color="#1a1a1a" Opacity="0.6"/>
+                        <SolidColorBrush Color="#1a1a1a" Opacity="0.8"/>
                     </Grid.Background>
+
+                    <!-- This grid is the real grid, the one hosting this just makes sure we have the correct background color -->
+                    <Grid VerticalAlignment="Center" Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="22"/>
+                            <RowDefinition Height="32"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="240"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="5"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="60"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Rank"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="10"/>
+
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="Zenny"/>
+                            <TextBlock Grid.Row="0" Grid.Column="3" Text="81379"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="XP"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="7280"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="2" Text="Research"/>
+                            <TextBlock Grid.Row="2" Grid.Column="3" Text="6361"/>
+                        </Grid>
+
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="Hunter Name"/>
+                        <TextBox Grid.Row="1" Grid.Column="2" Width="240" VerticalContentAlignment="Center" Text="Fusion_"/>
+
+                        <TextBlock Grid.Row="0" Grid.Column="4" Text="Palico Name"/>
+                        <TextBox Grid.Row="1" Grid.Column="4" Width="240" VerticalContentAlignment="Center" Text="Sjonnie Jan"/>
+                    </Grid>
                 </Grid>
             </Grid>
+
+            <!-- Control that hosts editor (either visual or code) -->
+            <Frame Grid.Row="2" Margin="10, 0, 10, 10" Source="/MHWAppearanceEditorNext;component/Views/VisualEditor.xaml"/>
         </Grid>
     </DockPanel>
 </fw:AcrylicWindow>

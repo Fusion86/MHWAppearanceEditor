@@ -6,10 +6,14 @@
     <Color x:Key="GrayColorLight1" R="100" G="100" B="100" A="255"/>
     <Color x:Key="PrimaryColor" R="0" G="120" B="216" A="255"/>
     <Color x:Key="PrimaryColorLight1" R="66" G="156" B="227" A="255"/>
+    <Color x:Key="TextLight" R="255" G="255" B="255" A="255"/>
+    <Color x:Key="TextLightInactive" R="255" G="255" B="255" A="153"/> <!-- 153 = 60% -->
 
     <SolidColorBrush x:Key="DarkColorBrush" Color="{StaticResource DarkColor}"/>
     <SolidColorBrush x:Key="GrayColorBrush" Color="{StaticResource GrayColor}"/>
     <SolidColorBrush x:Key="GrayColorLight1Brush" Color="{StaticResource GrayColorLight1}"/>
     <SolidColorBrush x:Key="PrimaryColorBrush" Color="{StaticResource PrimaryColor}"/>
     <SolidColorBrush x:Key="PrimaryColorLight1Brush" Color="{StaticResource PrimaryColorLight1}"/>
+    <SolidColorBrush x:Key="TextLightBrush" Color="{StaticResource TextLight}"/>
+    <SolidColorBrush x:Key="TextLightInactiveBrush" Color="{StaticResource TextLightInactive}"/>
 </ResourceDictionary>

@@ -4,9 +4,15 @@
             <ResourceDictionary.MergedDictionaries>
                 <!--  FluentWPF Controls  -->
                 <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Controls.xaml"/>
+
                 <ResourceDictionary Source="ResourceDictionaries/DarkTheme.xaml"/>
-                <ResourceDictionary Source="ResourceDictionaries/Controls.xaml"/>
+
+                <ResourceDictionary Source="ResourceDictionaries/Button.xaml"/>
                 <ResourceDictionary Source="ResourceDictionaries/ComboBox.xaml"/>
+                <ResourceDictionary Source="ResourceDictionaries/Menu.xaml"/>
+                <ResourceDictionary Source="ResourceDictionaries/TabControl.xaml"/>
+                <ResourceDictionary Source="ResourceDictionaries/TextBlock.xaml"/>
+                <ResourceDictionary Source="ResourceDictionaries/TextBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:MHWAppearanceEditorNext.ViewModels"/>
