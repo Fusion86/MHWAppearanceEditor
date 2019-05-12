@@ -6,13 +6,49 @@
              xmlns:local="clr-namespace:MHWAppearanceEditorNext.Views"
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1000">
-    <TabControl>
+    <TabControl Background="{StaticResource DarkColorBrush}">
         <TabItem Header="Face">
             Selected face
         </TabItem>
         
         <TabItem Header="Hairstyle">
             Selected hairstyle
+        </TabItem>
+
+        <TabItem Header="Eyebrows">
+            Selected eyebrows
+        </TabItem>
+
+        <TabItem Header="Eyes">
+            Selected eyes
+        </TabItem>
+
+        <TabItem Header="Nose">
+            Selected nose
+        </TabItem>
+
+        <TabItem Header="Mouth">
+            Selected mouth
+        </TabItem>
+
+        <TabItem Header="Facial Hair">
+            Selected hair
+        </TabItem>
+
+        <TabItem Header="Makeup">
+            Selected makeup
+        </TabItem>
+
+        <TabItem Header="Expression">
+            Selected expression
+        </TabItem>
+
+        <TabItem Header="Clothing">
+            Selected clothing
+        </TabItem>
+
+        <TabItem Header="Voice">
+            Selected voice
         </TabItem>
     </TabControl>
 </UserControl>

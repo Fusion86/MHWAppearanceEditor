@@ -95,7 +95,7 @@
         <Setter Property="BorderBrush" Value="{StaticResource TabItem.Static.Border}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Margin" Value="0"/>
-        <Setter Property="Padding" Value="0, 0, 10, 0"/>
+        <Setter Property="Padding" Value="0, 0, 20, 0"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
         <Setter Property="FontSize" Value="20"/>
