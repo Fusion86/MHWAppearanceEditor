@@ -1,6 +1,7 @@
 ﻿using Cirilla.Core.Models;
 using MHWAppearanceEditor.Helpers;
 using MHWAppearanceEditor.Models;
+using MHWAppearanceEditor.Popup;
 using MHWAppearanceEditor.Windows;
 using Microsoft.Win32;
 using Newtonsoft.Json;
@@ -25,6 +26,8 @@ namespace MHWAppearanceEditor.ViewModels
         public SaveData SaveData { get; set; }
         public List<SaveSlotViewModel> SaveSlots => SaveData?.SaveSlots.Select(x => new SaveSlotViewModel(x, this)).ToList();
         public SaveSlotViewModel SelectedSaveSlot { get; set; }
+        public SteamAccount SelectedUser { get; private set; }
+        public bool ManualFileSelect { get; private set; }
 
         public string ExportText { get; set; }
         public string StatusText { get; set; }
@@ -37,7 +40,7 @@ namespace MHWAppearanceEditor.ViewModels
 
         public RelayCommand OpenFileCommand { get; }
         public RelayCommand SaveFileCommand { get; }
-        public RelayCommand OpenSaveDataFolderCommand { get; }
+        //public RelayCommand OpenSaveDataFolderCommand { get; }
         public RelayCommand ImportCmpCommand { get; }
         public RelayCommand ExportCmpCommand { get; }
         public RelayCommand ImportCharacterJsonCommand { get; }
@@ -53,7 +56,7 @@ namespace MHWAppearanceEditor.ViewModels
         {
             OpenFileCommand = new RelayCommand(OpenFile, CanOpenFile);
             SaveFileCommand = new RelayCommand(SaveFile, CanSaveFile);
-            OpenSaveDataFolderCommand = new RelayCommand(OpenSaveDataFolder, CanOpenSaveDataFolder);
+            //OpenSaveDataFolderCommand = new RelayCommand(OpenSaveDataFolder, CanOpenSaveDataFolder);
             ImportCmpCommand = new RelayCommand(ImportCmp, CanImportCmp);
             ExportCmpCommand = new RelayCommand(ExportCmp, CanExportCmp);
             ImportCharacterJsonCommand = new RelayCommand(ImportCharacterJson, CanImportCharacterJson);
@@ -72,21 +75,38 @@ namespace MHWAppearanceEditor.ViewModels
         private async void OpenFile()
         {
             IsOpening = true;
+            string savePath = null;
 
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.CheckFileExists = true;
+            // If unselected saveslot and not manually selecting
+            if (SelectedUser == null && !ManualFileSelect)
+            {
+                ShowSelectSteamAccountPopup();
+            }
 
-            string savePath = Utility.GetMhwSaveDir();
+            if (ManualFileSelect)
+            {
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.CheckFileExists = true;
+
+                string initialPath = Utility.GetMhwSaveDir();
+                if (initialPath != null)
+                    ofd.InitialDirectory = initialPath;
+
+                if (ofd.ShowDialog() == true)
+                    savePath = ofd.FileName;
+            }
+            else if (SelectedUser != null)
+            {
+                savePath = Path.Combine(Utility.GetMhwSaveDir(SelectedUser), "SAVEDATA1000");
+            }
+
+            // Open file
             if (savePath != null)
-                ofd.InitialDirectory = savePath;
-
-
-            if (ofd.ShowDialog() == true)
             {
                 try
                 {
-                    await Task.Run(() => SaveData = new SaveData(ofd.FileName));
-                    Log.Information($"Opened {ofd.FileName}");
+                    await Task.Run(() => SaveData = new SaveData(savePath));
+                    Log.Information($"Opened {savePath}");
                 }
                 catch (Exception ex)
                 {
@@ -103,10 +123,14 @@ namespace MHWAppearanceEditor.ViewModels
             IsSaving = true;
 
             SaveFileDialog sfd = new SaveFileDialog();
+            string initialPath = SelectedUser != null ? Utility.GetMhwSaveDir(SelectedUser) : Utility.GetMhwSaveDir();
 
-            string savePath = Utility.GetMhwSaveDir();
-            if (savePath != null)
-                sfd.InitialDirectory = savePath;
+            if (initialPath != null)
+            {
+                sfd.InitialDirectory = initialPath;
+                sfd.FileName = Path.Combine(initialPath, "SAVEDATA1000");
+            }
+
 
             if (sfd.ShowDialog() == true)
             {
@@ -117,18 +141,19 @@ namespace MHWAppearanceEditor.ViewModels
             IsSaving = false;
         }
 
-        public bool CanOpenSaveDataFolder() => Utility.GetMhwSaveDir() != null;
-        public void OpenSaveDataFolder()
-        {
-            string path = Utility.GetMhwSaveDir();
+        //public bool CanOpenSaveDataFolder() => true;
+        //public void OpenSaveDataFolder()
+        //{
+        //    var dialog = new SelectSteamAccountPopup();
+        //    dialog.Owner = MainWindow.Instance;
+        //    if (dialog.ShowDialog() == true)
+        //    {
+        //        string path = Utility.GetMhwSaveDir(dialog.SelectedUser);
 
-            // This should never happen because CanOpenSaveDataFolder(), but no reason not to include it (e.g for when called manually)
-            if (path == null)
-                return;
-
-            Process.Start("explorer.exe", path);
-            Log.Information($"Started explorer in {path}");
-        }
+        //        Process.Start("explorer.exe", path);
+        //        Log.Information($"Started explorer in {path}");
+        //    }
+        //}
 
         public bool CanImportCmp() => SelectedSaveSlot != null;
         public void ImportCmp()
@@ -285,6 +310,24 @@ namespace MHWAppearanceEditor.ViewModels
         public void OpenHelp()
         {
             new HelpWindow().Show();
+        }
+
+        public void ShowSelectSteamAccountPopup()
+        {
+            var dialog = new SelectSteamAccountPopup();
+            dialog.Owner = MainWindow.Instance;
+            var res = dialog.ShowDialog();
+
+            if (res == true && dialog.ManualSelect == false)
+            {
+                SelectedUser = dialog.SelectedUser;
+                ManualFileSelect = false;
+            }
+            else if (res == true && dialog.ManualSelect == true)
+            {
+                SelectedUser = null;
+                ManualFileSelect = true;
+            }
         }
 
         #endregion

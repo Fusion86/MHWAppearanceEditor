@@ -33,7 +33,7 @@ namespace MHWAppearanceEditor.UserControls
                 o.OnSelectedColorChanged();
         }
 
-        private void MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private new void MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             ColorPickerPopup popup = new ColorPickerPopup(SelectedColor.ToMediaColor());
             popup.OnColorChanged += Popup_OnColorChanged;

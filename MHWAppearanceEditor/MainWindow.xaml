@@ -42,12 +42,13 @@
                 </MenuItem>
 
                 <MenuItem Header="Edit">
-                    <MenuItem Header="Fill text editor with current appearance JSON" Command="{Binding FillWithCurrentAppearanceCommand}"/>
+                    <MenuItem Header="Fill text editor with current appearance" Command="{Binding FillWithCurrentAppearanceCommand}"/>
                 </MenuItem>
 
                 <MenuItem Header="Tools">
-                    <MenuItem Header="Open SaveData folder" Command="{Binding OpenSaveDataFolderCommand}"/>
+                    <!--<MenuItem Header="Open SaveData folder" Command="{Binding OpenSaveDataFolderCommand}"/>-->
                     <!--<MenuItem Header="Show all save locations" Command="{Binding ShowAllSaveLocationsCommand}"/>-->
+                    <MenuItem Header="Open Steam Account Selector" Click="OpenAccountSelector_Click"/>
                     <MenuItem Header="Show log" Click="ShowLog_Click"/>
                 </MenuItem>
 

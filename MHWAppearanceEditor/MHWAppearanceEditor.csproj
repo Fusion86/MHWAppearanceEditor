@@ -43,6 +43,12 @@
     <Reference Include="Costura, Version=3.1.6.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.3.1.6\lib\net46\Costura.dll</HintPath>
     </Reference>
+    <Reference Include="Gameloop.Vdf, Version=0.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Gameloop.Vdf.0.5.0\lib\net45\Gameloop.Vdf.dll</HintPath>
+    </Reference>
+    <Reference Include="Gameloop.Vdf.JsonConverter, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Gameloop.Vdf.JsonConverter.0.2.0\lib\net45\Gameloop.Vdf.JsonConverter.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
       <HintPath>..\packages\AvalonEdit.5.0.4\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
@@ -85,8 +91,12 @@
     <Compile Include="InMemorySink.cs" />
     <EmbeddedResource Include="SyntaxHighlighting\JSON.xshd" />
     <Compile Include="Models\PalicoAppearanceValues.cs" />
+    <Compile Include="Models\SteamAccount.cs" />
     <Compile Include="Popup\ColorPickerPopup.xaml.cs">
       <DependentUpon>ColorPickerPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Popup\SelectSteamAccountPopup.xaml.cs">
+      <DependentUpon>SelectSteamAccountPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Popup\StillSavingPopup.xaml.cs">
       <DependentUpon>StillSavingPopup.xaml</DependentUpon>
@@ -113,6 +123,10 @@
     <Compile Include="Spacing.cs" />
     <Compile Include="Helpers\Utility.cs" />
     <Page Include="Popup\ColorPickerPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Popup\SelectSteamAccountPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

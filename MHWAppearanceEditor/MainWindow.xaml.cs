@@ -13,13 +13,14 @@ namespace MHWAppearanceEditor
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static MainWindow Instance { get; private set; }
+
         private readonly InMemorySink _sink;
         private bool _isOpen;
 
-        private static System.Action EmptyDelegate = delegate () { };
-
         public MainWindow()
         {
+            Instance = this;
             InitializeComponent();
 
             // Setup logging
@@ -88,6 +89,11 @@ namespace MHWAppearanceEditor
         private void codeEditor_Clear(object sender, RoutedEventArgs e)
         {
             codeEditor.Clear();
+        }
+
+        private void OpenAccountSelector_Click(object sender, RoutedEventArgs e)
+        {
+            vm.ShowSelectSteamAccountPopup();
         }
     }
 }

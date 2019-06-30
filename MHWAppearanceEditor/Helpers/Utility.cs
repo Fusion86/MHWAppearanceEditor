@@ -1,5 +1,9 @@
-﻿using Microsoft.Win32;
+﻿using Gameloop.Vdf;
+using MHWAppearanceEditor.Models;
+using Microsoft.Win32;
+using Serilog;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -37,6 +41,62 @@ namespace MHWAppearanceEditor.Helpers
             }
 
             return null;
+        }
+
+        public static string GetMhwSaveDir(SteamAccount user)
+        {
+            string steamRoot = GetSteamRoot();
+
+            if (steamRoot == null)
+                return null;
+
+            string userDataPath = Path.Combine(steamRoot, "userdata", user.SteamId3.ToString());
+
+            if (Directory.GetDirectories(userDataPath).FirstOrDefault(x => x.Contains(MONSTER_HUNTER_WORLD_APPID)) != null)
+                return Path.Combine(userDataPath, MONSTER_HUNTER_WORLD_APPID, "remote");
+
+            return null;
+        }
+
+        public static List<SteamAccount> GetSteamUsersWithMhw()
+        {
+            string steamRoot = GetSteamRoot();
+            List<SteamAccount> steamUsers = new List<SteamAccount>();
+
+            if (steamRoot == null)
+                return steamUsers; // Empty list
+
+            string configPath = Path.Combine(steamRoot, "config", "loginusers.vdf");
+
+            try
+            {
+                // Yikes, dynamic data warning. We JavaScript now.
+                // This throws an error when you enable "catch all errors" in the debugger, but this does actually work.
+                string configText = File.ReadAllText(configPath);
+                var vdf = VdfConvert.Deserialize(configText);
+                foreach (dynamic user in vdf.Value)
+                {
+                    SteamAccount account = new SteamAccount
+                    {
+                        SteamId64 = long.Parse(user.Key),
+                        AccountName = user.Value.AccountName.Value,
+                        PersonaName = user.Value.PersonaName.Value,
+                        RememberPassword = user.Value.RememberPassword.Value == "1",
+                        MostRecent = user.Value.mostrecent.Value == "1",
+                        Timestamp = long.Parse(user.Value.Timestamp.Value)
+                    };
+
+                    // Check if user has MHW saves
+                    if (GetMhwSaveDir(account) != null)
+                        steamUsers.Add(account);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+            }
+
+            return steamUsers;
         }
 
         public static string GetSafeFilename(string filename)
