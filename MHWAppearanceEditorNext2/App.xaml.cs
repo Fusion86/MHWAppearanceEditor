@@ -14,6 +14,7 @@ namespace MHWAppearanceEditorNext2
         public override void Initialize()
         {
             Locator.CurrentMutable.Register(() => new HomeTabView(), typeof(IViewFor<HomeTabViewModel>));
+            Locator.CurrentMutable.Register(() => new SaveSlotView(), typeof(IViewFor<SaveSlotViewModel>));
 
             AvaloniaXamlLoader.Load(this);
         }

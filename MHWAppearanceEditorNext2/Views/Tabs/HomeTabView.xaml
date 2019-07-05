@@ -33,10 +33,13 @@
                 <ListBox Name="SaveSlots" Grid.Row="1" Classes="NoStyle" Margin="10,0,10,0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="10">
-                                <TextBlock Text="{Binding HunterName}"/>
-                                <TextBlock Text="{Binding PlayTime}" Margin="10,0,0,0" Opacity="0.5"/>
-                            </StackPanel>
+                            <!-- Needs to be transparent for the cursor to work -->
+                            <Border Cursor="Hand" Background="Transparent">
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <TextBlock Text="{Binding HunterName}"/>
+                                    <TextBlock Text="{Binding PlayTime}" Margin="10,0,0,0" Opacity="0.5"/>
+                                </StackPanel>
+                            </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

@@ -27,6 +27,7 @@ namespace MHWAppearanceEditorNext2.ViewModels.Tabs
 
         public ReactiveCommand<Unit, Unit> LoadSteamAccountsCommand { get; }
         public ReactiveCommand<SteamAccount, SaveData> LoadSaveSlotsCommand { get; }
+        public ReactiveCommand<SaveSlotViewModel, Unit> OpenSlotCommand { get; }
 
         [Reactive] public SteamAccount SelectedAccount { get; set; }
 
@@ -43,8 +44,11 @@ namespace MHWAppearanceEditorNext2.ViewModels.Tabs
         private readonly SourceList<SteamAccount> steamAccounts = new SourceList<SteamAccount>();
         public IObservableCollection<SteamAccount> SteamAccountsBinding { get; } = new ObservableCollectionExtended<SteamAccount>();
 
-        public HomeTabViewModel()
+        private readonly MainWindowViewModel _parent;
+
+        public HomeTabViewModel(MainWindowViewModel parent)
         {
+            _parent = parent;
             Activator = new ViewModelActivator();
 
             steamAccounts.Connect()
@@ -54,6 +58,7 @@ namespace MHWAppearanceEditorNext2.ViewModels.Tabs
             LoadSteamAccountsCommand = ReactiveCommand.CreateFromTask(LoadSteamAccounts);
             LoadSaveSlotsCommand = ReactiveCommand.CreateFromObservable<SteamAccount, SaveData>(LoadSaveData);
             LoadSaveSlotsCommand.Subscribe(x => SelectedAccountSaveData = x);
+            OpenSlotCommand = ReactiveCommand.CreateFromObservable<SaveSlotViewModel, Unit>(x => _parent.OpenTabCommand.Execute(x));
 
             // Initialize data
             LoadSteamAccountsCommand.Execute().Subscribe();

@@ -10,10 +10,13 @@ namespace MHWAppearanceEditorNext2.Views
 {
     public class MainWindow : ReactiveWindow<MainWindowViewModel>
     {
+        public static MainWindow Instance { get; private set; }
+
         private TabControl MainTabControl => this.FindControl<TabControl>("MainTabControl");
 
         public MainWindow()
         {
+            Instance = this;
             InitializeComponent();
 
 #if DEBUG
@@ -24,6 +27,8 @@ namespace MHWAppearanceEditorNext2.Views
 
             this.WhenActivated(disposables =>
             {
+                this.Bind(ViewModel, vm => vm.SelectedTab, v => v.MainTabControl.SelectedItem).DisposeWith(disposables);
+
                 this.OneWayBind(ViewModel, vm => vm.OpenTabsBinding, v => v.MainTabControl.Items).DisposeWith(disposables);
             });
         }

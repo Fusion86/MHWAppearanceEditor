@@ -1,11 +1,15 @@
 ﻿using Cirilla.Core.Models;
+using MHWAppearanceEditorNext2.Interfaces;
 using Splat;
 using System;
 
-namespace MHWAppearanceEditorNext2.ViewModels
+namespace MHWAppearanceEditorNext2.ViewModels.Tabs
 {
-    public class SaveSlotViewModel : ViewModelBase, IEnableLogger
+    public class SaveSlotViewModel : ViewModelBase, ITabViewModel, IEnableLogger
     {
+        public string Name => HunterName;
+        public bool CanClose => true;
+
         private SaveSlot SaveSlot { get; }
 
         public SaveSlotViewModel(SaveSlot saveSlot)
@@ -31,5 +35,13 @@ namespace MHWAppearanceEditorNext2.ViewModels
         }
 
         public string PlayTime => "todo";
+
+        public override bool Equals(object obj)
+        {
+            if (obj is SaveSlotViewModel other)
+                return SaveSlot.Equals(other.SaveSlot);
+
+            return base.Equals(obj);
+        }
     }
 }

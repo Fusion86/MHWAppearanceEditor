@@ -79,6 +79,7 @@
                 <DataTemplate>
                     <rxui:ViewModelViewHost ViewModel="{Binding}" Background="White">
                         <rxui:ViewModelViewHost.PageTransition>
+                            <!-- TODO: Fully remove transition -->
                             <CrossFade Duration="0.01"/>
                         </rxui:ViewModelViewHost.PageTransition>
                     </rxui:ViewModelViewHost>

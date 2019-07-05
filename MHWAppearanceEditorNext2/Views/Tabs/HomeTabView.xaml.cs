@@ -5,6 +5,7 @@ using MHWAppearanceEditorNext2.ViewModels;
 using MHWAppearanceEditorNext2.ViewModels.Tabs;
 using ReactiveUI;
 using System.Reactive.Disposables;
+using System.Reactive.Linq;
 
 namespace MHWAppearanceEditorNext2.Views.Tabs
 {
@@ -33,14 +34,16 @@ namespace MHWAppearanceEditorNext2.Views.Tabs
             AvaloniaXamlLoader.Load(this);
         }
 
-        private void SaveSlots_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void SaveSlots_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
             {
                 var slotToOpen = e.AddedItems[0] as SaveSlotViewModel;
                 // Unselect item
                 SaveSlots.SelectedItem = null;
-                // TODO: Open new tab with editor for this saveslot
+
+                if (slotToOpen != null)
+                    await ViewModel.OpenSlotCommand.Execute(slotToOpen);
             }
         }
     }
