@@ -1,0 +1,19 @@
+﻿<Style xmlns="https://github.com/avaloniaui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       xmlns:sys="clr-namespace:System;assembly=netstandard">
+
+    <Style.Resources>
+        <Color x:Key="TextMainColor">#FF000000</Color>
+        <Color x:Key="ControlLightColor">#FFEEEEEE</Color>
+        <Color x:Key="ControlLightDarkColor">#FFE0E0E0</Color>
+        <!-- <Color x:Key="ControlActiveColor">#FF0078D7</Color>
+        <Color x:Key="ControlActiveDarkColor">#FF137AD1</Color> -->
+
+        <SolidColorBrush x:Key="TextMainBrush" Color="{DynamicResource TextMainColor}"></SolidColorBrush>
+        <SolidColorBrush x:Key="ControlLightBrush" Color="{DynamicResource ControlLightColor}"></SolidColorBrush>
+        <SolidColorBrush x:Key="ControlLightDarkBrush" Color="{DynamicResource ControlLightDarkColor}"></SolidColorBrush>
+        <!-- <SolidColorBrush x:Key="ControlActiveBrush" Color="{DynamicResource ControlActiveColor}"></SolidColorBrush>
+        <SolidColorBrush x:Key="ControlActiveDarkBrush" Color="{DynamicResource ControlActiveDarkColor}"></SolidColorBrush> -->
+    </Style.Resources>
+    
+</Style>
