@@ -22,7 +22,7 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
 
-                <TextBlock Grid.Row="2" Text="Manually select SaveData" Margin="10" HorizontalAlignment="Center" Opacity="0.5" Cursor="Hand"/>
+                <TextBlock Grid.Row="2" Text="Manually select SaveData" Margin="10" HorizontalAlignment="Center" Opacity="0.5"/>
             </Grid>
         </Border>
 
@@ -33,13 +33,10 @@
                 <ListBox Name="SaveSlots" Grid.Row="1" Classes="NoStyle" Margin="10,0,10,0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <!-- Needs to be transparent for the cursor to work -->
-                            <Border Cursor="Hand" Background="Transparent">
-                                <StackPanel Orientation="Horizontal" Margin="10">
-                                    <TextBlock Text="{Binding HunterName}"/>
-                                    <TextBlock Text="{Binding PlayTime}" Margin="10,0,0,0" Opacity="0.5"/>
-                                </StackPanel>
-                            </Border>
+                            <StackPanel Orientation="Horizontal" Margin="10">
+                                <TextBlock Text="{Binding HunterName}"/>
+                                <TextBlock Text="{Binding PlayTime}" Margin="10,0,0,0" Opacity="0.5"/>
+                            </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
