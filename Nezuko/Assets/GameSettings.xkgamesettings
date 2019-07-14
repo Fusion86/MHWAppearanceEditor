@@ -1,0 +1,62 @@
+!GameSettingsAsset
+Id: aed4d52b-3ab3-461f-917c-6e88dcc2db44
+SerializedVersion: {Xenko: 3.1.0.1}
+Tags: []
+DefaultScene: 63f93d9f-a772-4018-8c4b-3299ca454cfc:MainScene
+GraphicsCompositor: f936fa41-dc7d-46bf-8d4a-3fba076bd270:GraphicsCompositor
+Defaults:
+    - !Xenko.Audio.AudioEngineSettings,Xenko.Audio
+        HrtfSupport: false
+    - !Xenko.Assets.EditorSettings,Xenko.Assets
+        RenderingMode: HDR
+    - !Xenko.Navigation.NavigationSettings,Xenko.Navigation
+        EnableDynamicNavigationMesh: false
+        IncludedCollisionGroups: AllFilter
+        BuildSettings:
+            CellHeight: 0.2
+            CellSize: 0.3
+            TileSize: 32
+            MinRegionArea: 2
+            RegionMergeArea: 20
+            MaxEdgeLen: 12.0
+            MaxEdgeError: 1.3
+            DetailSamplingDistance: 6.0
+            MaxDetailSamplingError: 1.0
+        Groups:
+            -   Id: dd388b7a-2bfe-412f-97d0-b256396b8072
+                Name: New group
+                AgentSettings:
+                    Height: 1.0
+                    MaxClimb: 0.25
+                    MaxSlope: {Radians: 0.7853982}
+                    Radius: 0.5
+    - !Xenko.Physics.PhysicsSettings,Xenko.Physics
+        Flags: None
+        MaxSubSteps: 1
+        FixedTimeStep: 0.0166666675
+    - !Xenko.Graphics.RenderingSettings,Xenko.Graphics
+        DefaultBackBufferWidth: 1280
+        DefaultBackBufferHeight: 720
+        AdaptBackBufferToScreen: false
+        DefaultGraphicsProfile: Level_11_0
+        ColorSpace: Linear
+        DisplayOrientation: LandscapeRight
+    - !Xenko.Streaming.StreamingSettings,Xenko.Rendering
+        ManagerUpdatesInterval: 0:00:00:00.0330000
+        ResourceLiveTimeout: 0:00:00:08.0000000
+    - !Xenko.Assets.Textures.TextureSettings,Xenko.Assets
+        TextureQuality: Fast
+Overrides: []
+PlatformFilters:
+    - PowerVR SGX 54[0-9]
+    - Adreno \(TM\) 2[0-9][0-9]
+    - Adreno (TM) 320
+    - Adreno (TM) 330
+    - Adreno \(TM\) 4[0-9][0-9]
+    - NVIDIA Tegra
+    - Intel(R) HD Graphics
+    - ^Mali\-4
+    - ^Mali\-T6
+    - ^Mali\-T7
+SplashScreenTexture: null
+SplashScreenColor: {R: 0, G: 0, B: 0, A: 255}

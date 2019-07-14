@@ -7,9 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MHWAppearanceEditor", "MHWA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cirilla.Core", "Cirilla.Core\Cirilla.Core.csproj", "{7ED71961-026E-4E68-8FA0-A07619B7AC7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MHWAppearanceEditorNext", "MHWAppearanceEditorNext\MHWAppearanceEditorNext.csproj", "{C13476E4-E005-4733-9B73-C15E0ADC6BC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MHWAppearanceEditorNext", "MHWAppearanceEditorNext\MHWAppearanceEditorNext.csproj", "{1FE3114D-128C-4834-912A-31A1A1B0C67A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MHWAppearanceEditorNext2", "MHWAppearanceEditorNext2\MHWAppearanceEditorNext2.csproj", "{1FE3114D-128C-4834-912A-31A1A1B0C67A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nezuko", "Nezuko\Nezuko.csproj", "{6D9A6CB0-3C52-44FD-B92E-5055DBA5CEE3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nezuko.Windows", "Nezuko.Windows\Nezuko.Windows.csproj", "{4187BC9C-5E5E-4DE9-9BEF-7A05B78F93FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +27,18 @@ Global
 		{7ED71961-026E-4E68-8FA0-A07619B7AC7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7ED71961-026E-4E68-8FA0-A07619B7AC7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7ED71961-026E-4E68-8FA0-A07619B7AC7E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C13476E4-E005-4733-9B73-C15E0ADC6BC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C13476E4-E005-4733-9B73-C15E0ADC6BC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C13476E4-E005-4733-9B73-C15E0ADC6BC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C13476E4-E005-4733-9B73-C15E0ADC6BC3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1FE3114D-128C-4834-912A-31A1A1B0C67A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1FE3114D-128C-4834-912A-31A1A1B0C67A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FE3114D-128C-4834-912A-31A1A1B0C67A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FE3114D-128C-4834-912A-31A1A1B0C67A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D9A6CB0-3C52-44FD-B92E-5055DBA5CEE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D9A6CB0-3C52-44FD-B92E-5055DBA5CEE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D9A6CB0-3C52-44FD-B92E-5055DBA5CEE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D9A6CB0-3C52-44FD-B92E-5055DBA5CEE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4187BC9C-5E5E-4DE9-9BEF-7A05B78F93FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4187BC9C-5E5E-4DE9-9BEF-7A05B78F93FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4187BC9C-5E5E-4DE9-9BEF-7A05B78F93FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4187BC9C-5E5E-4DE9-9BEF-7A05B78F93FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

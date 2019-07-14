@@ -1,21 +1,14 @@
-<Application x:Class="MHWAppearanceEditorNext.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:MHWAppearanceEditorNext" StartupUri="MainWindow.xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" d1p1:Ignorable="d" xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
-    <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <!--  FluentWPF Controls  -->
-                <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Controls.xaml"/>
+﻿<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MHWAppearanceEditorNext"
+             x:Class="MHWAppearanceEditorNext.App">
+    
+    <Application.Styles>
+        <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>
+        <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/>
 
-                <ResourceDictionary Source="ResourceDictionaries/DarkTheme.xaml"/>
-
-                <ResourceDictionary Source="ResourceDictionaries/Button.xaml"/>
-                <ResourceDictionary Source="ResourceDictionaries/ComboBox.xaml"/>
-                <ResourceDictionary Source="ResourceDictionaries/Menu.xaml"/>
-                <ResourceDictionary Source="ResourceDictionaries/TabControl.xaml"/>
-                <ResourceDictionary Source="ResourceDictionaries/TextBlock.xaml"/>
-                <ResourceDictionary Source="ResourceDictionaries/TextBox.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-
-            <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:MHWAppearanceEditorNext.ViewModels"/>
-        </ResourceDictionary>
-    </Application.Resources>
+        <StyleInclude Source="avares://MHWAppearanceEditorNext/Styles/Themes/Light.xaml"/>
+        <StyleInclude Source="avares://MHWAppearanceEditorNext/Styles/ListBox.xaml"/>
+        <StyleInclude Source="avares://MHWAppearanceEditorNext/Styles/TabControl.xaml"/>
+    </Application.Styles>
 </Application>

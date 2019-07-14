@@ -1,0 +1,92 @@
+!SceneAsset
+Id: 63f93d9f-a772-4018-8c4b-3299ca454cfc
+SerializedVersion: {Xenko: 3.1.0.1}
+Tags: []
+ChildrenIds: []
+Offset: {X: 0.0, Y: 0.0, Z: 0.0}
+Hierarchy:
+    RootParts:
+        - ref!! 7dcb8ad2-3af9-4886-8208-ba3d8a13f01e
+        - ref!! fa6624ce-2e16-437d-ae47-ccd5565a3a04
+        - ref!! 1800e91d-761a-435a-9f57-0b46e3fbf82f
+        - ref!! 5d27cd38-578d-412d-ad4f-e2d9e88a4168
+    Parts:
+        -   Entity:
+                Id: 1800e91d-761a-435a-9f57-0b46e3fbf82f
+                Name: Skybox
+                Components:
+                    e6be79db099730c5f9b1c853c140ae8c: !TransformComponent
+                        Id: 8f50ac99-5f7b-4194-8ba2-d30a93b000a9
+                        Position: {X: 0.0, Y: 2.0, Z: -2.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    9b8326d146819807e6ef8c27d8276dc1: !BackgroundComponent
+                        Id: 0991a714-d946-490b-8db1-78a58fdde4bc
+                        Texture: 84c9308a-26d8-43a5-8209-0f89d1d82c3b:Skybox texture
+                    3149b63eccdc68bf84b4f1bdd2b2c284: !LightComponent
+                        Id: 9368c1ef-a0ee-4f7e-a187-c31132e80e0f
+                        Type: !LightSkybox
+                            Skybox: 00e5694b-b72f-44ff-8a7d-6aef54f7dbf6:Skybox
+        -   Entity:
+                Id: 5d27cd38-578d-412d-ad4f-e2d9e88a4168
+                Name: HunterAppearance
+                Components:
+                    d7ac614a4e3ecd9d2ff9b9226fea7061: !TransformComponent
+                        Id: 1b7095a6-85f4-4751-ac9b-12749be88c5c
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    7f8531bac4473879a6a11f2d0b59dfb5: !Nezuko.HunterAppearance,Nezuko
+                        Id: 8c2b7b2e-a60a-46ea-afb8-a569dd2fa050
+                        HairType: 0
+        -   Entity:
+                Id: 7dcb8ad2-3af9-4886-8208-ba3d8a13f01e
+                Name: Camera
+                Components:
+                    7ea350915333f9098294cd479f333d7c: !TransformComponent
+                        Id: f7c7a038-2e49-463f-945e-8a207d732794
+                        Position: {X: 2.6, Y: 0.6, Z: -1.0}
+                        Rotation: {X: 0.0, Y: 0.829037547, Z: 0.0, W: 0.5591929}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    4a970702a1f767910c78054017c48e66: !CameraComponent
+                        Id: 232a3da8-e5df-483a-8657-a64149f22955
+                        Name: null
+                        Projection: Perspective
+                        Slot: 7826c5fc-dd5d-4415-ac4a-dce85b3a396b
+                    a1aaed032eb14e096d111284abcac7ed: !Nezuko.BasicCameraController,Nezuko
+                        Id: 829b208d-0481-4c13-90f5-58aaf85c7718
+                        Gamepad: false
+                        KeyboardMovementSpeed: {X: 5.0, Y: 5.0, Z: 5.0}
+                        TouchMovementSpeed: {X: 0.7, Y: 0.7, Z: 0.3}
+                        SpeedFactor: 5.0
+                        KeyboardRotationSpeed: {X: 3.0, Y: 3.0}
+                        MouseRotationSpeed: {X: 1.0, Y: 1.0}
+                        TouchRotationSpeed: {X: 1.0, Y: 0.7}
+        -   Entity:
+                Id: fa6624ce-2e16-437d-ae47-ccd5565a3a04
+                Name: Directional light
+                Components:
+                    578af805a9180a635c0c5315e60965e3: !TransformComponent
+                        Id: beee99cf-4766-4dc2-801f-6b5cf1b28613
+                        Position: {X: 0.0, Y: 2.0, Z: 0.0}
+                        Rotation: {X: 1.131334E-08, Y: -0.9659258, Z: -0.258819044, W: -4.222196E-08}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    b7634455fb5f03b678cf5f9760292423: !LightComponent
+                        Id: 728128f1-7776-41a4-9ec6-2579c355f96d
+                        Type: !LightDirectional
+                            Color: !ColorRgbProvider
+                                Value: {R: 1.0, G: 1.0, B: 1.0}
+                            Shadow:
+                                Enabled: true
+                                Filter: !LightShadowMapFilterTypePcf
+                                    FilterSize: Filter5x5
+                                Size: Large
+                                DepthRange: {}
+                                PartitionMode: !LightDirectionalShadowMap.PartitionLogarithmic {}
+                                ComputeTransmittance: false
+                                BiasParameters: {}
+                        Intensity: 20.0

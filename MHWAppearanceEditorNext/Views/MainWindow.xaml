@@ -1,0 +1,90 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:MHWAppearanceEditorNext.ViewModels;assembly=MHWAppearanceEditorNext"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:rxui="http://reactiveui.net"
+        x:Class="MHWAppearanceEditorNext.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="MHWAppearanceEditor"
+        Width="600" Height="400">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Open manually"/>
+                <MenuItem Header="Save as"/>
+                <Separator/>
+                <MenuItem Header="Import NPC Character Preset (.cmp)"/>
+                <MenuItem Header="Export NPC Character Preset (.cmp)"/>
+                <Separator/>
+                <MenuItem Header="Import Character Appearance (.json)"/>
+                <MenuItem Header="Export Character Appearance (.json)"/>
+                <Separator/>
+                <MenuItem Header="Close all tabs"/>
+            </MenuItem>
+
+            <MenuItem Header="Other">
+                <MenuItem Header="Open help in browser"/>
+            </MenuItem>
+        </Menu>        
+        
+        <TabControl Name="MainTabControl" Background="{DynamicResource ControlLightBrush}">
+            <TabControl.Styles>
+                <Style Selector="TabControl">
+                    <Setter Property="Template">
+                        <ControlTemplate>
+                            <Border
+                                Margin="{TemplateBinding Margin}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                                <DockPanel>
+                                    <ItemsPresenter
+                                        Name="PART_ItemsPresenter"
+                                        Items="{TemplateBinding Items}"
+                                        ItemsPanel="{TemplateBinding ItemsPanel}"
+                                        ItemTemplate="{TemplateBinding ItemTemplate}"
+                                        MemberSelector="{TemplateBinding MemberSelector}">
+                                    </ItemsPresenter>
+                                    <!-- We only changed the margin -->
+                                    <ContentPresenter
+                                        Name="PART_SelectedContentHost"
+                                        Margin="0"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        Content="{TemplateBinding SelectedContent}"
+                                        ContentTemplate="{TemplateBinding SelectedContentTemplate}">
+                                    </ContentPresenter>
+                                </DockPanel>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter>
+                </Style>
+            </TabControl.Styles>
+
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <rxui:ViewModelViewHost ViewModel="{Binding}" Background="White">
+                        <rxui:ViewModelViewHost.PageTransition>
+                            <!-- TODO: Fully remove transition -->
+                            <CrossFade Duration="0.01"/>
+                        </rxui:ViewModelViewHost.PageTransition>
+                    </rxui:ViewModelViewHost>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+    </DockPanel>
+</Window>
