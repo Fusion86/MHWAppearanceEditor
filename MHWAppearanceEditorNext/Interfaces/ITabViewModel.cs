@@ -1,4 +1,4 @@
-﻿namespace MHWAppearanceEditorNext2.Interfaces
+﻿namespace MHWAppearanceEditorNext.Interfaces
 {
     public interface ITabViewModel
     {

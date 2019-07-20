@@ -1,13 +1,13 @@
 ﻿using DynamicData;
 using DynamicData.Binding;
-using MHWAppearanceEditorNext2.Interfaces;
-using MHWAppearanceEditorNext2.ViewModels.Tabs;
+using MHWAppearanceEditorNext.Interfaces;
+using MHWAppearanceEditorNext.ViewModels.Tabs;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Reactive;
 
-namespace MHWAppearanceEditorNext2.ViewModels
+namespace MHWAppearanceEditorNext.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {

@@ -1,9 +1,9 @@
 ﻿using Cirilla.Core.Models;
 using DynamicData;
 using DynamicData.Binding;
-using MHWAppearanceEditorNext2.Helpers;
-using MHWAppearanceEditorNext2.Interfaces;
-using MHWAppearanceEditorNext2.Models;
+using MHWAppearanceEditorNext.Helpers;
+using MHWAppearanceEditorNext.Interfaces;
+using MHWAppearanceEditorNext.Models;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Splat;
@@ -16,7 +16,7 @@ using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 
-namespace MHWAppearanceEditorNext2.ViewModels.Tabs
+namespace MHWAppearanceEditorNext.ViewModels.Tabs
 {
     public class HomeTabViewModel : ViewModelBase, ITabViewModel, ISupportsActivation, IEnableLogger
     {

@@ -1,8 +1,8 @@
 ﻿using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
-using MHWAppearanceEditorNext2.ViewModels.Tabs;
+using MHWAppearanceEditorNext.ViewModels.Tabs;
 
-namespace MHWAppearanceEditorNext2.Views.Tabs
+namespace MHWAppearanceEditorNext.Views.Tabs
 {
     public class SaveSlotView : ReactiveUserControl<SaveSlotViewModel>
     {

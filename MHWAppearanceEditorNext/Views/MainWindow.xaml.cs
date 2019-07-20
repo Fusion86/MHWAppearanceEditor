@@ -2,11 +2,11 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
-using MHWAppearanceEditorNext2.ViewModels;
+using MHWAppearanceEditorNext.ViewModels;
 using ReactiveUI;
 using System.Reactive.Disposables;
 
-namespace MHWAppearanceEditorNext2.Views
+namespace MHWAppearanceEditorNext.Views
 {
     public class MainWindow : ReactiveWindow<MainWindowViewModel>
     {

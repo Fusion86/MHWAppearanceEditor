@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ReactiveUI;
 
-namespace MHWAppearanceEditorNext2.ViewModels
+namespace MHWAppearanceEditorNext.ViewModels
 {
     public class ViewModelBase : ReactiveObject
     {

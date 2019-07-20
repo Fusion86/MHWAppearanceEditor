@@ -1,4 +1,4 @@
-﻿namespace MHWAppearanceEditorNext2.Models
+﻿namespace MHWAppearanceEditorNext.Models
 {
     public class SteamAccount
     {

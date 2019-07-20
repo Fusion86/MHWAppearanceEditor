@@ -2,7 +2,7 @@
 using Avalonia.Logging.Serilog;
 using Avalonia.ReactiveUI;
 
-namespace MHWAppearanceEditorNext2
+namespace MHWAppearanceEditorNext
 {
     class Program
     {

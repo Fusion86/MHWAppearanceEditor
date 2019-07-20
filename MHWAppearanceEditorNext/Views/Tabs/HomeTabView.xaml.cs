@@ -1,13 +1,13 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
-using MHWAppearanceEditorNext2.ViewModels;
-using MHWAppearanceEditorNext2.ViewModels.Tabs;
+using MHWAppearanceEditorNext.ViewModels;
+using MHWAppearanceEditorNext.ViewModels.Tabs;
 using ReactiveUI;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 
-namespace MHWAppearanceEditorNext2.Views.Tabs
+namespace MHWAppearanceEditorNext.Views.Tabs
 {
     public class HomeTabView : ReactiveUserControl<HomeTabViewModel>
     {

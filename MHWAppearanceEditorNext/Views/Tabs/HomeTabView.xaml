@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:sys="clr-namespace:System;assembly=netstandard"
              mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
-             x:Class="MHWAppearanceEditorNext2.Views.Tabs.HomeTabView">
+             x:Class="MHWAppearanceEditorNext.Views.Tabs.HomeTabView">
 
     <Grid Width="400" Height="260" ColumnDefinitions="*,2,*">
         <Border Grid.Column="0" Background="{DynamicResource ControlLightBrush}">

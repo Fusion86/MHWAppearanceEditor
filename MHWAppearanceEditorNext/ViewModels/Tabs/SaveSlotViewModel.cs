@@ -1,9 +1,9 @@
 ﻿using Cirilla.Core.Models;
-using MHWAppearanceEditorNext2.Interfaces;
+using MHWAppearanceEditorNext.Interfaces;
 using Splat;
 using System;
 
-namespace MHWAppearanceEditorNext2.ViewModels.Tabs
+namespace MHWAppearanceEditorNext.ViewModels.Tabs
 {
     public class SaveSlotViewModel : ViewModelBase, ITabViewModel, IEnableLogger
     {

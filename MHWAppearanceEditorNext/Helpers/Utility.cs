@@ -1,12 +1,12 @@
 ﻿using Gameloop.Vdf;
-using MHWAppearanceEditorNext2.Models;
+using MHWAppearanceEditorNext.Models;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace MHWAppearanceEditorNext2.Helpers
+namespace MHWAppearanceEditorNext.Helpers
 {
     public static class Utility
     {
