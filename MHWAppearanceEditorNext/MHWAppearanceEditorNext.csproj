@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFrameworks>netcoreapp2.1;net461</TargetFrameworks>
@@ -41,7 +41,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\MonoGame\MonoGame.Framework\MonoGame.Framework.DesktopGL.csproj" />
     <ProjectReference Include="..\Cirilla.Core\Cirilla.Core.csproj" />
+    <ProjectReference Include="..\Nezuko\Nezuko.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Styles\ListBox.xaml">
