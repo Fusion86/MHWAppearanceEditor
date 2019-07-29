@@ -33,7 +33,7 @@ namespace MHWAppearanceEditorNext.ViewModels
                 .Bind(OpenTabsBinding)
                 .Subscribe();
 
-            openTabs.Add(new HomeTabViewModel(this));
+            openTabs.Add(new HomeViewModel(this));
 
             OpenTabCommand = ReactiveCommand.Create<ITabViewModel, Unit>(OpenTab);
         }

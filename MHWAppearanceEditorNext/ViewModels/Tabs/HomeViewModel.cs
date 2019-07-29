@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace MHWAppearanceEditorNext.ViewModels.Tabs
 {
-    public class HomeTabViewModel : ViewModelBase, ITabViewModel, ISupportsActivation, IEnableLogger
+    public class HomeViewModel : ViewModelBase, ITabViewModel, ISupportsActivation, IEnableLogger
     {
         public string Name => "Home";
         public bool CanClose => false;
@@ -46,7 +46,7 @@ namespace MHWAppearanceEditorNext.ViewModels.Tabs
 
         private readonly MainWindowViewModel _parent;
 
-        public HomeTabViewModel(MainWindowViewModel parent)
+        public HomeViewModel(MainWindowViewModel parent)
         {
             _parent = parent;
             Activator = new ViewModelActivator();

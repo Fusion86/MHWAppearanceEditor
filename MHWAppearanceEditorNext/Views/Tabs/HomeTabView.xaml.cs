@@ -9,7 +9,7 @@ using System.Reactive.Linq;
 
 namespace MHWAppearanceEditorNext.Views.Tabs
 {
-    public class HomeTabView : ReactiveUserControl<HomeTabViewModel>
+    public class HomeTabView : ReactiveUserControl<HomeViewModel>
     {
         private ListBox SteamAccounts => this.FindControl<ListBox>("SteamAccounts");
         private ListBox SaveSlots => this.FindControl<ListBox>("SaveSlots");

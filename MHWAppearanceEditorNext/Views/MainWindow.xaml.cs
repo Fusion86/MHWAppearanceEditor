@@ -23,7 +23,7 @@ namespace MHWAppearanceEditorNext.Views
             this.AttachDevTools();
 #endif
 
-            ViewModel = new MainWindowViewModel();
+            DataContext = new MainWindowViewModel();
 
             this.WhenActivated(disposables =>
             {
