@@ -1,0 +1,57 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:MHWAppearanceEditor.ViewModels;assembly=MHWAppearanceEditor"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:rxui="http://reactiveui.net"
+        xmlns:views="clr-namespace:MHWAppearanceEditor.Views"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400"
+        x:Class="MHWAppearanceEditor.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="MHWAppearanceEditor"
+        Width="800" Height="500"
+        MinWidth="500" MinHeight="400">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <DockPanel>
+        <Border DockPanel.Dock="Bottom" Background="{DynamicResource ThemeAccentBrush2}">
+            <Grid RowDefinitions="24, *">
+                <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
+                    <StackPanel Grid.Column="0" Margin="5,4,5,4">
+                        <TextBlock Text="{Binding MostRecentEventMessage}"/>
+                    </StackPanel>
+
+                    <Button Grid.Row="0" Grid.Column="2" Classes="Lookless" ToolTip.Tip="Open log panel" Command="{Binding ToggleShowLog}">
+                        <Grid Margin="7">
+                            <DrawingPresenter Drawing="{DynamicResource IconList}" Stretch="UniformToFill"/>
+                        </Grid>
+                    </Button>
+                </Grid>
+
+                <DataGrid Name="LogDataGrid" Grid.Row="1" Background="{DynamicResource FusionDarkSlateBrush}" IsVisible="{Binding ShowLog}"
+                          RowBackground="{DynamicResource FusionDarkSlateBrush}" AlternatingRowBackground="{DynamicResource FusionDarkSlateBrush}">
+                    <DataGrid.Styles>
+                        <Style Selector="DataGridRow /template/ Rectangle#BackgroundRectangle">
+                            <Setter Property="Fill" Value="{DynamicResource FusionBackground2Brush}"/>
+                        </Style>
+                    </DataGrid.Styles>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Level" Binding="{Binding Level}"/>
+                        <DataGridTextColumn Header="Message" Binding="{Binding MessageTemplate.Text}" Width="*"/>
+                        <!--<DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp}"/>-->
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+
+        <rxui:ViewModelViewHost ViewModel="{Binding ActiveViewModel}">
+            <rxui:ViewModelViewHost.PageTransition>
+                <CrossFade Duration="0.001"/>
+            </rxui:ViewModelViewHost.PageTransition>
+        </rxui:ViewModelViewHost>
+    </DockPanel>
+</Window>

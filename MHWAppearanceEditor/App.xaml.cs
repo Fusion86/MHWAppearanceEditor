@@ -1,28 +1,57 @@
-﻿using ICSharpCode.AvalonEdit.Highlighting;
-using ICSharpCode.AvalonEdit.Highlighting.Xshd;
-using System.IO;
+﻿using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Markup.Xaml;
+using MHWAppearanceEditor.ViewModels;
+using MHWAppearanceEditor.ViewModels.SaveSlotEditors;
+using MHWAppearanceEditor.ViewModels.Tabs;
+using MHWAppearanceEditor.Views;
+using MHWAppearanceEditor.Views.SaveSlotEditors;
+using MHWAppearanceEditor.Views.Tabs;
+using ReactiveUI;
+using Serilog;
+using Splat;
 using System.Reflection;
-using System.Windows;
-using System.Xml;
 
 namespace MHWAppearanceEditor
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    public class App : Application
     {
-        public App()
+        public override void Initialize()
         {
-            var names = Assembly.GetExecutingAssembly().GetManifestResourceNames();
+            InitializeLogging();
 
-            using (Stream s = Assembly.GetExecutingAssembly().GetManifestResourceStream("MHWAppearanceEditor.SyntaxHighlighting.JSON.xshd"))
-            {
-                using (XmlTextReader reader = new XmlTextReader(s))
-                {
-                    HighlightingManager.Instance.RegisterHighlighting("JSON", new string[0], HighlightingLoader.Load(reader, HighlightingManager.Instance));
-                }
-            }
+            Locator.CurrentMutable.Register(() => new StartScreenView(), typeof(IViewFor<StartScreenViewModel>));
+            Locator.CurrentMutable.Register(() => new SaveDataView(), typeof(IViewFor<SaveDataViewModel>));
+            Locator.CurrentMutable.Register(() => new ExceptionView(), typeof(IViewFor<ExceptionViewModel>));
+
+            // Tabs
+            Locator.CurrentMutable.Register(() => new SaveDataInfoView(), typeof(IViewFor<SaveDataInfoViewModel>));
+            Locator.CurrentMutable.Register(() => new SaveSlotView(), typeof(IViewFor<SaveSlotViewModel>));
+
+            // SaveSlotEditors
+            Locator.CurrentMutable.Register(() => new SaveSlotInfoView(), typeof(IViewFor<SaveSlotInfoViewModel>));
+            Locator.CurrentMutable.Register(() => new SaveSlotFaceView(), typeof(IViewFor<SaveSlotFaceViewModel>));
+
+            Log.Information("MHWAppearanceEditor v" + Assembly.GetExecutingAssembly().GetName().Version);
+            Log.Information("Cirilla.Core v" + Assembly.GetAssembly(typeof(Cirilla.Core.Models.GMD)).GetName().Version);
+
+            AvaloniaXamlLoader.Load(this);
+        }
+
+        public override void OnFrameworkInitializationCompleted()
+        {
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+                desktop.MainWindow = new MainWindow { DataContext = new MainWindowViewModel() };
+
+            base.OnFrameworkInitializationCompleted();
+        }
+
+        private void InitializeLogging()
+        {
+            var logger = new LoggerConfiguration()
+                .WriteTo.Sink(LogSink.AppLogger)
+                .CreateLogger();
+            Log.Logger = logger;
         }
     }
 }

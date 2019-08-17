@@ -1,0 +1,45 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style Selector="ListBox.FusionListBox">
+        <Setter Property="Height" Value="26"/>
+        <Setter Property="Padding" Value="0"/>
+        
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <ItemsPresenter Name="PART_ItemsPresenter"
+                        Items="{TemplateBinding Items}"
+                        ItemsPanel="{TemplateBinding ItemsPanel}"
+                        ItemTemplate="{TemplateBinding ItemTemplate}"
+                        Margin="{TemplateBinding Padding}"
+                        VirtualizationMode="{TemplateBinding VirtualizationMode}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" VerticalAlignment="Center" Margin="10,0,10,0"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style Selector="ListBox.FusionListBox > ListBoxItem">
+        <Setter Property="Background" Value="{DynamicResource FusionDarkSlate2Brush}"/>
+    </Style>
+
+    <Style Selector="ListBox.FusionListBox > ListBoxItem:selected > ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource ThemeAccentBrush}"/>
+    </Style>
+</Styles>

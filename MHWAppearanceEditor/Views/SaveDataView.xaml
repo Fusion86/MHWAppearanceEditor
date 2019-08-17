@@ -1,0 +1,98 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:tabvm="clr-namespace:MHWAppearanceEditor.ViewModels.Tabs"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MHWAppearanceEditor.Views.SaveDataView">
+
+    <Grid>
+        <Grid IsVisible="{Binding IsLoading}">
+            <TextBlock Text="Loading..." VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="32"/>
+        </Grid>
+        
+        <TabControl Name="TabControl" IsVisible="{Binding IsNotLoading}">
+            <TabControl.Styles>
+                <Style Selector="TabItem">
+                    <Setter Property="Padding" Value="0"/>
+                </Style>
+
+                <Style Selector="TabItem:selected">
+                    <Setter Property="Background" Value="{DynamicResource FusionBackgroundBrush}"/>
+                </Style>
+
+                <Style Selector="TabItem:pointerover">
+                    <Setter Property="Background" Value="{DynamicResource FusionBackground2Brush}"/>
+                </Style>
+
+                <Style Selector="TabItem:pointerover:selected">
+                    <Setter Property="Background" Value="{DynamicResource FusionBackgroundBrush}"/>
+                </Style>
+
+                <Style Selector="TabItem > Grid > Rectangle">
+                    <Setter Property="IsVisible" Value="False"/>
+                </Style>
+
+                <Style Selector="TabItem:selected > Grid > Rectangle">
+                    <Setter Property="IsVisible" Value="True"/>
+                </Style>
+            </TabControl.Styles>
+
+            <TabControl.Template>
+                <ControlTemplate>
+                    <Border
+                        Margin="{TemplateBinding Margin}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Background="{TemplateBinding Background}"
+                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                        <DockPanel>
+                            <WrapPanel DockPanel.Dock="Top">
+                                <Button Width="42" Height="42" Padding="9" Classes="Lookless" Command="{Binding OpenNewCommand}"
+                                        ToolTip.Tip="Open new SaveData file (closes currently opened file without saving)">
+                                    <DrawingPresenter Drawing="{DynamicResource IconNewFolder}" Classes="Lookless"/>
+                                </Button>
+
+                                <Button Width="42" Height="42" Padding="11" Classes="Lookless" Command="{Binding SaveCommand}"
+                                        ToolTip.Tip="Save changes (opens 'Save as' dialog)">
+                                    <DrawingPresenter Drawing="{DynamicResource IconSave}"/>
+                                </Button>
+
+                                <ItemsPresenter
+                                    Name="PART_ItemsPresenter"
+                                    Items="{TemplateBinding Items}"
+                                    ItemsPanel="{TemplateBinding ItemsPanel}"
+                                    ItemTemplate="{TemplateBinding ItemTemplate}">
+                                </ItemsPresenter>
+                            </WrapPanel>
+
+                            <ContentPresenter
+                                Name="PART_SelectedContentHost"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding SelectedContent}"
+                                ContentTemplate="{TemplateBinding SelectedContentTemplate}">
+                            </ContentPresenter>
+                        </DockPanel>
+                    </Border>
+                </ControlTemplate>
+            </TabControl.Template>
+
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid ToolTip.Tip="{Binding ToolTipText}">
+                        <Rectangle Height="3" Fill="{DynamicResource ThemeAccentBrush}" VerticalAlignment="Top"/>
+                        <TextBlock Text="{Binding Title}" VerticalAlignment="Center" Margin="10"/>
+                    </Grid>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <ContentControl Content="{Binding}" Background="{DynamicResource FusionBackgroundBrush}"/>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+    </Grid>
+</UserControl>

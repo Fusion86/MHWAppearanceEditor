@@ -1,0 +1,20 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MHWAppearanceEditor.Views.ExceptionView">
+
+    <Border MaxWidth="600" MaxHeight="300" Background="{DynamicResource FusionBackgroundBrush}">
+        <Grid RowDefinitions="Auto, *, Auto" Margin="10">
+            <TextBlock Grid.Row="0" Text="{Binding Message}" HorizontalAlignment="Center"/>
+
+            <Border Grid.Row="1" Background="{DynamicResource FusionBackground2Brush}" Margin="0,10,0,5">
+                <TextBox Text="{Binding ExceptionBody}" BorderThickness="0" Background="Transparent" IsReadOnly="True"
+                         ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+            </Border>
+
+            <Button Grid.Row="2" Content="Go back to the start screen" Command="{Binding BackToStartScreenCommand}"/>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,84 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MHWAppearanceEditor.Views.Tabs.SaveSlotView">
+
+    <TabControl Name="TabControl">
+        <TabControl.Styles>
+            <Style Selector="TabItem">
+                <Setter Property="Padding" Value="0"/>
+            </Style>
+
+            <Style Selector="TabItem:selected">
+                <Setter Property="Background" Value="Transparent"/>
+            </Style>
+
+            <Style Selector="TabItem:pointerover">
+                <Setter Property="Background" Value="Transparent"/>
+            </Style>
+
+            <Style Selector="TabItem:pointerover:selected">
+                <Setter Property="Background" Value="Transparent"/>
+            </Style>
+
+            <Style Selector="TabItem > Grid > Rectangle">
+                <Setter Property="Fill" Value="{DynamicResource FusionDarkSlateBrush}"/>
+            </Style>
+
+            <Style Selector="TabItem:selected > Grid > Rectangle">
+                <Setter Property="Fill" Value="{DynamicResource ThemeAccentBrush}"/>
+            </Style>
+        </TabControl.Styles>
+
+        <TabControl.Template>
+            <ControlTemplate>
+                <Border
+                    Margin="{TemplateBinding Margin}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Background="{TemplateBinding Background}"
+                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                    VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                    <DockPanel>
+                        <Grid DockPanel.Dock="Top">
+                            <Rectangle Height="3" VerticalAlignment="Bottom" Fill="{DynamicResource FusionDarkSlateBrush}"/>
+                            <ItemsPresenter
+                                Name="PART_ItemsPresenter"
+                                Items="{TemplateBinding Items}"
+                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                ItemTemplate="{TemplateBinding ItemTemplate}">
+                            </ItemsPresenter>
+                        </Grid>
+
+                        <ScrollViewer>
+                            <ContentPresenter
+                                Name="PART_SelectedContentHost"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding SelectedContent}"
+                                ContentTemplate="{TemplateBinding SelectedContentTemplate}">
+                            </ContentPresenter>
+                        </ScrollViewer>
+                    </DockPanel>
+                </Border>
+            </ControlTemplate>
+        </TabControl.Template>
+
+        <TabControl.ItemTemplate>
+            <DataTemplate>
+                <Grid>
+                    <Rectangle Height="3" VerticalAlignment="Bottom"/>
+                    <TextBlock Text="{Binding Title}" VerticalAlignment="Center" Margin="10"/>
+                </Grid>
+            </DataTemplate>
+        </TabControl.ItemTemplate>
+
+        <TabControl.ContentTemplate>
+            <DataTemplate>
+                <ContentControl Content="{Binding}" Background="{DynamicResource FusionBackgroundBrush}"/>
+            </DataTemplate>
+        </TabControl.ContentTemplate>
+    </TabControl>
+</UserControl>

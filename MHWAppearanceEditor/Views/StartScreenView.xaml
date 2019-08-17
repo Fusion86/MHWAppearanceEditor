@@ -1,0 +1,35 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MHWAppearanceEditor.Views.StartScreenView">
+
+    <StackPanel Background="{DynamicResource FusionBackgroundBrush}" Width="300" VerticalAlignment="Center">
+        <TextBlock Text="Select a Steam Account" Margin="10" HorizontalAlignment="Center"/>
+
+        <ItemsControl Name="SteamAccounts" Background="Transparent" BorderThickness="0" Margin="10,0">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <!--<Border Background="{DynamicResource FusionDarkSlate2Brush}" Cursor="Hand">
+                        <StackPanel Margin="10">
+                            <TextBlock Text="{Binding PersonaName}"/>
+                            <TextBlock Text="{Binding AccountName}" Opacity="0.5"/>
+                        </StackPanel>
+                    </Border>-->
+
+                    <Button Background="{DynamicResource FusionDarkSlate2Brush}" HorizontalContentAlignment="Stretch"
+                            Command="{Binding $parent[UserControl].DataContext.OpenSteamAccountCommand}"
+                            CommandParameter="{Binding}">
+                        <StackPanel Margin="10">
+                            <TextBlock Text="{Binding PersonaName}"/>
+                            <TextBlock Text="{Binding AccountName}" Opacity="0.5"/>
+                        </StackPanel>
+                    </Button>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <Button Content="Manually select SaveData" Margin="10" Classes="Lookless" Opacity="0.5" Command="{Binding OpenFileCommand}"/>
+    </StackPanel>
+</UserControl>

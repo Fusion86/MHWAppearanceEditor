@@ -1,9 +1,17 @@
-﻿<Application x:Class="MHWAppearanceEditor.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:MHWAppearanceEditor"
-             StartupUri="MainWindow.xaml">
-    <Application.Resources>
-         
-    </Application.Resources>
+             x:Class="MHWAppearanceEditor.App">
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Default.xaml"/>
+        <StyleInclude Source="avares://MHWAppearanceEditor/Styles/Themes/CadetDark.xaml"/>
+        <StyleInclude Source="avares://MHWAppearanceEditor/Styles/Button.xaml"/>
+        <StyleInclude Source="avares://MHWAppearanceEditor/Styles/Icons.xaml"/>
+        <StyleInclude Source="avares://MHWAppearanceEditor/Styles/ListBox.xaml"/>
+    </Application.Styles>
 </Application>

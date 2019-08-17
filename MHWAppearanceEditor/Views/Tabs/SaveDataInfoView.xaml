@@ -1,0 +1,21 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MHWAppearanceEditor.Views.Tabs.SaveDataInfoView">
+
+    <Grid Margin="20" ColumnDefinitions="Auto, 10, *" RowDefinitions="Auto, 5, Auto, 5, Auto, 5, Auto">
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Open file" VerticalAlignment="Center" TextAlignment="Right"/>
+        <TextBox Grid.Column="2" Grid.Row="0" Text="{Binding FilePath}" IsReadOnly="True"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="SteamID" VerticalAlignment="Center" TextAlignment="Right"/>
+        <TextBox Grid.Column="2" Grid.Row="2" Text="{Binding SteamId}" IsReadOnly="True"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="Checksum" VerticalAlignment="Center" TextAlignment="Right"/>
+        <TextBox Grid.Column="2" Grid.Row="4" Text="{Binding Checksum}" IsReadOnly="True"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="6" Text="Generated checksum" VerticalAlignment="Center" TextAlignment="Right"/>
+        <TextBox Grid.Column="2" Grid.Row="6" Text="{Binding GeneratedChecksum}" IsReadOnly="True"/>
+    </Grid>
+</UserControl>

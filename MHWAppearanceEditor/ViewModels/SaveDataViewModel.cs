@@ -1,0 +1,104 @@
+﻿using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Threading;
+using Cirilla.Core.Models;
+using DynamicData;
+using DynamicData.Binding;
+using MHWAppearanceEditor.Helpers;
+using MHWAppearanceEditor.Models;
+using MHWAppearanceEditor.ViewModels.Tabs;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
+using Serilog;
+using System;
+using System.IO;
+using System.Linq;
+using System.Reactive;
+using System.Threading.Tasks;
+
+namespace MHWAppearanceEditor.ViewModels
+{
+    public class SaveDataViewModel : ViewModelBase
+    {
+        public ReactiveCommand<Unit, Unit> OpenNewCommand { get; }
+        public ReactiveCommand<Unit, Unit> SaveCommand { get; }
+
+        public SteamAccount SteamAccount { get; set; }
+        [Reactive] public bool IsLoading { get; private set; } = true;
+        [ObservableAsProperty] public bool IsNotLoading { get; } // Needed for XAML binding
+
+        private readonly SourceList<object> tabs = new SourceList<object>();
+        public IObservableCollection<object> TabsBinding { get; } = new ObservableCollectionExtended<object>();
+
+        private SaveData SaveData;
+
+        public SaveDataViewModel(string saveDataPath)
+        {
+            tabs.Connect()
+                .Bind(TabsBinding)
+                .Subscribe();
+
+            OpenNewCommand = ReactiveCommand.Create(OpenNew);
+            SaveCommand = ReactiveCommand.CreateFromTask(ShowSaveDialog);
+
+            // This 'simply' inverts IsLoading and saves it to IsNotLoading (but also fires the PropertyChanged event)
+            this.WhenAnyValue(x => x.IsLoading, (bool x) => !x).ToPropertyEx(this, x => x.IsNotLoading);
+
+            // Don't await and run on other thread because it is needed, just trust me
+            Task.Run(() => LoadSaveData(saveDataPath));
+        }
+
+        private async Task LoadSaveData(string saveDataPath)
+        {
+            try
+            {
+                SaveData = await Task.Run(() => new SaveData(saveDataPath));
+
+                await Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    tabs.Edit(lst =>
+                    {
+                        lst.Clear();
+                        lst.Add(new SaveDataInfoViewModel(SaveData));
+                        lst.AddRange(SaveData.SaveSlots.Select(x => new SaveSlotViewModel(x)));
+                    });
+                    IsLoading = false;
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+                MainWindowViewModel.Instance.SetActiveViewModel(new ExceptionViewModel(ex));
+            }
+        }
+
+        private void OpenNew()
+        {
+            // TODO: Check for unsaved changes
+            MainWindowViewModel.Instance.ShowStartScreen();
+        }
+
+        private async Task ShowSaveDialog()
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            string initialPath = SteamAccount != null ? SteamUtility.GetMhwSaveDir(SteamAccount) : SteamUtility.GetMhwSaveDir();
+
+            if (initialPath != null)
+            {
+                sfd.InitialDirectory = initialPath;
+                sfd.InitialFileName = Path.Combine(initialPath, "SAVEDATA1000");
+            }
+
+            string fileName = await sfd.ShowAsync(Utility.GetMainWindow());
+
+            if (fileName == null)
+            {
+                Log.Information("Saving cancelled");
+            }
+            else
+            {
+                await Task.Run(() => SaveData.Save(fileName));
+            }
+        }
+    }
+}
