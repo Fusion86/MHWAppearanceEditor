@@ -9,7 +9,7 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
 {
     public class SaveSlotViewModel : ViewModelBase, ITabItemViewModel
     {
-        public string Title => HunterName;
+        public string Title => string.IsNullOrEmpty(HunterName) ? "(blank)" : HunterName;
         public string ToolTipText => $"{HunterName} (Rank: {HunterRank})";
 
         // Only used in TabItem header, so no need to be mutable
