@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MHWAppearanceEditor", "MHWA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cirilla.Core", "Cirilla.Core\Cirilla.Core.csproj", "{7ED71961-026E-4E68-8FA0-A07619B7AC7E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MHWAppearanceEditorNext", "MHWAppearanceEditorNext\MHWAppearanceEditorNext.csproj", "{1FE3114D-128C-4834-912A-31A1A1B0C67A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{7ED71961-026E-4E68-8FA0-A07619B7AC7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7ED71961-026E-4E68-8FA0-A07619B7AC7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7ED71961-026E-4E68-8FA0-A07619B7AC7E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1FE3114D-128C-4834-912A-31A1A1B0C67A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1FE3114D-128C-4834-912A-31A1A1B0C67A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1FE3114D-128C-4834-912A-31A1A1B0C67A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1FE3114D-128C-4834-912A-31A1A1B0C67A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
