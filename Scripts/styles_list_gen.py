@@ -20,7 +20,7 @@ from collections import namedtuple
 
 class Config:
     TEXTOPNG_PATH = "L:/Tools/Modding/TexToPng/TexToPng.exe"
-    CHUNKS_ROOT = "L:/Sync/MHWMods/chunks"
+    CHUNKS_ROOT = "L:/Sync/MHW Mods/chunks"
     OUT = join(os.getcwd(), "styles_list_gen")
 
 
@@ -40,8 +40,8 @@ Items = [
     Spritesheet("Female hairstyles", "thumb_hair01_ID", [102, 102], 28),
     Spritesheet("Male clothing", "thumb_inner00_ID", [102, 102], 4),
     Spritesheet("Female clothing", "thumb_inner01_ID", [102, 102], 4),
-    Spritesheet("Male mouths", "thumb_hair00_ID", [102, 102], 24),
-    Spritesheet("Female mouths", "thumb_hair01_ID", [102, 102], 24),
+    Spritesheet("Male mouths", "thumb_mouth00_ID", [102, 102], 24),
+    Spritesheet("Female mouths", "thumb_mouth01_ID", [102, 102], 24),
     Spritesheet("Male facial hair", "thumb_mustache00_ID", [102, 102], 21),
     Spritesheet("Female facial hair", "thumb_mustache01_ID", [102, 102], 21),  # heh 
     Spritesheet("Male noses", "thumb_nose00_ID", [102, 102], 24),
