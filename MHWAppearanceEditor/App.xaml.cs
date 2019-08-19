@@ -45,6 +45,7 @@ namespace MHWAppearanceEditor
         private void InitializeLogging()
         {
             // Cirilla and MHWAppearanceEditor logging
+            var logSink = new LogSink();
             var logger = new LoggerConfiguration()
                 .WriteTo.Sink(logSink)
                 .CreateLogger();
