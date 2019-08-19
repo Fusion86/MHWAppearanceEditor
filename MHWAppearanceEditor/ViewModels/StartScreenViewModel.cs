@@ -15,6 +15,8 @@ namespace MHWAppearanceEditor.ViewModels
 {
     public class StartScreenViewModel : ViewModelBase
     {
+        private static readonly ILogger CtxLog = Log.ForContext<StartScreenViewModel>();
+
         public ViewModelActivator Activator { get; }
 
         public ReactiveCommand<Unit, Unit> LoadSteamAccountsCommand { get; }
@@ -71,7 +73,7 @@ namespace MHWAppearanceEditor.ViewModels
             string filePath = (await ofd.ShowAsync(Utility.GetMainWindow())).FirstOrDefault();
             if (filePath == null)
             {
-                Log.Information("No file selected");
+                CtxLog.Information("No file selected");
             }
             else
             {

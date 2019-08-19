@@ -1,6 +1,7 @@
 ﻿using Gameloop.Vdf;
 using MHWAppearanceEditor.Models;
 using Microsoft.Win32;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,6 +12,7 @@ namespace MHWAppearanceEditor.Helpers
     public static class SteamUtility
     {
         public const string MONSTER_HUNTER_WORLD_APPID = "582010";
+        private static readonly ILogger CtxLog = Log.ForContext(typeof(SteamUtility));
 
         public static string GetSteamRoot()
         {
@@ -92,7 +94,7 @@ namespace MHWAppearanceEditor.Helpers
             }
             catch (Exception ex)
             {
-                //Log.Error(ex.Message);
+                CtxLog.Error(ex, ex.Message);
             }
 
             return steamUsers;

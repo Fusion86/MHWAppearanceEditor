@@ -2,10 +2,8 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using MHWAppearanceEditor.ViewModels;
-using MHWAppearanceEditor.ViewModels.SaveSlotEditors;
 using MHWAppearanceEditor.ViewModels.Tabs;
 using MHWAppearanceEditor.Views;
-using MHWAppearanceEditor.Views.SaveSlotEditors;
 using MHWAppearanceEditor.Views.Tabs;
 using ReactiveUI;
 using Serilog;
@@ -14,8 +12,10 @@ using System.Reflection;
 
 namespace MHWAppearanceEditor
 {
-    public class App : Application
+    public class App : Application, IEnableLogger
     {
+        private static readonly Serilog.ILogger CtxLog = Log.ForContext<App>();
+
         public override void Initialize()
         {
             InitializeLogging();
@@ -28,12 +28,8 @@ namespace MHWAppearanceEditor
             Locator.CurrentMutable.Register(() => new SaveDataInfoView(), typeof(IViewFor<SaveDataInfoViewModel>));
             Locator.CurrentMutable.Register(() => new SaveSlotView(), typeof(IViewFor<SaveSlotViewModel>));
 
-            // SaveSlotEditors
-            Locator.CurrentMutable.Register(() => new SaveSlotInfoView(), typeof(IViewFor<SaveSlotInfoViewModel>));
-            Locator.CurrentMutable.Register(() => new SaveSlotFaceView(), typeof(IViewFor<SaveSlotFaceViewModel>));
-
-            Log.Information("MHWAppearanceEditor v" + Assembly.GetExecutingAssembly().GetName().Version);
-            Log.Information("Cirilla.Core v" + Assembly.GetAssembly(typeof(Cirilla.Core.Models.GMD)).GetName().Version);
+            CtxLog.Information("MHWAppearanceEditor v" + Assembly.GetExecutingAssembly().GetName().Version);
+            CtxLog.Information("Cirilla.Core v" + Assembly.GetAssembly(typeof(Cirilla.Core.Models.GMD)).GetName().Version);
 
             AvaloniaXamlLoader.Load(this);
         }
@@ -48,10 +44,12 @@ namespace MHWAppearanceEditor
 
         private void InitializeLogging()
         {
+            var logSink = new LogSink();
             var logger = new LoggerConfiguration()
-                .WriteTo.Sink(LogSink.AppLogger)
+                .WriteTo.Sink(logSink)
                 .CreateLogger();
             Log.Logger = logger;
+            Locator.CurrentMutable.RegisterConstant(logSink, typeof(LogSink)); // Could easily make an interface for this, if ever needed
         }
     }
 }

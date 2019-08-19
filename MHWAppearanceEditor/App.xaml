@@ -11,6 +11,7 @@
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Default.xaml"/>
         <StyleInclude Source="avares://MHWAppearanceEditor/Styles/Themes/CadetDark.xaml"/>
         <StyleInclude Source="avares://MHWAppearanceEditor/Styles/Button.xaml"/>
+        <StyleInclude Source="avares://MHWAppearanceEditor/Styles/ComboBox.xaml"/>
         <StyleInclude Source="avares://MHWAppearanceEditor/Styles/Icons.xaml"/>
         <StyleInclude Source="avares://MHWAppearanceEditor/Styles/ListBox.xaml"/>
     </Application.Styles>

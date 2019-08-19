@@ -12,6 +12,9 @@ Requirements:
 """
 
 import os
+import json
+import time
+import shutil
 import subprocess
 from os.path import join
 from PIL import Image
@@ -24,42 +27,43 @@ class Config:
     OUT = join(os.getcwd(), "styles_list_gen")
 
 
-Spritesheet = namedtuple("Spritesheet", ["category", "texture_name", "size", "count"])
+Spritesheet = namedtuple("Spritesheet", ["category", "texture_name", "size", "count", "offset"])
 
 Items = [
     # Character
-    Spritesheet("Male eyebrows", "thumb_brow00_ID", [126, 62], 16),
-    Spritesheet("Female eyebrows", "thumb_brow01_ID", [126, 62], 16),
-    Spritesheet("Male eyes", "thumb_eye00_ID", [126, 62], 30),
-    Spritesheet("Female eyes", "thumb_eye01_ID", [126, 62], 30),
-    Spritesheet("Male faces", "thumb_face00_ID", [102, 102], 24),
-    Spritesheet("Female faces", "thumb_face01_ID", [102, 102], 24),
-    Spritesheet("Male brow types", "thumb_forehead00_ID", [126, 62], 24),
-    Spritesheet("Female brow types", "thumb_forehead01_ID", [126, 62], 24),
-    Spritesheet("Male hairstyles", "thumb_hair00_ID", [102, 102], 28),
-    Spritesheet("Female hairstyles", "thumb_hair01_ID", [102, 102], 28),
-    Spritesheet("Male clothing", "thumb_inner00_ID", [102, 102], 4),
-    Spritesheet("Female clothing", "thumb_inner01_ID", [102, 102], 4),
-    Spritesheet("Male mouths", "thumb_mouth00_ID", [102, 102], 24),
-    Spritesheet("Female mouths", "thumb_mouth01_ID", [102, 102], 24),
-    Spritesheet("Male facial hair", "thumb_mustache00_ID", [102, 102], 21),
-    Spritesheet("Female facial hair", "thumb_mustache01_ID", [102, 102], 21),  # heh 
-    Spritesheet("Male noses", "thumb_nose00_ID", [102, 102], 24),
-    Spritesheet("Female noses", "thumb_nose01_ID", [102, 102], 24),
-    Spritesheet("Male makeup", "thumb_paint00_ID", [102, 102], 34),
-    Spritesheet("Female makeup", "thumb_paint01_ID", [102, 102], 34),
+    Spritesheet("Male Eyebrows", "thumb_brow00_ID", [126, 62], 16, 0),
+    Spritesheet("Female Eyebrows", "thumb_brow01_ID", [126, 62], 16, 0),
+    Spritesheet("Male Eyes", "thumb_eye00_ID", [126, 62], 30, 0),
+    Spritesheet("Female Eyes", "thumb_eye01_ID", [126, 62], 30, 0),
+    Spritesheet("Male Faces", "thumb_face00_ID", [102, 102], 24, 0),
+    Spritesheet("Female Faces", "thumb_face01_ID", [102, 102], 24, 0),
+    Spritesheet("Male Brow Types", "thumb_forehead00_ID", [126, 62], 24, 0),
+    Spritesheet("Female Brow Types", "thumb_forehead01_ID", [126, 62], 24, 0),
+    Spritesheet("Male Hairstyles", "thumb_hair00_ID", [102, 102], 28, 0),
+    Spritesheet("Female Hairstyles", "thumb_hair01_ID", [102, 102], 28, 100),  # In the CharacterAppearance struct the hairstyle for females has id `100 + (actual id)`
+    Spritesheet("Male Clothing", "thumb_inner00_ID", [102, 102], 4, 0),
+    Spritesheet("Female Clothing", "thumb_inner01_ID", [102, 102], 4, 0),
+    Spritesheet("Male Mouths", "thumb_mouth00_ID", [102, 102], 24, 0),
+    Spritesheet("Female Mouths", "thumb_mouth01_ID", [102, 102], 24, 0),
+    Spritesheet("Male Facial Hair", "thumb_mustache00_ID", [102, 102], 21, 0),
+    Spritesheet("Female Facial Hair", "thumb_mustache01_ID", [102, 102], 21, 0),  # heh 
+    Spritesheet("Male Noses", "thumb_nose00_ID", [102, 102], 24, 0),
+    Spritesheet("Female Noses", "thumb_nose01_ID", [102, 102], 24, 0),
+    Spritesheet("Male Makeup", "thumb_paint00_ID", [102, 102], 34, 0),
+    Spritesheet("Female Makeup", "thumb_paint01_ID", [102, 102], 34, 0),
     # Presets for males and females are stored in the same file. 10 presets per gender + 1 line (5 presets) padding = 25
-    Spritesheet("Character presets", "thumb_preset_ID", [102, 102], 25),
+    Spritesheet("Character Presets", "thumb_preset_ID", [102, 102], 25, 0),
     # Palico
-    Spritesheet("Palico coat types", "thumb_o_coattype_ID", [126, 126], 4),
-    Spritesheet("Palico ears", "thumb_o_ear_ID", [126, 126], 5),
-    Spritesheet("Palico eyes", "thumb_o_eye_ID", [126, 62], 6),
-    Spritesheet("Palico presets", "thumb_o_preset_ID", [126, 126], 12),
-    Spritesheet("Palico tails", "thumb_o_tail_ID", [126, 126], 4),
+    Spritesheet("Palico Coat Types", "thumb_o_coattype_ID", [126, 126], 4, 0),
+    Spritesheet("Palico Ears", "thumb_o_ear_ID", [126, 126], 5, 0),
+    Spritesheet("Palico Eyes", "thumb_o_eye_ID", [126, 62], 6, 0),
+    Spritesheet("Palico Presets", "thumb_o_preset_ID", [126, 126], 12, 0),
+    Spritesheet("Palico Tails", "thumb_o_tail_ID", [126, 126], 4, 0),
 ]
 
 
 if __name__ == "__main__":
+    assetsList = []
     tmpdir = join(Config.OUT, "tmp")
     imgdir = join(Config.OUT, "img")
 
@@ -90,6 +94,13 @@ if __name__ == "__main__":
         img_width, _ = src.size
         pieces_per_row = img_width // item.size[0]
 
+        assetsList.append({
+            "name": item.category,
+            "texture_name": item.texture_name,
+            "count": item.count,
+            "offset": item.offset
+        })
+
         for i in range(item.count):
             dest = join(imgdir, item.texture_name) + f"_{i}.png"
 
@@ -107,3 +118,11 @@ if __name__ == "__main__":
 
         # Print newline after we are done because we don't do that inside the loop
         print()
+
+    with open(join(Config.OUT, "assets.json"), "w+") as f:
+        json.dump({
+            "timestamp": int(time.time()),
+            "assets": assetsList
+        }, f)
+
+    shutil.rmtree(tmpdir)

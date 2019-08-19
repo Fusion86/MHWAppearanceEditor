@@ -4,5 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MHWAppearanceEditor.Views.SaveSlotEditors.SaveSlotFaceView">
-    Welcome to Avalonia!
+
+    <Grid Margin="20" ColumnDefinitions="Auto,20,*">
+        <Grid Grid.Column="0" RowDefinitions="Auto,5,Auto" ColumnDefinitions="Auto,10,Auto">
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Nose Height" VerticalAlignment="Center" TextAlignment="Right"/>
+            <NumericUpDown Grid.Column="2" Grid.Row="0" Text="123" Minimum="0" Maximum="255" Value="{Binding NoseHeight}" Width="100"/>
+
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Mouth Height" VerticalAlignment="Center" TextAlignment="Right"/>
+            <NumericUpDown Grid.Column="2" Grid.Row="2" Text="123" Minimum="0" Maximum="255" Value="{Binding MouthHeight}" Width="100"/>
+        </Grid>
+
+        <WrapPanel Grid.Column="2">
+            <WrapPanel.Styles>
+                <Style Selector="ComboBox">
+                    <Setter Property="Margin" Value="0,0,10,10"/>
+                </Style>
+            </WrapPanel.Styles>
+
+            <ComboBox Classes="CharaSelect" Items="{Binding BrowTypes}" SelectedItem="{Binding BrowType}"/>
+            <ComboBox Classes="CharaSelect" Items="{Binding FaceTypes}" SelectedItem="{Binding FaceType}"/>
+            <ComboBox Classes="CharaSelect" Items="{Binding NoseTypes}" SelectedItem="{Binding NoseType}"/>
+            <ComboBox Classes="CharaSelect" Items="{Binding MouthTypes}" SelectedItem="{Binding MouthType}"/>
+        </WrapPanel>
+    </Grid>
 </UserControl>

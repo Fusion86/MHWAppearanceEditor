@@ -1,10 +1,10 @@
 ﻿using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
-using MHWAppearanceEditor.ViewModels.SaveSlotEditors;
+using MHWAppearanceEditor.ViewModels.Tabs;
 
 namespace MHWAppearanceEditor.Views.SaveSlotEditors
 {
-    public class SaveSlotInfoView : ReactiveUserControl<SaveSlotInfoViewModel>
+    public class SaveSlotInfoView : ReactiveUserControl<SaveSlotViewModel>
     {
         public SaveSlotInfoView()
         {

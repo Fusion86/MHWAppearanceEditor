@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:editor="clr-namespace:MHWAppearanceEditor.Views.SaveSlotEditors"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MHWAppearanceEditor.Views.Tabs.SaveSlotView">
 
@@ -70,15 +71,19 @@
             <DataTemplate>
                 <Grid>
                     <Rectangle Height="3" VerticalAlignment="Bottom"/>
-                    <TextBlock Text="{Binding Title}" VerticalAlignment="Center" Margin="10"/>
+                    <TextBlock Text="{Binding}" VerticalAlignment="Center" Margin="10"/>
                 </Grid>
             </DataTemplate>
         </TabControl.ItemTemplate>
 
-        <TabControl.ContentTemplate>
-            <DataTemplate>
-                <ContentControl Content="{Binding}" Background="{DynamicResource FusionBackgroundBrush}"/>
-            </DataTemplate>
-        </TabControl.ContentTemplate>
+        <!-- Some TabItems have a Width binding, this is required for the WrapPanel inside those views to work correctly -->
+
+        <TabItem Header="Basic Info">
+            <editor:SaveSlotInfoView DataContext="{Binding}"/>
+        </TabItem>
+
+        <TabItem Header="Face">
+            <editor:SaveSlotFaceView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}"/>
+        </TabItem>
     </TabControl>
 </UserControl>

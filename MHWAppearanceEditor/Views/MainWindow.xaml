@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:rxui="http://reactiveui.net"
         xmlns:views="clr-namespace:MHWAppearanceEditor.Views"
+        xmlns:vc="clr-namespace:MHWAppearanceEditor.ValueConverters"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400"
         x:Class="MHWAppearanceEditor.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
@@ -16,42 +17,65 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <DockPanel>
-        <Border DockPanel.Dock="Bottom" Background="{DynamicResource ThemeAccentBrush2}">
-            <Grid RowDefinitions="24, *">
-                <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
-                    <StackPanel Grid.Column="0" Margin="5,4,5,4">
-                        <TextBlock Text="{Binding MostRecentEventMessage}"/>
-                    </StackPanel>
+    <Window.Resources>
+        <vc:DateTimeOffsetValueConverter x:Key="DateTimeOffsetConverter"/>
+        <vc:IsNotNullToTrueValueConverter x:Key="IsNotNullToTrueConverter"/>
+    </Window.Resources>
 
-                    <Button Grid.Row="0" Grid.Column="2" Classes="Lookless" ToolTip.Tip="Open log panel" Command="{Binding ToggleShowLog}">
-                        <Grid Margin="7">
-                            <DrawingPresenter Drawing="{DynamicResource IconList}" Stretch="UniformToFill"/>
-                        </Grid>
-                    </Button>
-                </Grid>
+    <Grid RowDefinitions="*, Auto, Auto">
+        <DockPanel Grid.Row="0">
+            <Grid DockPanel.Dock="Bottom" Height="24" ColumnDefinitions="*,Auto" Background="{DynamicResource ThemeAccentBrush2}">
+                <StackPanel Grid.Column="0" Margin="5,4,5,4">
+                    <TextBlock Text="{Binding MostRecentEventMessage}" ToolTip.Tip="{Binding MostRecentEventMessage}"/>
+                </StackPanel>
 
-                <DataGrid Name="LogDataGrid" Grid.Row="1" Background="{DynamicResource FusionDarkSlateBrush}" IsVisible="{Binding ShowLog}"
-                          RowBackground="{DynamicResource FusionDarkSlateBrush}" AlternatingRowBackground="{DynamicResource FusionDarkSlateBrush}">
-                    <DataGrid.Styles>
-                        <Style Selector="DataGridRow /template/ Rectangle#BackgroundRectangle">
-                            <Setter Property="Fill" Value="{DynamicResource FusionBackground2Brush}"/>
-                        </Style>
-                    </DataGrid.Styles>
-
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Level" Binding="{Binding Level}"/>
-                        <DataGridTextColumn Header="Message" Binding="{Binding MessageTemplate.Text}" Width="*"/>
-                        <!--<DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp}"/>-->
-                    </DataGrid.Columns>
-                </DataGrid>
+                <Button Grid.Column="1" Classes="Lookless" ToolTip.Tip="Open log panel" Command="{Binding ToggleShowLog}">
+                    <Grid Margin="7">
+                        <DrawingPresenter Drawing="{DynamicResource IconList}" Stretch="UniformToFill"/>
+                    </Grid>
+                </Button>
             </Grid>
-        </Border>
 
-        <rxui:ViewModelViewHost ViewModel="{Binding ActiveViewModel}">
-            <rxui:ViewModelViewHost.PageTransition>
-                <CrossFade Duration="0.001"/>
-            </rxui:ViewModelViewHost.PageTransition>
-        </rxui:ViewModelViewHost>
-    </DockPanel>
+            <rxui:ViewModelViewHost ViewModel="{Binding ActiveViewModel}">
+                <rxui:ViewModelViewHost.PageTransition>
+                    <CrossFade Duration="0.001"/>
+                </rxui:ViewModelViewHost.PageTransition>
+            </rxui:ViewModelViewHost>
+        </DockPanel>
+
+        <!-- DataGrid currently doesn't correctly resize -->
+        <!--<GridSplitter Grid.Row="1" Height="5" IsVisible="{Binding ShowLog}"/>-->
+
+        <DataGrid Name="LogDataGrid"
+                  Grid.Row="2"
+                  Height="300"
+                  Background="{DynamicResource FusionDarkSlateBrush}"
+                  IsVisible="{Binding ShowLog}"
+                  BorderThickness="0"
+                  RowBackground="{DynamicResource FusionDarkSlateBrush}"
+                  AlternatingRowBackground="{DynamicResource FusionDarkSlateBrush}"
+                  RowDetailsVisibilityMode="VisibleWhenSelected"
+                  CanUserSortColumns="False">
+            <!-- Sorting is a bit buggy with the DataGrid.RowDetailsTemplate, so that's why it is disables (and it isn't really useful) -->
+
+            <DataGrid.Styles>
+                <Style Selector="DataGridRow /template/ Rectangle#BackgroundRectangle">
+                    <Setter Property="Fill" Value="{DynamicResource FusionBackground2Brush}"/>
+                </Style>
+            </DataGrid.Styles>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Level" Binding="{Binding Level}"/>
+                <DataGridTextColumn Header="Context" Binding="{Binding ShortSourceContext}"/>
+                <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="*"/>
+                <DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp, Converter={StaticResource DateTimeOffsetConverter}}"/>
+            </DataGrid.Columns>
+
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding MessageDetails}" Margin="5" IsVisible="{Binding MessageDetails, Converter={StaticResource IsNotNullToTrueConverter}}"/>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
+    </Grid>
 </Window>

@@ -25,12 +25,12 @@ namespace MHWAppearanceEditor.ViewModels
 
         public SteamAccount SteamAccount { get; set; }
         [Reactive] public bool IsLoading { get; private set; } = true;
-        [ObservableAsProperty] public bool IsNotLoading { get; } // Needed for XAML binding
 
         private readonly SourceList<object> tabs = new SourceList<object>();
         public IObservableCollection<object> TabsBinding { get; } = new ObservableCollectionExtended<object>();
 
         private SaveData SaveData;
+        private static readonly ILogger CtxLog = Log.ForContext<SaveDataViewModel>();
 
         public SaveDataViewModel(string saveDataPath)
         {
@@ -40,9 +40,6 @@ namespace MHWAppearanceEditor.ViewModels
 
             OpenNewCommand = ReactiveCommand.Create(OpenNew);
             SaveCommand = ReactiveCommand.CreateFromTask(ShowSaveDialog);
-
-            // This 'simply' inverts IsLoading and saves it to IsNotLoading (but also fires the PropertyChanged event)
-            this.WhenAnyValue(x => x.IsLoading, (bool x) => !x).ToPropertyEx(this, x => x.IsNotLoading);
 
             // Don't await and run on other thread because it is needed, just trust me
             Task.Run(() => LoadSaveData(saveDataPath));
@@ -67,7 +64,7 @@ namespace MHWAppearanceEditor.ViewModels
             }
             catch (Exception ex)
             {
-                Log.Error(ex.Message);
+                CtxLog.Error(ex, ex.Message);
                 MainWindowViewModel.Instance.SetActiveViewModel(new ExceptionViewModel(ex));
             }
         }
@@ -93,7 +90,7 @@ namespace MHWAppearanceEditor.ViewModels
 
             if (fileName == null)
             {
-                Log.Information("Saving cancelled");
+                CtxLog.Information("Saving cancelled");
             }
             else
             {

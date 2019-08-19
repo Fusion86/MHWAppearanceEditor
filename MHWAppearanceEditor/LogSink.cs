@@ -1,5 +1,6 @@
 ﻿using Avalonia.Threading;
 using DynamicData;
+using MHWAppearanceEditor.ViewModels;
 using Serilog.Core;
 using Serilog.Events;
 
@@ -7,13 +8,12 @@ namespace MHWAppearanceEditor
 {
     public class LogSink : ILogEventSink
     {
-        public static LogSink AppLogger = new LogSink();
-
-        public SourceList<LogEvent> Events { get; } = new SourceList<LogEvent>();
+        public SourceList<LogEventViewModel> Events { get; } = new SourceList<LogEventViewModel>();
 
         public void Emit(LogEvent logEvent)
         {
-            Dispatcher.UIThread.InvokeAsync(() => Events.Add(logEvent));
+            var x = new LogEventViewModel(logEvent);
+            Dispatcher.UIThread.InvokeAsync(() => Events.Add(x));
         }
     }
 }

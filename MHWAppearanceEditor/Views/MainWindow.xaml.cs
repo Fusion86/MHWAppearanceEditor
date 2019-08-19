@@ -26,15 +26,15 @@ namespace MHWAppearanceEditor.Views
             {
                 this.OneWayBind(ViewModel, vm => vm.EventsBinding, v => v.LogDataGrid.Items).DisposeWith(disposables);
 
-                ViewModel.EventsBinding.ObserveCollectionChanges().Subscribe(x =>
-                {
-                    Dispatcher.UIThread.InvokeAsync(() =>
-                    {
-                        // HACK: Might break on different DPI displays
-                        double height = ViewModel.EventsBinding.Count * 24 + 26;
-                        LogDataGrid.Height = Math.Min(height, 266);
-                    });
-                }).DisposeWith(disposables);
+                //ViewModel.EventsBinding.ObserveCollectionChanges().Subscribe(x =>
+                //{
+                //    Dispatcher.UIThread.InvokeAsync(() =>
+                //    {
+                //        // HACK: Might break on different DPI displays
+                //        double height = ViewModel.EventsBinding.Count * 24 + 26;
+                //        LogDataGrid.Height = Math.Min(height, 266);
+                //    });
+                //}).DisposeWith(disposables);
             });
         }
 

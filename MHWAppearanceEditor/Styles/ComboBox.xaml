@@ -1,0 +1,31 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vc="clr-namespace:MHWAppearanceEditor.ValueConverters">
+
+    <Styles.Resources>
+        <vc:ImageFromUriValueConverter x:Key="ImageFromUriConverter"/>
+    </Styles.Resources>
+
+    <Style Selector="ComboBox.CharaSelect">
+        <Setter Property="MaxDropDownHeight" Value="600"/>
+        
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Grid RowDefinitions="Auto, 5, Auto">
+                        <TextBlock Grid.Row="0" Text="{Binding Name}" HorizontalAlignment="Center"/>
+                        <Image Grid.Row="2" Source="{Binding PreviewSource, Converter={StaticResource ImageFromUriConverter}}" Stretch="UniformToFill"/>
+                    </Grid>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="4"/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</Styles>

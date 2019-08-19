@@ -1,7 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFrameworks>netcoreapp3.0;net461</TargetFrameworks>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworks>net461;netcoreapp3.0</TargetFrameworks>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <PublishReadyToRunShowWarnings>true</PublishReadyToRunShowWarnings>
+    <PublishTrimmed>true</PublishTrimmed>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="**\*.xaml.cs">
@@ -41,8 +44,10 @@
     <PackageReference Include="Gameloop.Vdf.JsonConverter" Version="0.2.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
     <PackageReference Include="Microsoft.Win32.Registry" Version="4.5.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="ReactiveUI.Fody" Version="9.20.1" />
     <PackageReference Include="Serilog" Version="2.8.0" />
+    <PackageReference Include="Splat.Serilog" Version="8.2.4" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\StartScreenView.xaml">
