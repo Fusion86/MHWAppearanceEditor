@@ -21,10 +21,10 @@
                 </Style>
             </WrapPanel.Styles>
 
-            <ComboBox Classes="CharaSelect" Items="{Binding BrowTypes}" SelectedItem="{Binding BrowType}"/>
-            <ComboBox Classes="CharaSelect" Items="{Binding FaceTypes}" SelectedItem="{Binding FaceType}"/>
-            <ComboBox Classes="CharaSelect" Items="{Binding NoseTypes}" SelectedItem="{Binding NoseType}"/>
-            <ComboBox Classes="CharaSelect" Items="{Binding MouthTypes}" SelectedItem="{Binding MouthType}"/>
+            <ComboBox Name="BrowTypeSelect" Classes="CharaSelect" Items="{Binding BrowTypes}" SelectedItem="{Binding BrowType}"/>
+            <ComboBox Name="FaceTypeSelect" Classes="CharaSelect" Items="{Binding FaceTypes}" SelectedItem="{Binding FaceType}"/>
+            <ComboBox Name="NoseTypeSelect" Classes="CharaSelect" Items="{Binding NoseTypes}" SelectedItem="{Binding NoseType}"/>
+            <ComboBox Name="MouthTypeSelect" Classes="CharaSelect" Items="{Binding MouthTypes}" SelectedItem="{Binding MouthType}"/>
         </WrapPanel>
     </Grid>
 </UserControl>

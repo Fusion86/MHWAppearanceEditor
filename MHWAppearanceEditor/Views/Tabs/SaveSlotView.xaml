@@ -85,5 +85,9 @@
         <TabItem Header="Face">
             <editor:SaveSlotFaceView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}"/>
         </TabItem>
+
+        <TabItem Header="Hair">
+            <editor:SaveSlotHairView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}"/>
+        </TabItem>
     </TabControl>
 </UserControl>

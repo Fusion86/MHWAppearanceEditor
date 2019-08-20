@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using MHWAppearanceEditor.ValueConverters;
 using MHWAppearanceEditor.ViewModels;
 using MHWAppearanceEditor.ViewModels.Tabs;
 using MHWAppearanceEditor.Views;
@@ -19,6 +20,8 @@ namespace MHWAppearanceEditor
         public override void Initialize()
         {
             InitializeLogging();
+
+            Locator.CurrentMutable.RegisterConstant(new ColorValueConverter(), typeof(IBindingTypeConverter));
 
             Locator.CurrentMutable.Register(() => new StartScreenView(), typeof(IViewFor<StartScreenViewModel>));
             Locator.CurrentMutable.Register(() => new SaveDataView(), typeof(IViewFor<SaveDataViewModel>));

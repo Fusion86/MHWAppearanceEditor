@@ -16,9 +16,11 @@
     <AvaloniaResource Include="Assets\*" />
   </ItemGroup>
   <ItemGroup>
+    <AvaloniaResource Remove="Controls\ColorEdit.xaml" />
     <AvaloniaResource Remove="Views\ExceptionView.xaml" />
     <AvaloniaResource Remove="Views\SaveDataView.xaml" />
     <AvaloniaResource Remove="Views\SaveSlotEditors\SaveSlotFaceView.xaml" />
+    <AvaloniaResource Remove="Views\SaveSlotEditors\SaveSlotHairView.xaml" />
     <AvaloniaResource Remove="Views\SaveSlotEditors\SaveSlotInfoView.xaml" />
     <AvaloniaResource Remove="Views\SaveSlotView.xaml" />
     <AvaloniaResource Remove="Views\StartScreenView.xaml" />
@@ -26,9 +28,11 @@
     <AvaloniaResource Remove="Views\Tabs\SaveSlotView.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Controls\ColorEdit.xaml" />
     <None Remove="Views\ExceptionView.xaml" />
     <None Remove="Views\SaveDataView.xaml" />
     <None Remove="Views\SaveSlotEditors\SaveSlotFaceView.xaml" />
+    <None Remove="Views\SaveSlotEditors\SaveSlotHairView.xaml" />
     <None Remove="Views\SaveSlotEditors\SaveSlotInfoView.xaml" />
     <None Remove="Views\SaveSlotView.xaml" />
     <None Remove="Views\StartScreenView.xaml" />
@@ -48,6 +52,7 @@
     <PackageReference Include="ReactiveUI.Fody" Version="9.20.1" />
     <PackageReference Include="Serilog" Version="2.8.0" />
     <PackageReference Include="Splat.Serilog" Version="8.2.4" />
+    <PackageReference Include="ThemeEditor.Controls.ColorPicker" Version="0.8.2" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\StartScreenView.xaml">
@@ -84,6 +89,16 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\ExceptionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\SaveSlotEditors\SaveSlotHairView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\ColorEdit.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

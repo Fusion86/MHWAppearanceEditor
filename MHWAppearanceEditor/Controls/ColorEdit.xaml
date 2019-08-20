@@ -1,0 +1,28 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vc="clr-namespace:MHWAppearanceEditor.ValueConverters"
+             xmlns:cp="clr-namespace:ThemeEditor.Controls.ColorPicker;assembly=ThemeEditor.Controls.ColorPicker"
+             mc:Ignorable="d" d:DesignWidth="100" d:DesignHeight="24"
+             x:Class="MHWAppearanceEditor.Controls.ColorEdit">
+
+    <UserControl.Resources>
+        <vc:ColorValueConverter x:Key="ColorConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Button Name="ColorButton" Classes="Lookless" Background="{Binding Color, Converter={StaticResource ColorConverter}}"/>
+        <Popup Name="ColorPickerPopup" StaysOpen="False">
+            <Border Padding="10">
+                <cp:ColorPicker Width="400" Color="{Binding Color, Mode=TwoWay}">
+                    <cp:ColorPicker.Styles>
+                        <Style Selector="GridSplitter">
+                            <Setter Property="IsVisible" Value="False"/>
+                        </Style>
+                    </cp:ColorPicker.Styles>
+                </cp:ColorPicker>
+            </Border>
+        </Popup>
+    </Grid>
+</UserControl>

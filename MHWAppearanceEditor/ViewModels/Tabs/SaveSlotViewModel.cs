@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
+using SDColor = System.Drawing.Color;
 
 namespace MHWAppearanceEditor.ViewModels.Tabs
 {
@@ -28,6 +29,8 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public int ResearchPoints { get => SaveSlot.ResearchPoints; set => SaveSlot.ResearchPoints = value; }
         public byte NoseHeight { get => SaveSlot.CharacterAppearance.NoseHeight; set => SaveSlot.CharacterAppearance.NoseHeight = value; }
         public byte MouthHeight { get => SaveSlot.CharacterAppearance.MouthHeight; set => SaveSlot.CharacterAppearance.MouthHeight = value; }
+        public SDColor HairColor { get => SaveSlot.CharacterAppearance.HairColor; set => SaveSlot.CharacterAppearance.HairColor = value; }
+        public SDColor FacialHairColor { get => SaveSlot.CharacterAppearance.FacialHairColor; set => SaveSlot.CharacterAppearance.FacialHairColor = value; }
 
         public Gender Gender
         {
@@ -60,12 +63,26 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
             set { SaveSlot.CharacterAppearance.MouthType = (byte)value.Value; this.RaisePropertyChanged(); }
         }
 
+        public CharacterAsset HairType
+        {
+            get => HairTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.HairType);
+            set { SaveSlot.CharacterAppearance.HairType = (short)value.Value; this.RaisePropertyChanged(); }
+        }
+
+        public CharacterAsset FacialHairType
+        {
+            get => FacialHairTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.FacialHairType);
+            set { SaveSlot.CharacterAppearance.FacialHairType = (byte)value.Value; this.RaisePropertyChanged(); }
+        }
+
         // Collections of possible values
         public List<Gender> Genders { get; } = new List<Gender>() { Gender.Male, Gender.Female };
         [Reactive] public List<CharacterAsset> BrowTypes { get; private set; }
         [Reactive] public List<CharacterAsset> FaceTypes { get; private set; }
         [Reactive] public List<CharacterAsset> NoseTypes { get; private set; }
         [Reactive] public List<CharacterAsset> MouthTypes { get; private set; }
+        [Reactive] public List<CharacterAsset> HairTypes { get; private set; }
+        [Reactive] public List<CharacterAsset> FacialHairTypes { get; private set; }
 
         private readonly SaveSlot SaveSlot;
         private readonly CharacterAssets CharacterAssets;
@@ -90,12 +107,18 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
                         FaceTypes = CharacterAssets.MaleFaceTypes;
                         NoseTypes = CharacterAssets.MaleNoseTypes;
                         MouthTypes = CharacterAssets.MaleMouthTypes;
+                        // You can use both male and female hairstyles. We display the recommended hairstyles first, in this case the __male__ hairstyles
+                        HairTypes = CharacterAssets.MaleHairTypes.Concat(CharacterAssets.FemaleHairTypes).ToList();
+                        FacialHairTypes = CharacterAssets.MaleFacialHairTypes;
                         break;
                     case Gender.Female:
                         BrowTypes = CharacterAssets.FemaleBrowTypes;
                         FaceTypes = CharacterAssets.FemaleFaceTypes;
                         NoseTypes = CharacterAssets.FemaleNoseTypes;
                         MouthTypes = CharacterAssets.FemaleMouthTypes;
+                        // You can use both male and female hairstyles. We display the recommended hairstyles first, in this case the __female__ hairstyles
+                        HairTypes = CharacterAssets.FemaleHairTypes.Concat(CharacterAssets.MaleHairTypes).ToList();
+                        FacialHairTypes = CharacterAssets.FemaleFacialHairTypes;
                         break;
                 }
             }

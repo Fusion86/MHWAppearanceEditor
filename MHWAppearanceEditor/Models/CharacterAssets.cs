@@ -47,6 +47,10 @@ namespace MHWAppearanceEditor.Models
         public List<CharacterAsset> FemaleNoseTypes { get; } = new List<CharacterAsset>();
         public List<CharacterAsset> MaleMouthTypes { get; } = new List<CharacterAsset>();
         public List<CharacterAsset> FemaleMouthTypes { get; } = new List<CharacterAsset>();
+        public List<CharacterAsset> MaleHairTypes { get; } = new List<CharacterAsset>();
+        public List<CharacterAsset> FemaleHairTypes { get; } = new List<CharacterAsset>();
+        public List<CharacterAsset> MaleFacialHairTypes { get; } = new List<CharacterAsset>();
+        public List<CharacterAsset> FemaleFacialHairTypes { get; } = new List<CharacterAsset>();
 
         private static readonly ILogger CtxLog = Log.ForContext<CharacterAssets>();
 
@@ -92,6 +96,22 @@ namespace MHWAppearanceEditor.Models
                     case "Female Mouths":
                         name = "Mouth Type";
                         dest = FemaleMouthTypes;
+                        break;
+                    case "Male Hairstyles":
+                        name = "Male Hairstyle";
+                        dest = MaleHairTypes;
+                        break;
+                    case "Female Hairstyles":
+                        name = "Female Hairstyle";
+                        dest = FemaleHairTypes;
+                        break;
+                    case "Male Facial Hair":
+                        name = "Facial Hair Type";
+                        dest = MaleFacialHairTypes;
+                        break;
+                    case "Female Facial Hair":
+                        name = "Facial Hair Type";
+                        dest = FemaleFacialHairTypes;
                         break;
                     default:
                         CtxLog.Warning($"Unrecognized name '{def.Name}'");
