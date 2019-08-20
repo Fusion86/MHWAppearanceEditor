@@ -58,7 +58,7 @@ namespace MHWAppearanceEditor.ViewModels
         }
 
         // Not the best way to load stuff, but I guess it works for now
-        private async Task LoadMoreStuff()
+        private void LoadMoreStuff()
         {
             CharacterAssets = CharacterAssets.LoadAssetsMap("character_assets");
         }
