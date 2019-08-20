@@ -2,14 +2,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vc="clr-namespace:MHWAppearanceEditor.ValueConverters"
              xmlns:controls="clr-namespace:MHWAppearanceEditor.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MHWAppearanceEditor.Views.SaveSlotEditors.SaveSlotHairView">
-
-    <UserControl.Resources>
-        <vc:ColorValueConverter x:Key="ColorConverter"/>
-    </UserControl.Resources>
 
     <Grid Margin="20" ColumnDefinitions="Auto,20,*">
         <Grid Grid.Column="0" RowDefinitions="Auto,5,Auto" ColumnDefinitions="Auto,10,Auto">

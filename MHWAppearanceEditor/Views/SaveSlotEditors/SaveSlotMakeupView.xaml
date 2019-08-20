@@ -1,0 +1,87 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:MHWAppearanceEditor.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MHWAppearanceEditor.Views.SaveSlotEditors.SaveSlotMakeupView">
+
+    <WrapPanel Margin="20">
+        <Grid Grid.Column="0" Margin="0,0,20,20"
+              RowDefinitions="Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto" ColumnDefinitions="Auto,10,Auto,20,Auto,10,Auto">
+            <Grid.Styles>
+                <Style Selector="TextBlock">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="TextAlignment" Value="Right"/>
+                </Style>
+
+                <Style Selector="NumericUpDown">
+                    <Setter Property="Minimum" Value="0"/>
+                    <Setter Property="Maximum" Value="1"/>
+                    <Setter Property="Width" Value="140"/>
+                    <Setter Property="ParsingNumberStyle" Value="Float"/>
+                    <Setter Property="Increment" Value="0.1"/>
+                    <Setter Property="FormatString" Value="0.0000"/>
+                </Style>
+            </Grid.Styles>
+
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Makeup 1 Color"/>
+            <controls:ColorEdit Name="Makeup1ColorEdit" Grid.Column="2" Grid.Row="0" Width="140"/>
+
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Makeup 1 PosX"/>
+            <NumericUpDown Grid.Column="2" Grid.Row="2" Value="{Binding Makeup1PosX}"/>
+
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="Makeup 1 PosY"/>
+            <NumericUpDown Grid.Column="2" Grid.Row="4" Value="{Binding Makeup1PosY}"/>
+
+            <TextBlock Grid.Column="0" Grid.Row="6" Text="Makeup 1 SizeX"/>
+            <NumericUpDown Grid.Column="2" Grid.Row="6" Value="{Binding Makeup1SizeX}"/>
+
+            <TextBlock Grid.Column="0" Grid.Row="8" Text="Makeup 1 SizeY"/>
+            <NumericUpDown Grid.Column="2" Grid.Row="8" Value="{Binding Makeup1SizeY}"/>
+
+            <TextBlock Grid.Column="0" Grid.Row="10" Text="Makeup 1 Glossy"/>
+            <NumericUpDown Grid.Column="2" Grid.Row="10" Value="{Binding Makeup1Glossy}"/>
+
+            <TextBlock Grid.Column="0" Grid.Row="12" Text="Makeup 1 Metallic"/>
+            <NumericUpDown Grid.Column="2" Grid.Row="12" Value="{Binding Makeup1Metallic}"/>
+
+            <TextBlock Grid.Column="4" Grid.Row="0" Text="Makeup 2 Color"/>
+            <controls:ColorEdit Name="Makeup2ColorEdit" Grid.Column="6" Grid.Row="0" Width="140"/>
+
+            <TextBlock Grid.Column="4" Grid.Row="2" Text="Makeup 2 PosX"/>
+            <NumericUpDown Grid.Column="6" Grid.Row="2" Value="{Binding Makeup2PosX}"/>
+
+            <TextBlock Grid.Column="4" Grid.Row="4" Text="Makeup 2 PosY"/>
+            <NumericUpDown Grid.Column="6" Grid.Row="4" Value="{Binding Makeup2PosY}"/>
+
+            <TextBlock Grid.Column="4" Grid.Row="6" Text="Makeup 2 SizeX"/>
+            <NumericUpDown Grid.Column="6" Grid.Row="6" Value="{Binding Makeup2SizeX}"/>
+
+            <TextBlock Grid.Column="4" Grid.Row="8" Text="Makeup 2 SizeY"/>
+            <NumericUpDown Grid.Column="6" Grid.Row="8" Value="{Binding Makeup2SizeY}"/>
+
+            <TextBlock Grid.Column="4" Grid.Row="10" Text="Makeup 2 Glossy"/>
+            <NumericUpDown Grid.Column="6" Grid.Row="10" Value="{Binding Makeup2Glossy}"/>
+
+            <TextBlock Grid.Column="4" Grid.Row="12" Text="Makeup 2 Metallic"/>
+            <NumericUpDown Grid.Column="6" Grid.Row="12" Value="{Binding Makeup2Metallic}"/>
+        </Grid>
+
+        <WrapPanel.Styles>
+            <Style Selector="StackPanel">
+                <Setter Property="Margin" Value="0,0,10,10"/>
+            </Style>
+        </WrapPanel.Styles>
+
+        <StackPanel>
+            <TextBlock Text="Makeup 1" Margin="0,0,0,5"/>
+            <ComboBox Name="Makeup1TypeSelect" Classes="CharaSelect" Items="{Binding MakeupTypes}" SelectedItem="{Binding Makeup1Type}"/>
+        </StackPanel>
+
+        <StackPanel>
+            <TextBlock Text="Makeup 2" Margin="0,0,0,5"/>
+            <ComboBox Name="Makeup2TypeSelect" Classes="CharaSelect" Items="{Binding MakeupTypes}" SelectedItem="{Binding Makeup2Type}"/>
+        </StackPanel>
+    </WrapPanel>
+</UserControl>

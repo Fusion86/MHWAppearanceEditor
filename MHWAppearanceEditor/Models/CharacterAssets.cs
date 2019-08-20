@@ -51,6 +51,14 @@ namespace MHWAppearanceEditor.Models
         public List<CharacterAsset> FemaleHairTypes { get; } = new List<CharacterAsset>();
         public List<CharacterAsset> MaleFacialHairTypes { get; } = new List<CharacterAsset>();
         public List<CharacterAsset> FemaleFacialHairTypes { get; } = new List<CharacterAsset>();
+        public List<CharacterAsset> MaleEyebrowTypes { get; } = new List<CharacterAsset>();
+        public List<CharacterAsset> FemaleEyebrowTypes { get; } = new List<CharacterAsset>();
+        public List<CharacterAsset> MaleEyeTypes { get; } = new List<CharacterAsset>();
+        public List<CharacterAsset> FemaleEyeTypes { get; } = new List<CharacterAsset>();
+        public List<CharacterAsset> MaleClothingTypes { get; } = new List<CharacterAsset>();
+        public List<CharacterAsset> FemaleClothingTypes { get; } = new List<CharacterAsset>();
+        public List<CharacterAsset> MaleMakeupTypes { get; } = new List<CharacterAsset>();
+        public List<CharacterAsset> FemaleMakeupTypes { get; } = new List<CharacterAsset>();
 
         private static readonly ILogger CtxLog = Log.ForContext<CharacterAssets>();
 
@@ -112,6 +120,38 @@ namespace MHWAppearanceEditor.Models
                     case "Female Facial Hair":
                         name = "Facial Hair Type";
                         dest = FemaleFacialHairTypes;
+                        break;
+                    case "Male Eyebrows":
+                        name = "Eyebrow Type";
+                        dest = MaleEyebrowTypes;
+                        break;
+                    case "Female Eyebrows":
+                        name = "Eyebrow Type";
+                        dest = FemaleEyebrowTypes;
+                        break;
+                    case "Male Eyes":
+                        name = "Eye Type";
+                        dest = MaleEyeTypes;
+                        break;
+                    case "Female Eyes":
+                        name = "Eye Type";
+                        dest = FemaleEyeTypes;
+                        break;
+                    case "Male Clothing":
+                        name = "Clothing Type";
+                        dest = MaleClothingTypes;
+                        break;
+                    case "Female Clothing":
+                        name = "Clothing Type";
+                        dest = FemaleClothingTypes;
+                        break;
+                    case "Male Makeup":
+                        name = "Makeup Type";
+                        dest = MaleMakeupTypes;
+                        break;
+                    case "Female Makeup":
+                        name = "Makeup Type";
+                        dest = FemaleMakeupTypes;
                         break;
                     default:
                         CtxLog.Warning($"Unrecognized name '{def.Name}'");

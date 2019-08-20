@@ -78,16 +78,28 @@
 
         <!-- Some TabItems have a Width binding, this is required for the WrapPanel inside those views to work correctly -->
 
-        <TabItem Header="Basic Info">
-            <editor:SaveSlotInfoView DataContext="{Binding}"/>
+        <TabItem Header="General">
+            <editor:SaveSlotInfoView DataContext="{Binding}" MaxWidth="800" HorizontalContentAlignment="Stretch"/>
         </TabItem>
 
         <TabItem Header="Face">
-            <editor:SaveSlotFaceView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}"/>
+            <editor:SaveSlotFaceView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
         </TabItem>
 
         <TabItem Header="Hair">
-            <editor:SaveSlotHairView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}"/>
+            <editor:SaveSlotHairView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
+        </TabItem>
+
+        <TabItem Header="Eyes">
+            <editor:SaveSlotEyesView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
+        </TabItem>
+
+        <TabItem Header="Makeup">
+            <editor:SaveSlotMakeupView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
+        </TabItem>
+
+        <TabItem Header="Other">
+            <editor:SaveSlotOtherView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
         </TabItem>
     </TabControl>
 </UserControl>

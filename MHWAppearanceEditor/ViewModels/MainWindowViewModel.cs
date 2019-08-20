@@ -15,7 +15,6 @@ namespace MHWAppearanceEditor.ViewModels
     public class MainWindowViewModel : ViewModelBase
     {
         internal static MainWindowViewModel Instance { get; private set; }
-        private static readonly Serilog.ILogger CtxLog = Log.ForContext<MainWindowViewModel>();
 
         public ReactiveCommand<Unit, Unit> ToggleShowLog { get; }
 

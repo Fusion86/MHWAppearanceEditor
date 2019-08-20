@@ -8,13 +8,13 @@ using ReactiveUI;
 
 namespace MHWAppearanceEditor.Views.SaveSlotEditors
 {
-    public class SaveSlotHairView : ReactiveUserControl<SaveSlotViewModel>
+    public class SaveSlotMakeupView : ReactiveUserControl<SaveSlotViewModel>
     {
-        private ColorEdit HairColorEdit => this.FindControl<ColorEdit>("HairColorEdit");
-        private ColorEdit FacialHairColorEdit => this.FindControl<ColorEdit>("FacialHairColorEdit");
+        private ColorEdit Makeup1ColorEdit => this.FindControl<ColorEdit>("Makeup1ColorEdit");
+        private ColorEdit Makeup2ColorEdit => this.FindControl<ColorEdit>("Makeup2ColorEdit");
         private readonly ComboBox[] forceResetControls;
 
-        public SaveSlotHairView()
+        public SaveSlotMakeupView()
         {
             InitializeComponent();
             ViewModel = DataContext as SaveSlotViewModel;
@@ -24,13 +24,13 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
             // For some reason calling RaisePropertyChanged also doesn't work, so we resort to manually re-setting the SelectedItem.
             forceResetControls = new[]
             {
-                this.FindControl<ComboBox>("HairTypeSelect"),
-                this.FindControl<ComboBox>("FacialHairTypeSelect"),
+                this.FindControl<ComboBox>("Makeup1TypeSelect"),
+                this.FindControl<ComboBox>("Makeup2TypeSelect"),
             };
-            AttachedToVisualTree += SaveSlotHairView_AttachedToVisualTree;
+            AttachedToVisualTree += SaveSlotMakeupView_AttachedToVisualTree;
 
-            this.Bind(ViewModel, vm => vm.HairColor, v => v.HairColorEdit.Color);
-            this.Bind(ViewModel, vm => vm.FacialHairColor, v => v.FacialHairColorEdit.Color);
+            this.Bind(ViewModel, vm => vm.Makeup1Color, v => v.Makeup1ColorEdit.Color);
+            this.Bind(ViewModel, vm => vm.Makeup2Color, v => v.Makeup2ColorEdit.Color);
         }
 
         private void InitializeComponent()
@@ -38,7 +38,7 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
             AvaloniaXamlLoader.Load(this);
         }
 
-        private void SaveSlotHairView_AttachedToVisualTree(object sender, VisualTreeAttachmentEventArgs e)
+        private void SaveSlotMakeupView_AttachedToVisualTree(object sender, VisualTreeAttachmentEventArgs e)
         {
             foreach (var ctrl in forceResetControls)
             {

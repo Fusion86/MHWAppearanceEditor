@@ -20,6 +20,8 @@ namespace MHWAppearanceEditor.ViewModels
 {
     public class SaveDataViewModel : ViewModelBase
     {
+        private static readonly ILogger CtxLog = Log.ForContext<SaveDataViewModel>();
+
         public ReactiveCommand<Unit, Unit> OpenNewCommand { get; }
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
 
@@ -30,7 +32,6 @@ namespace MHWAppearanceEditor.ViewModels
         public IObservableCollection<object> TabsBinding { get; } = new ObservableCollectionExtended<object>();
 
         private SaveData SaveData;
-        private static readonly ILogger CtxLog = Log.ForContext<SaveDataViewModel>();
 
         public SaveDataViewModel(string saveDataPath)
         {

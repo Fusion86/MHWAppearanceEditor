@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using MHWAppearanceEditor.Services;
 using MHWAppearanceEditor.ValueConverters;
 using MHWAppearanceEditor.ViewModels;
 using MHWAppearanceEditor.ViewModels.Tabs;
@@ -22,6 +23,7 @@ namespace MHWAppearanceEditor
             InitializeLogging();
 
             Locator.CurrentMutable.RegisterConstant(new ColorValueConverter(), typeof(IBindingTypeConverter));
+            Locator.CurrentMutable.RegisterConstant(new SteamWebApiService(SuperSecret.STEAM_WEB_API_KEY), typeof(SteamWebApiService));
 
             Locator.CurrentMutable.Register(() => new StartScreenView(), typeof(IViewFor<StartScreenViewModel>));
             Locator.CurrentMutable.Register(() => new SaveDataView(), typeof(IViewFor<SaveDataViewModel>));

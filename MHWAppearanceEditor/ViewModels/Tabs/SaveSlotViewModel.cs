@@ -29,8 +29,29 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public int ResearchPoints { get => SaveSlot.ResearchPoints; set => SaveSlot.ResearchPoints = value; }
         public byte NoseHeight { get => SaveSlot.CharacterAppearance.NoseHeight; set => SaveSlot.CharacterAppearance.NoseHeight = value; }
         public byte MouthHeight { get => SaveSlot.CharacterAppearance.MouthHeight; set => SaveSlot.CharacterAppearance.MouthHeight = value; }
+        public byte EyeWidth { get => SaveSlot.CharacterAppearance.EyeWidth; set => SaveSlot.CharacterAppearance.EyeWidth = value; }
+        public byte EyeHeight { get => SaveSlot.CharacterAppearance.EyeHeight; set => SaveSlot.CharacterAppearance.EyeHeight = value; }
+        public float Makeup1PosX { get => SaveSlot.CharacterAppearance.Makeup1PosX; set => SaveSlot.CharacterAppearance.Makeup1PosX = value; }
+        public float Makeup1PosY { get => SaveSlot.CharacterAppearance.Makeup1PosY; set => SaveSlot.CharacterAppearance.Makeup1PosY = value; }
+        public float Makeup1SizeX { get => SaveSlot.CharacterAppearance.Makeup1SizeX; set => SaveSlot.CharacterAppearance.Makeup1SizeX = value; }
+        public float Makeup1SizeY { get => SaveSlot.CharacterAppearance.Makeup1SizeY; set => SaveSlot.CharacterAppearance.Makeup1SizeY = value; }
+        public float Makeup1Glossy { get => SaveSlot.CharacterAppearance.Makeup1Glossy; set => SaveSlot.CharacterAppearance.Makeup1Glossy = value; }
+        public float Makeup1Metallic { get => SaveSlot.CharacterAppearance.Makeup1Metallic; set => SaveSlot.CharacterAppearance.Makeup1Metallic = value; }
+        public float Makeup2PosX { get => SaveSlot.CharacterAppearance.Makeup2PosX; set => SaveSlot.CharacterAppearance.Makeup2PosX = value; }
+        public float Makeup2PosY { get => SaveSlot.CharacterAppearance.Makeup2PosY; set => SaveSlot.CharacterAppearance.Makeup2PosY = value; }
+        public float Makeup2SizeX { get => SaveSlot.CharacterAppearance.Makeup2SizeX; set => SaveSlot.CharacterAppearance.Makeup2SizeX = value; }
+        public float Makeup2SizeY { get => SaveSlot.CharacterAppearance.Makeup2SizeY; set => SaveSlot.CharacterAppearance.Makeup2SizeY = value; }
+        public float Makeup2Glossy { get => SaveSlot.CharacterAppearance.Makeup2Glossy; set => SaveSlot.CharacterAppearance.Makeup2Glossy = value; }
+        public float Makeup2Metallic { get => SaveSlot.CharacterAppearance.Makeup2Metallic; set => SaveSlot.CharacterAppearance.Makeup2Metallic = value; }
         public SDColor HairColor { get => SaveSlot.CharacterAppearance.HairColor; set => SaveSlot.CharacterAppearance.HairColor = value; }
         public SDColor FacialHairColor { get => SaveSlot.CharacterAppearance.FacialHairColor; set => SaveSlot.CharacterAppearance.FacialHairColor = value; }
+        public SDColor LeftEyeColor { get => SaveSlot.CharacterAppearance.LeftEyeColor; set => SaveSlot.CharacterAppearance.LeftEyeColor = value; }
+        public SDColor RightEyeColor { get => SaveSlot.CharacterAppearance.RightEyeColor; set => SaveSlot.CharacterAppearance.RightEyeColor = value; }
+        public SDColor EyebrowColor { get => SaveSlot.CharacterAppearance.EyebrowColor; set => SaveSlot.CharacterAppearance.EyebrowColor = value; }
+        public SDColor ClothingColor { get => SaveSlot.CharacterAppearance.ClothingColor; set => SaveSlot.CharacterAppearance.ClothingColor = value; }
+        public SDColor Makeup1Color { get => SaveSlot.CharacterAppearance.Makeup1Color; set => SaveSlot.CharacterAppearance.Makeup1Color = value; }
+        public SDColor Makeup2Color { get => SaveSlot.CharacterAppearance.Makeup2Color; set => SaveSlot.CharacterAppearance.Makeup2Color = value; }
+        public EyelashLength EyelashLength { get => SaveSlot.CharacterAppearance.EyelashLength; set => SaveSlot.CharacterAppearance.EyelashLength = value; }
 
         public Gender Gender
         {
@@ -39,6 +60,7 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         }
 
         // Proxy properties
+#pragma warning disable CA1062 // Validate arguments of public methods
         public CharacterAsset BrowType
         {
             get => BrowTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.BrowType);
@@ -75,14 +97,50 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
             set { SaveSlot.CharacterAppearance.FacialHairType = (byte)value.Value; this.RaisePropertyChanged(); }
         }
 
+        public CharacterAsset EyebrowType
+        {
+            get => EyebrowTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.EyebrowType);
+            set { SaveSlot.CharacterAppearance.EyebrowType = (byte)value.Value; this.RaisePropertyChanged(); }
+        }
+
+        public CharacterAsset EyeType
+        {
+            get => EyeTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.EyeType);
+            set { SaveSlot.CharacterAppearance.EyeType = (byte)value.Value; this.RaisePropertyChanged(); }
+        }
+
+        public CharacterAsset ClothingType
+        {
+            get => ClothingTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.ClothingType);
+            set { SaveSlot.CharacterAppearance.ClothingType = (byte)value.Value; this.RaisePropertyChanged(); }
+        }
+
+        public CharacterAsset Makeup1Type
+        {
+            get => MakeupTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.Makeup1Type);
+            set { SaveSlot.CharacterAppearance.Makeup1Type = value.Value; this.RaisePropertyChanged(); }
+        }
+
+        public CharacterAsset Makeup2Type
+        {
+            get => MakeupTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.Makeup2Type);
+            set { SaveSlot.CharacterAppearance.Makeup2Type = value.Value; this.RaisePropertyChanged(); }
+        }
+#pragma warning restore CA1062 // Validate arguments of public methods
+
         // Collections of possible values
         public List<Gender> Genders { get; } = new List<Gender>() { Gender.Male, Gender.Female };
+        public List<EyelashLength> EyelashLengths { get; } = new List<EyelashLength>() { EyelashLength.Short, EyelashLength.Average, EyelashLength.Long };
         [Reactive] public List<CharacterAsset> BrowTypes { get; private set; }
         [Reactive] public List<CharacterAsset> FaceTypes { get; private set; }
         [Reactive] public List<CharacterAsset> NoseTypes { get; private set; }
         [Reactive] public List<CharacterAsset> MouthTypes { get; private set; }
         [Reactive] public List<CharacterAsset> HairTypes { get; private set; }
         [Reactive] public List<CharacterAsset> FacialHairTypes { get; private set; }
+        [Reactive] public List<CharacterAsset> EyebrowTypes { get; private set; }
+        [Reactive] public List<CharacterAsset> EyeTypes { get; private set; }
+        [Reactive] public List<CharacterAsset> ClothingTypes { get; private set; }
+        [Reactive] public List<CharacterAsset> MakeupTypes { get; private set; }
 
         private readonly SaveSlot SaveSlot;
         private readonly CharacterAssets CharacterAssets;
@@ -110,6 +168,10 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
                         // You can use both male and female hairstyles. We display the recommended hairstyles first, in this case the __male__ hairstyles
                         HairTypes = CharacterAssets.MaleHairTypes.Concat(CharacterAssets.FemaleHairTypes).ToList();
                         FacialHairTypes = CharacterAssets.MaleFacialHairTypes;
+                        EyebrowTypes = CharacterAssets.MaleEyebrowTypes;
+                        EyeTypes = CharacterAssets.MaleEyeTypes;
+                        ClothingTypes = CharacterAssets.MaleClothingTypes;
+                        MakeupTypes = CharacterAssets.MaleMakeupTypes;
                         break;
                     case Gender.Female:
                         BrowTypes = CharacterAssets.FemaleBrowTypes;
@@ -119,6 +181,10 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
                         // You can use both male and female hairstyles. We display the recommended hairstyles first, in this case the __female__ hairstyles
                         HairTypes = CharacterAssets.FemaleHairTypes.Concat(CharacterAssets.MaleHairTypes).ToList();
                         FacialHairTypes = CharacterAssets.FemaleFacialHairTypes;
+                        EyebrowTypes = CharacterAssets.FemaleEyebrowTypes;
+                        EyeTypes = CharacterAssets.FemaleEyeTypes;
+                        ClothingTypes = CharacterAssets.FemaleClothingTypes;
+                        MakeupTypes = CharacterAssets.FemaleMakeupTypes;
                         break;
                 }
             }

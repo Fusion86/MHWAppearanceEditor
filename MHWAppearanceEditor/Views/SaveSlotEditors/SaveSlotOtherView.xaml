@@ -1,0 +1,25 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:MHWAppearanceEditor.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MHWAppearanceEditor.Views.SaveSlotEditors.SaveSlotOtherView">
+
+    <Grid Margin="20" ColumnDefinitions="Auto,20,*">
+        <Grid Grid.Column="0" RowDefinitions="Auto" ColumnDefinitions="Auto,10,Auto">
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Clothing Color" VerticalAlignment="Center" TextAlignment="Right"/>
+            <controls:ColorEdit Name="ClothingColorEdit" Grid.Column="2" Grid.Row="0" Width="100"/>
+        </Grid>
+
+        <WrapPanel Grid.Column="2">
+            <WrapPanel.Styles>
+                <Style Selector="ComboBox">
+                    <Setter Property="Margin" Value="0,0,10,10"/>
+                </Style>
+            </WrapPanel.Styles>
+
+            <ComboBox Name="ClothingTypeSelect" Classes="CharaSelect" Items="{Binding ClothingTypes}" SelectedItem="{Binding ClothingType}"/>
+        </WrapPanel>
+    </Grid>
+</UserControl>

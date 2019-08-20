@@ -8,13 +8,12 @@ using ReactiveUI;
 
 namespace MHWAppearanceEditor.Views.SaveSlotEditors
 {
-    public class SaveSlotHairView : ReactiveUserControl<SaveSlotViewModel>
+    public class SaveSlotOtherView : ReactiveUserControl<SaveSlotViewModel>
     {
-        private ColorEdit HairColorEdit => this.FindControl<ColorEdit>("HairColorEdit");
-        private ColorEdit FacialHairColorEdit => this.FindControl<ColorEdit>("FacialHairColorEdit");
+        private ColorEdit ClothingColorEdit => this.FindControl<ColorEdit>("ClothingColorEdit");
         private readonly ComboBox[] forceResetControls;
 
-        public SaveSlotHairView()
+        public SaveSlotOtherView()
         {
             InitializeComponent();
             ViewModel = DataContext as SaveSlotViewModel;
@@ -24,13 +23,11 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
             // For some reason calling RaisePropertyChanged also doesn't work, so we resort to manually re-setting the SelectedItem.
             forceResetControls = new[]
             {
-                this.FindControl<ComboBox>("HairTypeSelect"),
-                this.FindControl<ComboBox>("FacialHairTypeSelect"),
+                this.FindControl<ComboBox>("ClothingTypeSelect"),
             };
-            AttachedToVisualTree += SaveSlotHairView_AttachedToVisualTree;
+            AttachedToVisualTree += SaveSlotOtherView_AttachedToVisualTree;
 
-            this.Bind(ViewModel, vm => vm.HairColor, v => v.HairColorEdit.Color);
-            this.Bind(ViewModel, vm => vm.FacialHairColor, v => v.FacialHairColorEdit.Color);
+            this.Bind(ViewModel, vm => vm.ClothingColor, v => v.ClothingColorEdit.Color);
         }
 
         private void InitializeComponent()
@@ -38,7 +35,7 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
             AvaloniaXamlLoader.Load(this);
         }
 
-        private void SaveSlotHairView_AttachedToVisualTree(object sender, VisualTreeAttachmentEventArgs e)
+        private void SaveSlotOtherView_AttachedToVisualTree(object sender, VisualTreeAttachmentEventArgs e)
         {
             foreach (var ctrl in forceResetControls)
             {

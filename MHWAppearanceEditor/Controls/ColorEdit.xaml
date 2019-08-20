@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vc="clr-namespace:MHWAppearanceEditor.ValueConverters"
              xmlns:cp="clr-namespace:ThemeEditor.Controls.ColorPicker;assembly=ThemeEditor.Controls.ColorPicker"
-             mc:Ignorable="d" d:DesignWidth="100" d:DesignHeight="24"
+             mc:Ignorable="d" d:DesignWidth="100" d:DesignHeight="35"
+             Height="35"
              x:Class="MHWAppearanceEditor.Controls.ColorEdit">
 
     <UserControl.Resources>
@@ -12,7 +13,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <Button Name="ColorButton" Classes="Lookless" Background="{Binding Color, Converter={StaticResource ColorConverter}}"/>
+        <Button Name="ColorButton" Classes="Lookless" Background="{Binding Color, Converter={StaticResource ColorConverter}}" BorderThickness="1"/>
         <Popup Name="ColorPickerPopup" StaysOpen="False">
             <Border Padding="10">
                 <cp:ColorPicker Width="400" Color="{Binding Color, Mode=TwoWay}">
