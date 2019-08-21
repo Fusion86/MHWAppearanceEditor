@@ -47,13 +47,13 @@
             <controls:ColorEdit Name="RightEyeColorEdit" Grid.Column="2" Grid.Row="10"/>
 
             <TextBlock Grid.Column="4" Grid.Row="0" Text="Clothing Color"/>
-            <controls:ColorEdit Name="ClothingColorEdit" Grid.Column="6" Grid.Row="0"/>
+            <controls:ColorEdit Name="ClothingColorEdit" Grid.Column="6" Grid.Row="0" Width="140" HorizontalAlignment="Left"/>
 
             <TextBlock Grid.Column="4" Grid.Row="2" Text="Fur Length"/>
-            <NumericUpDown Grid.Column="6" Grid.Row="2" Value="{Binding PalicoFurLength}"/>
+            <NumericUpDown Grid.Column="6" Grid.Row="2" Value="{Binding PalicoFurLength}" HorizontalAlignment="Left"/>
 
             <TextBlock Grid.Column="4" Grid.Row="4" Text="Fur Thickness"/>
-            <NumericUpDown Grid.Column="6" Grid.Row="4" Value="{Binding PalicoFurThickness}"/>
+            <NumericUpDown Grid.Column="6" Grid.Row="4" Value="{Binding PalicoFurThickness}" HorizontalAlignment="Left"/>
 
             <TextBlock Grid.Column="4" Grid.Row="6" Text="Voice Type" VerticalAlignment="Center" TextAlignment="Right"/>
             <ListBox Grid.Column="6" Grid.Row="6" Classes="FusionListBox" Items="{Binding PalicoVoiceTypes}" SelectedItem="{Binding PalicoVoiceType}"/>
