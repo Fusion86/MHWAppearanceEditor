@@ -6,9 +6,11 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MHWAppearanceEditor.Views.SaveSlotEditors.SaveSlotMakeupView">
 
-    <WrapPanel Margin="20">
-        <Grid Grid.Column="0" Margin="0,0,20,20"
-              RowDefinitions="Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto" ColumnDefinitions="Auto,10,Auto,20,Auto,10,Auto">
+    <Grid Margin="20,20,20,0" RowDefinitions="Auto,10,Auto">
+        <Grid Grid.Row="0" Margin="0,0,20,0"
+              HorizontalAlignment="Center"
+              RowDefinitions="Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto"
+              ColumnDefinitions="Auto,10,Auto,20,Auto,10,Auto">
             <Grid.Styles>
                 <Style Selector="TextBlock">
                     <Setter Property="VerticalAlignment" Value="Center"/>
@@ -68,20 +70,22 @@
             <NumericUpDown Grid.Column="6" Grid.Row="12" Value="{Binding Makeup2Metallic}"/>
         </Grid>
 
-        <WrapPanel.Styles>
-            <Style Selector="StackPanel">
-                <Setter Property="Margin" Value="0,0,10,10"/>
-            </Style>
-        </WrapPanel.Styles>
+        <WrapPanel Grid.Row="2" HorizontalAlignment="Center">
+            <WrapPanel.Styles>
+                <Style Selector="StackPanel">
+                    <Setter Property="Margin" Value="0,0,10,10"/>
+                </Style>
+            </WrapPanel.Styles>
 
-        <StackPanel>
-            <TextBlock Text="Makeup 1" Margin="0,0,0,5"/>
-            <ComboBox Name="Makeup1TypeSelect" Classes="CharaSelect" Items="{Binding MakeupTypes}" SelectedItem="{Binding Makeup1Type}"/>
-        </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Makeup 1" Margin="0,0,0,5" HorizontalAlignment="Center"/>
+                <ComboBox Name="Makeup1TypeSelect" Classes="CharaSelect" Items="{Binding MakeupTypes}" SelectedItem="{Binding Makeup1Type}"/>
+            </StackPanel>
 
-        <StackPanel>
-            <TextBlock Text="Makeup 2" Margin="0,0,0,5"/>
-            <ComboBox Name="Makeup2TypeSelect" Classes="CharaSelect" Items="{Binding MakeupTypes}" SelectedItem="{Binding Makeup2Type}"/>
-        </StackPanel>
-    </WrapPanel>
+            <StackPanel>
+                <TextBlock Text="Makeup 2" Margin="0,0,0,5" HorizontalAlignment="Center"/>
+                <ComboBox Name="Makeup2TypeSelect" Classes="CharaSelect" Items="{Binding MakeupTypes}" SelectedItem="{Binding Makeup2Type}"/>
+            </StackPanel>
+        </WrapPanel>
+    </Grid>
 </UserControl>

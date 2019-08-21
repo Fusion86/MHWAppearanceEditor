@@ -53,6 +53,14 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public SDColor Makeup2Color { get => SaveSlot.CharacterAppearance.Makeup2Color; set => SaveSlot.CharacterAppearance.Makeup2Color = value; }
         public EyelashLength EyelashLength { get => SaveSlot.CharacterAppearance.EyelashLength; set => SaveSlot.CharacterAppearance.EyelashLength = value; }
 
+        public SDColor PalicoPatternColor1 { get => SaveSlot.PalicoAppearance.PatternColor1; set => SaveSlot.PalicoAppearance.PatternColor1 = value; }
+        public SDColor PalicoPatternColor2 { get => SaveSlot.PalicoAppearance.PatternColor2; set => SaveSlot.PalicoAppearance.PatternColor2 = value; }
+        public SDColor PalicoPatternColor3 { get => SaveSlot.PalicoAppearance.PatternColor3; set => SaveSlot.PalicoAppearance.PatternColor3 = value; }
+        public SDColor PalicoFurColor { get => SaveSlot.PalicoAppearance.FurColor; set => SaveSlot.PalicoAppearance.FurColor = value; }
+        public SDColor PalicoLeftEyeColor { get => SaveSlot.PalicoAppearance.LeftEyeColor; set => SaveSlot.PalicoAppearance.LeftEyeColor = value; }
+        public SDColor PalicoRightEyeColor { get => SaveSlot.PalicoAppearance.RightEyeColor; set => SaveSlot.PalicoAppearance.RightEyeColor = value; }
+        public SDColor PalicoClothingColor { get => SaveSlot.PalicoAppearance.ClothingColor; set => SaveSlot.PalicoAppearance.ClothingColor = value; }
+
         public Gender Gender
         {
             get => SaveSlot.CharacterAppearance.Gender;
@@ -126,11 +134,37 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
             get => MakeupTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.Makeup2Type);
             set { SaveSlot.CharacterAppearance.Makeup2Type = value.Value; this.RaisePropertyChanged(); }
         }
+
+        public CharacterAsset PalicoPatternType
+        {
+            get => PalicoPatternTypes.FirstOrDefault(x => x.Value == SaveSlot.PalicoAppearance.PatternType);
+            set { SaveSlot.PalicoAppearance.PatternType = (byte)value.Value; this.RaisePropertyChanged(); }
+        }
+
+        public CharacterAsset PalicoEyeType
+        {
+            get => PalicoEyeTypes.FirstOrDefault(x => x.Value == SaveSlot.PalicoAppearance.EyeType);
+            set { SaveSlot.PalicoAppearance.EyeType = (byte)value.Value; this.RaisePropertyChanged(); }
+        }
+
+        public CharacterAsset PalicoEarType
+        {
+            get => PalicoEarTypes.FirstOrDefault(x => x.Value == SaveSlot.PalicoAppearance.EarType);
+            set { SaveSlot.PalicoAppearance.EarType = (byte)value.Value; this.RaisePropertyChanged(); }
+        }
+
+        public CharacterAsset PalicoTailType
+        {
+            get => PalicoTailTypes.FirstOrDefault(x => x.Value == SaveSlot.PalicoAppearance.TailType);
+            set { SaveSlot.PalicoAppearance.TailType = (byte)value.Value; this.RaisePropertyChanged(); }
+        }
 #pragma warning restore CA1062 // Validate arguments of public methods
 
         // Collections of possible values
         public List<Gender> Genders { get; } = new List<Gender>() { Gender.Male, Gender.Female };
         public List<EyelashLength> EyelashLengths { get; } = new List<EyelashLength>() { EyelashLength.Short, EyelashLength.Average, EyelashLength.Long };
+        public List<PalicoVoiceType> PalicoVoiceTypes { get; } = new List<PalicoVoiceType>() { PalicoVoiceType.Type1, PalicoVoiceType.Type2, PalicoVoiceType.Type3 };
+        public List<PalicoVoicePitch> PalicoVoicePitches { get; } = new List<PalicoVoicePitch>() { PalicoVoicePitch.MediumPitch, PalicoVoicePitch.LowPitch, PalicoVoicePitch.HighPitch };
         [Reactive] public List<CharacterAsset> BrowTypes { get; private set; }
         [Reactive] public List<CharacterAsset> FaceTypes { get; private set; }
         [Reactive] public List<CharacterAsset> NoseTypes { get; private set; }
@@ -141,6 +175,10 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         [Reactive] public List<CharacterAsset> EyeTypes { get; private set; }
         [Reactive] public List<CharacterAsset> ClothingTypes { get; private set; }
         [Reactive] public List<CharacterAsset> MakeupTypes { get; private set; }
+        [Reactive] public List<CharacterAsset> PalicoPatternTypes { get; private set; }
+        [Reactive] public List<CharacterAsset> PalicoEyeTypes { get; private set; }
+        [Reactive] public List<CharacterAsset> PalicoEarTypes { get; private set; }
+        [Reactive] public List<CharacterAsset> PalicoTailTypes { get; private set; }
 
         private readonly SaveSlot SaveSlot;
         private readonly CharacterAssets CharacterAssets;
@@ -149,6 +187,11 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         {
             CharacterAssets = MainWindowViewModel.Instance.CharacterAssets;
             SaveSlot = saveSlot;
+
+            PalicoPatternTypes = CharacterAssets.PalicoCoatTypes;
+            PalicoEyeTypes = CharacterAssets.PalicoEyeTypes;
+            PalicoEarTypes = CharacterAssets.PalicoEarTypes;
+            PalicoTailTypes = CharacterAssets.PalicoTailTypes;
 
             this.WhenAnyValue(x => x.HunterName, name => string.IsNullOrEmpty(name) ? "(blank)" : name).ToPropertyEx(this, x => x.Title);
             this.WhenAnyValue(x => x.Gender).Subscribe(UpdateGenderSpecificBindings);

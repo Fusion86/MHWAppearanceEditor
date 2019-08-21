@@ -98,8 +98,13 @@
             <editor:SaveSlotMakeupView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
         </TabItem>
 
-        <TabItem Header="Other">
+        <!-- Temporarily called 'Clothing' until I add the age and expression sliders -->
+        <TabItem Header="Clothing">
             <editor:SaveSlotOtherView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
+        </TabItem>
+
+        <TabItem Header="Palico">
+            <editor:SaveSlotPalicoView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
         </TabItem>
     </TabControl>
 </UserControl>

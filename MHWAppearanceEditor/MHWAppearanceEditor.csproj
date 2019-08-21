@@ -25,6 +25,7 @@
     <AvaloniaResource Remove="Views\SaveSlotEditors\SaveSlotInfoView.xaml" />
     <AvaloniaResource Remove="Views\SaveSlotEditors\SaveSlotMakeupView.xaml" />
     <AvaloniaResource Remove="Views\SaveSlotEditors\SaveSlotOtherView.xaml" />
+    <AvaloniaResource Remove="Views\SaveSlotEditors\SaveSlotPalicoView.xaml" />
     <AvaloniaResource Remove="Views\SaveSlotView.xaml" />
     <AvaloniaResource Remove="Views\StartScreenView.xaml" />
     <AvaloniaResource Remove="Views\Tabs\SaveDataInfoView.xaml" />
@@ -40,6 +41,7 @@
     <None Remove="Views\SaveSlotEditors\SaveSlotInfoView.xaml" />
     <None Remove="Views\SaveSlotEditors\SaveSlotMakeupView.xaml" />
     <None Remove="Views\SaveSlotEditors\SaveSlotOtherView.xaml" />
+    <None Remove="Views\SaveSlotEditors\SaveSlotPalicoView.xaml" />
     <None Remove="Views\SaveSlotView.xaml" />
     <None Remove="Views\StartScreenView.xaml" />
     <None Remove="Views\Tabs\SaveDataInfoView.xaml" />
@@ -120,6 +122,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\SaveSlotEditors\SaveSlotMakeupView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\SaveSlotEditors\SaveSlotPalicoView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

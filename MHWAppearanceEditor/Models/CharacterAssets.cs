@@ -59,6 +59,10 @@ namespace MHWAppearanceEditor.Models
         public List<CharacterAsset> FemaleClothingTypes { get; } = new List<CharacterAsset>();
         public List<CharacterAsset> MaleMakeupTypes { get; } = new List<CharacterAsset>();
         public List<CharacterAsset> FemaleMakeupTypes { get; } = new List<CharacterAsset>();
+        public List<CharacterAsset> PalicoCoatTypes { get; } = new List<CharacterAsset>();
+        public List<CharacterAsset> PalicoEarTypes { get; } = new List<CharacterAsset>();
+        public List<CharacterAsset> PalicoEyeTypes { get; } = new List<CharacterAsset>();
+        public List<CharacterAsset> PalicoTailTypes { get; } = new List<CharacterAsset>();
 
         private static readonly ILogger CtxLog = Log.ForContext<CharacterAssets>();
 
@@ -152,6 +156,22 @@ namespace MHWAppearanceEditor.Models
                     case "Female Makeup":
                         name = "Makeup Type";
                         dest = FemaleMakeupTypes;
+                        break;
+                    case "Palico Coat Types":
+                        name = "Palico Coat Type";
+                        dest = PalicoCoatTypes;
+                        break;
+                    case "Palico Ears":
+                        name = "Palico Ear Type";
+                        dest = PalicoEarTypes;
+                        break;
+                    case "Palico Eyes":
+                        name = "Palico Eye Type";
+                        dest = PalicoEyeTypes;
+                        break;
+                    case "Palico Tails":
+                        name = "Palico Tail Type";
+                        dest = PalicoTailTypes;
                         break;
                     default:
                         CtxLog.Warning($"Unrecognized name '{def.Name}'");
