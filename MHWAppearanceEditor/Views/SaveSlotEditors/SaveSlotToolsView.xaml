@@ -1,0 +1,74 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="450"
+             x:Class="MHWAppearanceEditor.Views.SaveSlotEditors.SaveSlotToolsView">
+
+    <UserControl.Resources>
+        <sys:String x:Key="CmpTooltip">These files are used in Monster Hunter World for the default character presets. There also are several mods on the Nexus that distribute modified presets.</sys:String>
+        <sys:String x:Key="JsonTooltip">These files are used by the older/legacy MHWAppearanceEditor. For backwards compatibility they are still suppored.</sys:String>
+    </UserControl.Resources>
+
+    <Grid Margin="20" ColumnDefinitions="Auto,20,*" RowDefinitions="Auto,10,*">
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Other options" HorizontalAlignment="Center"/>
+
+        <StackPanel Grid.Row="2" Grid.Column="0">
+            <StackPanel.Styles>
+                <Style Selector="Button">
+                    <Setter Property="Margin" Value="0,0,0,2"/>
+                </Style>
+            </StackPanel.Styles>
+
+            <Button Content="Import NPC Character Preset (.cmp)" ToolTip.Tip="{StaticResource CmpTooltip}"/>
+            <Button Content="Export NPC Character Preset (.cmp)" ToolTip.Tip="{StaticResource CmpTooltip}" Margin="0,0,0,5"/>
+
+            <Button Content="Import Character Appearance (.json)" ToolTip.Tip="{StaticResource JsonTooltip}"/>
+            <Button Content="Export Character Appearance (.json)" ToolTip.Tip="{StaticResource JsonTooltip}" Margin="0,0,0,5"/>
+        </StackPanel>
+
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="Import from SaveData/SaveSlot" HorizontalAlignment="Center"/>
+
+        <Grid Grid.Row="2" Grid.Column="2" RowDefinitions="Auto,20,*">
+            <Grid Grid.Row="0" ColumnDefinitions="Auto,5,*,5,Auto">
+                <TextBlock Grid.Column="0" Text="Selected SaveData " VerticalAlignment="Center"/>
+                <TextBox Grid.Column="2" Text="{Binding SourceSaveData.Filepath}"/>
+                <Button Grid.Column="4" Content="Select other SaveData file"/>
+            </Grid>
+
+            <StackPanel Grid.Row="2" Orientation="Vertical" IsVisible="{Binding !!SourceSaveSlots}">
+                <TextBlock Text="Click on a SaveSlot to import that hunter's appearance." Margin="0,0,0,5" HorizontalAlignment="Center"/>
+
+                <ItemsControl Items="{Binding SourceSaveSlots}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Background="{DynamicResource FusionDarkSlate2Brush}"
+                                    Width="400"
+                                    HorizontalContentAlignment="Stretch"
+                                    Padding="0"
+                                    Margin="0,0,0,5"
+                                    Command="{Binding $parent[UserControl].DataContext.ImportFromSaveSlotCommand}"
+                                    CommandParameter="{Binding SaveSlot}">
+
+                                <Grid Margin="10" RowDefinitions="Auto,5,Auto,5,Auto" ColumnDefinitions="Auto,*,10,Auto,*">
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Center" Text="Fusion" FontWeight="Bold"/>
+
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Gender"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Gender}" HorizontalAlignment="Right"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="3" Text="Playtime"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="4" Text="{Binding Playtime}" HorizontalAlignment="Right"/>
+
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Funds"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Zenny, StringFormat=\{0\} z}" HorizontalAlignment="Right"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="3" Text="HR"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="4" Text="{Binding HunterRank}" HorizontalAlignment="Right"/>
+                                </Grid>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

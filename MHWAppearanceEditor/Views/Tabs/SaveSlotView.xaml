@@ -106,5 +106,9 @@
         <TabItem Header="Palico">
             <editor:SaveSlotPalicoView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
         </TabItem>
+
+        <TabItem Header="Tools">
+            <editor:SaveSlotToolsView Name="SaveSlotToolsView" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
+        </TabItem>
     </TabControl>
 </UserControl>

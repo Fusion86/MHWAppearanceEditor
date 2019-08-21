@@ -10,7 +10,8 @@
         x:Class="MHWAppearanceEditor.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="MHWAppearanceEditor"
-        Width="900" Height="620">
+        Width="900" Height="620"
+        MinWidth="700" MinHeight="500">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>

@@ -1,8 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Logging.Serilog;
 using Avalonia.ReactiveUI;
-using MHWAppearanceEditor.ViewModels;
-using MHWAppearanceEditor.Views;
 
 namespace MHWAppearanceEditor
 {

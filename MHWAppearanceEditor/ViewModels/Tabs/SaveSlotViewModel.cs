@@ -182,7 +182,8 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         [Reactive] public List<CharacterAsset> PalicoEarTypes { get; private set; }
         [Reactive] public List<CharacterAsset> PalicoTailTypes { get; private set; }
 
-        private readonly SaveSlot SaveSlot;
+        public SaveSlot SaveSlot { get; }
+
         private readonly CharacterAssets CharacterAssets;
 
         public SaveSlotViewModel(SaveSlot saveSlot)

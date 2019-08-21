@@ -18,7 +18,9 @@
                         </StackPanel>
                     </Border>-->
 
-                    <Button Background="{DynamicResource FusionDarkSlate2Brush}" HorizontalContentAlignment="Stretch"
+                    <Button Background="{DynamicResource FusionDarkSlate2Brush}"
+                            HorizontalContentAlignment="Stretch"
+                            Padding="0"
                             Command="{Binding $parent[UserControl].DataContext.OpenSteamAccountCommand}"
                             CommandParameter="{Binding}">
                         <StackPanel Margin="10">

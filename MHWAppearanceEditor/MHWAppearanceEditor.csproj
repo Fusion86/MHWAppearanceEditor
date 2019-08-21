@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFrameworks>net461;netcoreapp3.0</TargetFrameworks>
@@ -26,6 +26,7 @@
     <AvaloniaResource Remove="Views\SaveSlotEditors\SaveSlotMakeupView.xaml" />
     <AvaloniaResource Remove="Views\SaveSlotEditors\SaveSlotOtherView.xaml" />
     <AvaloniaResource Remove="Views\SaveSlotEditors\SaveSlotPalicoView.xaml" />
+    <AvaloniaResource Remove="Views\SaveSlotEditors\SaveSlotToolsView.xaml" />
     <AvaloniaResource Remove="Views\SaveSlotView.xaml" />
     <AvaloniaResource Remove="Views\StartScreenView.xaml" />
     <AvaloniaResource Remove="Views\Tabs\SaveDataInfoView.xaml" />
@@ -42,6 +43,7 @@
     <None Remove="Views\SaveSlotEditors\SaveSlotMakeupView.xaml" />
     <None Remove="Views\SaveSlotEditors\SaveSlotOtherView.xaml" />
     <None Remove="Views\SaveSlotEditors\SaveSlotPalicoView.xaml" />
+    <None Remove="Views\SaveSlotEditors\SaveSlotToolsView.xaml" />
     <None Remove="Views\SaveSlotView.xaml" />
     <None Remove="Views\StartScreenView.xaml" />
     <None Remove="Views\Tabs\SaveDataInfoView.xaml" />
@@ -127,6 +129,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\SaveSlotEditors\SaveSlotPalicoView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\SaveSlotEditors\SaveSlotToolsView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
