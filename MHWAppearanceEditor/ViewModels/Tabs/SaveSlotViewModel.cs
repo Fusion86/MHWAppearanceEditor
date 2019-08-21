@@ -191,13 +191,20 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
             CharacterAssets = MainWindowViewModel.Instance.CharacterAssets;
             SaveSlot = saveSlot;
 
-            PalicoPatternTypes = CharacterAssets.PalicoCoatTypes;
-            PalicoEyeTypes = CharacterAssets.PalicoEyeTypes;
-            PalicoEarTypes = CharacterAssets.PalicoEarTypes;
-            PalicoTailTypes = CharacterAssets.PalicoTailTypes;
-
             this.WhenAnyValue(x => x.HunterName, name => string.IsNullOrEmpty(name) ? "(blank)" : name).ToPropertyEx(this, x => x.Title);
             this.WhenAnyValue(x => x.Gender).Subscribe(UpdateGenderSpecificBindings);
+
+            try
+            {
+                PalicoPatternTypes = CharacterAssets.PalicoCoatTypes;
+                PalicoEyeTypes = CharacterAssets.PalicoEyeTypes;
+                PalicoEarTypes = CharacterAssets.PalicoEarTypes;
+                PalicoTailTypes = CharacterAssets.PalicoTailTypes;
+            }
+            catch (Exception ex)
+            {
+                CtxLog.Error(ex, ex.Message);
+            }
         }
 
         private void UpdateGenderSpecificBindings(Gender gender)
@@ -236,7 +243,7 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
             }
             catch (Exception ex)
             {
-                CtxLog.Error(ex.Message);
+                CtxLog.Error(ex, ex.Message);
             }
         }
     }

@@ -73,6 +73,7 @@
 
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
+                    <!-- TextWrapping doesn't work correctly here. It looks like the Height is being calculated before TextWrapping is apply, the result being that the Height is too small. -->
                     <TextBlock Text="{Binding MessageDetails}" Margin="5" IsVisible="{Binding MessageDetails, Converter={StaticResource IsNotNullToTrueConverter}}"/>
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
