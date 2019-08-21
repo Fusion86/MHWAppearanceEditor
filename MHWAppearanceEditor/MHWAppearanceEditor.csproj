@@ -195,8 +195,8 @@
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cirilla.Core\Cirilla.Core.csproj">
-      <Project>{7ED71961-026E-4E68-8FA0-A07619B7AC7E}</Project>
+    <ProjectReference Include="..\..\Cirilla\Cirilla.Core\Cirilla.Core.csproj">
+      <Project>{ae44339f-20d7-45fc-9c4f-251e39aea85a}</Project>
       <Name>Cirilla.Core</Name>
     </ProjectReference>
   </ItemGroup>
