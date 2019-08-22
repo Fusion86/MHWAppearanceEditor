@@ -264,3 +264,4 @@ __pycache__/
 .vscode/
 Cirilla.Core/
 styles_list_gen/
+output/

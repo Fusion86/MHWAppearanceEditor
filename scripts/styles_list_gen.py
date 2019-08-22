@@ -24,11 +24,12 @@ from collections import namedtuple
 class Config:
     TEXTOPNG_PATH = "L:/Tools/Modding/TexToPng/TexToPng.exe"
     CHUNKS_ROOT = "L:/Sync/MHW Mods/chunks"
-    OUT = join(os.getcwd(), "styles_list_gen")
+    OUT = join(os.path.dirname(os.path.realpath(__file__)), "styles_list_gen")
 
 
 Spritesheet = namedtuple("Spritesheet", ["category", "texture_name", "size", "count", "offset"])
 
+# Commented out items are not needed by MHWAppearanceEditor and therefore also not included (by default)
 Items = [
     # Character
     Spritesheet("Male Eyebrows", "thumb_brow00_ID", [126, 62], 16, 0),
@@ -52,12 +53,12 @@ Items = [
     Spritesheet("Male Makeup", "thumb_paint00_ID", [102, 102], 34, 0),
     Spritesheet("Female Makeup", "thumb_paint01_ID", [102, 102], 34, 0),
     # Presets for males and females are stored in the same file. 10 presets per gender + 1 line (5 presets) padding = 25
-    Spritesheet("Character Presets", "thumb_preset_ID", [102, 102], 25, 0),
+    # Spritesheet("Character Presets", "thumb_preset_ID", [102, 102], 25, 0),
     # Palico
     Spritesheet("Palico Coat Types", "thumb_o_coattype_ID", [126, 126], 4, 0),
     Spritesheet("Palico Ears", "thumb_o_ear_ID", [126, 126], 5, 0),
     Spritesheet("Palico Eyes", "thumb_o_eye_ID", [126, 62], 6, 0),
-    Spritesheet("Palico Presets", "thumb_o_preset_ID", [126, 126], 12, 0),
+    # Spritesheet("Palico Presets", "thumb_o_preset_ID", [126, 126], 12, 0),
     Spritesheet("Palico Tails", "thumb_o_tail_ID", [126, 126], 4, 0),
 ]
 

@@ -16,8 +16,6 @@ namespace MHWAppearanceEditor
 {
     public class App : Application, IEnableLogger
     {
-        private static readonly Serilog.ILogger CtxLog = Log.ForContext<App>();
-
         public override void Initialize()
         {
             InitializeLogging();
@@ -33,6 +31,8 @@ namespace MHWAppearanceEditor
             Locator.CurrentMutable.Register(() => new SaveDataInfoView(), typeof(IViewFor<SaveDataInfoViewModel>));
             Locator.CurrentMutable.Register(() => new SaveSlotView(), typeof(IViewFor<SaveSlotViewModel>));
 
+            // Need to call ForContext afer calling InitializeLogging()
+            var CtxLog = Log.ForContext<App>();
             CtxLog.Information("MHWAppearanceEditor v" + Assembly.GetExecutingAssembly().GetName().Version);
             CtxLog.Information("Cirilla.Core v" + Assembly.GetAssembly(typeof(Cirilla.Core.Models.GMD)).GetName().Version);
 
