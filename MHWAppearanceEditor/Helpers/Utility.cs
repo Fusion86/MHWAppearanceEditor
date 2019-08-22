@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using System.IO;
 
 namespace MHWAppearanceEditor.Helpers
 {
@@ -11,6 +12,11 @@ namespace MHWAppearanceEditor.Helpers
             if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime classicDesktop)
                 return classicDesktop.MainWindow;
             return null;
+        }
+
+        public static string GetSafeFilename(string filename)
+        {
+            return string.Join("", filename.Split(Path.GetInvalidFileNameChars()));
         }
     }
 }

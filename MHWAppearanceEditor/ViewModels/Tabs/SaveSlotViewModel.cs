@@ -27,6 +27,7 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public int HunterXp { get => SaveSlot.HunterXp; set => SaveSlot.HunterXp = value; }
         public int Zenny { get => SaveSlot.Zenny; set => SaveSlot.Zenny = value; }
         public int ResearchPoints { get => SaveSlot.ResearchPoints; set => SaveSlot.ResearchPoints = value; }
+        public TimeSpan PlayTime { get => TimeSpan.FromSeconds(SaveSlot.PlayTime); }
         public byte NoseHeight { get => SaveSlot.CharacterAppearance.NoseHeight; set => SaveSlot.CharacterAppearance.NoseHeight = value; }
         public byte MouthHeight { get => SaveSlot.CharacterAppearance.MouthHeight; set => SaveSlot.CharacterAppearance.MouthHeight = value; }
         public byte EyeWidth { get => SaveSlot.CharacterAppearance.EyeWidth; set => SaveSlot.CharacterAppearance.EyeWidth = value; }

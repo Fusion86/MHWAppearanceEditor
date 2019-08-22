@@ -1,6 +1,7 @@
 ﻿using Avalonia.Controls;
 using DynamicData;
 using DynamicData.Binding;
+using MHWAppearanceEditor.Extensions;
 using MHWAppearanceEditor.Helpers;
 using MHWAppearanceEditor.Models;
 using ReactiveUI;
@@ -70,7 +71,7 @@ namespace MHWAppearanceEditor.ViewModels
             if (initialPath != null)
                 ofd.InitialDirectory = initialPath;
 
-            string filePath = (await ofd.ShowAsync(Utility.GetMainWindow())).FirstOrDefault();
+            string filePath = (await ofd.ShowAsync()).FirstOrDefault();
             if (filePath == null)
             {
                 CtxLog.Information("No file selected");

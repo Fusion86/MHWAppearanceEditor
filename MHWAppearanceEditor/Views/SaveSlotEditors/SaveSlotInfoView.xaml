@@ -2,11 +2,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vc="clr-namespace:MHWAppearanceEditor.ValueConverters"
              xmlns:controls="clr-namespace:MHWAppearanceEditor.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MHWAppearanceEditor.Views.SaveSlotEditors.SaveSlotInfoView">
 
-    <Grid Margin="20" ColumnDefinitions="Auto, 10, *" RowDefinitions="Auto, 5, Auto, 5, Auto, 5, Auto, 5, Auto, 5, Auto, 5, Auto">
+    <UserControl.Resources>
+        <vc:TimeSpanValueConverter x:Key="TimeSpanConverter"/>
+    </UserControl.Resources>
+
+    <Grid Margin="20" ColumnDefinitions="Auto, 10, *" RowDefinitions="Auto, 5, Auto, 5, Auto, 5, Auto, 5, Auto, 5, Auto, 5, Auto, 5, Auto">
         <TextBlock Grid.Column="0" Grid.Row="0" Text="Hunter Name" VerticalAlignment="Center" TextAlignment="Right"/>
         <TextBox Grid.Column="2" Grid.Row="0" Text="{Binding HunterName}"/>
 
@@ -14,12 +19,12 @@
         <TextBox Grid.Column="2" Grid.Row="2" Text="{Binding PalicoName}"/>
 
         <TextBlock Grid.Column="0" Grid.Row="4" Text="Hunter Rank" VerticalAlignment="Center" TextAlignment="Right"/>
-        <TextBox Grid.Column="2" Grid.Row="4" Text="{Binding HunterRank}"/>
+        <TextBox Name="HunterRank" Grid.Column="2" Grid.Row="4" Text="{Binding HunterRank}"/>
         <!-- NumericUpDown doesn't display errors, yet -->
         <!--<NumericUpDown Grid.Column="2" Grid.Row="4" Value="{Binding HunterRank}"/>-->
 
         <TextBlock Grid.Column="0" Grid.Row="6" Text="XP" VerticalAlignment="Center" TextAlignment="Right"/>
-        <TextBox Grid.Column="2" Grid.Row="6" Text="{Binding HunterXp}"/>
+        <TextBox Name="HunterXp" Grid.Column="2" Grid.Row="6" Text="{Binding HunterXp}"/>
 
         <TextBlock Grid.Column="0" Grid.Row="8" Text="Zenny" VerticalAlignment="Center" TextAlignment="Right"/>
         <TextBox Grid.Column="2" Grid.Row="8" Text="{Binding Zenny}"/>
@@ -27,10 +32,10 @@
         <TextBlock Grid.Column="0" Grid.Row="10" Text="Research Points" VerticalAlignment="Center" TextAlignment="Right"/>
         <TextBox Grid.Column="2" Grid.Row="10" Text="{Binding ResearchPoints}"/>
 
-        <!--<TextBlock Grid.Column="0" Grid.Row="12" Text="Playtime" VerticalAlignment="Center" TextAlignment="Right"/>
-        <TextBox Grid.Column="2" Grid.Row="12" Text="{Binding Playtime}" IsReadOnly="True"/>-->
+        <TextBlock Grid.Column="0" Grid.Row="12" Text="PlayTime" VerticalAlignment="Center" TextAlignment="Right"/>
+        <TextBox Grid.Column="2" Grid.Row="12" Text="{Binding PlayTime, Converter={StaticResource TimeSpanConverter}}" IsReadOnly="True"/>
 
-        <TextBlock Grid.Column="0" Grid.Row="12" Text="Gender" VerticalAlignment="Center" TextAlignment="Right"/>
-        <ListBox Name="GenderListBox" Grid.Column="2" Grid.Row="12" Classes="FusionListBox" Items="{Binding Genders}" SelectedItem="{Binding Gender}"/>
+        <TextBlock Grid.Column="0" Grid.Row="14" Text="Gender" VerticalAlignment="Center" TextAlignment="Right"/>
+        <ListBox Name="GenderListBox" Grid.Column="2" Grid.Row="14" Classes="FusionListBox" Items="{Binding Genders}" SelectedItem="{Binding Gender}"/>
     </Grid>
 </UserControl>

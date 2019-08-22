@@ -4,6 +4,7 @@ using Avalonia.Threading;
 using Cirilla.Core.Models;
 using DynamicData;
 using DynamicData.Binding;
+using MHWAppearanceEditor.Extensions;
 using MHWAppearanceEditor.Helpers;
 using MHWAppearanceEditor.Models;
 using MHWAppearanceEditor.ViewModels.Tabs;
@@ -87,7 +88,7 @@ namespace MHWAppearanceEditor.ViewModels
                 sfd.InitialFileName = Path.Combine(initialPath, "SAVEDATA1000");
             }
 
-            string fileName = await sfd.ShowAsync(Utility.GetMainWindow());
+            string fileName = await sfd.ShowAsync();
 
             if (fileName == null)
             {
@@ -95,7 +96,9 @@ namespace MHWAppearanceEditor.ViewModels
             }
             else
             {
+                MainWindowViewModel.Instance.ShowPopup("Saving...", false);
                 await Task.Run(() => SaveData.Save(fileName));
+                MainWindowViewModel.Instance.ShowPopup($"Saved SaveData to '{fileName}'");
             }
         }
     }

@@ -3,7 +3,6 @@ using DynamicData.Binding;
 using MHWAppearanceEditor.Models;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using Serilog;
 using Splat;
 using System;
 using System.Linq;
@@ -22,6 +21,12 @@ namespace MHWAppearanceEditor.ViewModels
         [Reactive] public CharacterAssets CharacterAssets { get; private set; }
         [Reactive] public bool ShowLog { get; set; } = false;
         [Reactive] public string MostRecentEventMessage { get; private set; }
+
+        // Popup
+        [Reactive] public string PopupText { get; private set; }
+        [Reactive] public bool PopupIsOpen { get; set; }
+        [Reactive] public bool PopupCanClose { get; private set; }
+        [Reactive] public double ContentOpacity { get; private set; } = 1;
 
         public IObservableCollection<LogEventViewModel> EventsBinding { get; } = new ObservableCollectionExtended<LogEventViewModel>();
 
@@ -43,6 +48,9 @@ namespace MHWAppearanceEditor.ViewModels
 
             ToggleShowLog = ReactiveCommand.Create(() => { ShowLog = !ShowLog; });
 
+            this.WhenAnyValue(x => x.PopupIsOpen)
+                .Subscribe(isOpen => ContentOpacity = isOpen ? 0.5 : 1);
+
             // Don't await
             Task.Run(() => LoadMoreStuff());
         }
@@ -55,6 +63,13 @@ namespace MHWAppearanceEditor.ViewModels
         public void ShowStartScreen()
         {
             ActiveViewModel = StartScreenViewModel;
+        }
+
+        public void ShowPopup(string text, bool canClose = true)
+        {
+            PopupCanClose = canClose;
+            PopupText = text;
+            PopupIsOpen = true;
         }
 
         // Not the best way to load stuff, but I guess it works for now
