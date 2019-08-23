@@ -81,7 +81,15 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
             }
             else
             {
-                SourceSaveData = new SaveData(filePath);
+                try
+                {
+                    SourceSaveData = await Task.Run(() => new SaveData(filePath));
+                }
+                catch (Exception ex)
+                {
+                    MainWindowViewModel.Instance.ShowPopup(ex.Message);
+                    CtxLog.Error(ex, ex.Message);
+                }
             }
 
             return Unit.Default;
@@ -106,6 +114,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
                 }
                 catch (Exception ex)
                 {
+                    MainWindowViewModel.Instance.ShowPopup(ex.Message);
                     CtxLog.Error(ex, ex.Message);
                 }
             }
@@ -158,6 +167,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
                 }
                 catch (Exception ex)
                 {
+                    MainWindowViewModel.Instance.ShowPopup(ex.Message);
                     CtxLog.Error(ex, ex.Message);
                     return null;
                 }
@@ -187,6 +197,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
                 }
                 catch (Exception ex)
                 {
+                    MainWindowViewModel.Instance.ShowPopup(ex.Message);
                     CtxLog.Error(ex, ex.Message);
                 }
             }
@@ -216,6 +227,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
                 }
                 catch (Exception ex)
                 {
+                    MainWindowViewModel.Instance.ShowPopup(ex.Message);
                     CtxLog.Error(ex, ex.Message);
                 }
             }
