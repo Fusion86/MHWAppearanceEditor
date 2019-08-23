@@ -38,7 +38,7 @@
             <Grid Grid.Row="0" ColumnDefinitions="Auto,5,*,5,Auto">
                 <TextBlock Grid.Column="0" Text="Selected SaveData " VerticalAlignment="Center"/>
                 <TextBox Grid.Column="2" Text="{Binding SourceSaveData.Filepath}"/>
-                <Button Grid.Column="4" Content="Select other SaveData file"/>
+                <Button Grid.Column="4" Content="Select other SaveData file" Command="{Binding SelectSaveDataCommand}"/>
             </Grid>
 
             <StackPanel Grid.Row="2" Orientation="Vertical" IsVisible="{Binding !!SourceSaveSlots}">

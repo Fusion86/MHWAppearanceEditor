@@ -23,9 +23,11 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
     {
         private static readonly ILogger CtxLog = Log.ForContext<SaveSlotToolsViewModel>();
 
+        // This is the SaveData from where we want to import from
         [Reactive] public SaveData SourceSaveData { get; private set; }
         public List<SaveSlotViewModel> SourceSaveSlots { [ObservableAsProperty]get; }
 
+        public ReactiveCommand<Unit, Unit> SelectSaveDataCommand { get; }
         public ReactiveCommand<SaveSlot, SerializableAppearance> ImportFromSaveSlotCommand { get; }
         public ReactiveCommand<Unit, SerializableAppearance> ImportFromCmpCommand { get; }
         public ReactiveCommand<Unit, SerializableAppearance> ImportFromJsonCommand { get; }
@@ -38,6 +40,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
         {
             SaveSlotContext = saveSlotContext;
 
+            SelectSaveDataCommand = ReactiveCommand.CreateFromTask<Unit, Unit>(SelectSaveData);
             ImportFromSaveSlotCommand = ReactiveCommand.Create<SaveSlot, SerializableAppearance>(ImportFromSaveSlot);
             ImportFromCmpCommand = ReactiveCommand.CreateFromTask<Unit, SerializableAppearance>(ImportFromCmp);
             ImportFromJsonCommand = ReactiveCommand.CreateFromTask<Unit, SerializableAppearance>(ImportFromJson);
@@ -65,6 +68,23 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
             MainWindowViewModel.Instance.ShowPopup("Imported appearance.\nRemember to click on Save when you are done!");
             serializableAppearance.ApplyToSaveSlot(SaveSlotContext);
             CtxLog.Information("Applied appearance changes");
+        }
+
+        private async Task<Unit> SelectSaveData(Unit _)
+        {
+            OpenFileDialog ofd = new OpenFileDialog { AllowMultiple = false };
+
+            string filePath = (await ofd.ShowAsync()).FirstOrDefault();
+            if (filePath == null)
+            {
+                CtxLog.Information("No file selected");
+            }
+            else
+            {
+                SourceSaveData = new SaveData(filePath);
+            }
+
+            return Unit.Default;
         }
 
         private SerializableAppearance ImportFromSaveSlot(SaveSlot saveSlot)
