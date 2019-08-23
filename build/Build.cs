@@ -1,6 +1,8 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using Microsoft.CodeAnalysis.CSharp;
 using Nuke.Common;
 using Nuke.Common.Execution;
 using Nuke.Common.Git;
@@ -107,12 +109,27 @@ class Build : NukeBuild
         .Before(Compile)
         .Executes(() =>
         {
-
+            var code = File.ReadAllText(RootDirectory / "MHWAppearanceEditor" / "SuperSecret.cs");
+            var tree = CSharpSyntaxTree.ParseText(code);
+            // TODO: Finish this
         });
 
     Target Release => _ => _
         .Description("Create a release running on the net461 platform.")
-        .DependsOn(Clean, Compile, CopyCharacterAssets, EnsureSecretsAreSet);
+        .DependsOn(Clean, Compile, CopyCharacterAssets, EnsureSecretsAreSet)
+        .After(Compile)
+        .Executes(() =>
+        {
+            // Move DLLs to lib folder and remove leftover files
+            string libDir = OutputDirectory / "lib";
+            EnsureExistingDirectory(libDir);
+
+            foreach (var dll in GlobFiles(OutputDirectory, "*.dll"))
+                MoveFileToDirectory(dll, libDir);
+
+            foreach (var file in GlobFiles(OutputDirectory, "*.exe.config", "*.pdb", "*.deps.json"))
+                DeleteFile(file);
+        });
 
     Target Full => _ => _
         .Description("Same as Release, but also rebuild all character_assets.")
