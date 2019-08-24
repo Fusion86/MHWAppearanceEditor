@@ -7,9 +7,18 @@
              x:Class="MHWAppearanceEditor.Views.SaveSlotEditors.SaveSlotOtherView">
 
     <Grid Margin="20" ColumnDefinitions="Auto,20,*">
-        <Grid Grid.Column="0" RowDefinitions="Auto" ColumnDefinitions="Auto,10,Auto">
+        <Grid Grid.Column="0" RowDefinitions="Auto,5,Auto" ColumnDefinitions="Auto,10,Auto">
             <TextBlock Grid.Column="0" Grid.Row="0" Text="Clothing Color" VerticalAlignment="Center" TextAlignment="Right"/>
             <controls:ColorEdit Name="ClothingColorEdit" Grid.Column="2" Grid.Row="0" Width="100"/>
+            
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Voice Type" VerticalAlignment="Center" TextAlignment="Right"/>
+            <ComboBox Grid.Column="2" Grid.Row="2" Width="100" Items="{Binding VoiceTypes}" SelectedItem="{Binding VoiceType}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </Grid>
 
         <WrapPanel Grid.Column="2">
