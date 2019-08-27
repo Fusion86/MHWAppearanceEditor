@@ -11,6 +11,7 @@ using ReactiveUI;
 using Serilog;
 using Splat;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace MHWAppearanceEditor
 {
@@ -19,6 +20,11 @@ namespace MHWAppearanceEditor
         public override void Initialize()
         {
             InitializeLogging();
+
+            // Start assets loading
+            AssetsService assetsService = new AssetsService("assets");
+            Task.Run(() => assetsService.Initialize());
+            Locator.CurrentMutable.RegisterConstant(assetsService, typeof(AssetsService));
 
             Locator.CurrentMutable.RegisterConstant(new ColorValueConverter(), typeof(IBindingTypeConverter));
             Locator.CurrentMutable.RegisterConstant(new SteamWebApiService(SuperSecret.STEAM_WEB_API_KEY), typeof(SteamWebApiService));

@@ -22,7 +22,8 @@ namespace MHWAppearanceEditor.ViewModels
             if (logEvent.Properties.TryGetValue("SourceContext", out var prop) && prop is ScalarValue sourceContext)
             {
                 SourceContext = sourceContext.Value.ToString();
-                ShortSourceContext = SourceContext.Substring(SourceContext.LastIndexOf('.') + 1).Replace("ViewModel", "");
+                ShortSourceContext = SourceContext.Substring(SourceContext.LastIndexOf('.') + 1)
+                    .Replace("ViewModel", "").Replace("Service", "");
             }
         }
     }

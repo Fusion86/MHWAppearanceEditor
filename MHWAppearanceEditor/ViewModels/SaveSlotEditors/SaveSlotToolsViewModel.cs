@@ -34,11 +34,11 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
         public ReactiveCommand<Unit, Unit> ExportToCmpCommand { get; }
         public ReactiveCommand<Unit, Unit> ExportToJsonCommand { get; }
 
-        private readonly SaveSlot SaveSlotContext; // aka target to where we apply the imported content
+        private readonly SaveSlot saveSlotContext; // aka target to where we apply the imported content
 
         public SaveSlotToolsViewModel(SaveSlot saveSlotContext)
         {
-            SaveSlotContext = saveSlotContext;
+            this.saveSlotContext = saveSlotContext;
 
             SelectSaveDataCommand = ReactiveCommand.CreateFromTask<Unit, Unit>(SelectSaveData);
             ImportFromSaveSlotCommand = ReactiveCommand.Create<SaveSlot, SerializableAppearance>(ImportFromSaveSlot);
@@ -57,7 +57,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
                 .ToPropertyEx(this, x => x.SourceSaveSlots);
 
             // Set source context to currently opened SaveData
-            SourceSaveData = SaveSlotContext.SaveData;
+            SourceSaveData = this.saveSlotContext.SaveData;
         }
 
         private void ImportSerializableAppearance(SerializableAppearance serializableAppearance)
@@ -66,7 +66,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
                 return;
 
             MainWindowViewModel.Instance.ShowPopup("Imported appearance.\nRemember to click on Save when you are done!");
-            serializableAppearance.ApplyToSaveSlot(SaveSlotContext);
+            serializableAppearance.ApplyToSaveSlot(saveSlotContext);
             CtxLog.Information("Applied appearance changes");
         }
 
@@ -179,7 +179,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
         private async Task<Unit> ExportToCmp(Unit _)
         {
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.InitialFileName = Utility.GetSafeFilename(SaveSlotContext.HunterName);
+            sfd.InitialFileName = Utility.GetSafeFilename(saveSlotContext.HunterName);
             sfd.Filters.Add(new FileDialogFilter { Name = "NPC Character Preset", Extensions = new List<string> { "cmp" } });
 
             var fileName = await sfd.ShowAsync();
@@ -188,7 +188,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
             {
                 try
                 {
-                    CMP cmp = new CMP(SaveSlotContext.Native.CharacterAppearance);
+                    CMP cmp = new CMP(saveSlotContext.Native.CharacterAppearance);
                     cmp.Save(fileName);
 
                     string str = $"Exported NPC Character Preset to {fileName}";
@@ -208,7 +208,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
         private async Task<Unit> ExportToJson(Unit _)
         {
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.InitialFileName = Utility.GetSafeFilename(SaveSlotContext.HunterName);
+            sfd.InitialFileName = Utility.GetSafeFilename(saveSlotContext.HunterName);
             sfd.Filters.Add(new FileDialogFilter { Name = "Shareable Character Appearance", Extensions = new List<string> { "json" } });
 
             var fileName = await sfd.ShowAsync();
@@ -217,7 +217,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
             {
                 try
                 {
-                    var appearance = new SerializableAppearance(SaveSlotContext);
+                    var appearance = new SerializableAppearance(saveSlotContext);
                     string json = JsonConvert.SerializeObject(appearance, Formatting.Indented);
                     File.WriteAllText(fileName, json);
 

@@ -1,10 +1,13 @@
-﻿using Cirilla.Core.Enums;
+﻿using Avalonia.Media;
+using Cirilla.Core.Enums;
 using Cirilla.Core.Models;
 using MHWAppearanceEditor.Interfaces;
 using MHWAppearanceEditor.Models;
+using MHWAppearanceEditor.Services;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Serilog;
+using Splat;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +18,7 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
 {
     public class SaveSlotViewModel : ViewModelBase, ITabItemViewModel
     {
-        private static readonly ILogger CtxLog = Log.ForContext<SaveSlotViewModel>();
+        private static readonly Serilog.ILogger CtxLog = Log.ForContext<SaveSlotViewModel>();
 
         public string Title { [ObservableAsProperty]get; }
         public string ToolTipText => $"{HunterName} (Rank: {HunterRank})";
@@ -174,6 +177,7 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public List<EyelashLength> EyelashLengths { get; } = new List<EyelashLength>() { EyelashLength.Short, EyelashLength.Average, EyelashLength.Long };
         public List<PalicoVoiceType> PalicoVoiceTypes { get; } = new List<PalicoVoiceType>() { PalicoVoiceType.Type1, PalicoVoiceType.Type2, PalicoVoiceType.Type3 };
         public List<PalicoVoicePitch> PalicoVoicePitches { get; } = new List<PalicoVoicePitch>() { PalicoVoicePitch.MediumPitch, PalicoVoicePitch.LowPitch, PalicoVoicePitch.HighPitch };
+
         [Reactive] public List<CharacterAsset> BrowTypes { get; private set; }
         [Reactive] public List<CharacterAsset> FaceTypes { get; private set; }
         [Reactive] public List<CharacterAsset> NoseTypes { get; private set; }
@@ -190,24 +194,30 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         [Reactive] public List<CharacterAsset> PalicoEarTypes { get; private set; }
         [Reactive] public List<CharacterAsset> PalicoTailTypes { get; private set; }
 
+        public IReadOnlyCollection<Color> ColorPaletteVibrant { get; }
+        public IReadOnlyCollection<Color> ColorPaletteNatural { get; }
+
         public SaveSlot SaveSlot { get; }
 
-        private readonly CharacterAssets CharacterAssets;
+        private readonly CharacterAssets characterAssets;
 
-        public SaveSlotViewModel(SaveSlot saveSlot)
+        public SaveSlotViewModel(SaveSlot saveSlot, AssetsService assetsService = null)
         {
-            CharacterAssets = MainWindowViewModel.Instance.CharacterAssets;
             SaveSlot = saveSlot;
+            assetsService = assetsService != null ? assetsService : Locator.Current.GetService<AssetsService>();
+            characterAssets = assetsService.CharacterAssets;
+            ColorPaletteVibrant = assetsService.ColorPaletteVibrant;
+            ColorPaletteNatural = assetsService.ColorPaletteNatural;
 
             this.WhenAnyValue(x => x.HunterName, name => string.IsNullOrEmpty(name) ? "(blank)" : name).ToPropertyEx(this, x => x.Title);
             this.WhenAnyValue(x => x.Gender).Subscribe(UpdateGenderSpecificBindings);
 
             try
             {
-                PalicoPatternTypes = CharacterAssets.PalicoCoatTypes;
-                PalicoEyeTypes = CharacterAssets.PalicoEyeTypes;
-                PalicoEarTypes = CharacterAssets.PalicoEarTypes;
-                PalicoTailTypes = CharacterAssets.PalicoTailTypes;
+                PalicoPatternTypes = characterAssets.PalicoCoatTypes;
+                PalicoEyeTypes = characterAssets.PalicoEyeTypes;
+                PalicoEarTypes = characterAssets.PalicoEarTypes;
+                PalicoTailTypes = characterAssets.PalicoTailTypes;
             }
             catch (Exception ex)
             {
@@ -225,30 +235,30 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
                 switch (gender)
                 {
                     case Gender.Male:
-                        BrowTypes = CharacterAssets.MaleBrowTypes;
-                        FaceTypes = CharacterAssets.MaleFaceTypes;
-                        NoseTypes = CharacterAssets.MaleNoseTypes;
-                        MouthTypes = CharacterAssets.MaleMouthTypes;
+                        BrowTypes = characterAssets.MaleBrowTypes;
+                        FaceTypes = characterAssets.MaleFaceTypes;
+                        NoseTypes = characterAssets.MaleNoseTypes;
+                        MouthTypes = characterAssets.MaleMouthTypes;
                         // You can use both male and female hairstyles. We display the recommended hairstyles first, in this case the __male__ hairstyles
-                        HairTypes = CharacterAssets.MaleHairTypes.Concat(CharacterAssets.FemaleHairTypes).ToList();
-                        FacialHairTypes = CharacterAssets.MaleFacialHairTypes;
-                        EyebrowTypes = CharacterAssets.MaleEyebrowTypes;
-                        EyeTypes = CharacterAssets.MaleEyeTypes;
-                        ClothingTypes = CharacterAssets.MaleClothingTypes;
-                        MakeupTypes = CharacterAssets.MaleMakeupTypes;
+                        HairTypes = characterAssets.MaleHairTypes.Concat(characterAssets.FemaleHairTypes).ToList();
+                        FacialHairTypes = characterAssets.MaleFacialHairTypes;
+                        EyebrowTypes = characterAssets.MaleEyebrowTypes;
+                        EyeTypes = characterAssets.MaleEyeTypes;
+                        ClothingTypes = characterAssets.MaleClothingTypes;
+                        MakeupTypes = characterAssets.MaleMakeupTypes;
                         break;
                     case Gender.Female:
-                        BrowTypes = CharacterAssets.FemaleBrowTypes;
-                        FaceTypes = CharacterAssets.FemaleFaceTypes;
-                        NoseTypes = CharacterAssets.FemaleNoseTypes;
-                        MouthTypes = CharacterAssets.FemaleMouthTypes;
+                        BrowTypes = characterAssets.FemaleBrowTypes;
+                        FaceTypes = characterAssets.FemaleFaceTypes;
+                        NoseTypes = characterAssets.FemaleNoseTypes;
+                        MouthTypes = characterAssets.FemaleMouthTypes;
                         // You can use both male and female hairstyles. We display the recommended hairstyles first, in this case the __female__ hairstyles
-                        HairTypes = CharacterAssets.FemaleHairTypes.Concat(CharacterAssets.MaleHairTypes).ToList();
-                        FacialHairTypes = CharacterAssets.FemaleFacialHairTypes;
-                        EyebrowTypes = CharacterAssets.FemaleEyebrowTypes;
-                        EyeTypes = CharacterAssets.FemaleEyeTypes;
-                        ClothingTypes = CharacterAssets.FemaleClothingTypes;
-                        MakeupTypes = CharacterAssets.FemaleMakeupTypes;
+                        HairTypes = characterAssets.FemaleHairTypes.Concat(characterAssets.MaleHairTypes).ToList();
+                        FacialHairTypes = characterAssets.FemaleFacialHairTypes;
+                        EyebrowTypes = characterAssets.FemaleEyebrowTypes;
+                        EyeTypes = characterAssets.FemaleEyeTypes;
+                        ClothingTypes = characterAssets.FemaleClothingTypes;
+                        MakeupTypes = characterAssets.FemaleMakeupTypes;
                         break;
                 }
             }

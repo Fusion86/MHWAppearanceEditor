@@ -15,24 +15,24 @@ namespace MHWAppearanceEditor.Services
     {
         private static readonly ILogger CtxLog = Log.ForContext<SteamWebApiService>();
 
-        private int ErrorCount = 0;
-        private readonly string ApiKey;
-        private readonly HttpClient Client;
+        private int errorCount = 0;
+        private readonly string apiKey;
+        private readonly HttpClient client;
 
         public SteamWebApiService(string apiKey)
         {
-            ApiKey = apiKey;
-            Client = new HttpClient();
+            this.apiKey = apiKey;
+            client = new HttpClient();
         }
 
         public async Task<string> GetPersonaName(string steamId)
         {
-            if (ErrorCount < 3)
+            if (errorCount < 3)
             {
                 // Yeah it sucks but who cares
                 try
                 {
-                    var res = await Client.GetAsync("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + ApiKey + "&steamids=" + steamId);
+                    var res = await client.GetAsync("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + apiKey + "&steamids=" + steamId);
                     if (res.IsSuccessStatusCode)
                     {
                         var json = await res.Content.ReadAsStringAsync();
@@ -41,13 +41,13 @@ namespace MHWAppearanceEditor.Services
                     }
                     else
                     {
-                        ErrorCount++;
+                        errorCount++;
                         throw new Exception(res.ReasonPhrase);
                     }
                 }
                 catch (Exception ex)
                 {
-                    CtxLog.Error(ex, $"{ex.Message}. ErrorCount: {ErrorCount}/3");
+                    CtxLog.Error(ex, $"{ex.Message}. ErrorCount: {errorCount}/3");
                 }
             }
 

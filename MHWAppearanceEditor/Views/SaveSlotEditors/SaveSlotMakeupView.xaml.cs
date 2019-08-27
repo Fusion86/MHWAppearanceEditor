@@ -17,7 +17,6 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
         public SaveSlotMakeupView()
         {
             InitializeComponent();
-            ViewModel = DataContext as SaveSlotViewModel;
 
             // HACK:
             // When changing the character's gender the Items in the ComboBoxes update correctly, but the SelectedItem does not.
@@ -31,6 +30,8 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
 
             this.Bind(ViewModel, vm => vm.Makeup1Color, v => v.Makeup1ColorEdit.Color);
             this.Bind(ViewModel, vm => vm.Makeup2Color, v => v.Makeup2ColorEdit.Color);
+            this.OneWayBind(ViewModel, vm => vm.ColorPaletteVibrant, v => v.Makeup1ColorEdit.ColorPalette);
+            this.OneWayBind(ViewModel, vm => vm.ColorPaletteVibrant, v => v.Makeup2ColorEdit.ColorPalette);
         }
 
         private void InitializeComponent()

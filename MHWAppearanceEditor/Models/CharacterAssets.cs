@@ -66,7 +66,7 @@ namespace MHWAppearanceEditor.Models
 
         private static readonly ILogger CtxLog = Log.ForContext<CharacterAssets>();
 
-        public CharacterAssets(AssetsMap map, string imgDir)
+        public void LoadAssetsMap(AssetsMap map, string imgDir)
         {
             long count = 0;
             CtxLog.Information("Loading assets map...");
@@ -191,15 +191,17 @@ namespace MHWAppearanceEditor.Models
             CtxLog.Information($"Loaded assets map containing {count} items");
         }
 
-        public static CharacterAssets LoadAssetsMap(string assetsDir)
+        public static CharacterAssets CreateFromAssetsMap(string assetsDir)
         {
             try
             {
-                string assetsJsonPath = Path.Combine(assetsDir, "assets.json");
-                string imgDir = Path.Combine(assetsDir, "img");
+                string assetsJsonPath = Path.Combine(assetsDir, "character_assets.json");
+                string imgDir = Path.Combine(assetsDir, "character_assets");
                 string json = File.ReadAllText(assetsJsonPath);
                 var map = JsonConvert.DeserializeObject<AssetsMap>(json);
-                return new CharacterAssets(map, imgDir);
+                var characterAssets = new CharacterAssets();
+                characterAssets.LoadAssetsMap(map, imgDir);
+                return characterAssets;
             }
             catch (Exception ex)
             {

@@ -21,7 +21,6 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
         public SaveSlotPalicoView()
         {
             InitializeComponent();
-            ViewModel = DataContext as SaveSlotViewModel;
 
             this.Bind(ViewModel, vm => vm.PalicoPatternColor1, v => v.PatternColor1Edit.Color);
             this.Bind(ViewModel, vm => vm.PalicoPatternColor2, v => v.PatternColor2Edit.Color);
@@ -30,6 +29,13 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
             this.Bind(ViewModel, vm => vm.PalicoLeftEyeColor, v => v.LeftEyeColorEdit.Color);
             this.Bind(ViewModel, vm => vm.PalicoRightEyeColor, v => v.RightEyeColorEdit.Color);
             this.Bind(ViewModel, vm => vm.PalicoClothingColor, v => v.ClothingColorEdit.Color);
+            this.OneWayBind(ViewModel, vm => vm.ColorPaletteNatural, v => v.PatternColor1Edit.ColorPalette);
+            this.OneWayBind(ViewModel, vm => vm.ColorPaletteNatural, v => v.PatternColor2Edit.ColorPalette);
+            this.OneWayBind(ViewModel, vm => vm.ColorPaletteNatural, v => v.PatternColor3Edit.ColorPalette);
+            this.OneWayBind(ViewModel, vm => vm.ColorPaletteNatural, v => v.FurColorEdit.ColorPalette);
+            this.OneWayBind(ViewModel, vm => vm.ColorPaletteVibrant, v => v.LeftEyeColorEdit.ColorPalette);
+            this.OneWayBind(ViewModel, vm => vm.ColorPaletteVibrant, v => v.RightEyeColorEdit.ColorPalette);
+            this.OneWayBind(ViewModel, vm => vm.ColorPaletteVibrant, v => v.ClothingColorEdit.ColorPalette);
         }
 
         private void InitializeComponent()

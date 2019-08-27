@@ -18,7 +18,6 @@ namespace MHWAppearanceEditor.ViewModels
         public ReactiveCommand<Unit, Unit> ToggleShowLog { get; }
 
         [Reactive] public ViewModelBase ActiveViewModel { get; private set; }
-        [Reactive] public CharacterAssets CharacterAssets { get; private set; }
         [Reactive] public bool ShowLog { get; set; } = false;
         [Reactive] public string MostRecentEventMessage { get; private set; }
 
@@ -31,7 +30,7 @@ namespace MHWAppearanceEditor.ViewModels
         public IObservableCollection<LogEventViewModel> EventsBinding { get; } = new ObservableCollectionExtended<LogEventViewModel>();
 
         // No need to re-create this object each time
-        private readonly StartScreenViewModel StartScreenViewModel = new StartScreenViewModel();
+        private readonly StartScreenViewModel startScreenViewModel = new StartScreenViewModel();
 
         public MainWindowViewModel()
         {
@@ -50,9 +49,6 @@ namespace MHWAppearanceEditor.ViewModels
 
             this.WhenAnyValue(x => x.PopupIsOpen)
                 .Subscribe(isOpen => ContentOpacity = isOpen ? 0.5 : 1);
-
-            // Don't await
-            Task.Run(() => LoadMoreStuff());
         }
 
         public void SetActiveViewModel(ViewModelBase viewModel)
@@ -62,7 +58,7 @@ namespace MHWAppearanceEditor.ViewModels
 
         public void ShowStartScreen()
         {
-            ActiveViewModel = StartScreenViewModel;
+            ActiveViewModel = startScreenViewModel;
         }
 
         public void ShowPopup(string text, bool canClose = true)
@@ -70,12 +66,6 @@ namespace MHWAppearanceEditor.ViewModels
             PopupCanClose = canClose;
             PopupText = text;
             PopupIsOpen = true;
-        }
-
-        // Not the best way to load stuff, but I guess it works for now
-        private void LoadMoreStuff()
-        {
-            CharacterAssets = CharacterAssets.LoadAssetsMap("character_assets");
         }
     }
 }

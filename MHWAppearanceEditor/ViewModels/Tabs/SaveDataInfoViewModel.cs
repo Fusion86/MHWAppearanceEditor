@@ -16,18 +16,18 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public string Title => "SaveData Info";
         public string ToolTipText => "Global information, this is shared between all SaveSlots in this file.";
 
-        public string FilePath => SaveData.Filepath;
-        public long SteamId { get => SaveData.SteamId; set { SaveData.SteamId = value; this.RaisePropertyChanged(); } }
+        public string FilePath => saveData.Filepath;
+        public long SteamId { get => saveData.SteamId; set { saveData.SteamId = value; this.RaisePropertyChanged(); } }
         //public string Checksum => "todo";
         //public string GeneratedChecksum => "todo";
         [Reactive] public string SteamIdName { get; set; }
 
-        private readonly SaveData SaveData;
-        private readonly SteamWebApiService SteamWebApi = Locator.Current.GetService<SteamWebApiService>();
+        private readonly SaveData saveData;
+        private readonly SteamWebApiService steamWebApi = Locator.Current.GetService<SteamWebApiService>();
 
         public SaveDataInfoViewModel(SaveData saveData)
         {
-            SaveData = saveData;
+            this.saveData = saveData;
 
             this.WhenAnyValue(x => x.SteamId)
                 .Throttle(TimeSpan.FromSeconds(1))
@@ -37,7 +37,7 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
 
         private async Task<string> GetPersonaName(long steamId)
         {
-            return await SteamWebApi.GetPersonaName(steamId.ToString());
+            return await steamWebApi.GetPersonaName(steamId.ToString());
         }
     }
 }

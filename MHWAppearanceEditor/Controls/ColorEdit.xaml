@@ -16,13 +16,30 @@
         <Button Name="ColorButton" Classes="Lookless" Background="{Binding Color, Converter={StaticResource ColorConverter}}" BorderThickness="1"/>
         <Popup Name="ColorPickerPopup" StaysOpen="False">
             <Border Padding="10">
-                <cp:ColorPicker Width="400" Color="{Binding Color, Mode=TwoWay}">
-                    <cp:ColorPicker.Styles>
-                        <Style Selector="GridSplitter">
-                            <Setter Property="IsVisible" Value="False"/>
-                        </Style>
-                    </cp:ColorPicker.Styles>
-                </cp:ColorPicker>
+                <StackPanel>
+                    <cp:ColorPicker Width="400" Color="{Binding Color, Mode=TwoWay}">
+                        <cp:ColorPicker.Styles>
+                            <Style Selector="GridSplitter">
+                                <Setter Property="IsVisible" Value="False"/>
+                            </Style>
+                        </cp:ColorPicker.Styles>
+                    </cp:ColorPicker>
+
+                    <ItemsControl Items="{Binding $parent[UserControl].ColorPalette}" Margin="0,10,0,0">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="8"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Classes="Lookless" Background="{Binding , Converter={StaticResource ColorConverter}}" Height="20"
+                                        Command="{Binding $parent[UserControl].PickColorCommand}" CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
             </Border>
         </Popup>
     </Grid>

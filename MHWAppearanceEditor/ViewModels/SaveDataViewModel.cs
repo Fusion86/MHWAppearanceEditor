@@ -32,7 +32,7 @@ namespace MHWAppearanceEditor.ViewModels
         private readonly SourceList<object> tabs = new SourceList<object>();
         public IObservableCollection<object> TabsBinding { get; } = new ObservableCollectionExtended<object>();
 
-        private SaveData SaveData;
+        private SaveData saveData;
 
         public SaveDataViewModel(string saveDataPath)
         {
@@ -51,15 +51,15 @@ namespace MHWAppearanceEditor.ViewModels
         {
             try
             {
-                SaveData = await Task.Run(() => new SaveData(saveDataPath));
+                saveData = await Task.Run(() => new SaveData(saveDataPath));
 
                 await Dispatcher.UIThread.InvokeAsync(() =>
                 {
                     tabs.Edit(lst =>
                     {
                         lst.Clear();
-                        lst.Add(new SaveDataInfoViewModel(SaveData));
-                        lst.AddRange(SaveData.SaveSlots.Select(x => new SaveSlotViewModel(x)));
+                        lst.Add(new SaveDataInfoViewModel(saveData));
+                        lst.AddRange(saveData.SaveSlots.Select(x => new SaveSlotViewModel(x)));
                     });
                     IsLoading = false;
                 });
@@ -97,7 +97,7 @@ namespace MHWAppearanceEditor.ViewModels
             else
             {
                 MainWindowViewModel.Instance.ShowPopup("Saving...", false);
-                await Task.Run(() => SaveData.Save(fileName));
+                await Task.Run(() => saveData.Save(fileName));
                 MainWindowViewModel.Instance.ShowPopup($"Saved SaveData to '{fileName}'");
             }
         }
