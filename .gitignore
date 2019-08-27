@@ -263,5 +263,5 @@ __pycache__/
 # Other
 .vscode/
 Cirilla.Core/
-styles_list_gen/
+scripts/assets/
 output/

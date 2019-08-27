@@ -16,15 +16,10 @@ import json
 import time
 import shutil
 import subprocess
+import config as cfg
 from os.path import join
 from PIL import Image
 from collections import namedtuple
-
-
-class Config:
-    TEXTOPNG_PATH = "L:/Tools/Modding/TexToPng/TexToPng.exe"
-    CHUNKS_ROOT = "L:/Sync/MHW Mods/chunks"
-    OUT = join(os.path.dirname(os.path.realpath(__file__)), "styles_list_gen")
 
 
 Spritesheet = namedtuple("Spritesheet", ["category", "texture_name", "size", "count", "offset"])
@@ -40,14 +35,15 @@ Items = [
     Spritesheet("Female Faces", "thumb_face01_ID", [102, 102], 24, 0),
     Spritesheet("Male Brow Types", "thumb_forehead00_ID", [126, 62], 24, 0),
     Spritesheet("Female Brow Types", "thumb_forehead01_ID", [126, 62], 24, 0),
+    # In the CharacterAppearance struct the hairstyle for females has id `100 + (actual id)`
     Spritesheet("Male Hairstyles", "thumb_hair00_ID", [102, 102], 28, 0),
-    Spritesheet("Female Hairstyles", "thumb_hair01_ID", [102, 102], 28, 100),  # In the CharacterAppearance struct the hairstyle for females has id `100 + (actual id)`
+    Spritesheet("Female Hairstyles", "thumb_hair01_ID", [102, 102], 28, 100),
     Spritesheet("Male Clothing", "thumb_inner00_ID", [102, 102], 4, 0),
     Spritesheet("Female Clothing", "thumb_inner01_ID", [102, 102], 4, 0),
     Spritesheet("Male Mouths", "thumb_mouth00_ID", [102, 102], 24, 0),
     Spritesheet("Female Mouths", "thumb_mouth01_ID", [102, 102], 24, 0),
     Spritesheet("Male Facial Hair", "thumb_mustache00_ID", [102, 102], 21, 0),
-    Spritesheet("Female Facial Hair", "thumb_mustache01_ID", [102, 102], 21, 0),  # heh 
+    Spritesheet("Female Facial Hair", "thumb_mustache01_ID", [102, 102], 21, 0),
     Spritesheet("Male Noses", "thumb_nose00_ID", [102, 102], 24, 0),
     Spritesheet("Female Noses", "thumb_nose01_ID", [102, 102], 24, 0),
     Spritesheet("Male Makeup", "thumb_paint00_ID", [102, 102], 34, 0),
@@ -63,17 +59,17 @@ Items = [
 ]
 
 
-if __name__ == "__main__":
+def main():
     assetsList = []
-    tmpdir = join(Config.OUT, "tmp")
-    imgdir = join(Config.OUT, "img")
+    tmpdir = join(cfg.out_dir, "tmp")
+    imgdir = join(cfg.out_dir, "character_assets")
 
     # Create needed dirs
     os.makedirs(tmpdir, exist_ok=True)
     os.makedirs(imgdir, exist_ok=True)
 
     # Where to find needed source files
-    chara_make_tex = join(Config.CHUNKS_ROOT, "ui/chara_make/tex")
+    chara_make_tex = join(cfg.chunks_root, "ui/chara_make/tex")
 
     for item in Items:
         print(f"\nWorking on '{item.category}'")
@@ -85,7 +81,7 @@ if __name__ == "__main__":
         print(f"Saving to '{png_path}'")
 
         # Convert .tex to .png and save in tmpdir
-        args = [Config.TEXTOPNG_PATH, tex_path, png_path]
+        args = [cfg.tex_to_png_path, tex_path, png_path]
         subprocess.call(args)
 
         print(f"Cutting file in {item.count} pieces")
@@ -120,10 +116,14 @@ if __name__ == "__main__":
         # Print newline after we are done because we don't do that inside the loop
         print()
 
-    with open(join(Config.OUT, "assets.json"), "w+") as f:
+    with open(join(cfg.out_dir, "character_assets.json"), "w+") as f:
         json.dump({
             "timestamp": int(time.time()),
             "assets": assetsList
         }, f)
 
     shutil.rmtree(tmpdir)
+
+
+if __name__ == "__main__":
+    main()
