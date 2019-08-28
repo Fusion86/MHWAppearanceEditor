@@ -35,10 +35,27 @@ class Build : NukeBuild
     [Parameter("Which .NET framework to use, can be either 'netcoreapp3.0' or 'net461'. Release always uses 'net461'.")]
     string Framework = "netcoreapp3.0";
 
-    readonly AbsolutePath Project = RootDirectory / "MHWAppearanceEditor" / "MHWAppearanceEditor.csproj";
-    readonly AbsolutePath StylesListGenPath = RootDirectory / "scripts" / "styles_list_gen.py";
+    static readonly AbsolutePath Project = RootDirectory / "MHWAppearanceEditor" / "MHWAppearanceEditor.csproj";
+    static readonly AbsolutePath ScriptsDirectory = RootDirectory / "scripts";
+    static readonly AbsolutePath CharacterAssetsGen = ScriptsDirectory / "character_assets.py";
+    static readonly AbsolutePath PaletteExtractor = ScriptsDirectory / "palette_extractor.py";
 
     AbsolutePath OutputDirectory => RootDirectory / "output";
+
+    private static void ExecPython(string path)
+    {
+        var process = Process.Start(new ProcessStartInfo
+        {
+            FileName = "python",
+            Arguments = path
+        });
+
+        process.WaitForExit();
+        Logger.Info("Exit code: " + process.ExitCode);
+
+        if (process.ExitCode != 0)
+            throw new Exception("Got a non-zero exit code!");
+    }
 
     Target Clean => _ => _
         .Before(Restore)
@@ -76,33 +93,30 @@ class Build : NukeBuild
     Target GenerateCharacterAssets => _ => _
         .Executes(() =>
         {
-            var process = Process.Start(new ProcessStartInfo
-            {
-                FileName = "python",
-                Arguments = StylesListGenPath
-            });
-
-            process.WaitForExit();
-            Logger.Info("styles_list_gen exit code: " + process.ExitCode);
-
-            if (process.ExitCode != 0)
-                throw new Exception("styles_list_gen has a non-zero exit code!");
+            ExecPython(CharacterAssetsGen);
         });
 
-    Target CopyCharacterAssets => _ => _
+    Target GenerateColorPalette => _ => _
+        .Executes(() =>
+        {
+            ExecPython(PaletteExtractor);
+        });
+
+    Target CopyAssets => _ => _
+        .After(GenerateColorPalette)
         .After(GenerateCharacterAssets)
         .After(Clean)
         .Executes(() =>
         {
-            var characterAssetsDir = OutputDirectory / "character_assets";
+            var characterAssetsDir = OutputDirectory / "assets";
 
             if (DirectoryExists(characterAssetsDir))
                 DeleteDirectory(characterAssetsDir);
 
-            CopyDirectoryRecursively(StylesListGenPath.Parent / "styles_list_gen", characterAssetsDir);
+            CopyDirectoryRecursively(ScriptsDirectory / "assets", characterAssetsDir);
 
-            if (!FileExists(characterAssetsDir / "assets.json"))
-                throw new Exception("character_assets is incomplete!");
+            if (!FileExists(characterAssetsDir / "character_assets.json"))
+                throw new Exception("Some assets are missing!");
         });
 
     Target EnsureSecretsAreSet => _ => _
@@ -116,7 +130,7 @@ class Build : NukeBuild
 
     Target Release => _ => _
         .Description("Create a release running on the net461 platform.")
-        .DependsOn(Clean, Compile, CopyCharacterAssets, EnsureSecretsAreSet)
+        .DependsOn(Clean, Compile, CopyAssets, EnsureSecretsAreSet)
         .After(Compile)
         .Executes(() =>
         {
@@ -132,6 +146,6 @@ class Build : NukeBuild
         });
 
     Target Full => _ => _
-        .Description("Same as Release, but also rebuild all character_assets.")
-        .DependsOn(GenerateCharacterAssets, Release);
+        .Description("Same as Release, but also rebuild all assets.")
+        .DependsOn(GenerateCharacterAssets, GenerateColorPalette, Release);
 }
