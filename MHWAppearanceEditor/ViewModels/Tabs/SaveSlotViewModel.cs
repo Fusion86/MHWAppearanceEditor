@@ -147,6 +147,12 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
             set { SaveSlot.CharacterAppearance.Voice = (byte)value.Value; this.RaisePropertyChanged(); }
         }
 
+        public CharacterAsset ExpressionType
+        {
+            get => ExpressionTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.Expression);
+            set { SaveSlot.CharacterAppearance.Expression = (byte)value.Value; this.RaisePropertyChanged(); }
+        }
+
         public CharacterAsset PalicoPatternType
         {
             get => PalicoPatternTypes.FirstOrDefault(x => x.Value == SaveSlot.PalicoAppearance.PatternType);
@@ -189,6 +195,7 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         [Reactive] public List<CharacterAsset> ClothingTypes { get; private set; }
         [Reactive] public List<CharacterAsset> MakeupTypes { get; private set; }
         [Reactive] public List<CharacterAsset> VoiceTypes { get; private set; }
+        [Reactive] public List<CharacterAsset> ExpressionTypes { get; private set; }
         [Reactive] public List<CharacterAsset> PalicoPatternTypes { get; private set; }
         [Reactive] public List<CharacterAsset> PalicoEyeTypes { get; private set; }
         [Reactive] public List<CharacterAsset> PalicoEarTypes { get; private set; }
@@ -226,6 +233,7 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
 
             // Hardcoded voicetypes, since we don't have a preview for those (yet)
             VoiceTypes = Enumerable.Range(0, 20).Select(x => new CharacterAsset($"Voice Type {x + 1}", null, x)).ToList();
+            ExpressionTypes = Enumerable.Range(0, 5).Select(x => new CharacterAsset($"Expression Type {x + 1}", null, x)).ToList();
         }
 
         private void UpdateGenderSpecificBindings(Gender gender)
