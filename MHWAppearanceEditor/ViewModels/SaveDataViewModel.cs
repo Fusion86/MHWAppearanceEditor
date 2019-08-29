@@ -97,8 +97,17 @@ namespace MHWAppearanceEditor.ViewModels
             else
             {
                 MainWindowViewModel.Instance.ShowPopup("Saving...", false);
-                await Task.Run(() => saveData.Save(fileName));
-                MainWindowViewModel.Instance.ShowPopup($"Saved SaveData to '{fileName}'");
+
+                try
+                {
+                    await Task.Run(() => saveData.Save(fileName));
+                    MainWindowViewModel.Instance.ShowPopup($"Saved SaveData to '{fileName}'");
+                }
+                catch (Exception ex)
+                {
+                    CtxLog.Error(ex, ex.Message);
+                    MainWindowViewModel.Instance.ShowPopup(ex.Message);
+                }
             }
         }
     }

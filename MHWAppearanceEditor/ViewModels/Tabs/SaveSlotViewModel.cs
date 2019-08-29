@@ -35,6 +35,10 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public byte MouthHeight { get => SaveSlot.CharacterAppearance.MouthHeight; set => SaveSlot.CharacterAppearance.MouthHeight = value; }
         public byte EyeWidth { get => SaveSlot.CharacterAppearance.EyeWidth; set => SaveSlot.CharacterAppearance.EyeWidth = value; }
         public byte EyeHeight { get => SaveSlot.CharacterAppearance.EyeHeight; set => SaveSlot.CharacterAppearance.EyeHeight = value; }
+        public byte Age { get => SaveSlot.CharacterAppearance.Age; set => SaveSlot.CharacterAppearance.Age = value; }
+        public byte Wrinkles { get => SaveSlot.CharacterAppearance.Wrinkles; set => SaveSlot.CharacterAppearance.Wrinkles = value; }
+        public byte SkinColorX { get => SaveSlot.CharacterAppearance.SkinColorX; set => SaveSlot.CharacterAppearance.SkinColorX = value; }
+        public byte SkinColorY { get => SaveSlot.CharacterAppearance.SkinColorY; set => SaveSlot.CharacterAppearance.SkinColorY = value; }
         public float Makeup1PosX { get => SaveSlot.CharacterAppearance.Makeup1PosX; set => SaveSlot.CharacterAppearance.Makeup1PosX = value; }
         public float Makeup1PosY { get => SaveSlot.CharacterAppearance.Makeup1PosY; set => SaveSlot.CharacterAppearance.Makeup1PosY = value; }
         public float Makeup1SizeX { get => SaveSlot.CharacterAppearance.Makeup1SizeX; set => SaveSlot.CharacterAppearance.Makeup1SizeX = value; }
@@ -211,7 +215,7 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public SaveSlotViewModel(SaveSlot saveSlot, AssetsService assetsService = null)
         {
             SaveSlot = saveSlot;
-            assetsService = assetsService != null ? assetsService : Locator.Current.GetService<AssetsService>();
+            assetsService = assetsService ?? Locator.Current.GetService<AssetsService>();
             characterAssets = assetsService.CharacterAssets;
             ColorPaletteVibrant = assetsService.ColorPaletteVibrant;
             ColorPaletteNatural = assetsService.ColorPaletteNatural;

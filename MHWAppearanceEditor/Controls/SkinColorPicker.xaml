@@ -1,0 +1,24 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MHWAppearanceEditor.Controls.SkinColorPicker">
+
+    <Canvas Name="ColorCanvas" Width="200" Height="200">
+        <Canvas.Background>
+            <ImageBrush Source="L:\Repos\MHWAppearanceEditor\MHWAppearanceEditor\bin\Debug\net461\assets\skin_color.png"/>
+        </Canvas.Background>
+
+        <Thumb Name="ColorThumb" Canvas.Left="0" Canvas.Top="0" Width="20" Margin="-10,-6,0,0">
+            <Thumb.Template>
+                <ControlTemplate>
+                    <Grid Background="Transparent">
+                        <Ellipse Width="11" Height="11" Stroke="#FFFFFFFF" StrokeThickness="1"/>
+                        <Ellipse Width="9" Height="9" Stroke="#FF000000" StrokeThickness="1"/>
+                    </Grid>
+                </ControlTemplate>
+            </Thumb.Template>
+        </Thumb>
+    </Canvas>
+</UserControl>

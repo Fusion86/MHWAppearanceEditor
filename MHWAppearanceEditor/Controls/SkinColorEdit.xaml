@@ -1,0 +1,22 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vc="clr-namespace:MHWAppearanceEditor.ValueConverters"
+             xmlns:controls="clr-namespace:MHWAppearanceEditor.Controls"
+             mc:Ignorable="d" d:DesignWidth="100" d:DesignHeight="35"
+             x:Class="MHWAppearanceEditor.Controls.SkinColorEdit">
+
+    <UserControl.Resources>
+        <vc:ColorValueConverter x:Key="ColorConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Button Name="ColorButton" Classes="Lookless" Background="{Binding Color, Converter={StaticResource ColorConverter}}" BorderThickness="1"/>
+        <Popup Name="SkinColorPickerPopup" StaysOpen="False">
+            <Border Padding="10">
+                <controls:SkinColorPicker Color="{Binding Color, Mode=TwoWay}"/>
+            </Border>
+        </Popup>
+    </Grid>
+</UserControl>

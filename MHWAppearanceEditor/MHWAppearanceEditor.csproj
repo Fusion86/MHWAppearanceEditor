@@ -18,6 +18,8 @@
   </ItemGroup>
   <ItemGroup>
     <AvaloniaResource Remove="Controls\ColorEdit.xaml" />
+    <AvaloniaResource Remove="Controls\SkinColorEdit.xaml" />
+    <AvaloniaResource Remove="Controls\SkinColorPicker.xaml" />
     <AvaloniaResource Remove="Views\ExceptionView.xaml" />
     <AvaloniaResource Remove="Views\SaveDataView.xaml" />
     <AvaloniaResource Remove="Views\SaveSlotEditors\SaveSlotEyesView.xaml" />
@@ -27,6 +29,7 @@
     <AvaloniaResource Remove="Views\SaveSlotEditors\SaveSlotMakeupView.xaml" />
     <AvaloniaResource Remove="Views\SaveSlotEditors\SaveSlotOtherView.xaml" />
     <AvaloniaResource Remove="Views\SaveSlotEditors\SaveSlotPalicoView.xaml" />
+    <AvaloniaResource Remove="Views\SaveSlotEditors\SaveSlotSkinView.xaml" />
     <AvaloniaResource Remove="Views\SaveSlotEditors\SaveSlotToolsView.xaml" />
     <AvaloniaResource Remove="Views\SaveSlotView.xaml" />
     <AvaloniaResource Remove="Views\StartScreenView.xaml" />
@@ -35,6 +38,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Controls\ColorEdit.xaml" />
+    <None Remove="Controls\SkinColorEdit.xaml" />
+    <None Remove="Controls\SkinColorPicker.xaml" />
     <None Remove="Views\ExceptionView.xaml" />
     <None Remove="Views\SaveDataView.xaml" />
     <None Remove="Views\SaveSlotEditors\SaveSlotEyesView.xaml" />
@@ -44,6 +49,7 @@
     <None Remove="Views\SaveSlotEditors\SaveSlotMakeupView.xaml" />
     <None Remove="Views\SaveSlotEditors\SaveSlotOtherView.xaml" />
     <None Remove="Views\SaveSlotEditors\SaveSlotPalicoView.xaml" />
+    <None Remove="Views\SaveSlotEditors\SaveSlotSkinView.xaml" />
     <None Remove="Views\SaveSlotEditors\SaveSlotToolsView.xaml" />
     <None Remove="Views\SaveSlotView.xaml" />
     <None Remove="Views\StartScreenView.xaml" />
@@ -135,6 +141,21 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\SaveSlotEditors\SaveSlotToolsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\SkinColorPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\SkinColorEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\SaveSlotEditors\SaveSlotSkinView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

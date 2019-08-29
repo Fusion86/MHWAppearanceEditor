@@ -86,6 +86,10 @@
             <editor:SaveSlotFaceView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
         </TabItem>
 
+        <TabItem Header="Skin">
+            <editor:SaveSlotSkinView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
+        </TabItem>
+
         <TabItem Header="Hair">
             <editor:SaveSlotHairView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
         </TabItem>
