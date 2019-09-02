@@ -12,10 +12,35 @@
     </UserControl.Resources>
 
     <Grid>
-        <Button Name="ColorButton" Classes="Lookless" Background="{Binding Color, Converter={StaticResource ColorConverter}}" BorderThickness="1"/>
+        <Button Name="ColorButton" Classes="Lookless" Background="{Binding PreviewColor, Converter={StaticResource ColorConverter}}" BorderThickness="1"/>
         <Popup Name="SkinColorPickerPopup" StaysOpen="False">
             <Border Padding="10">
-                <controls:SkinColorPicker Color="{Binding Color, Mode=TwoWay}"/>
+                <Grid ColumnDefinitions="Auto,10,Auto">
+                    <Canvas Grid.Column="0" Name="ColorCanvas" Width="200" Height="200">
+                        <Canvas.Background>
+                            <ImageBrush Source="L:\Repos\MHWAppearanceEditor\MHWAppearanceEditor\bin\Debug\net461\assets\skin_color.png"/>
+                        </Canvas.Background>
+
+                        <Thumb Name="ColorThumb" Canvas.Left="0" Canvas.Top="0" Width="20" Margin="-10,-6,0,0">
+                            <Thumb.Template>
+                                <ControlTemplate>
+                                    <Grid Background="Transparent">
+                                        <Ellipse Width="11" Height="11" Stroke="#FFFFFFFF" StrokeThickness="1"/>
+                                        <Ellipse Width="9" Height="9" Stroke="#FF000000" StrokeThickness="1"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Thumb.Template>
+                        </Thumb>
+                    </Canvas>
+
+                    <Grid Grid.Column="2" RowDefinitions="Auto,5,Auto" ColumnDefinitions="Auto,10,*" VerticalAlignment="Center">
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Skin Color X" VerticalAlignment="Center" TextAlignment="Right"/>
+                        <NumericUpDown Grid.Row="0" Grid.Column="2" Minimum="0" Maximum="255" Increment="1" Value="{Binding SkinColorX, Mode=TwoWay}" Width="80"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Skin Color X" VerticalAlignment="Center" TextAlignment="Right"/>
+                        <NumericUpDown Grid.Row="2" Grid.Column="2" Minimum="0" Maximum="255" Increment="1" Value="{Binding SkinColorY, Mode=TwoWay}" Width="80"/>
+                    </Grid>
+                </Grid>
             </Border>
         </Popup>
     </Grid>
