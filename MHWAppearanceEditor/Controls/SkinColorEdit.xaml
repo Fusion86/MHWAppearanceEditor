@@ -9,7 +9,6 @@
 
     <UserControl.Resources>
         <vc:ColorValueConverter x:Key="ColorConverter"/>
-        <vc:ImageFromUriValueConverter x:Key="ImageFromUriConverter"/>
     </UserControl.Resources>
 
     <Grid>
