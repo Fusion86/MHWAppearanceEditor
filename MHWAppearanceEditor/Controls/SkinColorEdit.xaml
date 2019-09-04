@@ -9,6 +9,7 @@
 
     <UserControl.Resources>
         <vc:ColorValueConverter x:Key="ColorConverter"/>
+        <vc:ImageFromUriValueConverter x:Key="ImageFromUriConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -16,11 +17,7 @@
         <Popup Name="SkinColorPickerPopup" StaysOpen="False">
             <Border Padding="10">
                 <Grid ColumnDefinitions="Auto,10,Auto">
-                    <Canvas Grid.Column="0" Name="ColorCanvas" Width="200" Height="200">
-                        <Canvas.Background>
-                            <ImageBrush Source="L:\Repos\MHWAppearanceEditor\MHWAppearanceEditor\bin\Debug\net461\assets\skin_color.png"/>
-                        </Canvas.Background>
-
+                    <Canvas Grid.Column="0" Name="ColorCanvas" Width="256" Height="256">
                         <Thumb Name="ColorThumb" Canvas.Left="0" Canvas.Top="0" Width="20" Margin="-10,-6,0,0">
                             <Thumb.Template>
                                 <ControlTemplate>
@@ -35,10 +32,10 @@
 
                     <Grid Grid.Column="2" RowDefinitions="Auto,5,Auto" ColumnDefinitions="Auto,10,*" VerticalAlignment="Center">
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Skin Color X" VerticalAlignment="Center" TextAlignment="Right"/>
-                        <NumericUpDown Grid.Row="0" Grid.Column="2" Minimum="0" Maximum="255" Increment="1" Value="{Binding SkinColorX, Mode=TwoWay}" Width="80"/>
+                        <NumericUpDown Name="NumericSkinColorX" Grid.Row="0" Grid.Column="2" Minimum="0" Maximum="255" Increment="1" Value="{Binding SkinColorX}" Width="80"/>
 
                         <TextBlock Grid.Row="2" Grid.Column="0" Text="Skin Color X" VerticalAlignment="Center" TextAlignment="Right"/>
-                        <NumericUpDown Grid.Row="2" Grid.Column="2" Minimum="0" Maximum="255" Increment="1" Value="{Binding SkinColorY, Mode=TwoWay}" Width="80"/>
+                        <NumericUpDown Name="NumericSkinColorY" Grid.Row="2" Grid.Column="2" Minimum="0" Maximum="255" Increment="1" Value="{Binding SkinColorY}" Width="80"/>
                     </Grid>
                 </Grid>
             </Border>
