@@ -8,7 +8,7 @@
         xmlns:vc="clr-namespace:MHWAppearanceEditor.ValueConverters"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400"
         x:Class="MHWAppearanceEditor.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/icon.ico"
         Title="MHWAppearanceEditor"
         Width="900" Height="620"
         MinWidth="700" MinHeight="500">

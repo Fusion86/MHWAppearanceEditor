@@ -29,6 +29,8 @@ class Build : NukeBuild
 
     public static int Main() => Execute<Build>();
 
+    //[GitVersion] readonly GitVersion GitVersion;
+
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
@@ -39,15 +41,18 @@ class Build : NukeBuild
     static readonly AbsolutePath ScriptsDirectory = RootDirectory / "scripts";
     static readonly AbsolutePath CharacterAssetsGen = ScriptsDirectory / "character_assets.py";
     static readonly AbsolutePath PaletteExtractor = ScriptsDirectory / "palette_extractor.py";
+    static readonly AbsolutePath InnoSetupConfig = ScriptsDirectory / "installer.iss";
 
     AbsolutePath OutputDirectory => RootDirectory / "output";
 
-    private static void ExecPython(string path)
+    private static void ExecPython(string path) => Exec("python", path);
+
+    private static void Exec(string program, string args)
     {
         var process = Process.Start(new ProcessStartInfo
         {
-            FileName = "python",
-            Arguments = path
+            FileName = program,
+            Arguments = args
         });
 
         process.WaitForExit();
@@ -85,9 +90,23 @@ class Build : NukeBuild
             DotNetBuild(s => s
                 .SetProjectFile(Project)
                 .SetConfiguration(Configuration)
+                // TODO: This also sets the Cirilla.Core version, which we DO NOT want
+                //.SetAssemblyVersion(GitVersion.GetNormalizedAssemblyVersion())
+                //.SetFileVersion(GitVersion.GetNormalizedFileVersion())
+                //.SetInformationalVersion(GitVersion.InformationalVersion)
                 .EnableNoRestore()
                 .SetOutputDirectory(OutputDirectory)
                 .SetFramework(Framework));
+
+            // Move DLLs to lib folder and remove leftover files
+            string libDir = OutputDirectory / "lib";
+            EnsureExistingDirectory(libDir);
+
+            foreach (var dll in GlobFiles(OutputDirectory, "*.dll"))
+                MoveFileToDirectory(dll, libDir);
+
+            foreach (var file in GlobFiles(OutputDirectory, "*.exe.config", "*.pdb", "*.deps.json"))
+                DeleteFile(file);
         });
 
     Target GenerateCharacterAssets => _ => _
@@ -130,22 +149,18 @@ class Build : NukeBuild
 
     Target Release => _ => _
         .Description("Create a release running on the net461 platform.")
-        .DependsOn(Clean, Compile, CopyAssets, EnsureSecretsAreSet)
-        .After(Compile)
-        .Executes(() =>
-        {
-            // Move DLLs to lib folder and remove leftover files
-            string libDir = OutputDirectory / "lib";
-            EnsureExistingDirectory(libDir);
-
-            foreach (var dll in GlobFiles(OutputDirectory, "*.dll"))
-                MoveFileToDirectory(dll, libDir);
-
-            foreach (var file in GlobFiles(OutputDirectory, "*.exe.config", "*.pdb", "*.deps.json"))
-                DeleteFile(file);
-        });
+        .DependsOn(Clean, Compile, CopyAssets, EnsureSecretsAreSet, CreateInstaller)
+        .After(Compile);
 
     Target Full => _ => _
         .Description("Same as Release, but also rebuild all assets.")
         .DependsOn(GenerateCharacterAssets, GenerateColorPalette, Release);
+
+    Target CreateInstaller => _ => _
+        .Description("Create installer with Inno Setup")
+        .After(Compile, CopyAssets)
+        .Executes(() =>
+        {
+            Exec(@"C:\Program Files (x86)\Inno Setup 6\ISCC.exe", $"{InnoSetupConfig}");
+        });
 }

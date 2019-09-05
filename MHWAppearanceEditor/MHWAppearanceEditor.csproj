@@ -5,7 +5,8 @@
     <PublishReadyToRun>true</PublishReadyToRun>
     <PublishReadyToRunShowWarnings>true</PublishReadyToRunShowWarnings>
     <PublishTrimmed>true</PublishTrimmed>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
+    <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="**\*.xaml.cs">

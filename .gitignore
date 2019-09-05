@@ -265,3 +265,4 @@ __pycache__/
 Cirilla.Core/
 scripts/assets/
 output/
+dist/
