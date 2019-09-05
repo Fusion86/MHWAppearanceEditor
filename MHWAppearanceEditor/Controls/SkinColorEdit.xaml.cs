@@ -6,7 +6,9 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Threading;
+using MHWAppearanceEditor.Services;
 using SixLabors.ImageSharp.PixelFormats;
+using Splat;
 using System;
 using System.Threading.Tasks;
 
@@ -29,8 +31,7 @@ namespace MHWAppearanceEditor.Controls
             DataContext = this;
             InitializeComponent();
 
-            // TODO:
-            var imgSource = @"L:\Repos\MHWAppearanceEditor\MHWAppearanceEditor\bin\Debug\net461\assets\skin_color.png";
+            var imgSource = Locator.Current.GetService<AssetsService>().SkinColorPath;
 
             ColorButton.Click += ColorEdit_Click;
             ColorCanvas.PointerPressed += ColorCanvas_PointerPressed;
@@ -40,7 +41,6 @@ namespace MHWAppearanceEditor.Controls
             NumericSkinColorX.ValueChanged += (sender, e) => { SkinColorX = (byte)e.NewValue; };
             NumericSkinColorY.ValueChanged += (sender, e) => { SkinColorY = (byte)e.NewValue; };
 
-            // Initial values
             Task.Run(() =>
             {
                 var image = new Avalonia.Media.Imaging.Bitmap(imgSource);
@@ -48,7 +48,6 @@ namespace MHWAppearanceEditor.Controls
 
                 // Backend bitmap
                 skinImage = SixLabors.ImageSharp.Image.Load(imgSource);
-                //UpdatePreviewColor();
             });
         }
 
@@ -134,10 +133,9 @@ namespace MHWAppearanceEditor.Controls
 
         private void ColorThumb_DragDelta(object sender, VectorEventArgs e)
         {
-            // TODO:
-            double left = Canvas.GetLeft(ColorThumb);
-            double top = Canvas.GetTop(ColorThumb);
-            //SetSkinColor(left, top);
+            double x = Canvas.GetLeft(ColorThumb) + e.Vector.X;
+            double y = Canvas.GetTop(ColorThumb) + e.Vector.Y;
+            SetSkinColor(x, y);
         }
 
         private void SetSkinColor(double x, double y)

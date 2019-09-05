@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using Serilog;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 
@@ -22,12 +21,14 @@ namespace MHWAppearanceEditor.Services
         public IReadOnlyCollection<Color> FullColorPalette { get; private set; }
 
         public string AssetsRoot { get; }
+        public string SkinColorPath { get; }
 
         private List<Color> colorPalette;
 
         public AssetsService(string root)
         {
             AssetsRoot = root;
+            SkinColorPath = Path.Combine(AssetsRoot, "skin_color.png");
         }
 
         public void Initialize()
