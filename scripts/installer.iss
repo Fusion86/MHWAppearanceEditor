@@ -24,3 +24,4 @@ Source: "..\output\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 
 [Icons]
 Name: "{group}\{#AppName}"; Filename: "{app}\{#AppName}.exe"
+Name: "{group}\Uninstall {#AppName}"; Filename: "{uninstallexe}"
