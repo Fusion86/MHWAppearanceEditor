@@ -33,7 +33,7 @@
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Skin Color X" VerticalAlignment="Center" TextAlignment="Right"/>
                         <NumericUpDown Name="NumericSkinColorX" Grid.Row="0" Grid.Column="2" Minimum="0" Maximum="255" Increment="1" Value="{Binding SkinColorX}" Width="80"/>
 
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Skin Color X" VerticalAlignment="Center" TextAlignment="Right"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Skin Color Y" VerticalAlignment="Center" TextAlignment="Right"/>
                         <NumericUpDown Name="NumericSkinColorY" Grid.Row="2" Grid.Column="2" Minimum="0" Maximum="255" Increment="1" Value="{Binding SkinColorY}" Width="80"/>
                     </Grid>
                 </Grid>
