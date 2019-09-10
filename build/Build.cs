@@ -45,7 +45,30 @@ class Build : NukeBuild
 
     AbsolutePath OutputDirectory => RootDirectory / "output";
 
-    private static void ExecPython(string path) => Exec("python", path);
+    private static Lazy<string> PythonPath = new Lazy<string>(() =>
+    {
+        try
+        {
+            var process = Process.Start(new ProcessStartInfo
+            {
+                FileName = "pytho3n",
+                Arguments = "--version",
+                RedirectStandardError = true,
+                UseShellExecute = false,
+            });
+
+            var stderr = process.StandardError.ReadToEnd();
+            process.WaitForExit();
+
+            if (stderr.Contains("Python 2."))
+                return "python3";
+        }
+        catch (Exception) { }
+
+        return "python";
+    });
+
+    private static void ExecPython(string path) => Exec(PythonPath.Value, path);
 
     private static void Exec(string program, string args)
     {

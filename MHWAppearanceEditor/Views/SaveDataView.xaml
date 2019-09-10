@@ -14,6 +14,7 @@
             <TabControl.Styles>
                 <Style Selector="TabItem">
                     <Setter Property="Padding" Value="0"/>
+                    <Setter Property="Height" Value="42"/>
                 </Style>
 
                 <Style Selector="TabItem:selected">
