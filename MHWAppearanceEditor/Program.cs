@@ -26,10 +26,17 @@ namespace MHWAppearanceEditor
 
         // Avalonia configuration, don't remove; also used by visual designer.
         public static AppBuilder BuildAvaloniaApp()
-            => AppBuilder.Configure<App>()
+        {
+            var config = AppBuilder.Configure<App>()
                 .UsePlatformDetect()
                 .LogToDebug()
                 .UseReactiveUI();
+
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+                config.UseDirect2D1();
+
+            return config;
+        }
 
         private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
