@@ -1,13 +1,11 @@
 ﻿using DynamicData;
 using DynamicData.Binding;
-using MHWAppearanceEditor.Models;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Splat;
 using System;
 using System.Linq;
 using System.Reactive;
-using System.Threading.Tasks;
 
 namespace MHWAppearanceEditor.ViewModels
 {

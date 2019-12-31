@@ -32,6 +32,7 @@ namespace MHWAppearanceEditor
                 .LogToDebug()
                 .UseReactiveUI();
 
+            // Use Direct2D where possible, because it supports japanese, chinese, korean, etc.. characters
             if (Environment.OSVersion.Platform == PlatformID.Win32NT)
                 config.UseDirect2D1();
 

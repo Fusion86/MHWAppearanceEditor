@@ -48,24 +48,30 @@
                         HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                         VerticalAlignment="{TemplateBinding VerticalAlignment}">
                         <DockPanel>
-                            <WrapPanel DockPanel.Dock="Top">
-                                <Button Width="42" Height="42" Padding="9" Classes="Lookless" Command="{Binding OpenNewCommand}"
+                            <Grid DockPanel.Dock="Top" ColumnDefinitions="42,42,*,42">
+                                <Button Grid.Column="0" Height="42" Padding="9" Classes="Lookless" Command="{Binding OpenNewCommand}"
                                         ToolTip.Tip="Open new SaveData file (closes currently opened file without saving)">
                                     <DrawingPresenter Drawing="{DynamicResource IconNewFolder}" Classes="Lookless"/>
                                 </Button>
 
-                                <Button Width="42" Height="42" Padding="11" Classes="Lookless" Command="{Binding SaveCommand}"
+                                <Button Grid.Column="1" Height="42" Padding="11" Classes="Lookless" Command="{Binding SaveCommand}"
                                         ToolTip.Tip="Save changes (opens 'Save as' dialog)">
                                     <DrawingPresenter Drawing="{DynamicResource IconSave}"/>
                                 </Button>
 
                                 <ItemsPresenter
+                                    Grid.Column="2"
                                     Name="PART_ItemsPresenter"
                                     Items="{TemplateBinding Items}"
                                     ItemsPanel="{TemplateBinding ItemsPanel}"
                                     ItemTemplate="{TemplateBinding ItemTemplate}">
                                 </ItemsPresenter>
-                            </WrapPanel>
+
+                                <Button Grid.Column="3" Height="42" Padding="10" Classes="Lookless" Command="{Binding OpenHelpWindowCommand}"
+                                        ToolTip.Tip="Help me">
+                                    <DrawingPresenter Drawing="{DynamicResource IconHelp}"/>
+                                </Button>
+                            </Grid>
 
                             <ContentPresenter
                                 Name="PART_SelectedContentHost"

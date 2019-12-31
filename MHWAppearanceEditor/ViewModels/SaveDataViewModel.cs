@@ -8,6 +8,7 @@ using MHWAppearanceEditor.Extensions;
 using MHWAppearanceEditor.Helpers;
 using MHWAppearanceEditor.Models;
 using MHWAppearanceEditor.ViewModels.Tabs;
+using MHWAppearanceEditor.Views;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Serilog;
@@ -25,6 +26,7 @@ namespace MHWAppearanceEditor.ViewModels
 
         public ReactiveCommand<Unit, Unit> OpenNewCommand { get; }
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
+        public ReactiveCommand<Unit, Unit> OpenHelpWindowCommand { get; }
 
         public SteamAccount SteamAccount { get; set; }
         [Reactive] public bool IsLoading { get; private set; } = true;
@@ -42,6 +44,7 @@ namespace MHWAppearanceEditor.ViewModels
 
             OpenNewCommand = ReactiveCommand.Create(OpenNew);
             SaveCommand = ReactiveCommand.CreateFromTask(ShowSaveDialog);
+            OpenHelpWindowCommand = ReactiveCommand.Create(OpenHelpWindow);
 
             // Don't await and run on other thread because it is needed, just trust me
             Task.Run(() => LoadSaveData(saveDataPath));
@@ -77,6 +80,11 @@ namespace MHWAppearanceEditor.ViewModels
             MainWindowViewModel.Instance.ShowStartScreen();
         }
 
+        private void OpenHelpWindow()
+        {
+            new HelpWindow().Show();
+        }
+
         private async Task ShowSaveDialog()
         {
             SaveFileDialog sfd = new SaveFileDialog();
@@ -84,7 +92,7 @@ namespace MHWAppearanceEditor.ViewModels
 
             if (initialPath != null)
             {
-                sfd.InitialDirectory = initialPath;
+                sfd.Directory = initialPath;
                 sfd.InitialFileName = Path.Combine(initialPath, "SAVEDATA1000");
             }
 

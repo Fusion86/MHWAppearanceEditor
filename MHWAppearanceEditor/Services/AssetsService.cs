@@ -49,13 +49,12 @@ namespace MHWAppearanceEditor.Services
                 FullColorPalette = colorPalette.AsReadOnly();
                 ColorPaletteVibrant = colorPalette.Take(40).ToList().AsReadOnly();
                 ColorPaletteNatural = colorPalette.Skip(40).ToList().AsReadOnly();
+                CtxLog.Information($"Loaded palette containing {FullColorPalette.Count} colors");
             }
             catch (Exception ex)
             {
                 CtxLog.Error(ex, ex.Message);
             }
-
-            CtxLog.Information($"Loaded palette containing {FullColorPalette.Count} colors");
         }
     }
 }

@@ -19,5 +19,11 @@
                 <GeometryDrawing Brush="{DynamicResource ThemeForegroundBrush}" Geometry="M0,8L2,8 2,10 0,10z M0,4L2,4 2,6 0,6z M0,0L2,0 2,2 0,2z M4,8L18,8 18,10 4,10z M4,4L18,4 18,6 4,6z M4,0L18,0 18,2 4,2z"/>
             </DrawingGroup>
         </DrawingGroup>
+
+        <DrawingGroup x:Key="IconHelp">
+            <DrawingGroup>
+                <GeometryDrawing Brush="{DynamicResource ThemeForegroundBrush}" Geometry="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+            </DrawingGroup>
+        </DrawingGroup>
     </Style.Resources>
 </Style>

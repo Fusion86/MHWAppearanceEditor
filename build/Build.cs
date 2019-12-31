@@ -5,14 +5,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis.CSharp;
 using Nuke.Common;
 using Nuke.Common.Execution;
-using Nuke.Common.Git;
-using Nuke.Common.IO;
-using Nuke.Common.ProjectModel;
-using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
-using Nuke.Common.Tools.GitVersion;
-using Nuke.Common.Utilities.Collections;
-using static Nuke.Common.EnvironmentInfo;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
@@ -36,6 +29,9 @@ class Build : NukeBuild
 
     [Parameter("Which .NET framework to use, can be either 'netcoreapp3.0' or 'net461'. Release always uses 'net461'.")]
     string Framework = "netcoreapp3.0";
+
+    [Parameter("Which runtime to use. Release always uses 'win7-x86'.")]
+    string Runtime = "any";
 
     static readonly AbsolutePath Project = RootDirectory / "MHWAppearanceEditor" / "MHWAppearanceEditor.csproj";
     static readonly AbsolutePath ScriptsDirectory = RootDirectory / "scripts";
@@ -107,6 +103,7 @@ class Build : NukeBuild
             if (ExecutingTargets.Contains(Release))
             {
                 Framework = "net461";
+                Runtime = "win7-x86";
                 Configuration = Configuration.Release;
             }
 
@@ -119,7 +116,8 @@ class Build : NukeBuild
                 //.SetInformationalVersion(GitVersion.InformationalVersion)
                 .EnableNoRestore()
                 .SetOutputDirectory(OutputDirectory)
-                .SetFramework(Framework));
+                .SetFramework(Framework)
+                .SetRuntime(Runtime));
 
             // Move DLLs to lib folder and remove leftover files
             string libDir = OutputDirectory / "lib";

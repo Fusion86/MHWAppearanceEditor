@@ -69,7 +69,7 @@ namespace MHWAppearanceEditor.ViewModels
 
             string initialPath = SteamUtility.GetMhwSaveDir();
             if (initialPath != null)
-                ofd.InitialDirectory = initialPath;
+                ofd.Directory = initialPath;
 
             string filePath = (await ofd.ShowAsync()).FirstOrDefault();
             if (filePath == null)
