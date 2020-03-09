@@ -13,7 +13,7 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
         private ColorEdit LeftEyeColorEdit => this.FindControl<ColorEdit>("LeftEyeColorEdit");
         private ColorEdit RightEyeColorEdit => this.FindControl<ColorEdit>("RightEyeColorEdit");
         private ColorEdit EyebrowColorEdit => this.FindControl<ColorEdit>("EyebrowColorEdit");
-        private ComboBox[] forceResetControls;
+        private readonly ComboBox[] forceResetControls;
 
         public SaveSlotEyesView()
         {
@@ -42,7 +42,7 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
             AvaloniaXamlLoader.Load(this);
         }
 
-        private void SaveSlotEyesView_AttachedToVisualTree(object sender, VisualTreeAttachmentEventArgs e)
+        private void SaveSlotEyesView_AttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
         {
             foreach (var ctrl in forceResetControls)
             {

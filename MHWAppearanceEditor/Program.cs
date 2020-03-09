@@ -39,7 +39,7 @@ namespace MHWAppearanceEditor
             return config;
         }
 
-        private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        private static Assembly CurrentDomain_AssemblyResolve(object? sender, ResolveEventArgs args)
         {
             var probingPath = Path.GetFullPath("lib");
             var assyName = new AssemblyName(args.Name);
@@ -51,7 +51,7 @@ namespace MHWAppearanceEditor
             if (File.Exists(dllPath))
                 return Assembly.LoadFile(dllPath);
 
-            return null;
+            return null!;
         }
     }
 }

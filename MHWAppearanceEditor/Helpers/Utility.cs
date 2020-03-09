@@ -4,6 +4,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Media;
 using System.IO;
 using Cirilla.Core.Extensions;
+using System;
 
 namespace MHWAppearanceEditor.Helpers
 {
@@ -13,7 +14,7 @@ namespace MHWAppearanceEditor.Helpers
         {
             if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime classicDesktop)
                 return classicDesktop.MainWindow;
-            return null;
+            throw new NotSupportedException();
         }
 
         public static string GetSafeFilename(string filename)

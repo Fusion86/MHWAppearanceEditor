@@ -5,7 +5,6 @@ using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Splat;
 using System;
-using System.Globalization;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 
@@ -20,10 +19,11 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public long SteamId { get => saveData.SteamId; set { saveData.SteamId = value; this.RaisePropertyChanged(); } }
         //public string Checksum => "todo";
         //public string GeneratedChecksum => "todo";
-        [Reactive] public string SteamIdName { get; set; }
+        [Reactive] public string? SteamIdName { get; set; }
 
         private readonly SaveData saveData;
         private readonly SteamWebApiService steamWebApi = Locator.Current.GetService<SteamWebApiService>();
+        private readonly SettingsService settingsService = Locator.Current.GetService<SettingsService>();
 
         public SaveDataInfoViewModel(SaveData saveData)
         {
@@ -37,7 +37,9 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
 
         private async Task<string> GetPersonaName(long steamId)
         {
-            return await steamWebApi.GetPersonaName(steamId.ToString());
+            if (settingsService?.Settings.EnableSteamNameLookup == true)
+                return await steamWebApi.GetPersonaName(steamId.ToString());
+            return "(name lookup disabled)";
         }
     }
 }

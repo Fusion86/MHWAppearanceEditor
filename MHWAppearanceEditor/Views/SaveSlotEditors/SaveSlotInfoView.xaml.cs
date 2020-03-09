@@ -21,7 +21,7 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
             HunterXp.GotFocus += DangerousControl_GotFocus;
         }
 
-        private void DangerousControl_GotFocus(object sender, Avalonia.Input.GotFocusEventArgs e)
+        private void DangerousControl_GotFocus(object? sender, Avalonia.Input.GotFocusEventArgs e)
         {
             if (showDangerousWarning)
             {

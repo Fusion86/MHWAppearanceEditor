@@ -15,7 +15,7 @@ namespace MHWAppearanceEditor.Helpers
         public const string MONSTER_HUNTER_WORLD_APPID = "582010";
         private static readonly ILogger CtxLog = Log.ForContext(typeof(SteamUtility));
 
-        public static string GetSteamRoot()
+        public static string? GetSteamRoot()
         {
            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                return null;
@@ -29,9 +29,9 @@ namespace MHWAppearanceEditor.Helpers
                 return null;
         }
 
-        public static string GetMhwSaveDir()
+        public static string? GetMhwSaveDir()
         {
-            string steamRoot = GetSteamRoot();
+            string? steamRoot = GetSteamRoot();
 
             if (steamRoot == null)
                 return null;
@@ -48,9 +48,9 @@ namespace MHWAppearanceEditor.Helpers
             return null;
         }
 
-        public static string GetMhwSaveDir(SteamAccount user)
+        public static string? GetMhwSaveDir(SteamAccount user)
         {
-            string steamRoot = GetSteamRoot();
+            string? steamRoot = GetSteamRoot();
 
             if (steamRoot == null)
                 return null;
@@ -65,7 +65,7 @@ namespace MHWAppearanceEditor.Helpers
 
         public static List<SteamAccount> GetSteamUsersWithMhw()
         {
-            string steamRoot = GetSteamRoot();
+            string? steamRoot = GetSteamRoot();
             List<SteamAccount> steamUsers = new List<SteamAccount>();
 
             if (steamRoot == null)

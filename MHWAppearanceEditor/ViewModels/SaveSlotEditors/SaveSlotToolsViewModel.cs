@@ -29,8 +29,8 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
 
         public ReactiveCommand<Unit, Unit> SelectSaveDataCommand { get; }
         public ReactiveCommand<SaveSlot, SerializableAppearance> ImportFromSaveSlotCommand { get; }
-        public ReactiveCommand<Unit, SerializableAppearance> ImportFromCmpCommand { get; }
-        public ReactiveCommand<Unit, SerializableAppearance> ImportFromJsonCommand { get; }
+        public ReactiveCommand<Unit, SerializableAppearance?> ImportFromCmpCommand { get; }
+        public ReactiveCommand<Unit, SerializableAppearance?> ImportFromJsonCommand { get; }
         public ReactiveCommand<Unit, Unit> ExportToCmpCommand { get; }
         public ReactiveCommand<Unit, Unit> ExportToJsonCommand { get; }
 
@@ -42,8 +42,8 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
 
             SelectSaveDataCommand = ReactiveCommand.CreateFromTask<Unit, Unit>(SelectSaveData);
             ImportFromSaveSlotCommand = ReactiveCommand.Create<SaveSlot, SerializableAppearance>(ImportFromSaveSlot);
-            ImportFromCmpCommand = ReactiveCommand.CreateFromTask<Unit, SerializableAppearance>(ImportFromCmp);
-            ImportFromJsonCommand = ReactiveCommand.CreateFromTask<Unit, SerializableAppearance>(ImportFromJson);
+            ImportFromCmpCommand = ReactiveCommand.CreateFromTask<Unit, SerializableAppearance?>(ImportFromCmp);
+            ImportFromJsonCommand = ReactiveCommand.CreateFromTask<Unit, SerializableAppearance?>(ImportFromJson);
             ExportToCmpCommand = ReactiveCommand.CreateFromTask<Unit, Unit>(ExportToCmp);
             ExportToJsonCommand = ReactiveCommand.CreateFromTask<Unit, Unit>(ExportToJson);
 
@@ -60,7 +60,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
             SourceSaveData = this.saveSlotContext.SaveData;
         }
 
-        private void ImportSerializableAppearance(SerializableAppearance serializableAppearance)
+        private void ImportSerializableAppearance(SerializableAppearance? serializableAppearance)
         {
             if (serializableAppearance == null)
                 return;
@@ -100,7 +100,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
             return new SerializableAppearance(saveSlot);
         }
 
-        private async Task<SerializableAppearance> ImportFromCmp(Unit _)
+        private async Task<SerializableAppearance?> ImportFromCmp(Unit _)
         {
             OpenFileDialog ofd = new OpenFileDialog();
             var items = await ofd.ShowAsync();
@@ -122,7 +122,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
             return null;
         }
 
-        private async Task<SerializableAppearance> ImportFromJson(Unit _)
+        private async Task<SerializableAppearance?> ImportFromJson(Unit _)
         {
             // Mostly copy-pasted from MHWAppearanceEditor legacy
             OpenFileDialog ofd = new OpenFileDialog();

@@ -21,13 +21,22 @@ namespace MHWAppearanceEditor
         {
             InitializeLogging();
 
+            // Need to call ForContext *afer* calling InitializeLogging()
+            var log = Log.ForContext<App>();
+            log.Information("MHWAppearanceEditor v" + Assembly.GetExecutingAssembly()!.GetName().Version);
+            log.Information("Cirilla.Core v" + Assembly.GetAssembly(typeof(Cirilla.Core.Models.SaveData))!.GetName().Version);
+
+            // Settings
+            var settingsService = new SettingsService();
+            Locator.CurrentMutable.RegisterConstant(settingsService);
+
             // Start assets loading
             AssetsService assetsService = new AssetsService("assets");
             Task.Run(() => assetsService.Initialize());
             Locator.CurrentMutable.RegisterConstant(assetsService, typeof(AssetsService));
 
             Locator.CurrentMutable.RegisterConstant(new ColorValueConverter(), typeof(IBindingTypeConverter));
-            Locator.CurrentMutable.RegisterConstant(new SteamWebApiService(SuperSecret.STEAM_WEB_API_KEY), typeof(SteamWebApiService));
+            Locator.CurrentMutable.RegisterConstant(new SteamWebApiService(SuperSecret.STEAM_WEB_API_KEY));
 
             Locator.CurrentMutable.Register(() => new StartScreenView(), typeof(IViewFor<StartScreenViewModel>));
             Locator.CurrentMutable.Register(() => new SaveDataView(), typeof(IViewFor<SaveDataViewModel>));
@@ -36,11 +45,6 @@ namespace MHWAppearanceEditor
             // Tabs
             Locator.CurrentMutable.Register(() => new SaveDataInfoView(), typeof(IViewFor<SaveDataInfoViewModel>));
             Locator.CurrentMutable.Register(() => new SaveSlotView(), typeof(IViewFor<SaveSlotViewModel>));
-
-            // Need to call ForContext afer calling InitializeLogging()
-            var CtxLog = Log.ForContext<App>();
-            CtxLog.Information("MHWAppearanceEditor v" + Assembly.GetExecutingAssembly().GetName().Version);
-            CtxLog.Information("Cirilla.Core v" + Assembly.GetAssembly(typeof(Cirilla.Core.Models.GMD)).GetName().Version);
 
             AvaloniaXamlLoader.Load(this);
         }

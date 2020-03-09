@@ -113,7 +113,7 @@ namespace MHWAppearanceEditor.Controls
             PreviewColor = new Color(color.A, color.R, color.G, color.B);
         }
 
-        private void ColorCanvas_PointerPressed(object sender, PointerPressedEventArgs e)
+        private void ColorCanvas_PointerPressed(object? sender, PointerPressedEventArgs e)
         {
             if (e.InputModifiers.HasFlag(InputModifiers.LeftMouseButton))
             {
@@ -122,7 +122,7 @@ namespace MHWAppearanceEditor.Controls
             }
         }
 
-        private void ColorCanvas_PointerMoved(object sender, PointerEventArgs e)
+        private void ColorCanvas_PointerMoved(object? sender, PointerEventArgs e)
         {
             if (e.Pointer.Captured == ColorCanvas)
             {
@@ -131,7 +131,7 @@ namespace MHWAppearanceEditor.Controls
             }
         }
 
-        private void ColorThumb_DragDelta(object sender, VectorEventArgs e)
+        private void ColorThumb_DragDelta(object? sender, VectorEventArgs e)
         {
             double x = Canvas.GetLeft(ColorThumb) + e.Vector.X;
             double y = Canvas.GetTop(ColorThumb) + e.Vector.Y;
@@ -146,7 +146,7 @@ namespace MHWAppearanceEditor.Controls
             MoveThumb(SkinColorX, SkinColorY);
         }
 
-        private void ColorEdit_Click(object sender, RoutedEventArgs e)
+        private void ColorEdit_Click(object? sender, RoutedEventArgs e)
         {
             SkinColorPickerPopup.Open();
             MoveThumb(SkinColorX, SkinColorY);

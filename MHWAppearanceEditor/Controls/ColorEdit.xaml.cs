@@ -51,7 +51,7 @@ namespace MHWAppearanceEditor.Controls
             AvaloniaXamlLoader.Load(this);
         }
 
-        private void ColorEdit_Click(object sender, RoutedEventArgs e)
+        private void ColorEdit_Click(object? sender, RoutedEventArgs e)
         {
             ColorPickerPopup.Open();
         }

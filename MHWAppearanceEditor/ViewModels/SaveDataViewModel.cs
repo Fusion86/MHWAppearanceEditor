@@ -27,14 +27,15 @@ namespace MHWAppearanceEditor.ViewModels
         public ReactiveCommand<Unit, Unit> OpenNewCommand { get; }
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
         public ReactiveCommand<Unit, Unit> OpenHelpWindowCommand { get; }
+        public ReactiveCommand<Unit, Unit> OpenSettingsWindowCommand { get; }
 
-        public SteamAccount SteamAccount { get; set; }
+        public SteamAccount? SteamAccount { get; set; }
         [Reactive] public bool IsLoading { get; private set; } = true;
 
         private readonly SourceList<object> tabs = new SourceList<object>();
         public IObservableCollection<object> TabsBinding { get; } = new ObservableCollectionExtended<object>();
 
-        private SaveData saveData;
+        private SaveData? saveData;
 
         public SaveDataViewModel(string saveDataPath)
         {
@@ -45,6 +46,7 @@ namespace MHWAppearanceEditor.ViewModels
             OpenNewCommand = ReactiveCommand.Create(OpenNew);
             SaveCommand = ReactiveCommand.CreateFromTask(ShowSaveDialog);
             OpenHelpWindowCommand = ReactiveCommand.Create(OpenHelpWindow);
+            OpenSettingsWindowCommand = ReactiveCommand.Create(OpenSettingsWindow);
 
             // Don't await and run on other thread because it is needed, just trust me
             Task.Run(() => LoadSaveData(saveDataPath));
@@ -85,6 +87,11 @@ namespace MHWAppearanceEditor.ViewModels
             new HelpWindow().Show();
         }
 
+        private void OpenSettingsWindow()
+        {
+            new SettingsWindow().Show();
+        }
+
         private async Task ShowSaveDialog()
         {
             SaveFileDialog sfd = new SaveFileDialog();
@@ -108,7 +115,7 @@ namespace MHWAppearanceEditor.ViewModels
 
                 try
                 {
-                    await Task.Run(() => saveData.Save(fileName));
+                    await Task.Run(() => saveData?.Save(fileName));
                     MainWindowViewModel.Instance.ShowPopup($"Saved SaveData to '{fileName}'");
                 }
                 catch (Exception ex)

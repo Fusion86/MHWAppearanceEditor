@@ -35,7 +35,7 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
             AvaloniaXamlLoader.Load(this);
         }
 
-        private void SaveSlotOtherView_AttachedToVisualTree(object sender, VisualTreeAttachmentEventArgs e)
+        private void SaveSlotOtherView_AttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
         {
             foreach (var ctrl in forceResetControls)
             {

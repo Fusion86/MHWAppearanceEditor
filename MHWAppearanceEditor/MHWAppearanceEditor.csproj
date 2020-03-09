@@ -8,6 +8,8 @@
     <Version>1.2.1</Version>
     <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
     <GenerateErrorForMissingTargetingPacks>false</GenerateErrorForMissingTargetingPacks>
+    <Nullable>enable</Nullable>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net461|AnyCPU'">
     <PlatformTarget>x64</PlatformTarget>
@@ -37,6 +39,7 @@
     <AvaloniaResource Remove="Views\SaveSlotEditors\SaveSlotSkinView.xaml" />
     <AvaloniaResource Remove="Views\SaveSlotEditors\SaveSlotToolsView.xaml" />
     <AvaloniaResource Remove="Views\SaveSlotView.xaml" />
+    <AvaloniaResource Remove="Views\SettingsWindow.xaml" />
     <AvaloniaResource Remove="Views\StartScreenView.xaml" />
     <AvaloniaResource Remove="Views\Tabs\SaveDataInfoView.xaml" />
     <AvaloniaResource Remove="Views\Tabs\SaveSlotView.xaml" />
@@ -57,25 +60,27 @@
     <None Remove="Views\SaveSlotEditors\SaveSlotSkinView.xaml" />
     <None Remove="Views\SaveSlotEditors\SaveSlotToolsView.xaml" />
     <None Remove="Views\SaveSlotView.xaml" />
+    <None Remove="Views\SettingsWindow.xaml" />
     <None Remove="Views\StartScreenView.xaml" />
     <None Remove="Views\Tabs\SaveDataInfoView.xaml" />
     <None Remove="Views\Tabs\SaveSlotView.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.9.1" />
-    <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.9.1" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.9.1" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.1" />
+    <PackageReference Include="Avalonia" Version="0.9.3" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.9.3" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.9.3" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.3" />
     <PackageReference Include="Gameloop.Vdf" Version="0.5.0" />
     <PackageReference Include="Gameloop.Vdf.JsonConverter" Version="0.2.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.Win32.Registry" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="ReactiveUI.Fody" Version="11.0.6" />
+    <PackageReference Include="Nito.AsyncEx" Version="5.0.0" />
+    <PackageReference Include="ReactiveUI.Fody" Version="11.2.3" />
     <PackageReference Include="Serilog" Version="2.9.0" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0006" />
-    <PackageReference Include="Splat.Serilog" Version="9.3.4" />
-    <PackageReference Include="ThemeEditor.Controls.ColorPicker" Version="0.9.0" />
+    <PackageReference Include="Splat.Serilog" Version="9.3.11" />
+    <PackageReference Include="ThemeEditor.Controls.ColorPicker" Version="0.9.1" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\StartScreenView.xaml">
@@ -162,6 +167,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\HelpWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\SettingsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

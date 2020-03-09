@@ -59,7 +59,7 @@ namespace MHWAppearanceEditor.ValueConverters
                 }
             }
 
-            result = null;
+            result = null!;
             return false;
         }
     }

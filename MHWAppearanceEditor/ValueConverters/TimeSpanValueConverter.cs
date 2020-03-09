@@ -10,8 +10,7 @@ namespace MHWAppearanceEditor.ValueConverters
         {
             if (value is TimeSpan timespan)
                 return (int)timespan.TotalHours + ":" + timespan.ToString(@"mm\:ss"); // Yeah this is the easiest way
-
-            return null;
+            return null!;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

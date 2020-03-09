@@ -20,7 +20,7 @@ namespace MHWAppearanceEditor.ViewModels
         [Reactive] public string MostRecentEventMessage { get; private set; }
 
         // Popup
-        [Reactive] public string PopupText { get; private set; }
+        [Reactive] public string PopupText { get; private set; } = "";
         [Reactive] public bool PopupIsOpen { get; set; }
         [Reactive] public bool PopupCanClose { get; private set; }
         [Reactive] public double ContentOpacity { get; private set; } = 1;

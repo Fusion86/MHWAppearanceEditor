@@ -10,14 +10,14 @@ namespace MHWAppearanceEditor.ValueConverters
         {
             if (value is DateTimeOffset obj)
                 return obj.ToString();
-            return null;
+            return null!;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is string str)
                 return DateTimeOffset.Parse(str);
-            return null;
+            return null!;
         }
     }
 }

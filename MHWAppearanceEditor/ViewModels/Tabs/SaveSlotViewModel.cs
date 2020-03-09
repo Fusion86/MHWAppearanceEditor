@@ -20,7 +20,7 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
     {
         private static readonly Serilog.ILogger CtxLog = Log.ForContext<SaveSlotViewModel>();
 
-        public string Title { [ObservableAsProperty]get; }
+        public string Title { [ObservableAsProperty]get; } = "";
         public string ToolTipText => $"{HunterName} (Rank: {HunterRank})";
 
         // Actual SaveSlot values
@@ -212,10 +212,10 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
 
         private readonly CharacterAssets characterAssets;
 
-        public SaveSlotViewModel(SaveSlot saveSlot, AssetsService assetsService = null)
+        public SaveSlotViewModel(SaveSlot saveSlot, AssetsService? assetsService = null)
         {
             SaveSlot = saveSlot;
-            assetsService = assetsService ?? Locator.Current.GetService<AssetsService>();
+            assetsService ??= Locator.Current.GetService<AssetsService>();
             characterAssets = assetsService.CharacterAssets;
             ColorPaletteVibrant = assetsService.ColorPaletteVibrant;
             ColorPaletteNatural = assetsService.ColorPaletteNatural;

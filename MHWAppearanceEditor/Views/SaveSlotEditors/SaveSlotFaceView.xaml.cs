@@ -8,7 +8,7 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
 {
     public class SaveSlotFaceView : ReactiveUserControl<SaveSlotViewModel>
     {
-        private ComboBox[] forceResetControls;
+        private readonly ComboBox[] forceResetControls;
 
         public SaveSlotFaceView()
         {
@@ -27,7 +27,7 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
             AttachedToVisualTree += SaveSlotFaceView_AttachedToVisualTree;
         }
 
-        private void SaveSlotFaceView_AttachedToVisualTree(object sender, VisualTreeAttachmentEventArgs e)
+        private void SaveSlotFaceView_AttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
         {
             foreach (var ctrl in forceResetControls)
             {

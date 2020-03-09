@@ -26,10 +26,10 @@ namespace MHWAppearanceEditor.Models
     public class CharacterAsset
     {
         public string Name { get; }
-        public string PreviewSource { get; }
+        public string? PreviewSource { get; }
         public int Value { get; }
 
-        public CharacterAsset(string name, string previewSource, int value)
+        public CharacterAsset(string name, string? previewSource, int value)
         {
             Name = name;
             PreviewSource = previewSource;
@@ -191,7 +191,7 @@ namespace MHWAppearanceEditor.Models
             CtxLog.Information($"Loaded assets map containing {count} items");
         }
 
-        public static CharacterAssets CreateFromAssetsMap(string assetsDir)
+        public static CharacterAssets? CreateFromAssetsMap(string assetsDir)
         {
             try
             {

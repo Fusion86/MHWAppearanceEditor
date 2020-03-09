@@ -11,7 +11,7 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
         public SaveSlotToolsView()
         {
             InitializeComponent();
-            ViewModel = DataContext as SaveSlotToolsViewModel;
+            ViewModel = (SaveSlotToolsViewModel)DataContext;
         }
 
         public static readonly StyledProperty<SaveSlot> SaveSlotProperty =

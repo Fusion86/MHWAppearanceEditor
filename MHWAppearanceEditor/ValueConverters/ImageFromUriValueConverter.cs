@@ -11,7 +11,7 @@ namespace MHWAppearanceEditor.ValueConverters
         {
             if (value is string str)
                 return new Bitmap(str);
-            return null;
+            return null!;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
