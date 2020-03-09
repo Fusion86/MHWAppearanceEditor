@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -13,40 +14,76 @@ namespace Odogaron
 
         static async Task Main(string[] args)
         {
+            bool showHelp = false;
             bool undo = false;
+            bool watch = false;
+
             Console.WriteLine("Odogaron v" + Assembly.GetExecutingAssembly().GetName().Version);
 
-            if (args.Length > 0)
+            foreach (string arg in args.Select(x => x.Trim('-', ' ')))
             {
-                string arg = args[0].Trim('-', ' ');
                 switch (arg)
                 {
                     case "help":
-                        Console.WriteLine("\nThis tool is used to patch (disable) the SaveData verification code in Monster Hunter World.");
-                        Console.WriteLine("\nUSAGE: odogaron.exe [arg]");
-                        Console.WriteLine("ARGS:");
-                        Console.WriteLine("  help - show this text");
-                        Console.WriteLine("  patch - apply patch [default]");
-                        Console.WriteLine("  unpatch - undo patch");
-                        return;
+                        showHelp = true;
+                        break;
                     case "unpatch":
                     case "undo":
                         undo = true;
                         break;
+                    case "watch":
+                        watch = true;
+                        break;
                 }
             }
 
-            Process[] procs = Process.GetProcessesByName("MonsterHunterWorld");
-
-            if (undo)
+            if (showHelp)
             {
-                foreach (var proc in procs)
-                    UnpatchSaveDataProtection(proc);
+                Console.WriteLine("\nThis tool is used to patch (disable) the SaveData verification code in Monster Hunter World.");
+                Console.WriteLine("\nUSAGE: odogaron.exe [arg]");
+                Console.WriteLine("ARGS:");
+                Console.WriteLine("  help - show this text");
+                Console.WriteLine("  patch - apply patch [default]");
+                Console.WriteLine("  unpatch - undo patch");
+                return;
+            }
+
+            if (watch)
+            {
+                List<int> alreadyProcessed = new List<int>();
+                while (true)
+                {
+                    Run(undo, alreadyProcessed);
+                    await Task.Delay(2500);
+                }
+            }
+            else
+            {
+                Run(undo); // Run once
+            }
+        }
+
+        static void Run(bool undo, List<int>? alreadyProcessed = null)
+        {
+            Process[] procs = Process.GetProcessesByName("MonsterHunterWorld");
+            if (procs.Length == 0)
+            {
+                Console.WriteLine("No MonsterHunterWorld process found.");
             }
             else
             {
                 foreach (var proc in procs)
-                    PatchSaveDataProtection(proc);
+                {
+                    if (alreadyProcessed != null)
+                    {
+                        // Only do the patching/unpatching one (only needed when running in 'watch'mode).
+                        if (alreadyProcessed.Contains(proc.Id)) continue;
+                        else alreadyProcessed.Add(proc.Id);
+                    }
+
+                    if (undo) UnpatchSaveDataProtection(proc);
+                    else PatchSaveDataProtection(proc);
+                }
             }
         }
 

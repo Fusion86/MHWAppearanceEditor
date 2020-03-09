@@ -30,10 +30,13 @@ namespace MHWAppearanceEditor
             var settingsService = new SettingsService();
             Locator.CurrentMutable.RegisterConstant(settingsService);
 
+            // Background odogaron.exe runner
+            Locator.CurrentMutable.RegisterConstant(new OdogaronService());
+
             // Start assets loading
             AssetsService assetsService = new AssetsService("assets");
             Task.Run(() => assetsService.Initialize());
-            Locator.CurrentMutable.RegisterConstant(assetsService, typeof(AssetsService));
+            Locator.CurrentMutable.RegisterConstant(assetsService);
 
             Locator.CurrentMutable.RegisterConstant(new ColorValueConverter(), typeof(IBindingTypeConverter));
             Locator.CurrentMutable.RegisterConstant(new SteamWebApiService(SuperSecret.STEAM_WEB_API_KEY));
