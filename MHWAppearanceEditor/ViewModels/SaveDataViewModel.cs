@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Media;
 using Avalonia.Threading;
 using Cirilla.Core.Models;
 using DynamicData;
@@ -7,11 +8,13 @@ using DynamicData.Binding;
 using MHWAppearanceEditor.Extensions;
 using MHWAppearanceEditor.Helpers;
 using MHWAppearanceEditor.Models;
+using MHWAppearanceEditor.Services;
 using MHWAppearanceEditor.ViewModels.Tabs;
 using MHWAppearanceEditor.Views;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Serilog;
+using Splat;
 using System;
 using System.IO;
 using System.Linq;
@@ -22,20 +25,27 @@ namespace MHWAppearanceEditor.ViewModels
 {
     public class SaveDataViewModel : ViewModelBase
     {
-        private static readonly ILogger CtxLog = Log.ForContext<SaveDataViewModel>();
+        private static readonly Serilog.ILogger log = Log.ForContext<SaveDataViewModel>();
+        private static readonly SolidColorBrush redColorBrush = new SolidColorBrush(Colors.Orange);
+        private static readonly SolidColorBrush greenColorBrush = new SolidColorBrush(Colors.LimeGreen);
 
         public ReactiveCommand<Unit, Unit> OpenNewCommand { get; }
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
         public ReactiveCommand<Unit, Unit> OpenHelpWindowCommand { get; }
         public ReactiveCommand<Unit, Unit> OpenSettingsWindowCommand { get; }
+        public ReactiveCommand<Unit, Unit> ToggleSaveCheckBypassCommand { get; }
 
         public SteamAccount? SteamAccount { get; set; }
         [Reactive] public bool IsLoading { get; private set; } = true;
+
+        [ObservableAsProperty] public string? SaveCheckBypassStatusText { get; }
+        [ObservableAsProperty] public SolidColorBrush? SaveCheckBypassStatusTextColor { get; }
 
         private readonly SourceList<object> tabs = new SourceList<object>();
         public IObservableCollection<object> TabsBinding { get; } = new ObservableCollectionExtended<object>();
 
         private SaveData? saveData;
+        private readonly OdogaronService odogaron = Locator.Current.GetService<OdogaronService>()!;
 
         public SaveDataViewModel(string saveDataPath)
         {
@@ -47,6 +57,13 @@ namespace MHWAppearanceEditor.ViewModels
             SaveCommand = ReactiveCommand.CreateFromTask(ShowSaveDialog);
             OpenHelpWindowCommand = ReactiveCommand.Create(OpenHelpWindow);
             OpenSettingsWindowCommand = ReactiveCommand.Create(OpenSettingsWindow);
+            ToggleSaveCheckBypassCommand = ReactiveCommand.Create(ToggleSaveCheckBypass);
+
+            this.WhenAnyValue(x => x.odogaron.IsRunning, (bool x) => x ? "SaveCheckBypass enabled" : "Enable SaveCheckBypass!")
+                .ToPropertyEx(this, x => x.SaveCheckBypassStatusText);
+
+            this.WhenAnyValue(x => x.odogaron.IsRunning, (bool x) => x ? greenColorBrush : redColorBrush)
+                .ToPropertyEx(this, x => x.SaveCheckBypassStatusTextColor);
 
             // Don't await and run on other thread because it is needed, just trust me
             Task.Run(() => LoadSaveData(saveDataPath));
@@ -71,7 +88,7 @@ namespace MHWAppearanceEditor.ViewModels
             }
             catch (Exception ex)
             {
-                CtxLog.Error(ex, ex.Message);
+                log.Error(ex, ex.Message);
                 MainWindowViewModel.Instance.SetActiveViewModel(new ExceptionViewModel(ex));
             }
         }
@@ -92,10 +109,16 @@ namespace MHWAppearanceEditor.ViewModels
             new SettingsWindow().Show();
         }
 
+        private void ToggleSaveCheckBypass()
+        {
+            if (odogaron.IsRunning) odogaron.Stop();
+            else odogaron.Start();
+        }
+
         private async Task ShowSaveDialog()
         {
             SaveFileDialog sfd = new SaveFileDialog();
-            string initialPath = SteamAccount != null ? SteamUtility.GetMhwSaveDir(SteamAccount) : SteamUtility.GetMhwSaveDir();
+            string? initialPath = SteamAccount != null ? SteamUtility.GetMhwSaveDir(SteamAccount) : SteamUtility.GetMhwSaveDir();
 
             if (initialPath != null)
             {
@@ -107,7 +130,7 @@ namespace MHWAppearanceEditor.ViewModels
 
             if (fileName == null)
             {
-                CtxLog.Information("Saving cancelled");
+                log.Information("Saving cancelled");
             }
             else
             {
@@ -120,7 +143,7 @@ namespace MHWAppearanceEditor.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    CtxLog.Error(ex, ex.Message);
+                    log.Error(ex, ex.Message);
                     MainWindowViewModel.Instance.ShowPopup(ex.Message);
                 }
             }

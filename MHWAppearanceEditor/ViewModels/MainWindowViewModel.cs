@@ -1,9 +1,12 @@
 ﻿using DynamicData;
 using DynamicData.Binding;
+using MHWAppearanceEditor.Services;
+using Nito.AsyncEx.Synchronous;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Splat;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
 
@@ -15,6 +18,9 @@ namespace MHWAppearanceEditor.ViewModels
 
         public ReactiveCommand<Unit, Unit> ToggleShowLog { get; }
 
+        /// <remarks>
+        /// I originally wrote this code before I knew about the existence of RoutedViewHost, which is obviously better than whetever the hell this is.
+        /// </remarks>
         [Reactive] public ViewModelBase ActiveViewModel { get; private set; }
         [Reactive] public bool ShowLog { get; set; } = false;
         [Reactive] public string MostRecentEventMessage { get; private set; }
@@ -29,19 +35,29 @@ namespace MHWAppearanceEditor.ViewModels
 
         // No need to re-create this object each time
         private readonly StartScreenViewModel startScreenViewModel = new StartScreenViewModel();
+        private readonly SettingsService settingsService = Locator.Current.GetService<SettingsService>();
 
         public MainWindowViewModel()
         {
-            var logger = Locator.Current.GetService<LogSink>();
+            Instance = this;
 
+            var logger = Locator.Current.GetService<LogSink>();
             logger.Events.Connect()
                 .Bind(EventsBinding)
                 .Subscribe();
 
             EventsBinding.ObserveCollectionChanges().Subscribe(_ => MostRecentEventMessage = EventsBinding.Last().Message);
 
-            ActiveViewModel = new StartScreenViewModel();
-            Instance = this;
+            if (settingsService?.Settings.ShowFirstRunMessage == true || Debugger.IsAttached)
+            {
+                ActiveViewModel = new FirstRunViewModel();
+                settingsService.Settings.ShowFirstRunMessage = false;
+                settingsService.Save().WaitAndUnwrapException();
+            }
+            else
+            {
+                ActiveViewModel = new StartScreenViewModel();
+            }
 
             ToggleShowLog = ReactiveCommand.Create(() => { ShowLog = !ShowLog; });
 

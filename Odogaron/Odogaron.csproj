@@ -8,6 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Odogaron</RootNamespace>
     <AssemblyName>Odogaron</AssemblyName>
+    <TargetName>odogaron</TargetName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,6 +35,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />

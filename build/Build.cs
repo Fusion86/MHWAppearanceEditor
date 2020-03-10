@@ -30,10 +30,11 @@ class Build : NukeBuild
     [Parameter("Which .NET framework to use, can be either 'netcoreapp3.0' or 'net461'. Release always uses 'net461'.")]
     string Framework = "netcoreapp3.0";
 
-    [Parameter("Which runtime to use. Release always uses 'win7-x86'.")]
+    [Parameter("Which runtime to use. Release always uses 'win7-x64'.")]
     string Runtime = "any";
 
-    static readonly AbsolutePath Project = RootDirectory / "MHWAppearanceEditor" / "MHWAppearanceEditor.csproj";
+    static readonly AbsolutePath AppearanceEditorProject = RootDirectory / "MHWAppearanceEditor" / "MHWAppearanceEditor.csproj";
+    static readonly AbsolutePath OdogaronProject = RootDirectory / "Odogaron" / "Odogaron.csproj";
     static readonly AbsolutePath ScriptsDirectory = RootDirectory / "scripts";
     static readonly AbsolutePath CharacterAssetsGen = ScriptsDirectory / "character_assets.py";
     static readonly AbsolutePath PaletteExtractor = ScriptsDirectory / "palette_extractor.py";
@@ -82,33 +83,41 @@ class Build : NukeBuild
     }
 
     Target Clean => _ => _
-        .Before(Restore)
+        .Before(AppearanceEditorRestore)
         .Executes(() =>
         {
             EnsureCleanDirectory(OutputDirectory);
         });
 
-    Target Restore => _ => _
+    Target AppearanceEditorRestore => _ => _
         .Executes(() =>
         {
             DotNetRestore(s => s
-                .SetProjectFile(Project));
+                .SetProjectFile(OdogaronProject));
+        });
+
+    Target OdogaronRestore => _ => _
+        .Executes(() =>
+        {
+            DotNetRestore(s => s
+                .SetProjectFile(AppearanceEditorProject));
         });
 
     Target Compile => _ => _
-        .DependsOn(Restore)
+        .DependsOn(AppearanceEditorRestore)
+        .DependsOn(CompileOdogaron)
         .Executes(() =>
         {
             // Force net461 for a Release
             if (ExecutingTargets.Contains(Release))
             {
                 Framework = "net461";
-                Runtime = "win7-x86";
+                Runtime = "win7-x64";
                 Configuration = Configuration.Release;
             }
 
             DotNetBuild(s => s
-                .SetProjectFile(Project)
+                .SetProjectFile(AppearanceEditorProject)
                 .SetConfiguration(Configuration)
                 // TODO: This also sets the Cirilla.Core version, which we DO NOT want
                 //.SetAssemblyVersion(GitVersion.GetNormalizedAssemblyVersion())
@@ -128,6 +137,17 @@ class Build : NukeBuild
 
             foreach (var file in GlobFiles(OutputDirectory, "*.exe.config", "*.pdb", "*.deps.json"))
                 DeleteFile(file);
+        });
+
+    Target CompileOdogaron => _ => _
+        .DependsOn(OdogaronRestore)
+        .Executes(() =>
+        {
+            DotNetBuild(s => s
+                .SetProjectFile(OdogaronProject)
+                .SetConfiguration(Configuration)
+                .EnableNoRestore()
+                .SetOutputDirectory(OutputDirectory));
         });
 
     Target GenerateCharacterAssets => _ => _

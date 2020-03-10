@@ -1,10 +1,13 @@
-﻿using ReactiveUI.Fody.Helpers;
+﻿using Newtonsoft.Json;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace MHWAppearanceEditor
 {
-    public class AppSettings
+    public class AppSettings : ReactiveObject
     {
-        [Reactive] public bool EnableSteamNameLookup { get; set; } = true;
-        [Reactive] public bool EnableOdogaronBackgroundRun { get; set; } = false;
+        [JsonProperty] [Reactive] public bool ShowFirstRunMessage { get; set; } = true;
+        [JsonProperty] [Reactive] public bool EnableSteamNameLookup { get; set; } = true;
+        [JsonProperty] [Reactive] public bool AutoEnableSaveCheckBypass { get; set; } = false;
     }
 }

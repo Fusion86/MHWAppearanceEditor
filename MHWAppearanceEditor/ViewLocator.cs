@@ -1,6 +1,8 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using MHWAppearanceEditor.ViewModels;
+using ReactiveUI;
+using Splat;
 using System;
 
 namespace MHWAppearanceEditor
@@ -11,17 +13,11 @@ namespace MHWAppearanceEditor
 
         public IControl Build(object data)
         {
-            var name = data.GetType().FullName.Replace("ViewModel", "View");
-            var type = Type.GetType(name);
+            Type type = typeof(IViewFor<>).MakeGenericType(new Type[] { data.GetType() });
+            var control = Locator.Current.GetService(type);
 
-            if (type != null)
-            {
-                return (Control)Activator.CreateInstance(type)!;
-            }
-            else
-            {
-                return new TextBlock { Text = "Not Found: " + name };
-            }
+            if (control != null) return (IControl)control;
+            return new TextBlock { Text = "Not Found: " + data.GetType().Name };
         }
 
         public bool Match(object data)

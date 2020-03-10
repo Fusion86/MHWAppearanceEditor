@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Nito.AsyncEx;
 using Nito.AsyncEx.Synchronous;
+using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Serilog;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MHWAppearanceEditor.Services
 {
-    public class SettingsService
+    public class SettingsService : ReactiveObject
     {
         private static readonly ILogger log = Log.ForContext<SettingsService>();
 

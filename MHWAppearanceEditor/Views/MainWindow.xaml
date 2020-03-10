@@ -6,6 +6,7 @@
         xmlns:rxui="http://reactiveui.net"
         xmlns:views="clr-namespace:MHWAppearanceEditor.Views"
         xmlns:vc="clr-namespace:MHWAppearanceEditor.ValueConverters"
+        xmlns:anim="clr-namespace:MHWAppearanceEditor.Animation"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400"
         x:Class="MHWAppearanceEditor.Views.MainWindow"
         Icon="/Assets/icon.ico"
@@ -53,7 +54,7 @@
 
                 <rxui:ViewModelViewHost ViewModel="{Binding ActiveViewModel}">
                     <rxui:ViewModelViewHost.PageTransition>
-                        <CrossFade Duration="0.001"/>
+                        <anim:InstantPageTransition/>
                     </rxui:ViewModelViewHost.PageTransition>
                 </rxui:ViewModelViewHost>
             </DockPanel>

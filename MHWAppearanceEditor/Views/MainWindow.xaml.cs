@@ -2,11 +2,11 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
-using Avalonia.Threading;
-using DynamicData.Binding;
+using MHWAppearanceEditor.Services;
 using MHWAppearanceEditor.ViewModels;
 using ReactiveUI;
-using System;
+using Splat;
+using System.ComponentModel;
 using System.Reactive.Disposables;
 
 namespace MHWAppearanceEditor.Views
@@ -37,10 +37,15 @@ namespace MHWAppearanceEditor.Views
                 //}).DisposeWith(disposables);
             });
         }
-
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            Locator.Current.GetService<OdogaronService>()?.Stop();
+            base.OnClosing(e);
         }
     }
 }

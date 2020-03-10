@@ -1,6 +1,8 @@
 ﻿using Avalonia;
 using Avalonia.Logging.Serilog;
 using Avalonia.ReactiveUI;
+using MHWAppearanceEditor.Services;
+using Splat;
 using System;
 using System.IO;
 using System.Reflection;
@@ -15,6 +17,7 @@ namespace MHWAppearanceEditor
         public static int Main(string[] args)
         {
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             // The real main needs to be in a different method, see https://stackoverflow.com/a/25990979/2125072
             return RealMain(args);
         }
@@ -52,6 +55,18 @@ namespace MHWAppearanceEditor
                 return Assembly.LoadFile(dllPath);
 
             return null!;
+        }
+
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            if (e.IsTerminating)
+            {
+                try
+                {
+                    Locator.Current.GetService<OdogaronService>()?.Stop(); // Try to cleanup
+                }
+                catch { }
+            }
         }
     }
 }

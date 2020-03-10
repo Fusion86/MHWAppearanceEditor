@@ -8,17 +8,6 @@
 
     <Style Selector="ComboBox.CharaSelect">
         <Setter Property="MaxDropDownHeight" Value="600"/>
-        
-        <Setter Property="ItemTemplate">
-            <Setter.Value>
-                <DataTemplate>
-                    <Grid RowDefinitions="Auto, 5, Auto">
-                        <TextBlock Grid.Row="0" Text="{Binding Name}" HorizontalAlignment="Center"/>
-                        <Image Grid.Row="2" Source="{Binding PreviewSource, Converter={StaticResource ImageFromUriConverter}}" Stretch="UniformToFill"/>
-                    </Grid>
-                </DataTemplate>
-            </Setter.Value>
-        </Setter>
 
         <Setter Property="ItemsPanel">
             <Setter.Value>

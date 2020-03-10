@@ -6,7 +6,7 @@
         x:Class="MHWAppearanceEditor.Views.HelpWindow"
         Title="Help"
         Width="600"
-        Height="820">
+        Height="880">
 
     <ScrollViewer HorizontalScrollBarVisibility="Disabled">
         <StackPanel Margin="20">
@@ -30,6 +30,7 @@
             <TextBlock Text="2. Open MHWAppearanceEditor and select your steam account from the list (or manually open a SaveData file)"/>
             <TextBlock Text="3. Change things"/>
             <TextBlock Text="4. Click the save icon"/>
+            <TextBlock Foreground="Orange" Text="5. Make sure the 'SaveCheckBypass' feature is enabled before trying to load your save in Monster Hunter World"/>
             <TextBlock Text=" "/>
             <TextBlock Text="F.A.Q" FontSize="18"/>
             <TextBlock Text=" "/>
@@ -47,9 +48,10 @@
             <TextBlock Text=" "/>
             <TextBlock Text="You can't use this tool to unlock cosmetics (hair, facepaint, etc) that you don't own.&#10;While my tool doesn't check for that, the game itself validates your character on startup.&#10;If you were to use a DLC cosmetic (e.g The Admiral) the game would simply reset your hair to de default value (if you don't own the DLC)."/>
             <TextBlock Text=" "/>
-            <TextBlock Text="I get a &quot;Failed to load save data. Revert save data to default?&quot; when booting the game" FontSize="18"/>
+            <TextBlock Text="I get a &quot;Failed to read save data&quot; when booting the game" FontSize="18"/>
             <TextBlock Text=" "/>
-            <TextBlock Text="Your SaveData is linked to a SteamID that is different from your current steam account&apos;s SteamID. Change this under &quot;SaveData Info&quot; after opening a SaveData."/>
+            <TextBlock Text="Your SaveData might be linked to a SteamID that is different from your current steam account&apos;s SteamID. Change this under &quot;SaveData Info&quot; after opening a SaveData."/>
+            <TextBlock Text="Another issue might be that the 'SaveCheckBypass' is not enabled. Make sure that it is enabled, and if it still is not loading your save then please contact me (FusionR) on NexusMods."/>
         </StackPanel>
     </ScrollViewer>
 </Window>

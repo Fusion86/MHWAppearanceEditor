@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MHWAppearanceEditor.ViewModels;
+using Newtonsoft.Json;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -22,47 +23,32 @@ namespace MHWAppearanceEditor.Models
         public int Offset { get; set; }
     }
 
-
-    public class CharacterAsset
-    {
-        public string Name { get; }
-        public string? PreviewSource { get; }
-        public int Value { get; }
-
-        public CharacterAsset(string name, string? previewSource, int value)
-        {
-            Name = name;
-            PreviewSource = previewSource;
-            Value = value;
-        }
-    }
-
     public class CharacterAssets
     {
-        public List<CharacterAsset> MaleBrowTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> FemaleBrowTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> MaleFaceTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> FemaleFaceTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> MaleNoseTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> FemaleNoseTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> MaleMouthTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> FemaleMouthTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> MaleHairTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> FemaleHairTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> MaleFacialHairTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> FemaleFacialHairTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> MaleEyebrowTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> FemaleEyebrowTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> MaleEyeTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> FemaleEyeTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> MaleClothingTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> FemaleClothingTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> MaleMakeupTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> FemaleMakeupTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> PalicoCoatTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> PalicoEarTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> PalicoEyeTypes { get; } = new List<CharacterAsset>();
-        public List<CharacterAsset> PalicoTailTypes { get; } = new List<CharacterAsset>();
+        public List<CharacterAssetViewModel> MaleBrowTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> FemaleBrowTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> MaleFaceTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> FemaleFaceTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> MaleNoseTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> FemaleNoseTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> MaleMouthTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> FemaleMouthTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> MaleHairTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> FemaleHairTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> MaleFacialHairTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> FemaleFacialHairTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> MaleEyebrowTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> FemaleEyebrowTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> MaleEyeTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> FemaleEyeTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> MaleClothingTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> FemaleClothingTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> MaleMakeupTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> FemaleMakeupTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> PalicoCoatTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> PalicoEarTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> PalicoEyeTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> PalicoTailTypes { get; } = new List<CharacterAssetViewModel>();
 
         private static readonly ILogger CtxLog = Log.ForContext<CharacterAssets>();
 
@@ -73,7 +59,7 @@ namespace MHWAppearanceEditor.Models
             foreach (var def in map.Assets)
             {
                 string name;
-                List<CharacterAsset> dest;
+                List<CharacterAssetViewModel> dest;
 
                 switch (def.Name)
                 {
@@ -182,7 +168,7 @@ namespace MHWAppearanceEditor.Models
                 {
                     string src = Path.Combine(imgDir, $"{def.TextureName}_{i}.png");
                     src = Path.GetFullPath(src);
-                    dest.Add(new CharacterAsset($"{name} {i + 1}", src, def.Offset + i));
+                    dest.Add(new CharacterAssetViewModel($"{name} {i + 1}", src, def.Offset + i));
                     count++;
                 }
 
