@@ -102,7 +102,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Cirilla\Cirilla.Core\Cirilla.Core.csproj" />
+    <ProjectReference Include="..\..\..\Cirilla\src\Cirilla.Core\Cirilla.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Tabs\SaveDataInfoView.xaml">

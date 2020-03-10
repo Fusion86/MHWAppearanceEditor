@@ -29,33 +29,34 @@ Items = [
     # Character
     Spritesheet("Male Eyebrows", "thumb_brow00_ID", [126, 62], 16, 0),
     Spritesheet("Female Eyebrows", "thumb_brow01_ID", [126, 62], 16, 0),
-    Spritesheet("Male Eyes", "thumb_eye00_ID", [126, 62], 30, 0),
-    Spritesheet("Female Eyes", "thumb_eye01_ID", [126, 62], 30, 0),
-    Spritesheet("Male Faces", "thumb_face00_ID", [102, 102], 24, 0),
-    Spritesheet("Female Faces", "thumb_face01_ID", [102, 102], 24, 0),
+    Spritesheet("Male Eyes", "thumb_eye00_ID", [126, 62], 34, 0),
+    Spritesheet("Female Eyes", "thumb_eye01_ID", [126, 62], 34, 0),
+    Spritesheet("Male Faces", "thumb_face00_ID", [102, 102], 28, 0),
+    Spritesheet("Female Faces", "thumb_face01_ID", [102, 102], 28, 0),
     Spritesheet("Male Brow Types", "thumb_forehead00_ID", [126, 62], 24, 0),
     Spritesheet("Female Brow Types", "thumb_forehead01_ID", [126, 62], 24, 0),
     # In the CharacterAppearance struct the hairstyle for females has id `100 + (actual id)`
+    # TODO: Hairstyles are fucked
     Spritesheet("Male Hairstyles", "thumb_hair00_ID", [102, 102], 28, 0),
     Spritesheet("Female Hairstyles", "thumb_hair01_ID", [102, 102], 28, 100),
     Spritesheet("Male Clothing", "thumb_inner00_ID", [102, 102], 4, 0),
     Spritesheet("Female Clothing", "thumb_inner01_ID", [102, 102], 4, 0),
     Spritesheet("Male Mouths", "thumb_mouth00_ID", [102, 102], 24, 0),
     Spritesheet("Female Mouths", "thumb_mouth01_ID", [102, 102], 24, 0),
-    Spritesheet("Male Facial Hair", "thumb_mustache00_ID", [102, 102], 21, 0),
-    Spritesheet("Female Facial Hair", "thumb_mustache01_ID", [102, 102], 21, 0),
-    Spritesheet("Male Noses", "thumb_nose00_ID", [102, 102], 24, 0),
-    Spritesheet("Female Noses", "thumb_nose01_ID", [102, 102], 24, 0),
-    Spritesheet("Male Makeup", "thumb_paint00_ID", [102, 102], 34, 0),
-    Spritesheet("Female Makeup", "thumb_paint01_ID", [102, 102], 34, 0),
+    Spritesheet("Male Facial Hair", "thumb_mustache00_ID", [102, 102], 25, 0),
+    Spritesheet("Female Facial Hair", "thumb_mustache01_ID", [102, 102], 25, 0),
+    Spritesheet("Male Noses", "thumb_nose00_ID", [102, 102], 28, 0),
+    Spritesheet("Female Noses", "thumb_nose01_ID", [102, 102], 28, 0),
+    Spritesheet("Male Makeup", "thumb_paint00_ID", [102, 102], 45, 0),
+    Spritesheet("Female Makeup", "thumb_paint01_ID", [102, 102], 45, 0),
     # Presets for males and females are stored in the same file. 10 presets per gender + 1 line (5 presets) padding = 25
     # Spritesheet("Character Presets", "thumb_preset_ID", [102, 102], 25, 0),
     # Palico
-    Spritesheet("Palico Coat Types", "thumb_o_coattype_ID", [126, 126], 4, 0),
-    Spritesheet("Palico Ears", "thumb_o_ear_ID", [126, 126], 5, 0),
-    Spritesheet("Palico Eyes", "thumb_o_eye_ID", [126, 62], 6, 0),
+    Spritesheet("Palico Coat Types", "thumb_o_coattype_ID", [126, 126], 6, 0),
+    Spritesheet("Palico Ears", "thumb_o_ear_ID", [126, 126], 12, 0),
+    Spritesheet("Palico Eyes", "thumb_o_eye_ID", [126, 62], 12, 0),
     # Spritesheet("Palico Presets", "thumb_o_preset_ID", [126, 126], 12, 0),
-    Spritesheet("Palico Tails", "thumb_o_tail_ID", [126, 126], 4, 0),
+    Spritesheet("Palico Tails", "thumb_o_tail_ID", [126, 126], 7, 0),
 ]
 
 

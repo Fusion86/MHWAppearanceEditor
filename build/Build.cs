@@ -33,8 +33,8 @@ class Build : NukeBuild
     [Parameter("Which runtime to use. Release always uses 'win7-x64'.")]
     string Runtime = "any";
 
-    static readonly AbsolutePath AppearanceEditorProject = RootDirectory / "MHWAppearanceEditor" / "MHWAppearanceEditor.csproj";
-    static readonly AbsolutePath OdogaronProject = RootDirectory / "Odogaron" / "Odogaron.csproj";
+    static readonly AbsolutePath AppearanceEditorProject = RootDirectory / "src" / "MHWAppearanceEditor" / "MHWAppearanceEditor.csproj";
+    static readonly AbsolutePath OdogaronProject = RootDirectory / "src" / "Odogaron" / "Odogaron.csproj";
     static readonly AbsolutePath ScriptsDirectory = RootDirectory / "scripts";
     static readonly AbsolutePath CharacterAssetsGen = ScriptsDirectory / "character_assets.py";
     static readonly AbsolutePath PaletteExtractor = ScriptsDirectory / "palette_extractor.py";
@@ -183,7 +183,7 @@ class Build : NukeBuild
         .Before(Compile)
         .Executes(() =>
         {
-            var code = File.ReadAllText(RootDirectory / "MHWAppearanceEditor" / "SuperSecret.cs");
+            var code = File.ReadAllText(RootDirectory / "src" / "MHWAppearanceEditor" / "SuperSecret.cs");
             var tree = CSharpSyntaxTree.ParseText(code);
             // TODO: Finish this
         });
