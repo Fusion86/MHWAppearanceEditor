@@ -89,7 +89,7 @@ namespace Odogaron
 
         static int PatchSaveDataProtection(Process proc)
         {
-            IntPtr offset = proc.MainModule.BaseAddress + 0x14AA4902;
+            IntPtr offset = proc.MainModule.BaseAddress + 0x1CC32BB2;
             byte[] buff = new byte[2];
             WinApi.ReadProcessMemory(proc.Handle, offset, buff, 2, out var _);
 
