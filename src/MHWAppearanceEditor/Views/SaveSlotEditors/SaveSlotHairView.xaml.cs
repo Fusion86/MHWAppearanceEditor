@@ -12,6 +12,8 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
     {
         private ColorEdit HairColorEdit => this.FindControl<ColorEdit>("HairColorEdit");
         private ColorEdit FacialHairColorEdit => this.FindControl<ColorEdit>("FacialHairColorEdit");
+        private TextBox HairTypeBox => this.FindControl<TextBox>("HairTypeBox");
+
         private readonly ComboBox[] forceResetControls;
 
         public SaveSlotHairView()
@@ -23,13 +25,14 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
             // For some reason calling RaisePropertyChanged also doesn't work, so we resort to manually re-setting the SelectedItem.
             forceResetControls = new[]
             {
-                this.FindControl<ComboBox>("HairTypeSelect"),
+                //this.FindControl<ComboBox>("HairTypeSelect"),
                 this.FindControl<ComboBox>("FacialHairTypeSelect"),
             };
             AttachedToVisualTree += SaveSlotHairView_AttachedToVisualTree;
 
             this.Bind(ViewModel, vm => vm.HairColor, v => v.HairColorEdit.Color);
             this.Bind(ViewModel, vm => vm.FacialHairColor, v => v.FacialHairColorEdit.Color);
+            this.Bind(ViewModel, vm => vm.HairTypeRaw, v => v.HairTypeBox.Text);
             this.OneWayBind(ViewModel, vm => vm.ColorPaletteNatural, v => v.HairColorEdit.ColorPalette);
             this.OneWayBind(ViewModel, vm => vm.ColorPaletteNatural, v => v.FacialHairColorEdit.ColorPalette);
         }

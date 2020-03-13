@@ -37,8 +37,8 @@ Items = [
     Spritesheet("Female Brow Types", "thumb_forehead01_ID", [126, 62], 24, 0),
     # In the CharacterAppearance struct the hairstyle for females has id `100 + (actual id)`
     # TODO: Hairstyle variants
-    Spritesheet("Male Hairstyles", "thumb_hair00_ID", [102, 102], 31, 0),
-    Spritesheet("Female Hairstyles", "thumb_hair01_ID", [102, 102], 32, 100),
+    # Spritesheet("Male Hairstyles", "thumb_hair00_ID", [102, 102], 31, 0),
+    # Spritesheet("Female Hairstyles", "thumb_hair01_ID", [102, 102], 32, 100),
     Spritesheet("Male Clothing", "thumb_inner00_ID", [102, 102], 4, 0),
     Spritesheet("Female Clothing", "thumb_inner01_ID", [102, 102], 4, 0),
     Spritesheet("Male Mouths", "thumb_mouth00_ID", [102, 102], 28, 0),
@@ -52,11 +52,11 @@ Items = [
     # Presets for males and females are stored in the same file. 10 presets per gender + 1 line (5 presets) padding = 25
     # Spritesheet("Character Presets", "thumb_preset_ID", [102, 102], 25, 0),
     # Palico
-    Spritesheet("Palico Outlines", "thumb_o_face_ID", [126, 126], 4, 0),
+    # Spritesheet("Palico Outlines", "thumb_o_face_ID", [126, 126], 4, 0),
     Spritesheet("Palico Coat Types", "thumb_o_coattype_ID", [126, 126], 6, 0),
     Spritesheet("Palico Ears", "thumb_o_ear_ID", [126, 126], 12, 0),
     Spritesheet("Palico Eyes", "thumb_o_eye_ID", [126, 62], 12, 0),
-    Spritesheet("Palico Pupils", "thumb_o_pupil_ID", [126, 62], 4, 0),
+    # Spritesheet("Palico Pupils", "thumb_o_pupil_ID", [126, 62], 4, 0),
     # Spritesheet("Palico Presets", "thumb_o_preset_ID", [126, 126], 12, 0),
     Spritesheet("Palico Tails", "thumb_o_tail_ID", [126, 126], 7, 0),
 ]
@@ -125,7 +125,7 @@ def main():
             "assets": assetsList
         }, f)
 
-    # shutil.rmtree(tmpdir)
+    shutil.rmtree(tmpdir)
 
 
 if __name__ == "__main__":

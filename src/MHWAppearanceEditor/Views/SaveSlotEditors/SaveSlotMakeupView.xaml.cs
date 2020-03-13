@@ -12,6 +12,7 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
     {
         private ColorEdit Makeup1ColorEdit => this.FindControl<ColorEdit>("Makeup1ColorEdit");
         private ColorEdit Makeup2ColorEdit => this.FindControl<ColorEdit>("Makeup2ColorEdit");
+        private ColorEdit Makeup3ColorEdit => this.FindControl<ColorEdit>("Makeup3ColorEdit");
         private readonly ComboBox[] forceResetControls;
 
         public SaveSlotMakeupView()
@@ -25,13 +26,16 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
             {
                 this.FindControl<ComboBox>("Makeup1TypeSelect"),
                 this.FindControl<ComboBox>("Makeup2TypeSelect"),
+                this.FindControl<ComboBox>("Makeup3TypeSelect"),
             };
             AttachedToVisualTree += SaveSlotMakeupView_AttachedToVisualTree;
 
             this.Bind(ViewModel, vm => vm.Makeup1Color, v => v.Makeup1ColorEdit.Color);
             this.Bind(ViewModel, vm => vm.Makeup2Color, v => v.Makeup2ColorEdit.Color);
+            this.Bind(ViewModel, vm => vm.Makeup2Color, v => v.Makeup3ColorEdit.Color);
             this.OneWayBind(ViewModel, vm => vm.ColorPaletteVibrant, v => v.Makeup1ColorEdit.ColorPalette);
             this.OneWayBind(ViewModel, vm => vm.ColorPaletteVibrant, v => v.Makeup2ColorEdit.ColorPalette);
+            this.OneWayBind(ViewModel, vm => vm.ColorPaletteVibrant, v => v.Makeup3ColorEdit.ColorPalette);
         }
 
         private void InitializeComponent()

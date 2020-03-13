@@ -73,6 +73,8 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public PalicoVoiceType PalicoVoiceType { get => SaveSlot.PalicoAppearance.VoiceType; set => SaveSlot.PalicoAppearance.VoiceType = value; }
         public PalicoVoicePitch PalicoVoicePitch { get => SaveSlot.PalicoAppearance.VoicePitch; set => SaveSlot.PalicoAppearance.VoicePitch = value; }
 
+        public short HairTypeRaw { get => SaveSlot.CharacterAppearance.HairType; set => SaveSlot.CharacterAppearance.HairType = value; }
+
         public Gender Gender
         {
             get => SaveSlot.CharacterAppearance.Gender;

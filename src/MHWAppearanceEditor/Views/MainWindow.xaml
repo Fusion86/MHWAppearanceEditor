@@ -12,7 +12,7 @@
         Icon="/Assets/icon.ico"
         Title="MHWAppearanceEditor"
         Width="900" Height="620"
-        MinWidth="700" MinHeight="500">
+        MinWidth="850" MinHeight="500">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>

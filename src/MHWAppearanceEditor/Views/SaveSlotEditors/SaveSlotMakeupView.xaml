@@ -3,14 +3,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:MHWAppearanceEditor.Controls"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="850" d:DesignHeight="450"
              x:Class="MHWAppearanceEditor.Views.SaveSlotEditors.SaveSlotMakeupView">
 
     <Grid Margin="20,20,20,0" RowDefinitions="Auto,10,Auto">
         <Grid Grid.Row="0" Margin="0,0,20,0"
               HorizontalAlignment="Center"
               RowDefinitions="Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto"
-              ColumnDefinitions="Auto,10,Auto,20,Auto,10,Auto">
+              ColumnDefinitions="Auto,10,Auto, 20 ,Auto,10,Auto, 20, Auto,10,Auto">
             <Grid.Styles>
                 <Style Selector="TextBlock">
                     <Setter Property="VerticalAlignment" Value="Center"/>
@@ -68,6 +68,27 @@
 
             <TextBlock Grid.Column="4" Grid.Row="12" Text="Makeup 2 Metallic"/>
             <NumericUpDown Grid.Column="6" Grid.Row="12" Value="{Binding Makeup2Metallic}"/>
+
+            <TextBlock Grid.Column="8" Grid.Row="0" Text="Makeup 2 Color"/>
+            <controls:ColorEdit Name="Makeup3ColorEdit" Grid.Column="10" Grid.Row="0" Width="140"/>
+
+            <TextBlock Grid.Column="8" Grid.Row="2" Text="Makeup 2 PosX"/>
+            <NumericUpDown Grid.Column="10" Grid.Row="2" Value="{Binding Makeup2PosX}"/>
+
+            <TextBlock Grid.Column="8" Grid.Row="4" Text="Makeup 2 PosY"/>
+            <NumericUpDown Grid.Column="10" Grid.Row="4" Value="{Binding Makeup2PosY}"/>
+
+            <TextBlock Grid.Column="8" Grid.Row="6" Text="Makeup 2 SizeX"/>
+            <NumericUpDown Grid.Column="10" Grid.Row="6" Value="{Binding Makeup2SizeX}"/>
+
+            <TextBlock Grid.Column="8" Grid.Row="8" Text="Makeup 2 SizeY"/>
+            <NumericUpDown Grid.Column="10" Grid.Row="8" Value="{Binding Makeup2SizeY}"/>
+
+            <TextBlock Grid.Column="8" Grid.Row="10" Text="Makeup 2 Glossy"/>
+            <NumericUpDown Grid.Column="10" Grid.Row="10" Value="{Binding Makeup2Glossy}"/>
+
+            <TextBlock Grid.Column="8" Grid.Row="12" Text="Makeup 2 Metallic"/>
+            <NumericUpDown Grid.Column="10" Grid.Row="12" Value="{Binding Makeup2Metallic}"/>
         </Grid>
 
         <WrapPanel Grid.Row="2" HorizontalAlignment="Center">
@@ -85,6 +106,11 @@
             <StackPanel>
                 <TextBlock Text="Makeup 2" Margin="0,0,0,5" HorizontalAlignment="Center"/>
                 <ComboBox Name="Makeup2TypeSelect" Classes="CharaSelect" Items="{Binding MakeupTypes}" SelectedItem="{Binding Makeup2Type}"/>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Text="Makeup 3" Margin="0,0,0,5" HorizontalAlignment="Center"/>
+                <ComboBox Name="Makeup3TypeSelect" Classes="CharaSelect" Items="{Binding MakeupTypes}" SelectedItem="{Binding Makeup3Type}"/>
             </StackPanel>
         </WrapPanel>
     </Grid>
