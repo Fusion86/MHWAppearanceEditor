@@ -27,7 +27,7 @@
 
         <StackPanel>
             <TextBlock Text="SaveCheckBypass" FontWeight="Bold"/>
-            <TextBlock Foreground="Orange" Text="Iceborn has a new security mechanism which we haven't bypassed yet. Because of this you need to use the SaveCheckBypass included in this tool. This tool requires admin permissions!"/>
+            <TextBlock Foreground="Orange" Text="Iceborne has a new security mechanism which we haven't bypassed yet. Because of this you need to use the SaveCheckBypass included in this tool. This tool requires admin permissions!"/>
             <TextBlock Text="You can manually start the SaveCheckBypass by clicking on 'Enable SaveCheckBypass!' in the top right of your screen. You can also allow it to automatically start when you open this tool by clicking the checkbox below. You can always change this in the settings menu."/>
             <TextBlock Foreground="LimeGreen" Text="After the game has loaded your save once you don't need the SaveCheckBypass again until you make a new change. This means that when you make a change you need to load the save one time with the bypass enabled, and after that you can load your save like you normally would."/>
             <CheckBox Content="Automatically start SaveCheckBypass" Margin="0,5,0,0" IsChecked="{Binding Settings.AutoEnableSaveCheckBypass}"/>

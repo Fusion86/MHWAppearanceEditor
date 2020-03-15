@@ -48,7 +48,7 @@ class Build : NukeBuild
         {
             var process = Process.Start(new ProcessStartInfo
             {
-                FileName = "pytho3n",
+                FileName = "python",
                 Arguments = "--version",
                 RedirectStandardError = true,
                 UseShellExecute = false,
@@ -83,20 +83,20 @@ class Build : NukeBuild
     }
 
     Target Clean => _ => _
-        .Before(AppearanceEditorRestore)
+        .Before(Restore)
         .Executes(() =>
         {
             EnsureCleanDirectory(OutputDirectory);
         });
 
-    Target AppearanceEditorRestore => _ => _
+    Target Restore => _ => _
         .Executes(() =>
         {
             DotNetRestore(s => s
                 .SetProjectFile(OdogaronProject));
         });
 
-    Target OdogaronRestore => _ => _
+    Target RestoreOdogaron => _ => _
         .Executes(() =>
         {
             DotNetRestore(s => s
@@ -104,7 +104,7 @@ class Build : NukeBuild
         });
 
     Target Compile => _ => _
-        .DependsOn(AppearanceEditorRestore)
+        .DependsOn(Restore)
         .DependsOn(CompileOdogaron)
         .Executes(() =>
         {
@@ -140,7 +140,7 @@ class Build : NukeBuild
         });
 
     Target CompileOdogaron => _ => _
-        .DependsOn(OdogaronRestore)
+        .DependsOn(RestoreOdogaron)
         .Executes(() =>
         {
             DotNetBuild(s => s
@@ -176,7 +176,13 @@ class Build : NukeBuild
             CopyDirectoryRecursively(ScriptsDirectory / "assets", characterAssetsDir);
 
             if (!FileExists(characterAssetsDir / "character_assets.json"))
-                throw new Exception("Some assets are missing!");
+                throw new Exception("character_assets.json is missing!");
+
+            if (!FileExists(characterAssetsDir / "skin_color.png"))
+                throw new Exception("skin_color.png is missing!");
+
+            if (!FileExists(characterAssetsDir / "palette.json"))
+                throw new Exception("palette.json is missing!");
         });
 
     Target EnsureSecretsAreSet => _ => _
@@ -184,13 +190,13 @@ class Build : NukeBuild
         .Executes(() =>
         {
             var code = File.ReadAllText(RootDirectory / "src" / "MHWAppearanceEditor" / "SuperSecret.cs");
-            var tree = CSharpSyntaxTree.ParseText(code);
-            // TODO: Finish this
+            if (code.Contains("\"\""))
+                throw new Exception("Something is not set!");
         });
 
     Target Release => _ => _
         .Description("Create a release running on the net461 platform.")
-        .DependsOn(Clean, Compile, CopyAssets, EnsureSecretsAreSet, CreateInstaller)
+        .DependsOn(EnsureSecretsAreSet, Clean, Compile, CopyAssets, CreateInstaller)
         .After(Compile);
 
     Target Full => _ => _

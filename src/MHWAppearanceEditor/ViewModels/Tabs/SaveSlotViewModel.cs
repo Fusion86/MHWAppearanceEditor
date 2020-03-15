@@ -51,6 +51,12 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public float Makeup2SizeY { get => SaveSlot.CharacterAppearance.Makeup2SizeY; set => SaveSlot.CharacterAppearance.Makeup2SizeY = value; }
         public float Makeup2Glossy { get => SaveSlot.CharacterAppearance.Makeup2Glossy; set => SaveSlot.CharacterAppearance.Makeup2Glossy = value; }
         public float Makeup2Metallic { get => SaveSlot.CharacterAppearance.Makeup2Metallic; set => SaveSlot.CharacterAppearance.Makeup2Metallic = value; }
+        public float Makeup3PosX { get => SaveSlot.CharacterAppearance.Makeup3PosX; set => SaveSlot.CharacterAppearance.Makeup3PosX = value; }
+        public float Makeup3PosY { get => SaveSlot.CharacterAppearance.Makeup3PosY; set => SaveSlot.CharacterAppearance.Makeup3PosY = value; }
+        public float Makeup3SizeX { get => SaveSlot.CharacterAppearance.Makeup3SizeX; set => SaveSlot.CharacterAppearance.Makeup3SizeX = value; }
+        public float Makeup3SizeY { get => SaveSlot.CharacterAppearance.Makeup3SizeY; set => SaveSlot.CharacterAppearance.Makeup3SizeY = value; }
+        public float Makeup3Glossy { get => SaveSlot.CharacterAppearance.Makeup3Glossy; set => SaveSlot.CharacterAppearance.Makeup3Glossy = value; }
+        public float Makeup3Metallic { get => SaveSlot.CharacterAppearance.Makeup3Metallic; set => SaveSlot.CharacterAppearance.Makeup3Metallic = value; }
         public SDColor HairColor { get => SaveSlot.CharacterAppearance.HairColor; set => SaveSlot.CharacterAppearance.HairColor = value; }
         public SDColor FacialHairColor { get => SaveSlot.CharacterAppearance.FacialHairColor; set => SaveSlot.CharacterAppearance.FacialHairColor = value; }
         public SDColor LeftEyeColor { get => SaveSlot.CharacterAppearance.LeftEyeColor; set => SaveSlot.CharacterAppearance.LeftEyeColor = value; }
@@ -59,6 +65,7 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public SDColor ClothingColor { get => SaveSlot.CharacterAppearance.ClothingColor; set => SaveSlot.CharacterAppearance.ClothingColor = value; }
         public SDColor Makeup1Color { get => SaveSlot.CharacterAppearance.Makeup1Color; set => SaveSlot.CharacterAppearance.Makeup1Color = value; }
         public SDColor Makeup2Color { get => SaveSlot.CharacterAppearance.Makeup2Color; set => SaveSlot.CharacterAppearance.Makeup2Color = value; }
+        public SDColor Makeup3Color { get => SaveSlot.CharacterAppearance.Makeup3Color; set => SaveSlot.CharacterAppearance.Makeup3Color = value; }
         public EyelashLength EyelashLength { get => SaveSlot.CharacterAppearance.EyelashLength; set => SaveSlot.CharacterAppearance.EyelashLength = value; }
 
         public SDColor PalicoPatternColor1 { get => SaveSlot.PalicoAppearance.PatternColor1; set => SaveSlot.PalicoAppearance.PatternColor1 = value; }
@@ -147,6 +154,12 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         {
             get => MakeupTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.Makeup2Type);
             set { SaveSlot.CharacterAppearance.Makeup2Type = value.Value; this.RaisePropertyChanged(); }
+        }
+
+        public CharacterAssetViewModel Makeup3Type
+        {
+            get => MakeupTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.Makeup3Type);
+            set { SaveSlot.CharacterAppearance.Makeup3Type = value.Value; this.RaisePropertyChanged(); }
         }
 
         public CharacterAssetViewModel VoiceType
@@ -256,7 +269,7 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
                         NoseTypes = characterAssets.MaleNoseTypes;
                         MouthTypes = characterAssets.MaleMouthTypes;
                         // You can use both male and female hairstyles. We display the recommended hairstyles first, in this case the __male__ hairstyles
-                        HairTypes = characterAssets.MaleHairTypes.Concat(characterAssets.FemaleHairTypes).ToList();
+                        //HairTypes = characterAssets.MaleHairTypes.Concat(characterAssets.FemaleHairTypes).ToList();
                         FacialHairTypes = characterAssets.MaleFacialHairTypes;
                         EyebrowTypes = characterAssets.MaleEyebrowTypes;
                         EyeTypes = characterAssets.MaleEyeTypes;
@@ -269,7 +282,7 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
                         NoseTypes = characterAssets.FemaleNoseTypes;
                         MouthTypes = characterAssets.FemaleMouthTypes;
                         // You can use both male and female hairstyles. We display the recommended hairstyles first, in this case the __female__ hairstyles
-                        HairTypes = characterAssets.FemaleHairTypes.Concat(characterAssets.MaleHairTypes).ToList();
+                        //HairTypes = characterAssets.FemaleHairTypes.Concat(characterAssets.MaleHairTypes).ToList();
                         FacialHairTypes = characterAssets.FemaleFacialHairTypes;
                         EyebrowTypes = characterAssets.FemaleEyebrowTypes;
                         EyeTypes = characterAssets.FemaleEyeTypes;
