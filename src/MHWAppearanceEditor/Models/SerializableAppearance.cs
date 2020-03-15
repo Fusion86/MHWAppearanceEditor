@@ -70,6 +70,15 @@ namespace MHWAppearanceEditor.Models
         public float? Makeup2Metallic { get; set; }
         public int? Makeup2Type { get; set; }
 
+        public Color? Makeup3Color { get; set; }
+        public float? Makeup3PosX { get; set; }
+        public float? Makeup3PosY { get; set; }
+        public float? Makeup3SizeX { get; set; }
+        public float? Makeup3SizeY { get; set; }
+        public float? Makeup3Glossy { get; set; }
+        public float? Makeup3Metallic { get; set; }
+        public int? Makeup3Type { get; set; }
+
         #endregion
 
         public SerializableAppearance()

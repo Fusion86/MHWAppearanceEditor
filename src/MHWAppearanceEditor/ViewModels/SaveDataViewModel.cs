@@ -46,6 +46,7 @@ namespace MHWAppearanceEditor.ViewModels
 
         private SaveData? saveData;
         private readonly OdogaronService odogaron = Locator.Current.GetService<OdogaronService>()!;
+        private readonly BackupService backup = Locator.Current.GetService<BackupService>()!;
 
         public SaveDataViewModel(string saveDataPath)
         {
@@ -117,6 +118,8 @@ namespace MHWAppearanceEditor.ViewModels
 
         private async Task ShowSaveDialog()
         {
+            if (saveData == null) return;
+
             SaveFileDialog sfd = new SaveFileDialog();
             string? initialPath = SteamAccount != null ? SteamUtility.GetMhwSaveDir(SteamAccount) : SteamUtility.GetMhwSaveDir();
 
@@ -134,11 +137,14 @@ namespace MHWAppearanceEditor.ViewModels
             }
             else
             {
+                MainWindowViewModel.Instance.ShowPopup("Creating SaveData backup...", false);
+                backup.CreateBackup(saveData);
+
                 MainWindowViewModel.Instance.ShowPopup("Saving...", false);
 
                 try
                 {
-                    await Task.Run(() => saveData?.Save(fileName));
+                    await Task.Run(() => saveData.Save(fileName));
                     MainWindowViewModel.Instance.ShowPopup($"Saved SaveData to '{fileName}'");
                 }
                 catch (Exception ex)

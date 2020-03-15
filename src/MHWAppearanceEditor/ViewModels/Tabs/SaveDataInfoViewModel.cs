@@ -31,7 +31,6 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
 
             this.WhenAnyValue(x => x.SteamId)
                 .Throttle(TimeSpan.FromSeconds(1))
-                .ObserveOn(RxApp.TaskpoolScheduler)
                 .Subscribe(async x => SteamIdName = await GetPersonaName(x));
         }
 

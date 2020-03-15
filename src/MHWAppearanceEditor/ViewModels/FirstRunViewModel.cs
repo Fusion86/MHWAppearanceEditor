@@ -16,6 +16,7 @@ namespace MHWAppearanceEditor.ViewModels
         {
             ContinueCommand = ReactiveCommand.CreateFromTask(async () =>
             {
+                SettingsService.Settings.ShowFirstRunMessage = false;
                 await SettingsService.Save();
                 MainWindowViewModel.Instance.SetActiveViewModel(new StartScreenViewModel());
             });

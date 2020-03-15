@@ -5,7 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MHWAppearanceEditor.Views.FirstRunView">
 
-    <StackPanel Width="600" VerticalAlignment="Center" Spacing="10">
+    <StackPanel Width="800" VerticalAlignment="Center" Spacing="10">
         <StackPanel.Styles>
             <Style Selector="TextBlock">
                 <Setter Property="TextWrapping" Value="Wrap"/>
@@ -22,14 +22,14 @@
             <TextBlock Text="1. Make sure Monster Hunter World is closed."/>
             <TextBlock Text="2. Select your SaveData in this tool and change whatever you want."/>
             <TextBlock Text="3. Click the save button in the top left to apply your changes."/>
-            <TextBlock Text="4. Make sure the SaveCheckBypass is enabled before starting Monster Hunter World"/>
+            <TextBlock Foreground="Orange" Text="4. Make sure the SaveCheckBypass is enabled before starting Monster Hunter World"/>
+            <TextBlock Foreground="Orange" Text="5. Keep MHWAppearanceEditor open until the game has started (in main menu)"/>
         </StackPanel>
 
         <StackPanel>
             <TextBlock Text="SaveCheckBypass" FontWeight="Bold"/>
-            <TextBlock Foreground="Orange" Text="Iceborne has a new security mechanism which we haven't bypassed yet. Because of this you need to use the SaveCheckBypass included in this tool. This tool requires admin permissions!"/>
+            <TextBlock Text="You only need the SaveCheckBypass when launching the game for the first time after a change."/>
             <TextBlock Text="You can manually start the SaveCheckBypass by clicking on 'Enable SaveCheckBypass!' in the top right of your screen. You can also allow it to automatically start when you open this tool by clicking the checkbox below. You can always change this in the settings menu."/>
-            <TextBlock Foreground="LimeGreen" Text="After the game has loaded your save once you don't need the SaveCheckBypass again until you make a new change. This means that when you make a change you need to load the save one time with the bypass enabled, and after that you can load your save like you normally would."/>
             <CheckBox Content="Automatically start SaveCheckBypass" Margin="0,5,0,0" IsChecked="{Binding Settings.AutoEnableSaveCheckBypass}"/>
         </StackPanel>
 

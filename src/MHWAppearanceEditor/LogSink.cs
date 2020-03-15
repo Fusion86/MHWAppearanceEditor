@@ -12,15 +12,8 @@ namespace MHWAppearanceEditor
 
         public void Emit(LogEvent logEvent)
         {
-            try
-            {
-                var x = new LogEventViewModel(logEvent);
-                Dispatcher.UIThread.InvokeAsync(() => Events.Add(x));
-            }
-            catch
-            {
-                // Idk why this happens :(
-            }
+            var x = new LogEventViewModel(logEvent);
+            Dispatcher.UIThread.Post(() => Events.Add(x));
         }
     }
 }

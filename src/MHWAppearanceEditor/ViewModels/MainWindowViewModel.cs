@@ -51,8 +51,6 @@ namespace MHWAppearanceEditor.ViewModels
             if (settingsService?.Settings.ShowFirstRunMessage == true || Debugger.IsAttached)
             {
                 ActiveViewModel = new FirstRunViewModel();
-                settingsService.Settings.ShowFirstRunMessage = false;
-                settingsService.Save().WaitAndUnwrapException();
             }
             else
             {

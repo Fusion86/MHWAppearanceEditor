@@ -37,6 +37,9 @@ namespace MHWAppearanceEditor
             // Background odogaron.exe runner
             Locator.CurrentMutable.RegisterConstant(new OdogaronService());
 
+            // Backup service
+            Locator.CurrentMutable.RegisterConstant(new BackupService());
+
             // Start assets loading
             AssetsService assetsService = new AssetsService("assets");
             Task.Run(() => assetsService.Initialize());
