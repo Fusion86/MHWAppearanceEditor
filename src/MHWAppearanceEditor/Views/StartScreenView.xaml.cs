@@ -17,7 +17,7 @@ namespace MHWAppearanceEditor.Views
 
             this.WhenActivated(disposables =>
             {
-                this.OneWayBind(ViewModel, vm => vm.SteamAccountsBinding, v => v.SteamAccounts.Items).DisposeWith(disposables);
+                this.OneWayBind(ViewModel, vm => vm.SteamAccounts, v => v.SteamAccounts.Items).DisposeWith(disposables);
             });
         }
 

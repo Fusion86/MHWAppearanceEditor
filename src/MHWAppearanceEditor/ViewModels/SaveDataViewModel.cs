@@ -16,6 +16,7 @@ using ReactiveUI.Fody.Helpers;
 using Serilog;
 using Splat;
 using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reactive;
@@ -41,8 +42,7 @@ namespace MHWAppearanceEditor.ViewModels
         [ObservableAsProperty] public string? SaveCheckBypassStatusText { get; }
         [ObservableAsProperty] public SolidColorBrush? SaveCheckBypassStatusTextColor { get; }
 
-        private readonly SourceList<object> tabs = new SourceList<object>();
-        public IObservableCollection<object> TabsBinding { get; } = new ObservableCollectionExtended<object>();
+        public ObservableCollection<object> Tabs { get; } = new ObservableCollection<object>();
 
         private SaveData? saveData;
         private readonly OdogaronService odogaron = Locator.Current.GetService<OdogaronService>()!;
@@ -50,10 +50,6 @@ namespace MHWAppearanceEditor.ViewModels
 
         public SaveDataViewModel(string saveDataPath)
         {
-            tabs.Connect()
-                .Bind(TabsBinding)
-                .Subscribe();
-
             OpenNewCommand = ReactiveCommand.Create(OpenNew);
             SaveCommand = ReactiveCommand.CreateFromTask(ShowSaveDialog);
             OpenHelpWindowCommand = ReactiveCommand.Create(OpenHelpWindow);
@@ -78,14 +74,12 @@ namespace MHWAppearanceEditor.ViewModels
 
                 await Dispatcher.UIThread.InvokeAsync(() =>
                 {
-                    tabs.Edit(lst =>
-                    {
-                        lst.Clear();
-                        lst.Add(new SaveDataInfoViewModel(saveData));
-                        lst.AddRange(saveData.SaveSlots.Select(x => new SaveSlotViewModel(x)));
-                    });
-                    IsLoading = false;
+                    Tabs.Clear();
+                    Tabs.Add(new SaveDataInfoViewModel(saveData));
+                    Tabs.AddRange(saveData.SaveSlots.Select(x => new SaveSlotViewModel(x)));
                 });
+
+                IsLoading = false;
             }
             catch (Exception ex)
             {

@@ -5,7 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MHWAppearanceEditor.Views.ExceptionView">
 
-    <Border MaxWidth="600" MaxHeight="300" Background="{DynamicResource FusionBackgroundBrush}">
+    <Border MaxWidth="800" MaxHeight="400" Background="{DynamicResource FusionBackgroundBrush}">
         <Grid RowDefinitions="Auto, *, Auto" Margin="10">
             <TextBlock Grid.Row="0" Text="{Binding Message}" HorizontalAlignment="Center"/>
 

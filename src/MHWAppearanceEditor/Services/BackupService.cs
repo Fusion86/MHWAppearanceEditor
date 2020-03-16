@@ -22,7 +22,9 @@ namespace MHWAppearanceEditor.Services
             {
                 Directory.CreateDirectory(backupDir);
 
-                string readme = "";
+                string readme = "MHWAppearanceEditor uses this folder for its automated backup feature.\n";
+                readme += "You can disable this feature by setting ' \"MaxBackupCount\": 0 ' in ../config.json\n\n";
+                readme += "Do NOT manually add files to this folder, MHWAppearanceEditor may delete them at any time to make more space!";
                 File.WriteAllText(Path.Combine(backupDir, "README.txt"), readme);
             }
         }

@@ -1,14 +1,14 @@
 ﻿using Avalonia.Threading;
-using DynamicData;
 using MHWAppearanceEditor.ViewModels;
 using Serilog.Core;
 using Serilog.Events;
+using System.Collections.ObjectModel;
 
 namespace MHWAppearanceEditor
 {
     public class LogSink : ILogEventSink
     {
-        public SourceList<LogEventViewModel> Events { get; } = new SourceList<LogEventViewModel>();
+        public ObservableCollection<LogEventViewModel> Events { get; } = new ObservableCollection<LogEventViewModel>();
 
         public void Emit(LogEvent logEvent)
         {

@@ -111,10 +111,11 @@ class Build : NukeBuild
             // Force net461 for a Release
             if (ExecutingTargets.Contains(Release))
             {
-                Framework = "net461";
-                Runtime = "win7-x64";
                 Configuration = Configuration.Release;
             }
+
+            Framework = "net461";
+            Runtime = "win7-x64";
 
             DotNetBuild(s => s
                 .SetProjectFile(AppearanceEditorProject)
@@ -193,6 +194,11 @@ class Build : NukeBuild
             if (code.Contains("\"\""))
                 throw new Exception("Something is not set!");
         });
+
+    Target Debug => _ => _
+        .Description("Create a release running on the net461 platform (without secret-checking or installer).")
+        .DependsOn(Clean, Compile, CopyAssets)
+        .After(Compile);
 
     Target Release => _ => _
         .Description("Create a release running on the net461 platform.")

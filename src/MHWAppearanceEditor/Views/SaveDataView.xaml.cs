@@ -17,7 +17,7 @@ namespace MHWAppearanceEditor.Views
 
             this.WhenActivated(disposables =>
             {
-                this.OneWayBind(ViewModel, vm => vm.TabsBinding, v => v.TabControl.Items).DisposeWith(disposables);
+                this.OneWayBind(ViewModel, vm => vm.Tabs, v => v.TabControl.Items).DisposeWith(disposables);
             });
         }
 

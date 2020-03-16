@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Threading;
 using DynamicData;
 using DynamicData.Binding;
 using MHWAppearanceEditor.Extensions;
@@ -7,6 +8,7 @@ using MHWAppearanceEditor.Models;
 using ReactiveUI;
 using Serilog;
 using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reactive;
@@ -24,16 +26,11 @@ namespace MHWAppearanceEditor.ViewModels
         public ReactiveCommand<SteamAccount, Unit> OpenSteamAccountCommand { get; }
         public ReactiveCommand<Unit, Unit> OpenFileCommand { get; }
 
-        private readonly SourceList<SteamAccount> steamAccounts = new SourceList<SteamAccount>();
-        public IObservableCollection<SteamAccount> SteamAccountsBinding { get; } = new ObservableCollectionExtended<SteamAccount>();
+        public ObservableCollection<SteamAccount> SteamAccounts { get; } = new ObservableCollection<SteamAccount>();
 
         public StartScreenViewModel()
         {
             Activator = new ViewModelActivator();
-
-            steamAccounts.Connect()
-                .Bind(SteamAccountsBinding)
-                .Subscribe();
 
             LoadSteamAccountsCommand = ReactiveCommand.CreateFromTask(LoadSteamAccounts);
             OpenSteamAccountCommand = ReactiveCommand.Create<SteamAccount>(OpenSteamAccount);
@@ -45,21 +42,21 @@ namespace MHWAppearanceEditor.ViewModels
 
         private async Task LoadSteamAccounts()
         {
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
                 var users = SteamUtility.GetSteamUsersWithMhw();
 
-                steamAccounts.Edit(lst =>
+                await Dispatcher.UIThread.InvokeAsync(() =>
                 {
-                    lst.Clear();
-                    lst.AddRange(users);
+                    SteamAccounts.Clear();
+                    SteamAccounts.AddRange(users);
                 });
             });
         }
 
         private void OpenSteamAccount(SteamAccount steamAccount)
         {
-            string saveDataPath = Path.Combine(SteamUtility.GetMhwSaveDir(steamAccount), "SAVEDATA1000");
+            string saveDataPath = Path.Combine(SteamUtility.GetMhwSaveDir(steamAccount)!, "SAVEDATA1000");
             MainWindowViewModel.Instance.SetActiveViewModel(new SaveDataViewModel(saveDataPath) { SteamAccount = steamAccount });
         }
 
@@ -67,7 +64,7 @@ namespace MHWAppearanceEditor.ViewModels
         {
             OpenFileDialog ofd = new OpenFileDialog { AllowMultiple = false };
 
-            string initialPath = SteamUtility.GetMhwSaveDir();
+            string? initialPath = SteamUtility.GetMhwSaveDir();
             if (initialPath != null)
                 ofd.Directory = initialPath;
 

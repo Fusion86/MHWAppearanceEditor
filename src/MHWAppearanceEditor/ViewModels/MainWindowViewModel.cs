@@ -1,13 +1,10 @@
-﻿using DynamicData;
-using DynamicData.Binding;
-using MHWAppearanceEditor.Services;
-using Nito.AsyncEx.Synchronous;
+﻿using MHWAppearanceEditor.Services;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Splat;
 using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Reactive;
 
 namespace MHWAppearanceEditor.ViewModels
@@ -31,7 +28,7 @@ namespace MHWAppearanceEditor.ViewModels
         [Reactive] public bool PopupCanClose { get; private set; }
         [Reactive] public double ContentOpacity { get; private set; } = 1;
 
-        public IObservableCollection<LogEventViewModel> EventsBinding { get; } = new ObservableCollectionExtended<LogEventViewModel>();
+        public ObservableCollection<LogEventViewModel> EventsBinding { get; }
 
         // No need to re-create this object each time
         private readonly StartScreenViewModel startScreenViewModel = new StartScreenViewModel();
@@ -42,11 +39,13 @@ namespace MHWAppearanceEditor.ViewModels
             Instance = this;
 
             var logger = Locator.Current.GetService<LogSink>();
-            logger.Events.Connect()
-                .Bind(EventsBinding)
-                .Subscribe();
+            EventsBinding = logger.Events;
 
-            EventsBinding.ObserveCollectionChanges().Subscribe(_ => MostRecentEventMessage = EventsBinding.Last().Message);
+            logger.Events.CollectionChanged += (sender, e) =>
+            {
+                if (e.NewItems.Count > 0 && e.NewItems[0] is LogEventViewModel vm)
+                    MostRecentEventMessage = $"[{vm.ShortSourceContext}] {vm.Message}";
+            };
 
             if (settingsService?.Settings.ShowFirstRunMessage == true || Debugger.IsAttached)
             {
