@@ -27,6 +27,11 @@
         </StackPanel>
 
         <StackPanel>
+            <TextBlock Foreground="Red" Text="Warning" FontWeight="Bold"/>
+            <TextBlock Foreground="Red" Text="When the game asks you 'Failed to read saved data for Monster Hunter World: Iceborne. Create new save data?' you should ALWAYS press NO. This happens when you don't enable the SaveCheckBypass. To fix this simply start this tool and press 'Enable SaveCheckBypass!'"/>
+        </StackPanel>
+
+        <StackPanel>
             <TextBlock Text="SaveCheckBypass" FontWeight="Bold"/>
             <TextBlock Text="You only need the SaveCheckBypass when launching the game for the first time after a change."/>
             <TextBlock Text="You can manually start the SaveCheckBypass by clicking on 'Enable SaveCheckBypass!' in the top right of your screen. You can also allow it to automatically start when you open this tool by clicking the checkbox below. You can always change this in the settings menu."/>
