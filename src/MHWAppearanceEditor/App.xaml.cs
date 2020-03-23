@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using MHWAppearanceEditor.Models;
@@ -73,11 +74,16 @@ namespace MHWAppearanceEditor
         {
             // Cirilla and MHWAppearanceEditor logging
             var logSink = new LogSink();
-            var logger = new LoggerConfiguration()
+
+            if (!Design.IsDesignMode)
+            {
+                var logger = new LoggerConfiguration()
                 .WriteTo.Sink(logSink)
                 .WriteTo.File("MHWAppearanceEditor-.log", rollingInterval: RollingInterval.Day, outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] <{SourceContext}> {Message:lj}{NewLine}{Exception}")
                 .CreateLogger();
-            Log.Logger = logger;
+                Log.Logger = logger;
+            }
+
             Locator.CurrentMutable.RegisterConstant(logSink, typeof(LogSink)); // Could easily make an interface for this, if ever needed
         }
     }

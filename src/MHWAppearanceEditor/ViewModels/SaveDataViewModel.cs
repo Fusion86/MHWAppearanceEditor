@@ -56,7 +56,7 @@ namespace MHWAppearanceEditor.ViewModels
             OpenSettingsWindowCommand = ReactiveCommand.Create(OpenSettingsWindow);
             ToggleSaveCheckBypassCommand = ReactiveCommand.Create(ToggleSaveCheckBypass);
 
-            this.WhenAnyValue(x => x.odogaron.IsRunning, (bool x) => x ? "SaveCheckBypass enabled" : "Enable SaveCheckBypass!")
+            this.WhenAnyValue(x => x.odogaron.IsRunning, (bool x) => x ? "SaveCheckBypass enabled" : "Click to enable SaveCheckBypass!")
                 .ToPropertyEx(this, x => x.SaveCheckBypassStatusText);
 
             this.WhenAnyValue(x => x.odogaron.IsRunning, (bool x) => x ? greenColorBrush : redColorBrush)
