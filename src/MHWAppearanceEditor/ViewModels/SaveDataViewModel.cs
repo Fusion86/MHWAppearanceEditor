@@ -27,8 +27,6 @@ namespace MHWAppearanceEditor.ViewModels
     public class SaveDataViewModel : ViewModelBase
     {
         private static readonly Serilog.ILogger log = Log.ForContext<SaveDataViewModel>();
-        private static readonly SolidColorBrush redColorBrush = new SolidColorBrush(Colors.Orange);
-        private static readonly SolidColorBrush greenColorBrush = new SolidColorBrush(Colors.LimeGreen);
 
         public ReactiveCommand<Unit, Unit> OpenNewCommand { get; }
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }

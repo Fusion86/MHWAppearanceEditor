@@ -32,7 +32,6 @@ namespace MHWAppearanceEditor.ViewModels
 
         // No need to re-create this object each time
         private readonly StartScreenViewModel startScreenViewModel = new StartScreenViewModel();
-        private readonly SettingsService settingsService = Locator.Current.GetService<SettingsService>();
 
         public MainWindowViewModel()
         {
