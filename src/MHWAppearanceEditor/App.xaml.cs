@@ -35,9 +35,6 @@ namespace MHWAppearanceEditor
             var settingsService = new SettingsService();
             Locator.CurrentMutable.RegisterConstant(settingsService);
 
-            // Background odogaron.exe runner
-            Locator.CurrentMutable.RegisterConstant(new OdogaronService());
-
             // Backup service
             Locator.CurrentMutable.RegisterConstant(new BackupService());
 
@@ -52,7 +49,6 @@ namespace MHWAppearanceEditor
             Locator.CurrentMutable.Register(() => new StartScreenView(), typeof(IViewFor<StartScreenViewModel>));
             Locator.CurrentMutable.Register(() => new SaveDataView(), typeof(IViewFor<SaveDataViewModel>));
             Locator.CurrentMutable.Register(() => new ExceptionView(), typeof(IViewFor<ExceptionViewModel>));
-            Locator.CurrentMutable.Register(() => new FirstRunView(), typeof(IViewFor<FirstRunViewModel>));
             Locator.CurrentMutable.Register(() => new CharacterAssetView(), typeof(IViewFor<CharacterAssetViewModel>));
 
             // Tabs

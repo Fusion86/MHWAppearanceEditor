@@ -2,11 +2,8 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
-using MHWAppearanceEditor.Services;
 using MHWAppearanceEditor.ViewModels;
 using ReactiveUI;
-using Splat;
-using System.ComponentModel;
 using System.Reactive.Disposables;
 
 namespace MHWAppearanceEditor.Views
@@ -30,12 +27,6 @@ namespace MHWAppearanceEditor.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-        }
-
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            Locator.Current.GetService<OdogaronService>()?.Stop();
-            base.OnClosing(e);
         }
     }
 }

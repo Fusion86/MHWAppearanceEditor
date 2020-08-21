@@ -86,9 +86,9 @@ namespace MHWAppearanceEditor.Helpers
                         SteamId64 = long.Parse(user.Key),
                         AccountName = user.Value.AccountName.Value,
                         PersonaName = user.Value.PersonaName.Value,
-                        RememberPassword = user.Value.RememberPassword.Value == "1",
-                        MostRecent = user.Value.mostrecent.Value == "1",
-                        Timestamp = long.Parse(user.Value.Timestamp.Value)
+                        //RememberPassword = user.Value.RememberPassword.Value == "1",
+                        //MostRecent = user.Value.mostrecent.Value == "1",
+                        //Timestamp = long.Parse(user.Value.Timestamp.Value)
                     };
 
                     // Check if user has MHW saves

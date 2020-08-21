@@ -10,9 +10,7 @@
                 Closing="OnClosing">
 
     <StackPanel Margin="20" Spacing="5" HorizontalAlignment="Center">
-        <CheckBox Content="Show first run message on next start" IsChecked="{Binding Settings.ShowFirstRunMessage}"/>
         <CheckBox Content="Enable Steam Account Name lookup (uses Steam API)" IsChecked="{Binding Settings.EnableSteamNameLookup}"/>
-        <CheckBox Content="Automatically start SaveCheckBypass" IsChecked="{Binding Settings.AutoEnableSaveCheckBypass}"/>
         <TextBlock Text="These settings auto-save, so simply close the window when you are done." Opacity="0.5"/>
     </StackPanel>
 </ReactiveWindow>

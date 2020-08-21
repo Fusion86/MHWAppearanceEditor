@@ -59,14 +59,7 @@ namespace MHWAppearanceEditor
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            if (e.IsTerminating)
-            {
-                try
-                {
-                    Locator.Current.GetService<OdogaronService>()?.Stop(); // Try to cleanup
-                }
-                catch { }
-            }
+            // TODO: Log
         }
     }
 }

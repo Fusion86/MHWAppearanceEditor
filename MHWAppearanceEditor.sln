@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cirilla.Core", "..\Cirilla\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{BC8B11FE-5728-4E1F-94EF-D3C58E2E539E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Odogaron", "src\Odogaron\Odogaron.csproj", "{28D04CB8-AEDB-4631-BA13-C11DF00A4358}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,10 +25,6 @@ Global
 		{5561566E-7950-41B2-982C-B293C5C85B46}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BC8B11FE-5728-4E1F-94EF-D3C58E2E539E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BC8B11FE-5728-4E1F-94EF-D3C58E2E539E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28D04CB8-AEDB-4631-BA13-C11DF00A4358}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28D04CB8-AEDB-4631-BA13-C11DF00A4358}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{28D04CB8-AEDB-4631-BA13-C11DF00A4358}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28D04CB8-AEDB-4631-BA13-C11DF00A4358}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

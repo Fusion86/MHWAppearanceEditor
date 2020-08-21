@@ -47,19 +47,12 @@ namespace MHWAppearanceEditor.ViewModels
                     MostRecentEventMessage = $"[{vm.ShortSourceContext}] {vm.Message}";
             };
 
-            if (settingsService?.Settings.ShowFirstRunMessage == true || Debugger.IsAttached)
-            {
-                ActiveViewModel = new FirstRunViewModel();
-            }
-            else
-            {
-                ActiveViewModel = new StartScreenViewModel();
-            }
-
             ToggleShowLog = ReactiveCommand.Create(() => { ShowLog = !ShowLog; });
 
             this.WhenAnyValue(x => x.PopupIsOpen)
                 .Subscribe(isOpen => ContentOpacity = isOpen ? 0.5 : 1);
+
+            ShowStartScreen();
         }
 
         public void SetActiveViewModel(ViewModelBase viewModel)

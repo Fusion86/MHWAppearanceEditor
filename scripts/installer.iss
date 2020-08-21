@@ -27,6 +27,5 @@ Source: "..\output\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 
 [Icons]
 Name: "{group}\{#AppName}"; Filename: "{app}\{#AppName}.exe"
-Name: "{group}\SaveCheckBypass (Odogaron)"; Filename: "{app}\odogaron.exe"; Parameters: "watch"
 Name: "{group}\Uninstall {#AppName}"; Filename: "{uninstallexe}"
 Name: "{userdesktop}\{#AppName}"; Filename: "{app}\{#AppName}.exe"; Tasks: desktopicon

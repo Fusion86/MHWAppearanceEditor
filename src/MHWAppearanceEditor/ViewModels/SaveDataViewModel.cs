@@ -34,18 +34,13 @@ namespace MHWAppearanceEditor.ViewModels
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
         public ReactiveCommand<Unit, Unit> OpenHelpWindowCommand { get; }
         public ReactiveCommand<Unit, Unit> OpenSettingsWindowCommand { get; }
-        public ReactiveCommand<Unit, Unit> ToggleSaveCheckBypassCommand { get; }
 
         public SteamAccount? SteamAccount { get; set; }
         [Reactive] public bool IsLoading { get; private set; } = true;
 
-        [ObservableAsProperty] public string? SaveCheckBypassStatusText { get; }
-        [ObservableAsProperty] public SolidColorBrush? SaveCheckBypassStatusTextColor { get; }
-
         public ObservableCollection<object> Tabs { get; } = new ObservableCollection<object>();
 
         private SaveData? saveData;
-        private readonly OdogaronService odogaron = Locator.Current.GetService<OdogaronService>()!;
         private readonly BackupService backup = Locator.Current.GetService<BackupService>()!;
 
         public SaveDataViewModel(string saveDataPath)
@@ -54,13 +49,6 @@ namespace MHWAppearanceEditor.ViewModels
             SaveCommand = ReactiveCommand.CreateFromTask(ShowSaveDialog);
             OpenHelpWindowCommand = ReactiveCommand.Create(OpenHelpWindow);
             OpenSettingsWindowCommand = ReactiveCommand.Create(OpenSettingsWindow);
-            ToggleSaveCheckBypassCommand = ReactiveCommand.Create(ToggleSaveCheckBypass);
-
-            this.WhenAnyValue(x => x.odogaron.IsRunning, (bool x) => x ? "SaveCheckBypass enabled" : "Click to enable SaveCheckBypass!")
-                .ToPropertyEx(this, x => x.SaveCheckBypassStatusText);
-
-            this.WhenAnyValue(x => x.odogaron.IsRunning, (bool x) => x ? greenColorBrush : redColorBrush)
-                .ToPropertyEx(this, x => x.SaveCheckBypassStatusTextColor);
 
             // Don't await and run on other thread because it is needed, just trust me
             Task.Run(() => LoadSaveData(saveDataPath));
@@ -103,13 +91,6 @@ namespace MHWAppearanceEditor.ViewModels
         {
             new SettingsWindow().Show();
         }
-
-        private void ToggleSaveCheckBypass()
-        {
-            if (odogaron.IsRunning) odogaron.Stop();
-            else odogaron.Start();
-        }
-
         private async Task ShowSaveDialog()
         {
             if (saveData == null) return;

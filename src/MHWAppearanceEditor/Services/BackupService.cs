@@ -56,6 +56,7 @@ namespace MHWAppearanceEditor.Services
                 var timespan = TimeSpan.FromSeconds(saveData.SaveSlots[i].PlayTime);
                 string timeStr = (int)timespan.TotalHours + ":" + timespan.ToString(@"mm\:ss");
 
+                // TODO: This used the **edited** huntername, rank, etc but the actual backup contains the **unedited** values.
                 info += $"TimePlayed: {timeStr}\n";
                 info += $"HunterName: {saveData.SaveSlots[i].HunterName}\n";
                 info += $"HunterRank: {saveData.SaveSlots[i].HunterRank}\n";

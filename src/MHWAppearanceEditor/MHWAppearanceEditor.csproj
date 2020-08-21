@@ -6,7 +6,7 @@
     <PublishReadyToRunShowWarnings>true</PublishReadyToRunShowWarnings>
     <RuntimeIdentifiers>win7-x64</RuntimeIdentifiers>
     <PublishTrimmed>true</PublishTrimmed>
-    <Version>1.3.2</Version>
+    <Version>1.4.0</Version>
     <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
     <GenerateErrorForMissingTargetingPacks>false</GenerateErrorForMissingTargetingPacks>
     <Nullable>enable</Nullable>
@@ -32,7 +32,6 @@
     <AvaloniaResource Remove="Controls\SkinColorEdit.xaml" />
     <AvaloniaResource Remove="Views\Components\CharacterAssetView.xaml" />
     <AvaloniaResource Remove="Views\ExceptionView.xaml" />
-    <AvaloniaResource Remove="Views\FirstRunView.xaml" />
     <AvaloniaResource Remove="Views\HelpWindow.xaml" />
     <AvaloniaResource Remove="Views\SaveDataView.xaml" />
     <AvaloniaResource Remove="Views\SaveSlotEditors\SaveSlotEyesView.xaml" />
@@ -55,7 +54,6 @@
     <None Remove="Controls\SkinColorEdit.xaml" />
     <None Remove="Views\Components\CharacterAssetView.xaml" />
     <None Remove="Views\ExceptionView.xaml" />
-    <None Remove="Views\FirstRunView.xaml" />
     <None Remove="Views\HelpWindow.xaml" />
     <None Remove="Views\SaveDataView.xaml" />
     <None Remove="Views\SaveSlotEditors\SaveSlotEyesView.xaml" />
@@ -74,22 +72,24 @@
     <None Remove="Views\Tabs\SaveSlotView.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.9.3" />
-    <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.9.3" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.9.3" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.3" />
-    <PackageReference Include="Gameloop.Vdf" Version="0.5.0" />
-    <PackageReference Include="Gameloop.Vdf.JsonConverter" Version="0.2.0" />
+    <PackageReference Include="Avalonia" Version="0.9.11" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.9.11" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.9.11" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.11" />
+    <PackageReference Include="Gameloop.Vdf" Version="0.6.1" />
+    <PackageReference Include="Gameloop.Vdf.JsonConverter" Version="0.2.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.Win32.Registry" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Nito.AsyncEx" Version="5.0.0" />
-    <PackageReference Include="ReactiveUI.Fody" Version="11.2.3" />
+    <PackageReference Include="reactiveui" Version="11.4.17" />
+    <PackageReference Include="ReactiveUI.Fody" Version="11.4.17" />
     <PackageReference Include="Serilog" Version="2.9.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0006" />
-    <PackageReference Include="Splat.Serilog" Version="9.3.11" />
-    <PackageReference Include="ThemeEditor.Controls.ColorPicker" Version="0.9.1" />
+    <PackageReference Include="Splat.Serilog" Version="9.5.6" />
+    <PackageReference Include="System.Reactive" Version="4.4.1" />
+    <PackageReference Include="ThemeEditor.Controls.ColorPicker" Version="0.9.4" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\StartScreenView.xaml">
@@ -181,11 +181,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\SettingsWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\FirstRunView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

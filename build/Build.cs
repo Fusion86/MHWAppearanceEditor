@@ -34,7 +34,6 @@ class Build : NukeBuild
     string Runtime = "any";
 
     static readonly AbsolutePath AppearanceEditorProject = RootDirectory / "src" / "MHWAppearanceEditor" / "MHWAppearanceEditor.csproj";
-    static readonly AbsolutePath OdogaronProject = RootDirectory / "src" / "Odogaron" / "Odogaron.csproj";
     static readonly AbsolutePath ScriptsDirectory = RootDirectory / "scripts";
     static readonly AbsolutePath CharacterAssetsGen = ScriptsDirectory / "character_assets.py";
     static readonly AbsolutePath PaletteExtractor = ScriptsDirectory / "palette_extractor.py";
@@ -93,19 +92,11 @@ class Build : NukeBuild
         .Executes(() =>
         {
             DotNetRestore(s => s
-                .SetProjectFile(OdogaronProject));
-        });
-
-    Target RestoreOdogaron => _ => _
-        .Executes(() =>
-        {
-            DotNetRestore(s => s
                 .SetProjectFile(AppearanceEditorProject));
         });
 
     Target Compile => _ => _
         .DependsOn(Restore)
-        .DependsOn(CompileOdogaron)
         .Executes(() =>
         {
             // Force net461 for a Release
@@ -138,17 +129,6 @@ class Build : NukeBuild
 
             foreach (var file in GlobFiles(OutputDirectory, "*.exe.config", "*.pdb", "*.deps.json"))
                 DeleteFile(file);
-        });
-
-    Target CompileOdogaron => _ => _
-        .DependsOn(RestoreOdogaron)
-        .Executes(() =>
-        {
-            DotNetBuild(s => s
-                .SetProjectFile(OdogaronProject)
-                .SetConfiguration(Configuration)
-                .EnableNoRestore()
-                .SetOutputDirectory(OutputDirectory));
         });
 
     Target GenerateCharacterAssets => _ => _
