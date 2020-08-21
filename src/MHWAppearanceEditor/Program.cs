@@ -1,8 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Logging.Serilog;
 using Avalonia.ReactiveUI;
-using MHWAppearanceEditor.Services;
-using Splat;
+using Serilog;
 using System;
 using System.IO;
 using System.Reflection;
@@ -59,7 +58,8 @@ namespace MHWAppearanceEditor
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            // TODO: Log
+            var ex = e.ExceptionObject as Exception;
+            Log.Error(ex, $"Unhandled exception: {ex?.Message}");
         }
     }
 }
