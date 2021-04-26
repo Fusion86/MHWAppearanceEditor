@@ -22,8 +22,8 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         [Reactive] public string? SteamIdName { get; set; }
 
         private readonly SaveData saveData;
-        private readonly SteamWebApiService steamWebApi = Locator.Current.GetService<SteamWebApiService>();
-        private readonly SettingsService settingsService = Locator.Current.GetService<SettingsService>();
+        private readonly SteamWebApiService steamWebApi = Locator.Current.GetService<SteamWebApiService>()!;
+        private readonly SettingsService settingsService = Locator.Current.GetService<SettingsService>()!;
 
         public SaveDataInfoViewModel(SaveData saveData)
         {

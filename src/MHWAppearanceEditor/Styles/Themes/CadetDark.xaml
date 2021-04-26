@@ -32,7 +32,7 @@
         <Color x:Key="ThemeControlHighlightMidColor">#FF828282</Color>
         <Color x:Key="ThemeControlHighlightHighColor">#FF505050</Color>
         <Color x:Key="ThemeForegroundColor">#FFCCCCCC</Color>
-        <Color x:Key="ThemeForegroundLowColor">#FF808080</Color>
+        <Color x:Key="ThemeForegroundLowColor">#FFE5E5E5</Color>
 
         <Color x:Key="HighlightColor">#FF6485AD</Color>
         <Color x:Key="HighlightForegroundColor">#FFFFFFFF</Color>

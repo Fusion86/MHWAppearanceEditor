@@ -1,5 +1,4 @@
 ﻿using Avalonia;
-using Avalonia.Logging.Serilog;
 using Avalonia.ReactiveUI;
 using Serilog;
 using System;
@@ -31,7 +30,7 @@ namespace MHWAppearanceEditor
         {
             var config = AppBuilder.Configure<App>()
                 .UsePlatformDetect()
-                .LogToDebug()
+                //.LogToDebug()
                 .UseReactiveUI();
 
             // Use Direct2D where possible, because it supports japanese, chinese, korean, etc.. characters
@@ -44,9 +43,9 @@ namespace MHWAppearanceEditor
         private static Assembly CurrentDomain_AssemblyResolve(object? sender, ResolveEventArgs args)
         {
             var probingPath = Path.GetFullPath("lib");
-            var assyName = new AssemblyName(args.Name);
+            var assyName = new AssemblyName(args.Name!);
 
-            var dllPath = Path.Combine(probingPath, assyName.Name);
+            var dllPath = Path.Combine(probingPath, assyName.Name!);
             if (!dllPath.EndsWith(".dll"))
                 dllPath += ".dll";
 

@@ -130,7 +130,7 @@ namespace MHWAppearanceEditor.Models
 
         public Dictionary<string, object> ToDictionary()
         {
-            return GetType().GetProperties().ToDictionary(prop => prop.Name, prop => prop.GetValue(this));
+            return GetType().GetProperties().ToDictionary(prop => prop.Name, prop => prop.GetValue(this)!);
         }
     }
 }

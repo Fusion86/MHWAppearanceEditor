@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using Cirilla.Core.Enums;
 using Cirilla.Core.Models;
 using MHWAppearanceEditor.Extensions;
 using MHWAppearanceEditor.Helpers;
@@ -67,6 +68,10 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
 
             MainWindowViewModel.Instance.ShowPopup("Imported appearance.\nRemember to click on Save when you are done!");
             serializableAppearance.ApplyToSaveSlot(saveSlotContext);
+
+            CtxLog.Information("Updating CharacterAppearance.Type to 'Zero'");
+            saveSlotContext.CharacterAppearance.Type = CharacterAppearanceType.Zero.Value;
+
             CtxLog.Information("Applied appearance changes");
         }
 
@@ -74,7 +79,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
         {
             OpenFileDialog ofd = new OpenFileDialog { AllowMultiple = false };
 
-            string filePath = (await ofd.ShowAsync()).FirstOrDefault();
+            var filePath = (await ofd.ShowAsync()).FirstOrDefault();
             if (filePath == null)
             {
                 CtxLog.Information("No file selected");

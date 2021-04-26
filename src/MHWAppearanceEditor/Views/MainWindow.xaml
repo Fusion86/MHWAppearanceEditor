@@ -24,8 +24,11 @@
     </Window.Resources>
 
     <Grid>
-        <!-- Popup over all content -->
-        <Popup IsOpen="{Binding PopupIsOpen, Mode=TwoWay}" PlacementMode="AnchorAndGravity" StaysOpen="{Binding !PopupCanClose}" PlacementTarget="{Binding $parent}">
+        <!-- Popup over all content 
+        <Popup IsOpen="{Binding PopupIsOpen}"
+               PlacementMode="AnchorAndGravity"
+               StaysOpen="{Binding !PopupCanClose}"
+               PlacementTarget="{Binding $parent}">
             <Border Background="{DynamicResource FusionDarkSlateBrush}"
                     BorderThickness="5"
                     BorderBrush="{DynamicResource ThemeAccentBrush}"
@@ -33,10 +36,10 @@
 
                 <StackPanel>
                     <TextBlock Text="{Binding PopupText}" TextWrapping="Wrap" Margin="0,0,0,5"/>
-                    <TextBlock Text="Click anywhere to close this popup." Opacity="0.5" IsVisible="{Binding PopupCanClose}"/>
+                    <TextBlock Text="Click anywhere outside this message box to close it." Opacity="0.5" IsVisible="{Binding PopupCanClose}"/>
                 </StackPanel>
             </Border>
-        </Popup>
+        </Popup>-->
 
         <Grid RowDefinitions="*, Auto, Auto" Opacity="{Binding ContentOpacity}">
             <DockPanel Grid.Row="0">
@@ -52,11 +55,7 @@
                     </Button>
                 </Grid>
 
-                <rxui:ViewModelViewHost ViewModel="{Binding ActiveViewModel}">
-                    <rxui:ViewModelViewHost.PageTransition>
-                        <anim:InstantPageTransition/>
-                    </rxui:ViewModelViewHost.PageTransition>
-                </rxui:ViewModelViewHost>
+                <rxui:ViewModelViewHost ViewModel="{Binding ActiveViewModel}" PageTransition="{x:Null}"/>
             </DockPanel>
 
             <!-- DataGrid currently doesn't correctly resize -->
@@ -94,6 +93,21 @@
                     </DataTemplate>
                 </DataGrid.RowDetailsTemplate>
             </DataGrid>
+        </Grid>
+
+        <Grid Background="Transparent" IsVisible="{Binding PopupIsOpen}">
+            <Border Name="PopupBorder"
+                    Background="{DynamicResource FusionDarkSlateBrush}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    BorderThickness="5"
+                    BorderBrush="{DynamicResource ThemeAccentBrush}"
+                    Padding="20">
+                <StackPanel>
+                    <TextBlock Text="{Binding PopupText}" TextWrapping="Wrap" Margin="0,0,0,5"/>
+                    <TextBlock Text="Click anywhere outside this message box to close it." Opacity="0.5" IsVisible="{Binding PopupCanClose}"/>
+                </StackPanel>
+            </Border>
         </Grid>
     </Grid>
 </Window>

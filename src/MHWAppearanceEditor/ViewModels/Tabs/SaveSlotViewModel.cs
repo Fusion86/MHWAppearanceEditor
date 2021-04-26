@@ -89,7 +89,6 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         }
 
         // Proxy properties
-#pragma warning disable CA1062 // Validate arguments of public methods
         public CharacterAssetViewModel BrowType
         {
             get => BrowTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.BrowType);
@@ -197,7 +196,6 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
             get => PalicoTailTypes.FirstOrDefault(x => x.Value == SaveSlot.PalicoAppearance.TailType);
             set { SaveSlot.PalicoAppearance.TailType = (byte)value.Value; this.RaisePropertyChanged(); }
         }
-#pragma warning restore CA1062 // Validate arguments of public methods
 
         // Collections of possible values
         public List<Gender> Genders { get; } = new List<Gender>() { Gender.Male, Gender.Female };
@@ -232,7 +230,7 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public SaveSlotViewModel(SaveSlot saveSlot, AssetsService? assetsService = null)
         {
             SaveSlot = saveSlot;
-            assetsService ??= Locator.Current.GetService<AssetsService>();
+            assetsService ??= Locator.Current.GetService<AssetsService>()!;
             characterAssets = assetsService.CharacterAssets;
             ColorPaletteVibrant = assetsService.ColorPaletteVibrant;
             ColorPaletteNatural = assetsService.ColorPaletteNatural;

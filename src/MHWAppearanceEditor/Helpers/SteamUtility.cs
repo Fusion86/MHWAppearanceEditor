@@ -21,7 +21,7 @@ namespace MHWAppearanceEditor.Helpers
                return null;
 
             string reg = Environment.Is64BitOperatingSystem ? @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Valve\Steam" : @"HKEY_LOCAL_MACHINE\SOFTWARE\Valve\Steam";
-            object val = Registry.GetValue(reg, "InstallPath", null);
+            var val = Registry.GetValue(reg, "InstallPath", null);
 
             if (val != null)
                 return (string)val;

@@ -16,6 +16,7 @@ using ReactiveUI.Fody.Helpers;
 using Serilog;
 using Splat;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -40,6 +41,7 @@ namespace MHWAppearanceEditor.ViewModels
 
         private SaveData? saveData;
         private readonly BackupService backup = Locator.Current.GetService<BackupService>()!;
+        private readonly AppSettings settings = Locator.Current.GetService<SettingsService>()!.Settings;
 
         public SaveDataViewModel(string saveDataPath)
         {
@@ -89,6 +91,7 @@ namespace MHWAppearanceEditor.ViewModels
         {
             new SettingsWindow().Show();
         }
+
         private async Task ShowSaveDialog()
         {
             if (saveData == null) return;
@@ -100,6 +103,13 @@ namespace MHWAppearanceEditor.ViewModels
             {
                 sfd.Directory = initialPath;
                 sfd.InitialFileName = Path.Combine(initialPath, "SAVEDATA1000");
+            }
+
+            sfd.Filters.Add(new FileDialogFilter { Name = "Monster Hunter World SaveData" });
+
+            if (settings.EnableAdvancedFeatures)
+            {
+                sfd.Filters.Add(new FileDialogFilter { Name = "Decrypted SaveData (files must end with .dec)", Extensions = new List<string> { "dec" } });
             }
 
             string fileName = await sfd.ShowAsync();
@@ -117,7 +127,9 @@ namespace MHWAppearanceEditor.ViewModels
 
                 try
                 {
-                    await Task.Run(() => saveData.Save(fileName));
+                    bool encrypted = !fileName.EndsWith(".dec");
+
+                    await Task.Run(() => saveData.Save(fileName, encrypted));
                     MainWindowViewModel.Instance.ShowPopup($"Saved SaveData to '{fileName}'");
                 }
                 catch (Exception ex)

@@ -31,7 +31,7 @@ namespace MHWAppearanceEditor.Views
         {
             try
             {
-                ViewModel.SettingsService.Save().WaitAndUnwrapException();
+                ViewModel!.SettingsService.Save().WaitAndUnwrapException();
             }
             catch (Exception ex)
             {

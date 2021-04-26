@@ -66,7 +66,7 @@ namespace MHWAppearanceEditor
             base.OnFrameworkInitializationCompleted();
         }
 
-        private void InitializeLogging()
+        private static void InitializeLogging()
         {
             // Cirilla and MHWAppearanceEditor logging
             var logSink = new LogSink();

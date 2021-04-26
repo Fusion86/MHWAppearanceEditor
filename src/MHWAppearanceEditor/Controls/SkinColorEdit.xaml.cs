@@ -24,14 +24,14 @@ namespace MHWAppearanceEditor.Controls
         private NumericUpDown NumericSkinColorX => this.FindControl<NumericUpDown>("NumericSkinColorX");
         private NumericUpDown NumericSkinColorY => this.FindControl<NumericUpDown>("NumericSkinColorY");
 
-        private SixLabors.ImageSharp.Image<Rgba32> skinImage;
+        private SixLabors.ImageSharp.Image<Rgba32>? skinImage;
 
         public SkinColorEdit()
         {
             DataContext = this;
             InitializeComponent();
 
-            var imgSource = Locator.Current.GetService<AssetsService>().SkinColorPath;
+            var imgSource = Locator.Current.GetService<AssetsService>()!.SkinColorPath;
 
             ColorButton.Click += ColorEdit_Click;
             ColorCanvas.PointerPressed += ColorCanvas_PointerPressed;
@@ -47,7 +47,7 @@ namespace MHWAppearanceEditor.Controls
                 Dispatcher.UIThread.InvokeAsync(() => ColorCanvas.Background = new ImageBrush(image));
 
                 // Backend bitmap
-                skinImage = SixLabors.ImageSharp.Image.Load(imgSource);
+                skinImage = SixLabors.ImageSharp.Image.Load<Rgba32>(imgSource);
             });
         }
 
@@ -93,7 +93,7 @@ namespace MHWAppearanceEditor.Controls
             AvaloniaXamlLoader.Load(this);
         }
 
-        private double Clamp(double val, double min, double max)
+        private static double Clamp(double val, double min, double max)
         {
             return Math.Min(Math.Max(val, min), max);
         }
@@ -109,7 +109,7 @@ namespace MHWAppearanceEditor.Controls
 
         private void UpdatePreviewColor()
         {
-            var color = skinImage[SkinColorX, SkinColorY];
+            var color = skinImage![SkinColorX, SkinColorY];
             PreviewColor = new Color(color.A, color.R, color.G, color.B);
         }
 

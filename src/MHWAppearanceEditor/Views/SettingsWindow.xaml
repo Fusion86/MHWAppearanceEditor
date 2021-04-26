@@ -11,6 +11,7 @@
 
     <StackPanel Margin="20" Spacing="5" HorizontalAlignment="Center">
         <CheckBox Content="Enable Steam Account Name lookup (uses Steam API)" IsChecked="{Binding Settings.EnableSteamNameLookup}"/>
+        <CheckBox Content="Enable advanced features (e.g. add option to export decrypted savedata)" IsChecked="{Binding Settings.EnableAdvancedFeatures}"/>
         <TextBlock Text="These settings auto-save, so simply close the window when you are done." Opacity="0.5"/>
     </StackPanel>
 </ReactiveWindow>

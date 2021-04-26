@@ -41,7 +41,7 @@ namespace MHWAppearanceEditor.ValueConverters
             return 0;
         }
 
-        public bool TryConvert(object from, Type toType, object conversionHint, out object result)
+        public bool TryConvert(object? from, Type toType, object? conversionHint, out object? result)
         {
             if (from is SDColor sdcolor)
             {

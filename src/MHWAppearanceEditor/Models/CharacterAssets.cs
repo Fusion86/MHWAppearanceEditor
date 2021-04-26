@@ -184,7 +184,7 @@ namespace MHWAppearanceEditor.Models
                 string assetsJsonPath = Path.Combine(assetsDir, "character_assets.json");
                 string imgDir = Path.Combine(assetsDir, "character_assets");
                 string json = File.ReadAllText(assetsJsonPath);
-                var map = JsonConvert.DeserializeObject<AssetsMap>(json);
+                var map = JsonConvert.DeserializeObject<AssetsMap>(json)!;
                 var characterAssets = new CharacterAssets();
                 characterAssets.LoadAssetsMap(map, imgDir);
                 return characterAssets;

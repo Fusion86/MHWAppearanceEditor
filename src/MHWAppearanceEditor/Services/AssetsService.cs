@@ -33,7 +33,7 @@ namespace MHWAppearanceEditor.Services
 
         public void Initialize()
         {
-            CharacterAssets = CharacterAssets.CreateFromAssetsMap(AssetsRoot);
+            CharacterAssets = CharacterAssets.CreateFromAssetsMap(AssetsRoot)!;
             LoadPalette(Path.Combine(AssetsRoot, "palette.json"));
             CtxLog.Information("Asset loading finished");
         }
@@ -43,7 +43,7 @@ namespace MHWAppearanceEditor.Services
             try
             {
                 string json = File.ReadAllText(path);
-                var colors = JsonConvert.DeserializeObject<List<string>>(json);
+                var colors = JsonConvert.DeserializeObject<List<string>>(json)!;
                 colorPalette = colors.Select(x => Utility.ColorFromHex(x)).ToList();
 
                 FullColorPalette = colorPalette.AsReadOnly();

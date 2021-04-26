@@ -1,10 +1,8 @@
-﻿using MHWAppearanceEditor.Services;
-using ReactiveUI;
+﻿using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Splat;
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Reactive;
 
 namespace MHWAppearanceEditor.ViewModels
@@ -37,7 +35,7 @@ namespace MHWAppearanceEditor.ViewModels
         {
             Instance = this;
 
-            var logger = Locator.Current.GetService<LogSink>();
+            var logger = Locator.Current.GetService<LogSink>()!;
             EventsBinding = logger.Events;
 
             logger.Events.CollectionChanged += (sender, e) =>

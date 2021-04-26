@@ -36,7 +36,7 @@ namespace MHWAppearanceEditor.Services
                     if (res.IsSuccessStatusCode)
                     {
                         var json = await res.Content.ReadAsStringAsync();
-                        var obj = JsonConvert.DeserializeObject<SteamApiResponse<GetPlayerSummariesResponse>>(json);
+                        var obj = JsonConvert.DeserializeObject<SteamApiResponse<GetPlayerSummariesResponse>>(json)!;
                         return obj.Response.Players.FirstOrDefault()?.PersonaName ?? "(no account found)";
                     }
                     else

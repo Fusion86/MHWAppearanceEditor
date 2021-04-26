@@ -12,7 +12,7 @@ namespace MHWAppearanceEditor.Services
         private static readonly Serilog.ILogger log = Log.ForContext<BackupService>();
 
         private readonly string backupDir;
-        private readonly AppSettings settings = Locator.Current.GetService<SettingsService>().Settings;
+        private readonly AppSettings settings = Locator.Current.GetService<SettingsService>()!.Settings;
 
         public BackupService(string backupDir = "backup")
         {

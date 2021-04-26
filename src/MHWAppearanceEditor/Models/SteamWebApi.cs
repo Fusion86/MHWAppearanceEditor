@@ -3,17 +3,18 @@ using System.Collections.Generic;
 
 namespace MHWAppearanceEditor.Models
 {
-    public partial class SteamApiResponse<T> 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    public class SteamApiResponse<T> 
     {
         public T Response { get; set; }
     }
 
-    public partial class GetPlayerSummariesResponse
+    public class GetPlayerSummariesResponse
     {
         public List<SteamApiPlayer> Players { get; set; }
     }
 
-    public partial class SteamApiPlayer
+    public class SteamApiPlayer
     {
         public string SteamId { get; set; }
         public long CommunityVisibilityState { get; set; }
@@ -33,4 +34,5 @@ namespace MHWAppearanceEditor.Models
         public string LocStateCode { get; set; }
         public long LocCityId { get; set; }
     }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 }

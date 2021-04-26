@@ -266,3 +266,4 @@ Cirilla.Core/
 scripts/assets/
 output/
 dist/
+config.json

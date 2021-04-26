@@ -68,7 +68,7 @@ namespace MHWAppearanceEditor.ViewModels
             if (initialPath != null)
                 ofd.Directory = initialPath;
 
-            string filePath = (await ofd.ShowAsync()).FirstOrDefault();
+            var filePath = (await ofd.ShowAsync()).FirstOrDefault();
             if (filePath == null)
             {
                 CtxLog.Information("No file selected");

@@ -10,7 +10,7 @@
     <Application.Styles>
         <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Default.xaml"/>
-        <StyleInclude Source="avares://ThemeEditor.Controls.ColorPicker/ColorPicker.xaml"/>
+        <StyleInclude Source="avares://ThemeEditor.Controls.ColorPicker/ColorPicker.axaml"/>
         
         <StyleInclude Source="avares://MHWAppearanceEditor/Styles/Themes/CadetDark.xaml"/>
         <StyleInclude Source="avares://MHWAppearanceEditor/Styles/Button.xaml"/>

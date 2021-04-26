@@ -41,7 +41,7 @@ class Build : NukeBuild
 
     AbsolutePath OutputDirectory => RootDirectory / "output";
 
-    private static Lazy<string> PythonPath = new Lazy<string>(() =>
+    private static readonly Lazy<string> PythonPath = new Lazy<string>(() =>
     {
         try
         {

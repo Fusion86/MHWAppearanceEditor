@@ -38,7 +38,7 @@ namespace MHWAppearanceEditor.Services
                 try
                 {
                     string json = File.ReadAllText(configPath);
-                    Settings = JsonConvert.DeserializeObject<AppSettings>(json);
+                    Settings = JsonConvert.DeserializeObject<AppSettings>(json)!;
                 }
                 catch (Exception ex)
                 {
