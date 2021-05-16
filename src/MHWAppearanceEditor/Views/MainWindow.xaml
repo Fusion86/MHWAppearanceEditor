@@ -11,8 +11,10 @@
         x:Class="MHWAppearanceEditor.Views.MainWindow"
         Icon="/Assets/icon.ico"
         Title="MHWAppearanceEditor"
-        Width="900" Height="620"
-        MinWidth="850" MinHeight="500">
+        Width="1000" Height="700"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        TransparencyLevelHint="AcrylicBlur">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
@@ -23,91 +25,99 @@
         <vc:IsNotNullToTrueValueConverter x:Key="IsNotNullToTrueConverter"/>
     </Window.Resources>
 
-    <Grid>
-        <!-- Popup over all content 
-        <Popup IsOpen="{Binding PopupIsOpen}"
-               PlacementMode="AnchorAndGravity"
-               StaysOpen="{Binding !PopupCanClose}"
-               PlacementTarget="{Binding $parent}">
-            <Border Background="{DynamicResource FusionDarkSlateBrush}"
-                    BorderThickness="5"
-                    BorderBrush="{DynamicResource ThemeAccentBrush}"
-                    Padding="20">
+    <Panel>
+        <!-- Acrylic 'base' background -->
+        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial
+                    BackgroundSource="Digger"
+                    TintColor="Black"
+                    TintOpacity="1"
+                    MaterialOpacity="0.6"/>
+            </ExperimentalAcrylicBorder.Material>
 
-                <StackPanel>
-                    <TextBlock Text="{Binding PopupText}" TextWrapping="Wrap" Margin="0,0,0,5"/>
-                    <TextBlock Text="Click anywhere outside this message box to close it." Opacity="0.5" IsVisible="{Binding PopupCanClose}"/>
-                </StackPanel>
-            </Border>
-        </Popup>-->
+            <Grid Height="30" VerticalAlignment="Top">
+                <TextBlock Text="{Binding $parent[Window].Title}"
+                           Opacity="0.8"
+                           FontWeight="SemiBold"
+                           Margin="8,0,0,0"
+                           VerticalAlignment="Center"/>
+            </Grid>
+        </ExperimentalAcrylicBorder>
 
-        <Grid RowDefinitions="*, Auto, Auto" Opacity="{Binding ContentOpacity}">
-            <DockPanel Grid.Row="0">
-                <Grid DockPanel.Dock="Bottom" Height="24" ColumnDefinitions="*,Auto" Background="{DynamicResource ThemeAccentBrush2}">
-                    <StackPanel Grid.Column="0" Margin="5,4,5,4">
-                        <TextBlock Text="{Binding MostRecentEventMessage}" ToolTip.Tip="{Binding MostRecentEventMessage}"/>
+        <!-- Actual content -->
+        <Grid Margin="0 30 0 0">
+            <Grid RowDefinitions="*, Auto, Auto" Opacity="{Binding ContentOpacity}">
+                <DockPanel Grid.Row="0">
+                    <!-- Status bar at the bottom -->
+                    <Grid DockPanel.Dock="Bottom" Height="24" ColumnDefinitions="*,Auto" Background="{DynamicResource ThemeAccentBrush2}">
+                        <StackPanel Grid.Column="0" Margin="5,4,5,4">
+                            <TextBlock Text="{Binding MostRecentEventMessage}" ToolTip.Tip="{Binding MostRecentEventMessage}"/>
+                        </StackPanel>
+
+                        <Button Grid.Column="1" Classes="Lookless" ToolTip.Tip="Open log panel" Command="{Binding ToggleShowLog}">
+                            <Grid Margin="7">
+                                <DrawingPresenter Drawing="{DynamicResource IconList}" Stretch="UniformToFill"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+
+                    <!-- The main content view -->
+                    <rxui:ViewModelViewHost ViewModel="{Binding ActiveViewModel}" PageTransition="{x:Null}"/>
+                </DockPanel>
+
+                <!-- DataGrid currently doesn't correctly resize -->
+                <!--<GridSplitter Grid.Row="1" Height="5" IsVisible="{Binding ShowLog}"/>-->
+
+                <DataGrid Name="LogDataGrid"
+                          Grid.Row="2"
+                          Height="300"
+                          Background="{DynamicResource FusionDarkSlateBrush}"
+                          IsVisible="{Binding ShowLog}"
+                          BorderThickness="0"
+                          RowBackground="{DynamicResource FusionDarkSlateBrush}"
+                          AlternatingRowBackground="{DynamicResource FusionDarkSlateBrush}"
+                          RowDetailsVisibilityMode="VisibleWhenSelected"
+                          CanUserSortColumns="False">
+                    <!-- Sorting is a bit buggy with the DataGrid.RowDetailsTemplate, so that's why it is disables (and it isn't really useful) -->
+
+                    <DataGrid.Styles>
+                        <Style Selector="DataGridRow /template/ Rectangle#BackgroundRectangle">
+                            <Setter Property="Fill" Value="{DynamicResource FusionBackground2Brush}"/>
+                        </Style>
+                    </DataGrid.Styles>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Level" Binding="{Binding Level}"/>
+                        <DataGridTextColumn Header="Context" Binding="{Binding ShortSourceContext}"/>
+                        <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="*"/>
+                        <DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp, Converter={StaticResource DateTimeOffsetConverter}}"/>
+                    </DataGrid.Columns>
+
+                    <DataGrid.RowDetailsTemplate>
+                        <DataTemplate>
+                            <!-- TextWrapping doesn't work correctly here. It looks like the Height is being calculated before TextWrapping is apply, the result being that the Height is too small. -->
+                            <TextBlock Text="{Binding MessageDetails}" Margin="5" IsVisible="{Binding MessageDetails, Converter={StaticResource IsNotNullToTrueConverter}}"/>
+                        </DataTemplate>
+                    </DataGrid.RowDetailsTemplate>
+                </DataGrid>
+            </Grid>
+
+            <!-- Popup message overlay -->
+            <Grid Background="Transparent" IsVisible="{Binding PopupIsOpen}">
+                <Border Name="PopupBorder"
+                        Background="{DynamicResource FusionDarkSlateBrush}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        BorderThickness="5"
+                        BorderBrush="{DynamicResource ThemeAccentBrush}"
+                        Padding="20">
+                    <StackPanel>
+                        <TextBlock Text="{Binding PopupText}" TextWrapping="Wrap" Margin="0,0,0,5"/>
+                        <TextBlock Text="Click anywhere outside this message box to close it." Opacity="0.5" IsVisible="{Binding PopupCanClose}"/>
                     </StackPanel>
-
-                    <Button Grid.Column="1" Classes="Lookless" ToolTip.Tip="Open log panel" Command="{Binding ToggleShowLog}">
-                        <Grid Margin="7">
-                            <DrawingPresenter Drawing="{DynamicResource IconList}" Stretch="UniformToFill"/>
-                        </Grid>
-                    </Button>
-                </Grid>
-
-                <rxui:ViewModelViewHost ViewModel="{Binding ActiveViewModel}" PageTransition="{x:Null}"/>
-            </DockPanel>
-
-            <!-- DataGrid currently doesn't correctly resize -->
-            <!--<GridSplitter Grid.Row="1" Height="5" IsVisible="{Binding ShowLog}"/>-->
-
-            <DataGrid Name="LogDataGrid"
-                      Grid.Row="2"
-                      Height="300"
-                      Background="{DynamicResource FusionDarkSlateBrush}"
-                      IsVisible="{Binding ShowLog}"
-                      BorderThickness="0"
-                      RowBackground="{DynamicResource FusionDarkSlateBrush}"
-                      AlternatingRowBackground="{DynamicResource FusionDarkSlateBrush}"
-                      RowDetailsVisibilityMode="VisibleWhenSelected"
-                      CanUserSortColumns="False">
-                <!-- Sorting is a bit buggy with the DataGrid.RowDetailsTemplate, so that's why it is disables (and it isn't really useful) -->
-
-                <DataGrid.Styles>
-                    <Style Selector="DataGridRow /template/ Rectangle#BackgroundRectangle">
-                        <Setter Property="Fill" Value="{DynamicResource FusionBackground2Brush}"/>
-                    </Style>
-                </DataGrid.Styles>
-
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Level" Binding="{Binding Level}"/>
-                    <DataGridTextColumn Header="Context" Binding="{Binding ShortSourceContext}"/>
-                    <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="*"/>
-                    <DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp, Converter={StaticResource DateTimeOffsetConverter}}"/>
-                </DataGrid.Columns>
-
-                <DataGrid.RowDetailsTemplate>
-                    <DataTemplate>
-                        <!-- TextWrapping doesn't work correctly here. It looks like the Height is being calculated before TextWrapping is apply, the result being that the Height is too small. -->
-                        <TextBlock Text="{Binding MessageDetails}" Margin="5" IsVisible="{Binding MessageDetails, Converter={StaticResource IsNotNullToTrueConverter}}"/>
-                    </DataTemplate>
-                </DataGrid.RowDetailsTemplate>
-            </DataGrid>
+                </Border>
+            </Grid>
         </Grid>
-
-        <Grid Background="Transparent" IsVisible="{Binding PopupIsOpen}">
-            <Border Name="PopupBorder"
-                    Background="{DynamicResource FusionDarkSlateBrush}"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    BorderThickness="5"
-                    BorderBrush="{DynamicResource ThemeAccentBrush}"
-                    Padding="20">
-                <StackPanel>
-                    <TextBlock Text="{Binding PopupText}" TextWrapping="Wrap" Margin="0,0,0,5"/>
-                    <TextBlock Text="Click anywhere outside this message box to close it." Opacity="0.5" IsVisible="{Binding PopupCanClose}"/>
-                </StackPanel>
-            </Border>
-        </Grid>
-    </Grid>
+    </Panel>
 </Window>

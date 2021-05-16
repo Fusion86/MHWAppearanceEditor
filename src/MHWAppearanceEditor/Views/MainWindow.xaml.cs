@@ -1,7 +1,9 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
+using Avalonia.Platform;
 using Avalonia.ReactiveUI;
 using MHWAppearanceEditor.ViewModels;
 using ReactiveUI;
@@ -26,6 +28,23 @@ namespace MHWAppearanceEditor.Views
             {
                 this.OneWayBind(ViewModel, vm => vm.EventsBinding, v => v.LogDataGrid.Items).DisposeWith(disposables);
             });
+
+            this.GetObservable(WindowStateProperty)
+                .Subscribe(x =>
+                {
+                    PseudoClasses.Set(":maximized", x == WindowState.Maximized);
+                    PseudoClasses.Set(":fullscreen", x == WindowState.FullScreen);
+                });
+
+            this.GetObservable(IsExtendedIntoWindowDecorationsProperty)
+                .Subscribe(x =>
+                {
+                    if (!x)
+                    {
+                        SystemDecorations = SystemDecorations.Full;
+                        TransparencyLevelHint = WindowTransparencyLevel.Blur;
+                    }
+                });
         }
 
         private void InitializeComponent()
@@ -48,6 +67,14 @@ namespace MHWAppearanceEditor.Views
             }
 
             base.OnPointerPressed(e);
+        }
+
+        protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+        {
+            base.OnApplyTemplate(e);
+            ExtendClientAreaChromeHints =
+                ExtendClientAreaChromeHints.PreferSystemChrome |
+                ExtendClientAreaChromeHints.OSXThickTitleBar;
         }
     }
 }

@@ -23,16 +23,10 @@
         </WrapPanel.Styles>
 
         <DockPanel HorizontalAlignment="Center" Margin="10">
-            <TextBlock DockPanel.Dock="Top"
-                       Text="Type 1"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,20"/>
-
-            <Grid ColumnDefinitions="Auto,10,140"
+            <Grid ColumnDefinitions="Auto,10,Auto"
                   RowDefinitions="Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto">
 
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="Type"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="Makeup 1" VerticalAlignment="Top" FontWeight="Bold"/>
                 <ComboBox Name="Makeup1TypeSelect" Grid.Column="2" Grid.Row="0" Classes="CharaSelect" Items="{Binding MakeupTypes}" SelectedItem="{Binding Makeup1Type}"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Color"/>
@@ -62,16 +56,10 @@
         </DockPanel>
 
         <DockPanel HorizontalAlignment="Center" Margin="10">
-            <TextBlock DockPanel.Dock="Top"
-                       Text="Type 2"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,20"/>
-
-            <Grid ColumnDefinitions="Auto,10,140"
+            <Grid ColumnDefinitions="Auto,10,Auto"
                   RowDefinitions="Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto">
 
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="Type"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="Makeup 2" VerticalAlignment="Top" FontWeight="Bold"/>
                 <ComboBox Name="Makeup2TypeSelect" Grid.Column="2" Grid.Row="0" Classes="CharaSelect" Items="{Binding MakeupTypes}" SelectedItem="{Binding Makeup2Type}"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Color"/>
@@ -101,16 +89,14 @@
         </DockPanel>
 
         <DockPanel HorizontalAlignment="Center" Margin="10">
-            <TextBlock DockPanel.Dock="Top"
-                       Text="Type 3 (Requires Iceborne DLC)"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,20"/>
-
-            <Grid ColumnDefinitions="Auto,10,140"
+            <Grid ColumnDefinitions="Auto,10,Auto"
                   RowDefinitions="Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto">
 
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="Type"/>
+                <StackPanel Grid.Column="0" Grid.Row="0" >
+                    <TextBlock Text="Makeup 3" FontWeight="Bold"/>
+                    <TextBlock Text="Requires Iceborne"/>
+                </StackPanel>
+                
                 <ComboBox Name="Makeup3TypeSelect" Grid.Column="2" Grid.Row="0" Classes="CharaSelect" Items="{Binding MakeupTypes}" SelectedItem="{Binding Makeup3Type}"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Color"/>
