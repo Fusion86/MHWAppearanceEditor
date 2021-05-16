@@ -1,6 +1,7 @@
 ﻿using Avalonia.Media;
 using Cirilla.Core.Enums;
 using Cirilla.Core.Models;
+using MHWAppearanceEditor.Helpers;
 using MHWAppearanceEditor.Interfaces;
 using MHWAppearanceEditor.Models;
 using MHWAppearanceEditor.Services;
@@ -31,32 +32,172 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public int Zenny { get => SaveSlot.Zenny; set => SaveSlot.Zenny = value; }
         public int ResearchPoints { get => SaveSlot.ResearchPoints; set => SaveSlot.ResearchPoints = value; }
         public TimeSpan PlayTime { get => TimeSpan.FromSeconds(SaveSlot.PlayTime); }
-        public byte NoseHeight { get => SaveSlot.CharacterAppearance.NoseHeight; set => SaveSlot.CharacterAppearance.NoseHeight = value; }
-        public byte MouthHeight { get => SaveSlot.CharacterAppearance.MouthHeight; set => SaveSlot.CharacterAppearance.MouthHeight = value; }
-        public byte EyeWidth { get => SaveSlot.CharacterAppearance.EyeWidth; set => SaveSlot.CharacterAppearance.EyeWidth = value; }
-        public byte EyeHeight { get => SaveSlot.CharacterAppearance.EyeHeight; set => SaveSlot.CharacterAppearance.EyeHeight = value; }
-        public byte Age { get => SaveSlot.CharacterAppearance.Age; set => SaveSlot.CharacterAppearance.Age = value; }
-        public byte Wrinkles { get => SaveSlot.CharacterAppearance.Wrinkles; set => SaveSlot.CharacterAppearance.Wrinkles = value; }
+
+        public int NoseHeight
+        {
+            get => (int)Math.Round(Utility.Remap(sbyte.MinValue, sbyte.MaxValue, 0, 100, SaveSlot.CharacterAppearance.NoseHeight));
+            set => SaveSlot.CharacterAppearance.NoseHeight = (sbyte)(Utility.Remap(0, 100, sbyte.MinValue, sbyte.MaxValue, value));
+        }
+
+        public int MouthHeight
+        {
+            get => (int)Math.Round(Utility.Remap(sbyte.MinValue, sbyte.MaxValue, 0, 100, SaveSlot.CharacterAppearance.MouthHeight));
+            set => SaveSlot.CharacterAppearance.MouthHeight = (sbyte)(Utility.Remap(0, 100, sbyte.MinValue, sbyte.MaxValue, value));
+        }
+
+        public int EyeWidth
+        {
+            get => (int)Math.Round(Utility.Remap(sbyte.MinValue, sbyte.MaxValue, 0, 100, SaveSlot.CharacterAppearance.EyeWidth));
+            set => SaveSlot.CharacterAppearance.EyeWidth = (sbyte)(Utility.Remap(0, 100, sbyte.MinValue, sbyte.MaxValue, value));
+        }
+
+        public int EyeHeight
+        {
+            get => (int)Math.Round(Utility.Remap(sbyte.MinValue, sbyte.MaxValue, 0, 100, SaveSlot.CharacterAppearance.EyeHeight));
+            set => SaveSlot.CharacterAppearance.EyeHeight = (sbyte)(Utility.Remap(0, 100, sbyte.MinValue, sbyte.MaxValue, value));
+        }
+
+        public int Age
+        {
+            get => (int)Math.Round(Utility.Remap(byte.MinValue, byte.MaxValue, 0, 100, SaveSlot.CharacterAppearance.Age));
+            set => SaveSlot.CharacterAppearance.Age = (byte)(Utility.Remap(0, 100, byte.MinValue, byte.MaxValue, value));
+        }
+
+        public int Wrinkles
+        {
+            get => (int)Math.Round(Utility.Remap(byte.MinValue, byte.MaxValue, 0, 100, SaveSlot.CharacterAppearance.Wrinkles));
+            set => SaveSlot.CharacterAppearance.Wrinkles = (byte)(Utility.Remap(0, 100, byte.MinValue, byte.MaxValue, value));
+        }
+
         public byte SkinColorX { get => SaveSlot.CharacterAppearance.SkinColorX; set => SaveSlot.CharacterAppearance.SkinColorX = value; }
         public byte SkinColorY { get => SaveSlot.CharacterAppearance.SkinColorY; set => SaveSlot.CharacterAppearance.SkinColorY = value; }
-        public float Makeup1PosX { get => SaveSlot.CharacterAppearance.Makeup1PosX; set => SaveSlot.CharacterAppearance.Makeup1PosX = value; }
-        public float Makeup1PosY { get => SaveSlot.CharacterAppearance.Makeup1PosY; set => SaveSlot.CharacterAppearance.Makeup1PosY = value; }
-        public float Makeup1SizeX { get => SaveSlot.CharacterAppearance.Makeup1SizeX; set => SaveSlot.CharacterAppearance.Makeup1SizeX = value; }
-        public float Makeup1SizeY { get => SaveSlot.CharacterAppearance.Makeup1SizeY; set => SaveSlot.CharacterAppearance.Makeup1SizeY = value; }
-        public float Makeup1Glossy { get => SaveSlot.CharacterAppearance.Makeup1Glossy; set => SaveSlot.CharacterAppearance.Makeup1Glossy = value; }
-        public float Makeup1Metallic { get => SaveSlot.CharacterAppearance.Makeup1Metallic; set => SaveSlot.CharacterAppearance.Makeup1Metallic = value; }
-        public float Makeup2PosX { get => SaveSlot.CharacterAppearance.Makeup2PosX; set => SaveSlot.CharacterAppearance.Makeup2PosX = value; }
-        public float Makeup2PosY { get => SaveSlot.CharacterAppearance.Makeup2PosY; set => SaveSlot.CharacterAppearance.Makeup2PosY = value; }
-        public float Makeup2SizeX { get => SaveSlot.CharacterAppearance.Makeup2SizeX; set => SaveSlot.CharacterAppearance.Makeup2SizeX = value; }
-        public float Makeup2SizeY { get => SaveSlot.CharacterAppearance.Makeup2SizeY; set => SaveSlot.CharacterAppearance.Makeup2SizeY = value; }
-        public float Makeup2Glossy { get => SaveSlot.CharacterAppearance.Makeup2Glossy; set => SaveSlot.CharacterAppearance.Makeup2Glossy = value; }
-        public float Makeup2Metallic { get => SaveSlot.CharacterAppearance.Makeup2Metallic; set => SaveSlot.CharacterAppearance.Makeup2Metallic = value; }
-        public float Makeup3PosX { get => SaveSlot.CharacterAppearance.Makeup3PosX; set => SaveSlot.CharacterAppearance.Makeup3PosX = value; }
-        public float Makeup3PosY { get => SaveSlot.CharacterAppearance.Makeup3PosY; set => SaveSlot.CharacterAppearance.Makeup3PosY = value; }
-        public float Makeup3SizeX { get => SaveSlot.CharacterAppearance.Makeup3SizeX; set => SaveSlot.CharacterAppearance.Makeup3SizeX = value; }
-        public float Makeup3SizeY { get => SaveSlot.CharacterAppearance.Makeup3SizeY; set => SaveSlot.CharacterAppearance.Makeup3SizeY = value; }
-        public float Makeup3Glossy { get => SaveSlot.CharacterAppearance.Makeup3Glossy; set => SaveSlot.CharacterAppearance.Makeup3Glossy = value; }
-        public float Makeup3Metallic { get => SaveSlot.CharacterAppearance.Makeup3Metallic; set => SaveSlot.CharacterAppearance.Makeup3Metallic = value; }
+
+        public double Makeup1PosX
+        {
+            get => Math.Round(Utility.Remap(0.2, -0.2, 0, 100, SaveSlot.CharacterAppearance.Makeup1PosX), 2);
+            set => SaveSlot.CharacterAppearance.Makeup1PosX = (float)(Utility.Remap(0, 100, 0.2, -0.2, value));
+        }
+
+        public double Makeup1PosY
+        {
+            get => Math.Round(Utility.Remap(-0.06, 0.4, 0, 100, SaveSlot.CharacterAppearance.Makeup1PosY), 2);
+            set => SaveSlot.CharacterAppearance.Makeup1PosY = (byte)(Utility.Remap(0, 100, -0.06, 0.4, value));
+        }
+
+        public double Makeup1SizeX
+        {
+            get => Math.Round(Utility.MakeupPosFromRaw(SaveSlot.CharacterAppearance.Makeup1SizeX), 2);
+            set => SaveSlot.CharacterAppearance.Makeup1SizeX = (float)Utility.MakeupPosToRaw(value);
+        }
+
+        public double Makeup1SizeY
+        {
+            get => Math.Round(Utility.MakeupPosFromRaw(SaveSlot.CharacterAppearance.Makeup1SizeY), 2);
+            set => SaveSlot.CharacterAppearance.Makeup1SizeY = (float)Utility.MakeupPosToRaw(value);
+        }
+
+        public double Makeup1Glossy
+        {
+            get => Math.Round(Utility.Remap(1, 0, 0, 100, SaveSlot.CharacterAppearance.Makeup1Glossy), 2);
+            set => SaveSlot.CharacterAppearance.Makeup1Glossy = (float)(Utility.Remap(0, 100, 1, 0, value));
+        }
+
+        public double Makeup1Metallic
+        {
+            get => Math.Round(Utility.Remap(0, 1, 0, 100, SaveSlot.CharacterAppearance.Makeup1Metallic), 2);
+            set => SaveSlot.CharacterAppearance.Makeup1Metallic = (float)(Utility.Remap(0, 100, 0, 1, value));
+        }
+
+        public double Makeup1Luminescent
+        {
+            get => Math.Round(Utility.Remap(0, 1, 0, 100, SaveSlot.CharacterAppearance.Makeup1Luminescent), 2);
+            set => SaveSlot.CharacterAppearance.Makeup1Luminescent = (float)(Utility.Remap(0, 100, 0, 1, value));
+        }
+
+        public double Makeup2PosX
+        {
+            get => Math.Round(Utility.Remap(0.2, -0.2, 0, 100, SaveSlot.CharacterAppearance.Makeup2PosX), 2);
+            set => SaveSlot.CharacterAppearance.Makeup2PosX = (float)(Utility.Remap(0, 100, 0.2, -0.2, value));
+        }
+
+        public double Makeup2PosY
+        {
+            get => Math.Round(Utility.Remap(-0.06, 0.4, 0, 100, SaveSlot.CharacterAppearance.Makeup2PosY), 2);
+            set => SaveSlot.CharacterAppearance.Makeup2PosY = (byte)(Utility.Remap(0, 100, -0.06, 0.4, value));
+        }
+
+        public double Makeup2SizeX
+        {
+            get => Math.Round(Utility.MakeupPosFromRaw(SaveSlot.CharacterAppearance.Makeup2SizeX), 2);
+            set => SaveSlot.CharacterAppearance.Makeup2SizeX = (float)Utility.MakeupPosToRaw(value);
+        }
+
+        public double Makeup2SizeY
+        {
+            get => Math.Round(Utility.MakeupPosFromRaw(SaveSlot.CharacterAppearance.Makeup2SizeY), 2);
+            set => SaveSlot.CharacterAppearance.Makeup2SizeY = (float)Utility.MakeupPosToRaw(value);
+        }
+
+        public double Makeup2Glossy
+        {
+            get => Math.Round(Utility.Remap(1, 0, 0, 100, SaveSlot.CharacterAppearance.Makeup2Glossy), 2);
+            set => SaveSlot.CharacterAppearance.Makeup2Glossy = (float)(Utility.Remap(0, 100, 1, 0, value));
+        }
+
+        public double Makeup2Metallic
+        {
+            get => Math.Round(Utility.Remap(0, 1, 0, 100, SaveSlot.CharacterAppearance.Makeup2Metallic), 2);
+            set => SaveSlot.CharacterAppearance.Makeup2Metallic = (float)(Utility.Remap(0, 100, 0, 1, value));
+        }
+
+        public double Makeup2Luminescent
+        {
+            get => Math.Round(Utility.Remap(0, 1, 0, 100, SaveSlot.CharacterAppearance.Makeup2Luminescent), 2);
+            set => SaveSlot.CharacterAppearance.Makeup2Luminescent = (float)(Utility.Remap(0, 100, 0, 1, value));
+        }
+
+        public double Makeup3PosX
+        {
+            get => Math.Round(Utility.Remap(0.2, -0.2, 0, 100, SaveSlot.CharacterAppearance.Makeup3PosX), 2);
+            set => SaveSlot.CharacterAppearance.Makeup3PosX = (float)(Utility.Remap(0, 100, 0.2, -0.2, value));
+        }
+
+        public double Makeup3PosY
+        {
+            get => Math.Round(Utility.Remap(-0.06, 0.4, 0, 100, SaveSlot.CharacterAppearance.Makeup3PosY), 2);
+            set => SaveSlot.CharacterAppearance.Makeup3PosY = (byte)(Utility.Remap(0, 100, -0.06, 0.4, value));
+        }
+
+        public double Makeup3SizeX
+        {
+            get => Math.Round(Utility.MakeupPosFromRaw(SaveSlot.CharacterAppearance.Makeup3SizeX), 2);
+            set => SaveSlot.CharacterAppearance.Makeup3SizeX = (float)Utility.MakeupPosToRaw(value);
+        }
+
+        public double Makeup3SizeY
+        {
+            get => Math.Round(Utility.MakeupPosFromRaw(SaveSlot.CharacterAppearance.Makeup3SizeY), 2);
+            set => SaveSlot.CharacterAppearance.Makeup3SizeY = (float)Utility.MakeupPosToRaw(value);
+        }
+
+        public double Makeup3Glossy
+        {
+            get => Math.Round(Utility.Remap(1, 0, 0, 100, SaveSlot.CharacterAppearance.Makeup3Glossy), 2);
+            set => SaveSlot.CharacterAppearance.Makeup3Glossy = (float)(Utility.Remap(0, 100, 1, 0, value));
+        }
+
+        public double Makeup3Metallic
+        {
+            get => Math.Round(Utility.Remap(0, 1, 0, 100, SaveSlot.CharacterAppearance.Makeup3Metallic), 2);
+            set => SaveSlot.CharacterAppearance.Makeup3Metallic = (float)(Utility.Remap(0, 100, 0, 1, value));
+        }
+
+        public double Makeup3Luminescent
+        {
+            get => Math.Round(Utility.Remap(0, 1, 0, 100, SaveSlot.CharacterAppearance.Makeup3Luminescent), 2);
+            set => SaveSlot.CharacterAppearance.Makeup3Luminescent = (float)(Utility.Remap(0, 100, 0, 1, value));
+        }
+
         public SDColor HairColor { get => SaveSlot.CharacterAppearance.HairColor; set => SaveSlot.CharacterAppearance.HairColor = value; }
         public SDColor FacialHairColor { get => SaveSlot.CharacterAppearance.FacialHairColor; set => SaveSlot.CharacterAppearance.FacialHairColor = value; }
         public SDColor LeftEyeColor { get => SaveSlot.CharacterAppearance.LeftEyeColor; set => SaveSlot.CharacterAppearance.LeftEyeColor = value; }

@@ -14,13 +14,13 @@ namespace MHWAppearanceEditor.Models
 
         #region Types
 
-        public byte? EyeWidth { get; set; }
-        public byte? EyeHeight { get; set; }
+        public sbyte? EyeWidth { get; set; }
+        public sbyte? EyeHeight { get; set; }
         public byte? SkinColorX { get; set; }
         public byte? SkinColorY { get; set; }
         public byte? Age { get; set; }
-        public byte? NoseHeight { get; set; }
-        public byte? MouthHeight { get; set; }
+        public sbyte? NoseHeight { get; set; }
+        public sbyte? MouthHeight { get; set; }
 
         public byte? BrowType { get; set; }
         public byte? FaceType { get; set; }
@@ -59,6 +59,7 @@ namespace MHWAppearanceEditor.Models
         public float? Makeup1SizeY { get; set; }
         public float? Makeup1Glossy { get; set; }
         public float? Makeup1Metallic { get; set; }
+        public float? Makeup1Luminescent { get; set; }
         public int? Makeup1Type { get; set; }
 
         public Color? Makeup2Color { get; set; }
@@ -68,6 +69,7 @@ namespace MHWAppearanceEditor.Models
         public float? Makeup2SizeY { get; set; }
         public float? Makeup2Glossy { get; set; }
         public float? Makeup2Metallic { get; set; }
+        public float? Makeup2Luminescent { get; set; }
         public int? Makeup2Type { get; set; }
 
         public Color? Makeup3Color { get; set; }
@@ -77,6 +79,7 @@ namespace MHWAppearanceEditor.Models
         public float? Makeup3SizeY { get; set; }
         public float? Makeup3Glossy { get; set; }
         public float? Makeup3Metallic { get; set; }
+        public float? Makeup3Luminescent { get; set; }
         public int? Makeup3Type { get; set; }
 
         #endregion

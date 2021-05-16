@@ -9,10 +9,10 @@
     <Grid Margin="20" ColumnDefinitions="Auto,20,*">
         <Grid Grid.Column="0" RowDefinitions="Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto" ColumnDefinitions="Auto,10,Auto">
             <TextBlock Grid.Column="0" Grid.Row="0" Text="Eye Width" VerticalAlignment="Center" TextAlignment="Right"/>
-            <NumericUpDown Grid.Column="2" Grid.Row="0" Minimum="0" Maximum="255" Value="{Binding EyeWidth}"/>
+            <NumericUpDown Grid.Column="2" Grid.Row="0" Minimum="0" Maximum="100" Value="{Binding EyeWidth}"/>
 
             <TextBlock Grid.Column="0" Grid.Row="2" Text="Eye Height" VerticalAlignment="Center" TextAlignment="Right"/>
-            <NumericUpDown Grid.Column="2" Grid.Row="2" Minimum="0" Maximum="255" Value="{Binding EyeHeight}"/>
+            <NumericUpDown Grid.Column="2" Grid.Row="2" Minimum="0" Maximum="100" Value="{Binding EyeHeight}"/>
 
             <TextBlock Grid.Column="0" Grid.Row="4" Text="Left Eye Color" VerticalAlignment="Center" TextAlignment="Right"/>
             <controls:ColorEdit Name="LeftEyeColorEdit" Grid.Column="2" Grid.Row="4"/>

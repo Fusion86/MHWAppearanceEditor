@@ -6,112 +6,137 @@
              mc:Ignorable="d" d:DesignWidth="850" d:DesignHeight="450"
              x:Class="MHWAppearanceEditor.Views.SaveSlotEditors.SaveSlotMakeupView">
 
-    <Grid Margin="20,20,20,0" RowDefinitions="Auto,10,Auto">
-        <Grid Grid.Row="0" Margin="0,0,20,0"
-              HorizontalAlignment="Center"
-              RowDefinitions="Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto"
-              ColumnDefinitions="Auto,10,Auto, 20 ,Auto,10,Auto, 20, Auto,10,Auto">
-            <Grid.Styles>
-                <Style Selector="TextBlock">
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                    <Setter Property="TextAlignment" Value="Right"/>
-                </Style>
+    <WrapPanel Margin="10">
+        <WrapPanel.Styles>
+            <Style Selector="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="TextAlignment" Value="Right"/>
+            </Style>
 
-                <Style Selector="NumericUpDown">
-                    <Setter Property="Minimum" Value="0"/>
-                    <Setter Property="Maximum" Value="1"/>
-                    <Setter Property="Width" Value="140"/>
-                    <Setter Property="ParsingNumberStyle" Value="Float"/>
-                    <Setter Property="Increment" Value="0.1"/>
-                    <Setter Property="FormatString" Value="0.0000"/>
-                </Style>
-            </Grid.Styles>
+            <Style Selector="NumericUpDown">
+                <Setter Property="Minimum" Value="0"/>
+                <Setter Property="Maximum" Value="100"/>
+                <Setter Property="ParsingNumberStyle" Value="Float"/>
+                <Setter Property="Increment" Value="0.1"/>
+                <Setter Property="FormatString" Value="0.00"/>
+            </Style>
+        </WrapPanel.Styles>
 
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="Makeup 1 Color"/>
-            <controls:ColorEdit Name="Makeup1ColorEdit" Grid.Column="2" Grid.Row="0" Width="140"/>
+        <DockPanel HorizontalAlignment="Center" Margin="10">
+            <TextBlock DockPanel.Dock="Top"
+                       Text="Type 1"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,20"/>
 
-            <TextBlock Grid.Column="0" Grid.Row="2" Text="Makeup 1 PosX"/>
-            <TextBox Grid.Column="2" Grid.Row="2" Text="{Binding Makeup1PosX}"/>
+            <Grid ColumnDefinitions="Auto,10,140"
+                  RowDefinitions="Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto">
 
-            <TextBlock Grid.Column="0" Grid.Row="4" Text="Makeup 1 PosY"/>
-            <TextBox Grid.Column="2" Grid.Row="4" Text="{Binding Makeup1PosY}"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="Type"/>
+                <ComboBox Name="Makeup1TypeSelect" Grid.Column="2" Grid.Row="0" Classes="CharaSelect" Items="{Binding MakeupTypes}" SelectedItem="{Binding Makeup1Type}"/>
 
-            <TextBlock Grid.Column="0" Grid.Row="6" Text="Makeup 1 SizeX"/>
-            <TextBox Grid.Column="2" Grid.Row="6" Text="{Binding Makeup1SizeX}"/>
+                <TextBlock Grid.Column="0" Grid.Row="2" Text="Color"/>
+                <controls:ColorEdit Name="Makeup1ColorEdit" Grid.Column="2" Grid.Row="2"/>
 
-            <TextBlock Grid.Column="0" Grid.Row="8" Text="Makeup 1 SizeY"/>
-            <TextBox Grid.Column="2" Grid.Row="8" Text="{Binding Makeup1SizeY}"/>
+                <TextBlock Grid.Column="0" Grid.Row="4" Text="Position Left/Right"/>
+                <NumericUpDown Grid.Column="2" Grid.Row="4" Value="{Binding Makeup1PosX}"/>
 
-            <TextBlock Grid.Column="0" Grid.Row="10" Text="Makeup 1 Glossy"/>
-            <TextBox Grid.Column="2" Grid.Row="10" Text="{Binding Makeup1Glossy}"/>
+                <TextBlock Grid.Column="0" Grid.Row="6" Text="Position Up/Down"/>
+                <NumericUpDown Grid.Column="2" Grid.Row="6" Value="{Binding Makeup1PosY}"/>
 
-            <TextBlock Grid.Column="0" Grid.Row="12" Text="Makeup 1 Metallic"/>
-            <TextBox Grid.Column="2" Grid.Row="12" Text="{Binding Makeup1Metallic}"/>
+                <TextBlock Grid.Column="0" Grid.Row="8" Text="Size Left/Right"/>
+                <NumericUpDown Grid.Column="2" Grid.Row="8" Value="{Binding Makeup1SizeX}"/>
 
-            <TextBlock Grid.Column="4" Grid.Row="0" Text="Makeup 2 Color"/>
-            <controls:ColorEdit Name="Makeup2ColorEdit" Grid.Column="6" Grid.Row="0" Width="140"/>
+                <TextBlock Grid.Column="0" Grid.Row="10" Text="Size Up/Down"/>
+                <NumericUpDown Grid.Column="2" Grid.Row="10" Value="{Binding Makeup1SizeY}"/>
 
-            <TextBlock Grid.Column="4" Grid.Row="2" Text="Makeup 2 PosX"/>
-            <TextBox Grid.Column="6" Grid.Row="2" Text="{Binding Makeup2PosX}"/>
+                <TextBlock Grid.Column="0" Grid.Row="12" Text="Glossy"/>
+                <NumericUpDown Grid.Column="2" Grid.Row="12" Value="{Binding Makeup1Glossy}"/>
 
-            <TextBlock Grid.Column="4" Grid.Row="4" Text="Makeup 2 PosY"/>
-            <TextBox Grid.Column="6" Grid.Row="4" Text="{Binding Makeup2PosY}"/>
+                <TextBlock Grid.Column="0" Grid.Row="14" Text="Metallic"/>
+                <NumericUpDown Grid.Column="2" Grid.Row="14" Value="{Binding Makeup1Metallic}"/>
 
-            <TextBlock Grid.Column="4" Grid.Row="6" Text="Makeup 2 SizeX"/>
-            <TextBox Grid.Column="6" Grid.Row="6" Text="{Binding Makeup2SizeX}"/>
+                <TextBlock Grid.Column="0" Grid.Row="16" Text="Luminescent"/>
+                <NumericUpDown Grid.Column="2" Grid.Row="16" Value="{Binding Makeup1Luminescent}"/>
+            </Grid>
+        </DockPanel>
 
-            <TextBlock Grid.Column="4" Grid.Row="8" Text="Makeup 2 SizeY"/>
-            <TextBox Grid.Column="6" Grid.Row="8" Text="{Binding Makeup2SizeY}"/>
+        <DockPanel HorizontalAlignment="Center" Margin="10">
+            <TextBlock DockPanel.Dock="Top"
+                       Text="Type 2"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,20"/>
 
-            <TextBlock Grid.Column="4" Grid.Row="10" Text="Makeup 2 Glossy"/>
-            <TextBox Grid.Column="6" Grid.Row="10" Text="{Binding Makeup2Glossy}"/>
+            <Grid ColumnDefinitions="Auto,10,140"
+                  RowDefinitions="Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto">
 
-            <TextBlock Grid.Column="4" Grid.Row="12" Text="Makeup 2 Metallic"/>
-            <TextBox Grid.Column="6" Grid.Row="12" Text="{Binding Makeup2Metallic}"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="Type"/>
+                <ComboBox Name="Makeup2TypeSelect" Grid.Column="2" Grid.Row="0" Classes="CharaSelect" Items="{Binding MakeupTypes}" SelectedItem="{Binding Makeup2Type}"/>
 
-            <TextBlock Grid.Column="8" Grid.Row="0" Text="Makeup 3 Color"/>
-            <controls:ColorEdit Name="Makeup3ColorEdit" Grid.Column="10" Grid.Row="0" Width="140"/>
+                <TextBlock Grid.Column="0" Grid.Row="2" Text="Color"/>
+                <controls:ColorEdit Name="Makeup2ColorEdit" Grid.Column="2" Grid.Row="2"/>
 
-            <TextBlock Grid.Column="8" Grid.Row="2" Text="Makeup 3 PosX"/>
-            <TextBox Grid.Column="10" Grid.Row="2" Text="{Binding Makeup3PosX}"/>
+                <TextBlock Grid.Column="0" Grid.Row="4" Text="Position Left/Right"/>
+                <NumericUpDown Grid.Column="2" Grid.Row="4" Value="{Binding Makeup2PosX}"/>
 
-            <TextBlock Grid.Column="8" Grid.Row="4" Text="Makeup 3 PosY"/>
-            <TextBox Grid.Column="10" Grid.Row="4" Text="{Binding Makeup3PosY}"/>
+                <TextBlock Grid.Column="0" Grid.Row="6" Text="Position Up/Down"/>
+                <NumericUpDown Grid.Column="2" Grid.Row="6" Value="{Binding Makeup2PosY}"/>
 
-            <TextBlock Grid.Column="8" Grid.Row="6" Text="Makeup 3 SizeX"/>
-            <TextBox Grid.Column="10" Grid.Row="6" Text="{Binding Makeup3SizeX}"/>
+                <TextBlock Grid.Column="0" Grid.Row="8" Text="Size Left/Right"/>
+                <NumericUpDown Grid.Column="2" Grid.Row="8" Value="{Binding Makeup2SizeX}"/>
 
-            <TextBlock Grid.Column="8" Grid.Row="8" Text="Makeup 3 SizeY"/>
-            <TextBox Grid.Column="10" Grid.Row="8" Text="{Binding Makeup3SizeY}"/>
+                <TextBlock Grid.Column="0" Grid.Row="10" Text="Size Up/Down"/>
+                <NumericUpDown Grid.Column="2" Grid.Row="10" Value="{Binding Makeup2SizeY}"/>
 
-            <TextBlock Grid.Column="8" Grid.Row="10" Text="Makeup 3 Glossy"/>
-            <TextBox Grid.Column="10" Grid.Row="10" Text="{Binding Makeup3Glossy}"/>
+                <TextBlock Grid.Column="0" Grid.Row="12" Text="Glossy"/>
+                <NumericUpDown Grid.Column="2" Grid.Row="12" Value="{Binding Makeup2Glossy}"/>
 
-            <TextBlock Grid.Column="8" Grid.Row="12" Text="Makeup 3 Metallic"/>
-            <TextBox Grid.Column="10" Grid.Row="12" Text="{Binding Makeup3Metallic}"/>
-        </Grid>
+                <TextBlock Grid.Column="0" Grid.Row="14" Text="Metallic"/>
+                <NumericUpDown Grid.Column="2" Grid.Row="14" Value="{Binding Makeup2Metallic}"/>
 
-        <WrapPanel Grid.Row="2" HorizontalAlignment="Center">
-            <WrapPanel.Styles>
-                <Style Selector="StackPanel">
-                    <Setter Property="Margin" Value="0,0,10,10"/>
-                </Style>
-            </WrapPanel.Styles>
+                <TextBlock Grid.Column="0" Grid.Row="16" Text="Luminescent"/>
+                <NumericUpDown Grid.Column="2" Grid.Row="16" Value="{Binding Makeup2Luminescent}"/>
+            </Grid>
+        </DockPanel>
 
-            <StackPanel>
-                <TextBlock Text="Makeup 1" Margin="0,0,0,5" HorizontalAlignment="Center"/>
-                <ComboBox Name="Makeup1TypeSelect" Classes="CharaSelect" Items="{Binding MakeupTypes}" SelectedItem="{Binding Makeup1Type}"/>
-            </StackPanel>
+        <DockPanel HorizontalAlignment="Center" Margin="10">
+            <TextBlock DockPanel.Dock="Top"
+                       Text="Type 3 (Requires Iceborne DLC)"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,20"/>
 
-            <StackPanel>
-                <TextBlock Text="Makeup 2" Margin="0,0,0,5" HorizontalAlignment="Center"/>
-                <ComboBox Name="Makeup2TypeSelect" Classes="CharaSelect" Items="{Binding MakeupTypes}" SelectedItem="{Binding Makeup2Type}"/>
-            </StackPanel>
+            <Grid ColumnDefinitions="Auto,10,140"
+                  RowDefinitions="Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto">
 
-            <StackPanel>
-                <TextBlock Text="Makeup 3" Margin="0,0,0,5" HorizontalAlignment="Center"/>
-                <ComboBox Name="Makeup3TypeSelect" Classes="CharaSelect" Items="{Binding MakeupTypes}" SelectedItem="{Binding Makeup3Type}"/>
-            </StackPanel>
-        </WrapPanel>
-    </Grid>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="Type"/>
+                <ComboBox Name="Makeup3TypeSelect" Grid.Column="2" Grid.Row="0" Classes="CharaSelect" Items="{Binding MakeupTypes}" SelectedItem="{Binding Makeup3Type}"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="2" Text="Color"/>
+                <controls:ColorEdit Name="Makeup3ColorEdit" Grid.Column="2" Grid.Row="2"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="4" Text="Position Left/Right"/>
+                <NumericUpDown Grid.Column="2" Grid.Row="4" Value="{Binding Makeup3PosX}"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="6" Text="Position Up/Down"/>
+                <NumericUpDown Grid.Column="2" Grid.Row="6" Value="{Binding Makeup3PosY}"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="8" Text="Size Left/Right"/>
+                <NumericUpDown Grid.Column="2" Grid.Row="8" Value="{Binding Makeup3SizeX}"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="10" Text="Size Up/Down"/>
+                <NumericUpDown Grid.Column="2" Grid.Row="10" Value="{Binding Makeup3SizeY}"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="12" Text="Glossy"/>
+                <NumericUpDown Grid.Column="2" Grid.Row="12" Value="{Binding Makeup3Glossy}"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="14" Text="Metallic"/>
+                <NumericUpDown Grid.Column="2" Grid.Row="14" Value="{Binding Makeup3Metallic}"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="16" Text="Luminescent"/>
+                <NumericUpDown Grid.Column="2" Grid.Row="16" Value="{Binding Makeup3Luminescent}"/>
+            </Grid>
+        </DockPanel>
+    </WrapPanel>
 </UserControl>

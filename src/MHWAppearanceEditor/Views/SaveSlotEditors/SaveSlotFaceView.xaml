@@ -8,10 +8,10 @@
     <Grid Margin="20" ColumnDefinitions="Auto,20,*">
         <Grid Grid.Column="0" RowDefinitions="Auto,5,Auto" ColumnDefinitions="Auto,10,Auto">
             <TextBlock Grid.Column="0" Grid.Row="0" Text="Nose Height" VerticalAlignment="Center" TextAlignment="Right"/>
-            <NumericUpDown Grid.Column="2" Grid.Row="0" Minimum="0" Maximum="255" Value="{Binding NoseHeight}" Width="100"/>
+            <NumericUpDown Grid.Column="2" Grid.Row="0" Minimum="0" Maximum="100" Value="{Binding NoseHeight}" Width="100"/>
 
             <TextBlock Grid.Column="0" Grid.Row="2" Text="Mouth Height" VerticalAlignment="Center" TextAlignment="Right"/>
-            <NumericUpDown Grid.Column="2" Grid.Row="2" Minimum="0" Maximum="255" Value="{Binding MouthHeight}" Width="100"/>
+            <NumericUpDown Grid.Column="2" Grid.Row="2" Minimum="0" Maximum="100" Value="{Binding MouthHeight}" Width="100"/>
         </Grid>
 
         <WrapPanel Grid.Column="2">

@@ -16,27 +16,29 @@
                 </Style>
             </StackPanel.Styles>
 
+            <!-- Shitty spacing method used, sorry for that. -->
+
             <TextBlock Text="Introduction" FontSize="18"/>
-            <TextBlock Text=" "/>
+            <TextBlock Text=" " FontSize="6"/>
             <TextBlock Text="This tool allows you to edit your hunter and palico.&#10;You can also import/export character appearances as JSON files or NPC Character Presets (.cmp)"/>
-            <TextBlock Text=" "/>
+            <TextBlock Text=" " FontSize="6"/>
             <TextBlock Text="It is advised to make a copy (backup) of your SaveData before changing anything with this tool. When the tool finishes loading your SaveData you can select your hunter from the list to start editing."/>
-            <TextBlock Text=" "/>
+            <TextBlock Text=" " FontSize="6"/>
             <TextBlock Text="You can't edit hunters named PLAYER 1 since those are unused slots (well, you could edit them, but the game won't let you select that saveslot)."/>
             <TextBlock Text=" "/>
             <TextBlock Text="Basic usage" FontSize="18"/>
-            <TextBlock Text=" "/>
+            <TextBlock Text=" " FontSize="6"/>
             <TextBlock Text="1. Make sure your game is closed"/>
             <TextBlock Text="2. Open MHWAppearanceEditor and select your steam account from the list (or manually open a SaveData file)"/>
             <TextBlock Text="3. Change things"/>
             <TextBlock Text="4. Click the save icon"/>
             <TextBlock Text=" "/>
             <TextBlock Text="F.A.Q" FontSize="18"/>
-            <TextBlock Text=" "/>
+            <TextBlock Text=" " FontSize="6"/>
             <TextBlock Text="Will I get banned for using this tool?" FontSize="16"/>
-            <TextBlock Text=" "/>
+            <TextBlock Text=" " FontSize="6"/>
             <TextBlock Text="If they really wanted to then they could probably find out that you changed your character outside of the game, but at the moment there is no indication that they are."/>
-            <TextBlock Text=" "/>
+            <TextBlock Text=" " FontSize="6"/>
             <TextBlock Text="Furthermore:"/>
             <TextBlock Text="* Appearance editing has already been a thing for a while (using Cheat Engine)"/>
             <TextBlock Text="* Custom models/items also have been a thing for a while"/>
@@ -44,11 +46,11 @@
             <TextBlock Text="* There haven't been any bans for the actions mentioned above, in fact there hasn't been a single ban in MHW yet as far as I know (feel free to correct me)."/>
             <TextBlock Text=" "/>
             <TextBlock Text="Can I use this to unlock DLC cosmetics?" FontSize="16"/>
-            <TextBlock Text=" "/>
+            <TextBlock Text=" " FontSize="6"/>
             <TextBlock Text="You can't use this tool to unlock cosmetics (hair, facepaint, etc) that you don't own.&#10;While my tool doesn't check for that, the game itself validates your character on startup.&#10;If you were to use a DLC cosmetic (e.g The Admiral) the game would simply reset your hair to de default value (if you don't own the DLC)."/>
             <TextBlock Text=" "/>
-            <TextBlock Text="I get a &quot;Failed to read save data&quot; when booting the game" FontSize="18"/>
-            <TextBlock Text=" "/>
+            <TextBlock Text="I get a &quot;Failed to read save data&quot; when booting the game" FontSize="16"/>
+            <TextBlock Text=" " FontSize="6"/>
             <TextBlock Text="Your SaveData might be linked to a SteamID that is different from your current steam account&apos;s SteamID. Change this under &quot;SaveData Info&quot; after opening a SaveData."/>
         </StackPanel>
     </ScrollViewer>
