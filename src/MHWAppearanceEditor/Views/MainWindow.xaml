@@ -25,6 +25,13 @@
         <vc:IsNotNullToTrueValueConverter x:Key="IsNotNullToTrueConverter"/>
     </Window.Resources>
 
+    <Window.Styles>
+        <!-- This is required since either Avalonia 0.10 or acrylic-design branch. Idk why. -->
+        <Style Selector="Window:maximized">
+            <Setter Property="Padding" Value="8"/>
+        </Style>
+    </Window.Styles>
+
     <Panel>
         <!-- Acrylic 'base' background -->
         <ExperimentalAcrylicBorder IsHitTestVisible="False">
