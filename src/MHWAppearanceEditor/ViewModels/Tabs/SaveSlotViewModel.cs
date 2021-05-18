@@ -33,39 +33,39 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public int ResearchPoints { get => SaveSlot.ResearchPoints; set => SaveSlot.ResearchPoints = value; }
         public TimeSpan PlayTime { get => TimeSpan.FromSeconds(SaveSlot.PlayTime); }
 
-        public int NoseHeight
+        public double NoseHeight
         {
-            get => (int)Math.Round(Utility.Remap(sbyte.MinValue, sbyte.MaxValue, 0, 100, SaveSlot.CharacterAppearance.NoseHeight));
+            get => Math.Round(Utility.Remap(sbyte.MinValue, sbyte.MaxValue, 0, 100, SaveSlot.CharacterAppearance.NoseHeight), 2);
             set => SaveSlot.CharacterAppearance.NoseHeight = (sbyte)(Utility.Remap(0, 100, sbyte.MinValue, sbyte.MaxValue, value));
         }
 
-        public int MouthHeight
+        public double MouthHeight
         {
-            get => (int)Math.Round(Utility.Remap(sbyte.MinValue, sbyte.MaxValue, 0, 100, SaveSlot.CharacterAppearance.MouthHeight));
+            get => Math.Round(Utility.Remap(sbyte.MinValue, sbyte.MaxValue, 0, 100, SaveSlot.CharacterAppearance.MouthHeight), 2);
             set => SaveSlot.CharacterAppearance.MouthHeight = (sbyte)(Utility.Remap(0, 100, sbyte.MinValue, sbyte.MaxValue, value));
         }
 
-        public int EyeWidth
+        public double EyeWidth
         {
-            get => (int)Math.Round(Utility.Remap(sbyte.MinValue, sbyte.MaxValue, 0, 100, SaveSlot.CharacterAppearance.EyeWidth));
+            get => Math.Round(Utility.Remap(sbyte.MinValue, sbyte.MaxValue, 0, 100, SaveSlot.CharacterAppearance.EyeWidth), 2);
             set => SaveSlot.CharacterAppearance.EyeWidth = (sbyte)(Utility.Remap(0, 100, sbyte.MinValue, sbyte.MaxValue, value));
         }
 
-        public int EyeHeight
+        public double EyeHeight
         {
-            get => (int)Math.Round(Utility.Remap(sbyte.MinValue, sbyte.MaxValue, 0, 100, SaveSlot.CharacterAppearance.EyeHeight));
+            get => Math.Round(Utility.Remap(sbyte.MinValue, sbyte.MaxValue, 0, 100, SaveSlot.CharacterAppearance.EyeHeight), 2);
             set => SaveSlot.CharacterAppearance.EyeHeight = (sbyte)(Utility.Remap(0, 100, sbyte.MinValue, sbyte.MaxValue, value));
         }
 
-        public int Age
+        public double Age
         {
-            get => (int)Math.Round(Utility.Remap(byte.MinValue, byte.MaxValue, 0, 100, SaveSlot.CharacterAppearance.Age));
+            get => Math.Round(Utility.Remap(byte.MinValue, byte.MaxValue, 0, 100, SaveSlot.CharacterAppearance.Age), 2);
             set => SaveSlot.CharacterAppearance.Age = (byte)(Utility.Remap(0, 100, byte.MinValue, byte.MaxValue, value));
         }
 
-        public int Wrinkles
+        public double Wrinkles
         {
-            get => (int)Math.Round(Utility.Remap(byte.MinValue, byte.MaxValue, 0, 100, SaveSlot.CharacterAppearance.Wrinkles));
+            get => Math.Round(Utility.Remap(byte.MinValue, byte.MaxValue, 0, 100, SaveSlot.CharacterAppearance.Wrinkles), 2);
             set => SaveSlot.CharacterAppearance.Wrinkles = (byte)(Utility.Remap(0, 100, byte.MinValue, byte.MaxValue, value));
         }
 

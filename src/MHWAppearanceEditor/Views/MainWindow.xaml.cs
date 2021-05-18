@@ -39,7 +39,7 @@ namespace MHWAppearanceEditor.Views
             {
                 // Close popup when the user clicks outside it.
                 // This used to be a built-in thing in Avalonia, but with 0.10 they borked/changed how the popup system works.
-                if (ViewModel.PopupIsOpen && !PopupBorder.IsPointerOver)
+                if (ViewModel.PopupIsOpen && !PopupBorder.IsPointerOver && ViewModel.PopupCanClose)
                 {
                     ViewModel.PopupIsOpen = false;
                     e.Handled = true;

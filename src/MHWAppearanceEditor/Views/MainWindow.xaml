@@ -11,8 +11,7 @@
         x:Class="MHWAppearanceEditor.Views.MainWindow"
         Icon="/Assets/icon.ico"
         Title="MHWAppearanceEditor"
-        Width="900" Height="620"
-        MinWidth="850" MinHeight="500">
+        Width="1000" Height="700">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>

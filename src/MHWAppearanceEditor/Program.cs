@@ -30,7 +30,7 @@ namespace MHWAppearanceEditor
         {
             var config = AppBuilder.Configure<App>()
                 .UsePlatformDetect()
-                //.LogToDebug()
+                .LogToTrace()
                 .UseReactiveUI();
 
             // Use Direct2D where possible, because it supports japanese, chinese, korean, etc.. characters
