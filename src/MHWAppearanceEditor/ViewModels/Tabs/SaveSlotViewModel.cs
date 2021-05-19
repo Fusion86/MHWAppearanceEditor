@@ -216,8 +216,19 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public SDColor PalicoLeftEyeColor { get => SaveSlot.PalicoAppearance.LeftEyeColor; set => SaveSlot.PalicoAppearance.LeftEyeColor = value; }
         public SDColor PalicoRightEyeColor { get => SaveSlot.PalicoAppearance.RightEyeColor; set => SaveSlot.PalicoAppearance.RightEyeColor = value; }
         public SDColor PalicoClothingColor { get => SaveSlot.PalicoAppearance.ClothingColor; set => SaveSlot.PalicoAppearance.ClothingColor = value; }
-        public float PalicoFurLength { get => SaveSlot.PalicoAppearance.FurLength; set => SaveSlot.PalicoAppearance.FurLength = value; }
-        public float PalicoFurThickness { get => SaveSlot.PalicoAppearance.FurThickness; set => SaveSlot.PalicoAppearance.FurThickness = value; }
+
+        public double PalicoFurLength
+        {
+            get => Math.Round(Utility.Remap(0.1, 0.7, 0, 100, SaveSlot.PalicoAppearance.FurLength), 2);
+            set => SaveSlot.PalicoAppearance.FurLength = (float)(Utility.Remap(0, 100, 0.1, 0.7, value));
+        }
+
+        public double PalicoFurThickness
+        {
+            get => Math.Round(Utility.Remap(7, 3, 0, 100, SaveSlot.PalicoAppearance.FurThickness), 2);
+            set => SaveSlot.PalicoAppearance.FurThickness = (float)(Utility.Remap(0, 100, 7, 3, value));
+        }
+
         public PalicoVoiceType PalicoVoiceType { get => SaveSlot.PalicoAppearance.VoiceType; set => SaveSlot.PalicoAppearance.VoiceType = value; }
         public PalicoVoicePitch PalicoVoicePitch { get => SaveSlot.PalicoAppearance.VoicePitch; set => SaveSlot.PalicoAppearance.VoicePitch = value; }
 
@@ -342,7 +353,7 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public List<Gender> Genders { get; } = new List<Gender>() { Gender.Male, Gender.Female };
         public List<EyelashLength> EyelashLengths { get; } = new List<EyelashLength>() { EyelashLength.Short, EyelashLength.Average, EyelashLength.Long };
         public List<PalicoVoiceType> PalicoVoiceTypes { get; } = new List<PalicoVoiceType>() { PalicoVoiceType.Type1, PalicoVoiceType.Type2, PalicoVoiceType.Type3 };
-        public List<PalicoVoicePitch> PalicoVoicePitches { get; } = new List<PalicoVoicePitch>() { PalicoVoicePitch.MediumPitch, PalicoVoicePitch.LowPitch, PalicoVoicePitch.HighPitch };
+        public List<PalicoVoicePitch> PalicoVoicePitches { get; } = new List<PalicoVoicePitch>() { PalicoVoicePitch.Medium, PalicoVoicePitch.Low, PalicoVoicePitch.High };
 
         [Reactive] public List<CharacterAssetViewModel> BrowTypes { get; private set; }
         [Reactive] public List<CharacterAssetViewModel> FaceTypes { get; private set; }
