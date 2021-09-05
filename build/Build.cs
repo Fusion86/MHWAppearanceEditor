@@ -63,14 +63,15 @@ class Build : NukeBuild
 
     private static void ExecPython(string path) => Exec(PythonPath.Value, path);
 
-    private static void Exec(string program, string args)
+    private static void Exec(string program, string args, string workingDirectory = "")
     {
         Logger.Info($"Executing '{program}' with args '{args}'");
 
         var process = Process.Start(new ProcessStartInfo
         {
             FileName = program,
-            Arguments = args
+            Arguments = args,
+            WorkingDirectory = workingDirectory
         });
 
         process.WaitForExit();
@@ -192,6 +193,6 @@ class Build : NukeBuild
         .After(Compile, CopyAssets)
         .Executes(() =>
         {
-            Exec(@"C:\Program Files (x86)\Inno Setup 6\ISCC.exe", $"{InnoSetupConfig}");
+            Exec(@"C:\Program Files (x86)\Inno Setup 6\ISCC.exe", $"{InnoSetupConfig}", "scripts");
         });
 }
