@@ -65,6 +65,8 @@ class Build : NukeBuild
 
     private static void Exec(string program, string args)
     {
+        Logger.Info($"Executing '{program}' with args '{args}'");
+
         var process = Process.Start(new ProcessStartInfo
         {
             FileName = program,
