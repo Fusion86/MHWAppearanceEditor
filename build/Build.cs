@@ -27,9 +27,6 @@ class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    [Parameter("Which .NET framework to use, can be either 'netcoreapp3.0' or 'net461'. Release always uses 'net461'.")]
-    string Framework = "netcoreapp3.0";
-
     [Parameter("Which runtime to use. Release always uses 'win7-x64'.")]
     string Runtime = "any";
 
@@ -105,7 +102,6 @@ class Build : NukeBuild
                 Configuration = Configuration.Release;
             }
 
-            Framework = "net461";
             Runtime = "win7-x64";
 
             DotNetBuild(s => s
@@ -117,7 +113,7 @@ class Build : NukeBuild
                 //.SetInformationalVersion(GitVersion.InformationalVersion)
                 .EnableNoRestore()
                 .SetOutputDirectory(OutputDirectory)
-                .SetFramework(Framework)
+                .SetFramework("net461")
                 .SetRuntime(Runtime));
 
             // Move DLLs to lib folder and remove leftover files
