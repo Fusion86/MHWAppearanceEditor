@@ -16,7 +16,7 @@ UninstallDisplayIcon={app}\{#AppName}.exe
 Compression=lzma2
 SolidCompression=yes
 OutputDir=../dist
-OutputBaseFilename=setup
+OutputBaseFilename={#AppName}-{#AppVersion}
 PrivilegesRequired=lowest
 
 [Tasks]
