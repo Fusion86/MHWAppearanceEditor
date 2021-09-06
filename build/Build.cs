@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using Microsoft.CodeAnalysis.CSharp;
 using Nuke.Common;
 using Nuke.Common.Execution;
 using Nuke.Common.Tools.DotNet;
