@@ -36,12 +36,12 @@ namespace MHWAppearanceEditor.Helpers
 
         public static double Lerp(double min, double max, double value)
         {
-            return min + value * (max - min);
+            return (1.0f - value) * min + max * value;
         }
 
-        public static double InvLerp(double a, double b, double v)
+        public static double InvLerp(double min, double max, double value)
         {
-            return (v - a) / (b - a);
+            return (value - min) / (max - min);
         }
 
         // I think this is called a linear conversion, though I'm not sure.

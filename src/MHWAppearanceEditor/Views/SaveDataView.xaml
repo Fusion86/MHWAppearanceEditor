@@ -49,14 +49,23 @@
                         VerticalAlignment="{TemplateBinding VerticalAlignment}">
                         <DockPanel>
                             <Grid DockPanel.Dock="Top" ColumnDefinitions="42,42,*,42,42">
-                                <Button Grid.Column="0" Height="42" Padding="9" Classes="Lookless" Command="{Binding OpenNewCommand}"
+                                <Button Grid.Column="0"
+                                        Height="42"
+                                        Padding="9"
+                                        Classes="Lookless"
+                                        Command="{Binding OpenNewCommand}"
+                                        HotKey="Ctrl+O"
                                         ToolTip.Tip="Open new SaveData file (closes currently opened file without saving)">
-                                    <!-- Adding a HotKey to this button crashes the application?? -->
                                     <DrawingPresenter Drawing="{DynamicResource IconNewFolder}" Classes="Lookless"/>
                                 </Button>
 
-                                <Button Grid.Column="1" Height="42" Padding="11" Classes="Lookless" Command="{Binding SaveCommand}"
-                                        ToolTip.Tip="Save changes (opens 'Save as' dialog)" HotKey="Ctrl+S">
+                                <Button Grid.Column="1"
+                                        Height="42"
+                                        Padding="11"
+                                        Classes="Lookless"
+                                        Command="{Binding SaveCommand}"
+                                         HotKey="Ctrl+S"
+                                        ToolTip.Tip="Save changes (opens 'Save as' dialog)">
                                     <DrawingPresenter Drawing="{DynamicResource IconSave}"/>
                                 </Button>
 
