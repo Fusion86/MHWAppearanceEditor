@@ -30,6 +30,8 @@
 
             <Button Content="Import Character Appearance (.json)" Command="{Binding ImportFromJsonCommand}" ToolTip.Tip="{StaticResource JsonTooltip}"/>
             <Button Content="Export Character Appearance (.json)" Command="{Binding ExportToJsonCommand}" ToolTip.Tip="{StaticResource JsonTooltip}" Margin="0,0,0,5"/>
+
+            <Button Content="Import Old Character Appearance (.json)" Command="{Binding ImportFromJsonCompatCommand}" ToolTip.Tip="{StaticResource JsonTooltip}" Margin="0,0,0,5"/>
         </StackPanel>
 
         <TextBlock Grid.Row="0" Grid.Column="2" Text="Import from SaveData/SaveSlot" HorizontalAlignment="Center"/>

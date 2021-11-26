@@ -5,7 +5,6 @@ using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using MHWAppearanceEditor.ViewModels;
 using ReactiveUI;
-using System;
 using System.Reactive.Disposables;
 
 namespace MHWAppearanceEditor.Views

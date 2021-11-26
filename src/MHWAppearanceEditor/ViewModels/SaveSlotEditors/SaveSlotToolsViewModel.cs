@@ -32,6 +32,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
         public ReactiveCommand<SaveSlot, SerializableAppearance> ImportFromSaveSlotCommand { get; }
         public ReactiveCommand<Unit, SerializableAppearance?> ImportFromCmpCommand { get; }
         public ReactiveCommand<Unit, SerializableAppearance?> ImportFromJsonCommand { get; }
+        public ReactiveCommand<Unit, SerializableAppearance?> ImportFromJsonCompatCommand { get; }
         public ReactiveCommand<Unit, Unit> ExportToCmpCommand { get; }
         public ReactiveCommand<Unit, Unit> ExportToJsonCommand { get; }
 
@@ -41,16 +42,18 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
         {
             this.saveSlotContext = saveSlotContext;
 
-            SelectSaveDataCommand = ReactiveCommand.CreateFromTask<Unit, Unit>(SelectSaveData);
+            SelectSaveDataCommand = ReactiveCommand.CreateFromTask(SelectSaveData);
             ImportFromSaveSlotCommand = ReactiveCommand.Create<SaveSlot, SerializableAppearance>(ImportFromSaveSlot);
-            ImportFromCmpCommand = ReactiveCommand.CreateFromTask<Unit, SerializableAppearance?>(ImportFromCmp);
-            ImportFromJsonCommand = ReactiveCommand.CreateFromTask<Unit, SerializableAppearance?>(ImportFromJson);
-            ExportToCmpCommand = ReactiveCommand.CreateFromTask<Unit, Unit>(ExportToCmp);
-            ExportToJsonCommand = ReactiveCommand.CreateFromTask<Unit, Unit>(ExportToJson);
+            ImportFromCmpCommand = ReactiveCommand.CreateFromTask(ImportFromCmp);
+            ImportFromJsonCommand = ReactiveCommand.CreateFromTask(ImportFromJson);
+            ImportFromJsonCompatCommand = ReactiveCommand.CreateFromTask(ImportFromJsonCompat);
+            ExportToCmpCommand = ReactiveCommand.CreateFromTask(ExportToCmp);
+            ExportToJsonCommand = ReactiveCommand.CreateFromTask(ExportToJson);
 
             ImportFromSaveSlotCommand.Subscribe(ImportSerializableAppearance);
             ImportFromCmpCommand.Subscribe(ImportSerializableAppearance);
             ImportFromJsonCommand.Subscribe(ImportSerializableAppearance);
+            ImportFromJsonCompatCommand.Subscribe(ImportSerializableAppearance);
 
             this.WhenAnyValue(x => x.SourceSaveData)
                 .Where(x => x != null)
@@ -75,7 +78,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
             CtxLog.Information("Applied appearance changes");
         }
 
-        private async Task<Unit> SelectSaveData(Unit _)
+        private async Task SelectSaveData()
         {
             OpenFileDialog ofd = new OpenFileDialog { AllowMultiple = false };
 
@@ -96,8 +99,6 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
                     CtxLog.Error(ex, ex.Message);
                 }
             }
-
-            return Unit.Default;
         }
 
         private SerializableAppearance ImportFromSaveSlot(SaveSlot saveSlot)
@@ -105,7 +106,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
             return new SerializableAppearance(saveSlot);
         }
 
-        private async Task<SerializableAppearance?> ImportFromCmp(Unit _)
+        private async Task<SerializableAppearance?> ImportFromCmp()
         {
             OpenFileDialog ofd = new OpenFileDialog();
             var items = await ofd.ShowAsync();
@@ -127,7 +128,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
             return null;
         }
 
-        private async Task<SerializableAppearance?> ImportFromJson(Unit _)
+        private async Task<SerializableAppearance?> ImportFromJson()
         {
             // Mostly copy-pasted from MHWAppearanceEditor legacy
             OpenFileDialog ofd = new OpenFileDialog();
@@ -181,7 +182,37 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
             return null;
         }
 
-        private async Task<Unit> ExportToCmp(Unit _)
+
+        private async Task<SerializableAppearance?> ImportFromJsonCompat()
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filters.Add(new FileDialogFilter { Name = "Shareable Character Appearance", Extensions = new List<string> { "json" } });
+            var items = await ofd.ShowAsync();
+
+            if (items?.Length > 0)
+            {
+                string jsonFile = items[0];
+                try
+                {
+                    string str = File.ReadAllText(jsonFile);
+                    var obj = JsonConvert.DeserializeObject<SerializableAppearanceCompat>(str);
+                    if (obj != null)
+                    {
+                        CtxLog.Information($"Loaded old Character JSON from {jsonFile}, applying compatibility patches...");
+                        return new SerializableAppearance(obj);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MainWindowViewModel.Instance.ShowPopup(ex.Message);
+                    CtxLog.Error(ex, ex.Message);
+                }
+            }
+
+            return null;
+        }
+
+        private async Task ExportToCmp()
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.InitialFileName = Utility.GetSafeFilename(saveSlotContext.HunterName);
@@ -206,11 +237,9 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
                     CtxLog.Error(ex, ex.Message);
                 }
             }
-
-            return Unit.Default;
         }
 
-        private async Task<Unit> ExportToJson(Unit _)
+        private async Task ExportToJson()
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.InitialFileName = Utility.GetSafeFilename(saveSlotContext.HunterName);
@@ -236,8 +265,6 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
                     CtxLog.Error(ex, ex.Message);
                 }
             }
-
-            return Unit.Default;
         }
     }
 }

@@ -42,7 +42,7 @@ namespace MHWAppearanceEditor.Services
                     else
                     {
                         errorCount++;
-                        throw new Exception(res.ReasonPhrase);
+                        throw new SteamWebApiException(res.ReasonPhrase);
                     }
                 }
                 catch (Exception ex)
@@ -52,6 +52,21 @@ namespace MHWAppearanceEditor.Services
             }
 
             return "(steam api error)";
+        }
+    }
+
+    internal class SteamWebApiException : Exception
+    {
+        public SteamWebApiException()
+        {
+        }
+
+        public SteamWebApiException(string message) : base(message)
+        {
+        }
+
+        public SteamWebApiException(string message, Exception innerException) : base(message, innerException)
+        {
         }
     }
 }

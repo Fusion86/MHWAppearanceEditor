@@ -1,7 +1,6 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Threading;
 using DynamicData;
-using DynamicData.Binding;
 using MHWAppearanceEditor.Extensions;
 using MHWAppearanceEditor.Helpers;
 using MHWAppearanceEditor.Models;

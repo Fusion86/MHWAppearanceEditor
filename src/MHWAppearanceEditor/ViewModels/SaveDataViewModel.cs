@@ -1,10 +1,8 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Media;
 using Avalonia.Threading;
 using Cirilla.Core.Models;
 using DynamicData;
-using DynamicData.Binding;
 using MHWAppearanceEditor.Extensions;
 using MHWAppearanceEditor.Helpers;
 using MHWAppearanceEditor.Models;

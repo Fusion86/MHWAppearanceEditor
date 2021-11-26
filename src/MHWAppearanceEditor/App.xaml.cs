@@ -2,7 +2,6 @@
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using MHWAppearanceEditor.Models;
 using MHWAppearanceEditor.Services;
 using MHWAppearanceEditor.ValueConverters;
 using MHWAppearanceEditor.ViewModels;

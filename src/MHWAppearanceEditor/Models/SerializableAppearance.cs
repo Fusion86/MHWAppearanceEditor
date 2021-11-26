@@ -1,6 +1,7 @@
 ﻿using Cirilla.Core.Enums;
 using Cirilla.Core.Interfaces;
 using Cirilla.Core.Models;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,6 +11,8 @@ namespace MHWAppearanceEditor.Models
 {
     public class SerializableAppearance
     {
+        private static ILogger log = Log.ForContext<SerializableAppearance>();
+
         public Gender? Gender { get; set; }
 
         #region Types
@@ -104,6 +107,47 @@ namespace MHWAppearanceEditor.Models
                 if (saveSlotProp != null)
                 {
                     prop.SetValue(this, saveSlotProp.GetValue(objWithAppearanceProperties));
+                }
+            }
+        }
+
+        public SerializableAppearance(SerializableAppearanceCompat compat)
+        {
+            Type destType = GetType();
+            Type sourceType = typeof(SerializableAppearanceCompat);
+
+            // Foreach property in this class
+            foreach (var prop in destType.GetProperties())
+            {
+                // Check if the saveSlot also has this property
+                var sourceProp = sourceType.GetProperty(prop.Name);
+
+                // And if it has the same property then set __this__ classes property to the same value
+                if (sourceProp != null)
+                {
+                    var value = sourceProp.GetValue(compat);
+
+                    if (prop.PropertyType == typeof(sbyte?) && sourceProp.PropertyType == typeof(byte?))
+                    {
+                        byte b = (byte)value;
+                        sbyte? newValue;
+
+                        if (b > sbyte.MaxValue)
+                        {
+                            newValue = (sbyte)(b - 256);
+                        }
+                        else
+                        {
+                            newValue = (sbyte)b;
+                        }
+
+                        log.Information($"CompatLoader changed '{prop.Name}' from '{value}' to '{newValue}'.");
+                        prop.SetValue(this, newValue);
+                    }
+                    else
+                    {
+                        prop.SetValue(this, value);
+                    }
                 }
             }
         }
