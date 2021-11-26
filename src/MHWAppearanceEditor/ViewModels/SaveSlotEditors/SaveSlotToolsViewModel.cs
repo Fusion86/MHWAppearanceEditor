@@ -173,7 +173,11 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
                 }
                 catch (Exception ex)
                 {
-                    MainWindowViewModel.Instance.ShowPopup(ex.Message);
+                    MainWindowViewModel.Instance.ShowPopup(
+                        $"Couldn't import character appearance from '{jsonFile}'"
+                        + "\nYou could try using the \"Import Old Character Appearance (.json)\" feature."
+                        + " This will try to load appearance data created in an older version of this tool.\n\nFull error message:\n"
+                        + ex.Message);
                     CtxLog.Error(ex, ex.Message);
                     return null;
                 }

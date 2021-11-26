@@ -13,6 +13,9 @@ namespace MHWAppearanceEditor.Models
     {
         private static ILogger log = Log.ForContext<SerializableAppearance>();
 
+        // This field is currently unused, but it will be useful in case I decide to break stuff in the future.
+        public int Version { get; } = 2;
+
         public Gender? Gender { get; set; }
 
         #region Types
