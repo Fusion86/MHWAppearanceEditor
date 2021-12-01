@@ -2,7 +2,7 @@
 
 Monster Hunter World - Appearance Import/Export
 
-[Cirilla.Core Source](https://github.com/Fusion86/Cirilla/tree/master/Cirilla.Core)
+[Cirilla.Core Source](https://github.com/Fusion86/Cirilla/tree/master/src/Cirilla.Core)
 
 
 ## Credits
