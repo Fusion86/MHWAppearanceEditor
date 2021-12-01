@@ -18,7 +18,10 @@ namespace MHWAppearanceEditor.Views.Tabs
 
             this.WhenActivated(disposables =>
             {
-                this.Bind(ViewModel, vm => vm.SaveSlot, v => v.SaveSlotToolsView.SaveSlot).DisposeWith(disposables);
+                // Setting the datacontext in xaml doesn't work:
+                // DataContext="{Binding SaveSlotToolsViewModel}
+                // But binding does work. So whatever.
+                this.Bind(ViewModel, vm => vm.SaveSlotToolsViewModel, v => v.SaveSlotToolsView.DataContext).DisposeWith(disposables);
             });
         }
 

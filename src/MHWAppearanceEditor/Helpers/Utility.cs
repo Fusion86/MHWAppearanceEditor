@@ -5,6 +5,8 @@ using Avalonia.Media;
 using System.IO;
 using Cirilla.Core.Extensions;
 using System;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace MHWAppearanceEditor.Helpers
 {
@@ -64,6 +66,26 @@ namespace MHWAppearanceEditor.Helpers
             if (value < 0 && value >= -0.35) return Remap(0, -0.35, 50, 100, value);
             if (value <= 1 && value >= 0) return Remap(1, 0, 0, 50, value);
             throw new ArgumentOutOfRangeException();
+        }
+
+        public static void OpenBrowser(string url)
+        {
+#if NETFRAMEWORK
+            Process.Start(url);
+#else
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                Process.Start(new ProcessStartInfo("cmd", $"/c start {url}"));
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                Process.Start("xdg-open", url);
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                Process.Start("open", url);
+            }
+#endif
         }
     }
 }

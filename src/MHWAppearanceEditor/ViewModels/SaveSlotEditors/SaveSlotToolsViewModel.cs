@@ -26,7 +26,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
 
         // This is the SaveData from where we want to import from
         [Reactive] public SaveData SourceSaveData { get; private set; }
-        public List<SaveSlotViewModel> SourceSaveSlots { [ObservableAsProperty]get; }
+        public List<ReadOnlySaveSlotViewModel> SourceSaveSlots { [ObservableAsProperty]get; }
 
         public ReactiveCommand<Unit, Unit> SelectSaveDataCommand { get; }
         public ReactiveCommand<SaveSlot, SerializableAppearance> ImportFromSaveSlotCommand { get; }
@@ -36,11 +36,11 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
         public ReactiveCommand<Unit, Unit> ExportToCmpCommand { get; }
         public ReactiveCommand<Unit, Unit> ExportToJsonCommand { get; }
 
-        private readonly SaveSlot saveSlotContext; // aka target to where we apply the imported content
+        private readonly SaveSlotViewModel saveSlotViewModel; // aka target to where we apply the imported content
 
-        public SaveSlotToolsViewModel(SaveSlot saveSlotContext)
+        public SaveSlotToolsViewModel(SaveSlotViewModel saveSlotViewModel)
         {
-            this.saveSlotContext = saveSlotContext;
+            this.saveSlotViewModel = saveSlotViewModel;
 
             SelectSaveDataCommand = ReactiveCommand.CreateFromTask(SelectSaveData);
             ImportFromSaveSlotCommand = ReactiveCommand.Create<SaveSlot, SerializableAppearance>(ImportFromSaveSlot);
@@ -57,11 +57,11 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
 
             this.WhenAnyValue(x => x.SourceSaveData)
                 .Where(x => x != null)
-                .Select(saveData => saveData.SaveSlots.Select(x => new SaveSlotViewModel(x)).ToList())
+                .Select(saveData => saveData.SaveSlots.Select(x => new ReadOnlySaveSlotViewModel(x)).ToList())
                 .ToPropertyEx(this, x => x.SourceSaveSlots);
 
             // Set source context to currently opened SaveData
-            SourceSaveData = this.saveSlotContext.SaveData;
+            SourceSaveData = this.saveSlotViewModel.SaveSlot.SaveData;
         }
 
         private void ImportSerializableAppearance(SerializableAppearance? serializableAppearance)
@@ -70,12 +70,16 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
                 return;
 
             MainWindowViewModel.Instance.ShowPopup("Imported appearance.\nRemember to click on Save when you are done!");
-            serializableAppearance.ApplyToSaveSlot(saveSlotContext);
+            serializableAppearance.ApplyToSaveSlot(saveSlotViewModel.SaveSlot);
 
             CtxLog.Information("Updating CharacterAppearance.Type to 'Zero'");
-            saveSlotContext.CharacterAppearance.Type = CharacterAppearanceType.Zero.Value;
+            saveSlotViewModel.SaveSlot.CharacterAppearance.Type = CharacterAppearanceType.Zero.Value;
 
             CtxLog.Information("Applied appearance changes");
+
+            // Force the UI to update with the new changes.
+            saveSlotViewModel.UpdateGenderSpecificBindings(saveSlotViewModel.Gender);
+            //saveSlotViewModel.RaisePropertyChanged(null);
         }
 
         private async Task SelectSaveData()
@@ -144,6 +148,9 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
                 {
                     string tempFolder = "cirilla_temp";
 
+                    if (Directory.Exists(tempFolder))
+                        Directory.Delete(tempFolder, true);
+
                     ZipFile.ExtractToDirectory(items[0], tempFolder);
                     var jsonFiles = new DirectoryInfo(tempFolder).GetFiles().Where(x => x.Extension.ToLower() == ".json").ToList();
 
@@ -174,7 +181,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
                 catch (Exception ex)
                 {
                     MainWindowViewModel.Instance.ShowPopup(
-                        $"Couldn't import character appearance from '{jsonFile}'"
+                        $"Couldn't import character appearance from '{Path.GetFileName(jsonFile)}'"
                         + "\nYou could try using the \"Import Old Character Appearance (.json)\" feature."
                         + " This will try to load appearance data created in an older version of this tool.\n\nFull error message:\n"
                         + ex.Message);
@@ -190,12 +197,42 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
         private async Task<SerializableAppearance?> ImportFromJsonCompat()
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filters.Add(new FileDialogFilter { Name = "Shareable Character Appearance", Extensions = new List<string> { "json" } });
+            ofd.Filters.Add(new FileDialogFilter { Name = "Shareable Character Appearance", Extensions = new List<string> { "json", "zip" } });
             var items = await ofd.ShowAsync();
 
             if (items?.Length > 0)
             {
                 string jsonFile = items[0];
+
+                // If zip file
+                // TODO: This code is duplicated from ImportFromJson. Maybe DRY this?
+                if (new FileInfo(items[0]).Extension.ToLower() == ".zip")
+                {
+                    string tempFolder = "cirilla_temp";
+
+                    if (Directory.Exists(tempFolder))
+                        Directory.Delete(tempFolder, true);
+
+                    ZipFile.ExtractToDirectory(items[0], tempFolder);
+                    var jsonFiles = new DirectoryInfo(tempFolder).GetFiles().Where(x => x.Extension.ToLower() == ".json").ToList();
+
+                    if (jsonFiles.Count > 0)
+                    {
+                        // Show selector
+                        CtxLog.Warning("This tool currently doesn't support multiple JSON files in a zip. For now we'll just use the first JSON file in the zip.");
+                        jsonFile = jsonFiles[0].FullName;
+                    }
+                    else if (jsonFiles.Count == 0)
+                    {
+                        CtxLog.Error("This zip file doesn't contain any JSON files!");
+                        return null;
+                    }
+                    else
+                    {
+                        jsonFile = jsonFiles[0].FullName;
+                    }
+                }
+
                 try
                 {
                     string str = File.ReadAllText(jsonFile);
@@ -219,7 +256,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
         private async Task ExportToCmp()
         {
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.InitialFileName = Utility.GetSafeFilename(saveSlotContext.HunterName);
+            sfd.InitialFileName = Utility.GetSafeFilename(saveSlotViewModel.HunterName);
             sfd.Filters.Add(new FileDialogFilter { Name = "NPC Character Preset", Extensions = new List<string> { "cmp" } });
 
             var fileName = await sfd.ShowAsync();
@@ -228,7 +265,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
             {
                 try
                 {
-                    CMP cmp = new CMP(saveSlotContext.Native.CharacterAppearance);
+                    CMP cmp = new CMP(saveSlotViewModel.SaveSlot.Native.CharacterAppearance);
                     cmp.Save(fileName);
 
                     string str = $"Exported NPC Character Preset to {fileName}";
@@ -246,7 +283,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
         private async Task ExportToJson()
         {
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.InitialFileName = Utility.GetSafeFilename(saveSlotContext.HunterName);
+            sfd.InitialFileName = Utility.GetSafeFilename(saveSlotViewModel.HunterName);
             sfd.Filters.Add(new FileDialogFilter { Name = "Shareable Character Appearance", Extensions = new List<string> { "json" } });
 
             var fileName = await sfd.ShowAsync();
@@ -255,7 +292,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
             {
                 try
                 {
-                    var appearance = new SerializableAppearance(saveSlotContext);
+                    var appearance = new SerializableAppearance(saveSlotViewModel.SaveSlot);
                     string json = JsonConvert.SerializeObject(appearance, Formatting.Indented);
                     File.WriteAllText(fileName, json);
 

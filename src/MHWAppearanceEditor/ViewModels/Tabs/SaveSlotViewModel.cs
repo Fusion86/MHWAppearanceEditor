@@ -1,10 +1,12 @@
 ﻿using Avalonia.Media;
 using Cirilla.Core.Enums;
+using Cirilla.Core.Interfaces;
 using Cirilla.Core.Models;
 using MHWAppearanceEditor.Helpers;
 using MHWAppearanceEditor.Interfaces;
 using MHWAppearanceEditor.Models;
 using MHWAppearanceEditor.Services;
+using MHWAppearanceEditor.ViewModels.SaveSlotEditors;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Serilog;
@@ -232,7 +234,7 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public PalicoVoiceType PalicoVoiceType { get => SaveSlot.PalicoAppearance.VoiceType; set => SaveSlot.PalicoAppearance.VoiceType = value; }
         public PalicoVoicePitch PalicoVoicePitch { get => SaveSlot.PalicoAppearance.VoicePitch; set => SaveSlot.PalicoAppearance.VoicePitch = value; }
 
-        public short HairTypeRaw { get => SaveSlot.CharacterAppearance.HairType; set => SaveSlot.CharacterAppearance.HairType = value; }
+        public short HairType { get => SaveSlot.CharacterAppearance.HairType; set => SaveSlot.CharacterAppearance.HairType = value; }
 
         public Gender Gender
         {
@@ -244,109 +246,109 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public CharacterAssetViewModel BrowType
         {
             get => BrowTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.BrowType);
-            set { SaveSlot.CharacterAppearance.BrowType = (byte)value.Value; this.RaisePropertyChanged(); }
+            set { if (value != null) SaveSlot.CharacterAppearance.BrowType = (byte)value.Value; this.RaisePropertyChanged(); }
         }
 
         public CharacterAssetViewModel FaceType
         {
             get => FaceTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.FaceType);
-            set { SaveSlot.CharacterAppearance.FaceType = (byte)value.Value; this.RaisePropertyChanged(); }
+            set { if (value != null) SaveSlot.CharacterAppearance.FaceType = (byte)value.Value; this.RaisePropertyChanged(); }
         }
 
         public CharacterAssetViewModel NoseType
         {
             get => NoseTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.NoseType);
-            set { SaveSlot.CharacterAppearance.NoseType = (byte)value.Value; this.RaisePropertyChanged(); }
+            set { if (value != null) SaveSlot.CharacterAppearance.NoseType = (byte)value.Value; this.RaisePropertyChanged(); }
         }
 
         public CharacterAssetViewModel MouthType
         {
             get => MouthTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.MouthType);
-            set { SaveSlot.CharacterAppearance.MouthType = (byte)value.Value; this.RaisePropertyChanged(); }
+            set { if (value != null) SaveSlot.CharacterAppearance.MouthType = (byte)value.Value; this.RaisePropertyChanged(); }
         }
 
-        public CharacterAssetViewModel HairType
-        {
-            get => HairTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.HairType);
-            set { SaveSlot.CharacterAppearance.HairType = (short)value.Value; this.RaisePropertyChanged(); }
-        }
+        //public CharacterAssetViewModel HairType
+        //{
+        //    get => HairTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.HairType);
+        //    set { if (value != null) SaveSlot.CharacterAppearance.HairType = (short)value.Value; this.RaisePropertyChanged(); }
+        //}
 
         public CharacterAssetViewModel FacialHairType
         {
             get => FacialHairTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.FacialHairType);
-            set { SaveSlot.CharacterAppearance.FacialHairType = (byte)value.Value; this.RaisePropertyChanged(); }
+            set { if (value != null) SaveSlot.CharacterAppearance.FacialHairType = (byte)value.Value; this.RaisePropertyChanged(); }
         }
 
         public CharacterAssetViewModel EyebrowType
         {
             get => EyebrowTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.EyebrowType);
-            set { SaveSlot.CharacterAppearance.EyebrowType = (byte)value.Value; this.RaisePropertyChanged(); }
+            set { if (value != null) SaveSlot.CharacterAppearance.EyebrowType = (byte)value.Value; this.RaisePropertyChanged(); }
         }
 
         public CharacterAssetViewModel EyeType
         {
             get => EyeTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.EyeType);
-            set { SaveSlot.CharacterAppearance.EyeType = (byte)value.Value; this.RaisePropertyChanged(); }
+            set { if (value != null) SaveSlot.CharacterAppearance.EyeType = (byte)value.Value; this.RaisePropertyChanged(); }
         }
 
         public CharacterAssetViewModel ClothingType
         {
             get => ClothingTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.ClothingType);
-            set { SaveSlot.CharacterAppearance.ClothingType = (byte)value.Value; this.RaisePropertyChanged(); }
+            set { if (value != null) SaveSlot.CharacterAppearance.ClothingType = (byte)value.Value; this.RaisePropertyChanged(); }
         }
 
         public CharacterAssetViewModel Makeup1Type
         {
             get => MakeupTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.Makeup1Type);
-            set { SaveSlot.CharacterAppearance.Makeup1Type = value.Value; this.RaisePropertyChanged(); }
+            set { if (value != null) SaveSlot.CharacterAppearance.Makeup1Type = value.Value; this.RaisePropertyChanged(); }
         }
 
         public CharacterAssetViewModel Makeup2Type
         {
             get => MakeupTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.Makeup2Type);
-            set { SaveSlot.CharacterAppearance.Makeup2Type = value.Value; this.RaisePropertyChanged(); }
+            set { if (value != null) SaveSlot.CharacterAppearance.Makeup2Type = value.Value; this.RaisePropertyChanged(); }
         }
 
         public CharacterAssetViewModel Makeup3Type
         {
             get => MakeupTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.Makeup3Type);
-            set { SaveSlot.CharacterAppearance.Makeup3Type = value.Value; this.RaisePropertyChanged(); }
+            set { if (value != null) SaveSlot.CharacterAppearance.Makeup3Type = value.Value; this.RaisePropertyChanged(); }
         }
 
         public CharacterAssetViewModel VoiceType
         {
             get => VoiceTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.Voice);
-            set { SaveSlot.CharacterAppearance.Voice = (byte)value.Value; this.RaisePropertyChanged(); }
+            set { if (value != null) SaveSlot.CharacterAppearance.Voice = (byte)value.Value; this.RaisePropertyChanged(); }
         }
 
         public CharacterAssetViewModel ExpressionType
         {
             get => ExpressionTypes.FirstOrDefault(x => x.Value == SaveSlot.CharacterAppearance.Expression);
-            set { SaveSlot.CharacterAppearance.Expression = (byte)value.Value; this.RaisePropertyChanged(); }
+            set { if (value != null) SaveSlot.CharacterAppearance.Expression = (byte)value.Value; this.RaisePropertyChanged(); }
         }
 
         public CharacterAssetViewModel PalicoPatternType
         {
             get => PalicoPatternTypes.FirstOrDefault(x => x.Value == SaveSlot.PalicoAppearance.PatternType);
-            set { SaveSlot.PalicoAppearance.PatternType = (byte)value.Value; this.RaisePropertyChanged(); }
+            set { if (value != null) SaveSlot.PalicoAppearance.PatternType = (byte)value.Value; this.RaisePropertyChanged(); }
         }
 
         public CharacterAssetViewModel PalicoEyeType
         {
             get => PalicoEyeTypes.FirstOrDefault(x => x.Value == SaveSlot.PalicoAppearance.EyeType);
-            set { SaveSlot.PalicoAppearance.EyeType = (byte)value.Value; this.RaisePropertyChanged(); }
+            set { if (value != null) SaveSlot.PalicoAppearance.EyeType = (byte)value.Value; this.RaisePropertyChanged(); }
         }
 
         public CharacterAssetViewModel PalicoEarType
         {
             get => PalicoEarTypes.FirstOrDefault(x => x.Value == SaveSlot.PalicoAppearance.EarType);
-            set { SaveSlot.PalicoAppearance.EarType = (byte)value.Value; this.RaisePropertyChanged(); }
+            set { if (value != null) SaveSlot.PalicoAppearance.EarType = (byte)value.Value; this.RaisePropertyChanged(); }
         }
 
         public CharacterAssetViewModel PalicoTailType
         {
             get => PalicoTailTypes.FirstOrDefault(x => x.Value == SaveSlot.PalicoAppearance.TailType);
-            set { SaveSlot.PalicoAppearance.TailType = (byte)value.Value; this.RaisePropertyChanged(); }
+            set { if (value != null) SaveSlot.PalicoAppearance.TailType = (byte)value.Value; this.RaisePropertyChanged(); }
         }
 
         // Collections of possible values
@@ -375,6 +377,8 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public IReadOnlyCollection<Color> ColorPaletteVibrant { get; }
         public IReadOnlyCollection<Color> ColorPaletteNatural { get; }
 
+        public SaveSlotToolsViewModel SaveSlotToolsViewModel { get; }
+
         public SaveSlot SaveSlot { get; }
 
         private readonly CharacterAssets characterAssets;
@@ -386,6 +390,7 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
             characterAssets = assetsService.CharacterAssets;
             ColorPaletteVibrant = assetsService.ColorPaletteVibrant;
             ColorPaletteNatural = assetsService.ColorPaletteNatural;
+            SaveSlotToolsViewModel = new SaveSlotToolsViewModel(this);
 
             this.WhenAnyValue(x => x.HunterName, name => string.IsNullOrEmpty(name) ? "(blank)" : name).ToPropertyEx(this, x => x.Title);
             this.WhenAnyValue(x => x.Gender).Subscribe(UpdateGenderSpecificBindings);
@@ -407,7 +412,7 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
             ExpressionTypes = Enumerable.Range(0, 5).Select(x => new CharacterAssetViewModel($"Expression Type {x + 1}", null, x)).ToList();
         }
 
-        private void UpdateGenderSpecificBindings(Gender gender)
+        public void UpdateGenderSpecificBindings(Gender gender)
         {
             try
             {
@@ -440,6 +445,10 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
                         MakeupTypes = characterAssets.FemaleMakeupTypes;
                         break;
                 }
+
+                // HACK: Shitty code to make stuff work.
+                foreach (var prop in typeof(ICharacterAppearanceProperties).GetProperties())
+                    this.RaisePropertyChanged(prop.Name);
             }
             catch (Exception ex)
             {

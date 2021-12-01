@@ -73,7 +73,7 @@ namespace MHWAppearanceEditor.Services
 
         public void RemoveExcessiveBackups()
         {
-            var files = Directory.GetFiles(backupDir, "")
+            var files = Directory.GetFiles(backupDir, "*")
                 .Where(x => !x.EndsWith(".txt"))
                 .OrderByDescending(x => x)
                 .Skip(settings.MaxBackupCount).ToList();

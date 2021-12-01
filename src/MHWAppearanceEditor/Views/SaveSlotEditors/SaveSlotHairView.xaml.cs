@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using MHWAppearanceEditor.Controls;
+using MHWAppearanceEditor.Helpers;
 using MHWAppearanceEditor.ViewModels.Tabs;
 using ReactiveUI;
 
@@ -32,7 +33,7 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
 
             this.Bind(ViewModel, vm => vm.HairColor, v => v.HairColorEdit.Color);
             this.Bind(ViewModel, vm => vm.FacialHairColor, v => v.FacialHairColorEdit.Color);
-            this.Bind(ViewModel, vm => vm.HairTypeRaw, v => v.HairTypeBox.Text);
+            this.Bind(ViewModel, vm => vm.HairType, v => v.HairTypeBox.Text);
             this.OneWayBind(ViewModel, vm => vm.ColorPaletteNatural, v => v.HairColorEdit.ColorPalette);
             this.OneWayBind(ViewModel, vm => vm.ColorPaletteNatural, v => v.FacialHairColorEdit.ColorPalette);
         }
@@ -48,6 +49,11 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
             {
                 ctrl.SelectedItem = ctrl.SelectedItem;
             }
+        }
+
+        private void BtnHairStyleList_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            Utility.OpenBrowser("https://staticdelivery.nexusmods.com/images/2531/59778081-1587620948.png");
         }
     }
 }
