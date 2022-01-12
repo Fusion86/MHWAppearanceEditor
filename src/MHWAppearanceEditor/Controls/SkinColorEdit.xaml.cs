@@ -31,8 +31,6 @@ namespace MHWAppearanceEditor.Controls
             DataContext = this;
             InitializeComponent();
 
-            var imgSource = Locator.Current.GetService<AssetsService>()!.SkinColorPath;
-
             ColorButton.Click += ColorEdit_Click;
             ColorCanvas.PointerPressed += ColorCanvas_PointerPressed;
             ColorCanvas.PointerMoved += ColorCanvas_PointerMoved;
@@ -41,14 +39,13 @@ namespace MHWAppearanceEditor.Controls
             NumericSkinColorX.ValueChanged += (sender, e) => { SkinColorX = (byte)e.NewValue; };
             NumericSkinColorY.ValueChanged += (sender, e) => { SkinColorY = (byte)e.NewValue; };
 
-            Task.Run(() =>
-            {
-                var image = new Avalonia.Media.Imaging.Bitmap(imgSource);
-                Dispatcher.UIThread.InvokeAsync(() => ColorCanvas.Background = new ImageBrush(image));
+            var imgSource = Locator.Current.GetService<AssetsService>()!.SkinColorPath;
+            var image = new Avalonia.Media.Imaging.Bitmap(imgSource);
+            Dispatcher.UIThread.Post(() => ColorCanvas.Background = new ImageBrush(image));
 
-                // Backend bitmap
-                skinImage = SixLabors.ImageSharp.Image.Load<Rgba32>(imgSource);
-            });
+            // Backend bitmap
+            skinImage = SixLabors.ImageSharp.Image.Load<Rgba32>(imgSource);
+            UpdatePreviewColor();
         }
 
         public static readonly StyledProperty<Color> PreviewColorProperty =

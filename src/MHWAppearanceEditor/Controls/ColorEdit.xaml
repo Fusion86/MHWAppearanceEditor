@@ -15,7 +15,7 @@
     <Grid>
         <Button Name="ColorButton" Classes="Lookless" Background="{Binding Color, Converter={StaticResource ColorConverter}}" BorderThickness="1"/>
         <Popup Name="ColorPickerPopup" StaysOpen="False">
-            <Border Padding="10">
+            <Border Padding="10" Background="{DynamicResource ThemeBackgroundBrush}">
                 <StackPanel>
                     <cp:ColorPicker Width="400" Color="{Binding Color, Mode=TwoWay}">
                         <cp:ColorPicker.Styles>

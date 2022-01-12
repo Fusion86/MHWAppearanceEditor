@@ -107,7 +107,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
 
         private SerializableAppearance ImportFromSaveSlot(SaveSlot saveSlot)
         {
-            return new SerializableAppearance(saveSlot);
+            return new SerializableAppearance(saveSlot.CharacterAppearance);
         }
 
         private async Task<SerializableAppearance?> ImportFromCmp()
@@ -292,7 +292,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
             {
                 try
                 {
-                    var appearance = new SerializableAppearance(saveSlotViewModel.SaveSlot);
+                    var appearance = new SerializableAppearance(saveSlotViewModel.SaveSlot.CharacterAppearance);
                     string json = JsonConvert.SerializeObject(appearance, Formatting.Indented);
                     File.WriteAllText(fileName, json);
 

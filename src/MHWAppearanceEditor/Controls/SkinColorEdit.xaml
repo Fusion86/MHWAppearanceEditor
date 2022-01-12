@@ -14,7 +14,7 @@
     <Grid>
         <Button Name="ColorButton" Classes="Lookless" Background="{Binding PreviewColor, Converter={StaticResource ColorConverter}}" BorderThickness="1"/>
         <Popup Name="SkinColorPickerPopup" StaysOpen="False">
-            <Border Padding="10">
+            <Border Padding="10" Background="{DynamicResource ThemeBackgroundBrush}">
                 <Grid ColumnDefinitions="Auto,10,Auto">
                     <Canvas Grid.Column="0" Name="ColorCanvas" Width="256" Height="256">
                         <Thumb Name="ColorThumb" Canvas.Left="0" Canvas.Top="0" Width="20" Margin="-10,-6,0,0">

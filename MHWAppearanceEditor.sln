@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28803.156
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MHWAppearanceEditor", "src\MHWAppearanceEditor\MHWAppearanceEditor.csproj", "{13808DC2-D002-4299-BD10-80BD5DFC2EB0}"
 EndProject
@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cirilla.Core", "..\Cirilla\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{BC8B11FE-5728-4E1F-94EF-D3C58E2E539E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MHWAppearanceEditor.Test", "src\MHWAppearanceEditor.Test\MHWAppearanceEditor.Test.csproj", "{DFB82D45-8FE6-417E-B85A-69DA96D5CA3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MHWAppearanceEditor.Test", "src\MHWAppearanceEditor.Test\MHWAppearanceEditor.Test.csproj", "{DFB82D45-8FE6-417E-B85A-69DA96D5CA3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
