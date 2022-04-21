@@ -29,3 +29,6 @@ Source: "..\output\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 Name: "{group}\{#AppName}"; Filename: "{app}\{#AppName}.exe"
 Name: "{group}\Uninstall {#AppName}"; Filename: "{uninstallexe}"
 Name: "{userdesktop}\{#AppName}"; Filename: "{app}\{#AppName}.exe"; Tasks: desktopicon
+
+[Run]
+Filename: {app}\{#AppName}.exe; Description: Start after installation; Flags: nowait postinstall skipifsilent
