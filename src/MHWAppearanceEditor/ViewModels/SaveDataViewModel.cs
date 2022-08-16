@@ -38,6 +38,7 @@ namespace MHWAppearanceEditor.ViewModels
         public ObservableCollection<object> Tabs { get; } = new ObservableCollection<object>();
 
         private SaveData? saveData;
+        private readonly string saveDataDirectory;
         private readonly BackupService backup = Locator.Current.GetService<BackupService>()!;
         private readonly AppSettings settings = Locator.Current.GetService<SettingsService>()!.Settings;
 
@@ -47,6 +48,8 @@ namespace MHWAppearanceEditor.ViewModels
             SaveCommand = ReactiveCommand.CreateFromTask(ShowSaveDialog);
             OpenHelpWindowCommand = ReactiveCommand.Create(OpenHelpWindow);
             OpenSettingsWindowCommand = ReactiveCommand.Create(OpenSettingsWindow);
+
+            saveDataDirectory = Path.GetDirectoryName(saveDataPath);
 
             // Don't await and run on other thread because it is needed, just trust me
             Task.Run(() => LoadSaveData(saveDataPath));
@@ -94,14 +97,11 @@ namespace MHWAppearanceEditor.ViewModels
         {
             if (saveData == null) return;
 
-            SaveFileDialog sfd = new SaveFileDialog();
-            string? initialPath = SteamAccount != null ? SteamUtility.GetMhwSaveDir(SteamAccount) : SteamUtility.GetMhwSaveDir();
-
-            if (initialPath != null)
+            SaveFileDialog sfd = new SaveFileDialog
             {
-                sfd.Directory = initialPath;
-                sfd.InitialFileName = Path.Combine(initialPath, "SAVEDATA1000");
-            }
+                Directory = saveDataDirectory,
+                InitialFileName = "SAVEDATA1000"
+            };
 
             sfd.Filters.Add(new FileDialogFilter { Name = "Monster Hunter World SaveData" });
 

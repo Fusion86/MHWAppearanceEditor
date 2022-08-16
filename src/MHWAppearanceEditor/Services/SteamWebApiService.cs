@@ -27,6 +27,12 @@ namespace MHWAppearanceEditor.Services
 
         public async Task<string> GetPersonaName(string steamId)
         {
+            if (apiKey.Length == 0)
+            {
+                CtxLog.Warning("Steam API key is not set. Can't get persona name.");
+                return "(steam api key not set)";
+            }
+
             if (errorCount < 3)
             {
                 // Yeah it sucks but who cares

@@ -30,7 +30,9 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public string HunterName { get => SaveSlot.HunterName; set { SaveSlot.HunterName = value; this.RaisePropertyChanged(); } }
         public string PalicoName { get => SaveSlot.PalicoName; set => SaveSlot.PalicoName = value; }
         public int HunterRank { get => SaveSlot.HunterRank; set => SaveSlot.HunterRank = value; }
+        public int MasterRank { get => SaveSlot.MasterRank; set => SaveSlot.MasterRank = value; }
         public int HunterXp { get => SaveSlot.HunterXp; set => SaveSlot.HunterXp = value; }
+        public int MasterXp { get => SaveSlot.MasterXp; set => SaveSlot.MasterXp = value; }
         public int Zenny { get => SaveSlot.Zenny; set => SaveSlot.Zenny = value; }
         public int ResearchPoints { get => SaveSlot.ResearchPoints; set => SaveSlot.ResearchPoints = value; }
         public TimeSpan PlayTime { get => TimeSpan.FromSeconds(SaveSlot.PlayTime); }

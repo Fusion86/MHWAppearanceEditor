@@ -10,7 +10,9 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public string HunterName => SaveSlot.HunterName;
         public string PalicoName => SaveSlot.PalicoName;
         public int HunterRank => SaveSlot.HunterRank;
+        public int MasterRank => SaveSlot.MasterRank;
         public int HunterXp => SaveSlot.HunterXp;
+        public int MasterXp => SaveSlot.MasterXp;
         public int Zenny => SaveSlot.Zenny;
         public int ResearchPoints => SaveSlot.ResearchPoints;
         public TimeSpan PlayTime => TimeSpan.FromSeconds(SaveSlot.PlayTime);

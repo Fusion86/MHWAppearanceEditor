@@ -60,7 +60,9 @@ namespace MHWAppearanceEditor.Services
                 info += $"TimePlayed: {timeStr}\n";
                 info += $"HunterName: {saveData.SaveSlots[i].HunterName}\n";
                 info += $"HunterRank: {saveData.SaveSlots[i].HunterRank}\n";
+                info += $"MasterRank: {saveData.SaveSlots[i].MasterRank}\n";
                 info += $"HunterXp: {saveData.SaveSlots[i].HunterXp}\n";
+                info += $"MasterXp: {saveData.SaveSlots[i].MasterXp}\n";
                 info += $"PalicoName: {saveData.SaveSlots[i].PalicoName}\n\n";
             }
 

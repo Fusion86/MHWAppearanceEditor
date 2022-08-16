@@ -11,14 +11,18 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
         private static bool showDangerousWarning = true;
 
         private TextBox HunterRank => this.FindControl<TextBox>("HunterRank");
+        private TextBox MasterRank => this.FindControl<TextBox>("MasterRank");
         private TextBox HunterXp => this.FindControl<TextBox>("HunterXp");
+        private TextBox MasterXp => this.FindControl<TextBox>("MasterXp");
 
         public SaveSlotInfoView()
         {
             InitializeComponent();
 
             HunterRank.GotFocus += DangerousControl_GotFocus;
+            MasterRank.GotFocus += DangerousControl_GotFocus;
             HunterXp.GotFocus += DangerousControl_GotFocus;
+            MasterXp.GotFocus += DangerousControl_GotFocus;
         }
 
         private void DangerousControl_GotFocus(object? sender, Avalonia.Input.GotFocusEventArgs e)
