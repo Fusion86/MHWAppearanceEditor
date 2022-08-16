@@ -11,7 +11,7 @@ namespace MHWAppearanceEditor.Models
 {
     public class SerializableAppearance
     {
-        private static ILogger log = Log.ForContext<SerializableAppearance>();
+        private static readonly ILogger log = Log.ForContext<SerializableAppearance>();
 
         // This field is currently unused, but it will be useful in case I decide to break stuff in the future.
         public int Version { get; } = 2;

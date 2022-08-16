@@ -14,6 +14,7 @@ using Splat;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using SDColor = System.Drawing.Color;
 
@@ -23,7 +24,7 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
     {
         private static readonly Serilog.ILogger CtxLog = Log.ForContext<SaveSlotViewModel>();
 
-        public string Title { [ObservableAsProperty]get; } = "";
+        public string Title { [ObservableAsProperty] get; } = "";
         public string ToolTipText => $"{HunterName} (Rank: {HunterRank})";
 
         // Actual SaveSlot values
@@ -376,6 +377,9 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         [Reactive] public List<CharacterAssetViewModel> PalicoEarTypes { get; private set; }
         [Reactive] public List<CharacterAssetViewModel> PalicoTailTypes { get; private set; }
 
+        public ReactiveCommand<Unit, Unit> CalculateHunterXpCommand { get; }
+        public ReactiveCommand<Unit, Unit> CalculateMasterXpCommand { get; }
+
         public IReadOnlyCollection<Color> ColorPaletteVibrant { get; }
         public IReadOnlyCollection<Color> ColorPaletteNatural { get; }
 
@@ -393,6 +397,34 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
             ColorPaletteVibrant = assetsService.ColorPaletteVibrant;
             ColorPaletteNatural = assetsService.ColorPaletteNatural;
             SaveSlotToolsViewModel = new SaveSlotToolsViewModel(this);
+
+            CalculateHunterXpCommand = ReactiveCommand.Create(() =>
+            {
+                if (MhwXpTable.HunterXpTable.TryGetValue(HunterRank, out var xp))
+                {
+                    CtxLog.Information("Setting HunterXp to {HunterXp} based on hunter rank {HunterRank}.", xp, HunterRank);
+                    HunterXp = xp;
+                    this.RaisePropertyChanged(nameof(HunterXp));
+                }
+                else
+                {
+                    MainWindowViewModel.Instance.ShowPopup($"Can't calculate the required XP for hunter rank {HunterRank}.");
+                }
+            });
+
+            CalculateMasterXpCommand = ReactiveCommand.Create(() =>
+            {
+                if (MhwXpTable.MasterXpTable.TryGetValue(MasterRank, out var xp))
+                {
+                    CtxLog.Information("Setting MasterXp to {MasterXp} based on master rank {MasterRank}.", xp, MasterRank);
+                    MasterXp = xp;
+                    this.RaisePropertyChanged(nameof(MasterXp));
+                }
+                else
+                {
+                    MainWindowViewModel.Instance.ShowPopup($"Can't calculate the required XP for master rank {MasterRank}.");
+                }
+            });
 
             this.WhenAnyValue(x => x.HunterName, name => string.IsNullOrEmpty(name) ? "(blank)" : name).ToPropertyEx(this, x => x.Title);
             this.WhenAnyValue(x => x.Gender).Subscribe(UpdateGenderSpecificBindings);

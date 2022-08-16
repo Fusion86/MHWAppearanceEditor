@@ -23,23 +23,6 @@
     </Window.Resources>
 
     <Grid>
-        <!-- Popup over all content 
-        <Popup IsOpen="{Binding PopupIsOpen}"
-               PlacementMode="AnchorAndGravity"
-               StaysOpen="{Binding !PopupCanClose}"
-               PlacementTarget="{Binding $parent}">
-            <Border Background="{DynamicResource FusionDarkSlateBrush}"
-                    BorderThickness="5"
-                    BorderBrush="{DynamicResource ThemeAccentBrush}"
-                    Padding="20">
-
-                <StackPanel>
-                    <TextBlock Text="{Binding PopupText}" TextWrapping="Wrap" Margin="0,0,0,5"/>
-                    <TextBlock Text="Click anywhere outside this message box to close it." Opacity="0.5" IsVisible="{Binding PopupCanClose}"/>
-                </StackPanel>
-            </Border>
-        </Popup>-->
-
         <Grid RowDefinitions="*, Auto, Auto" Opacity="{Binding ContentOpacity}">
             <DockPanel Grid.Row="0">
                 <Grid DockPanel.Dock="Bottom" Height="24" ColumnDefinitions="*,Auto" Background="{DynamicResource ThemeAccentBrush2}">

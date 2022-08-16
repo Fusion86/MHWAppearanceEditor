@@ -20,9 +20,11 @@ namespace MHWAppearanceEditor.Views.SaveSlotEditors
             InitializeComponent();
 
             HunterRank.GotFocus += DangerousControl_GotFocus;
-            MasterRank.GotFocus += DangerousControl_GotFocus;
             HunterXp.GotFocus += DangerousControl_GotFocus;
-            MasterXp.GotFocus += DangerousControl_GotFocus;
+
+            // Not sure whether editing your master rank is dangerous?
+            //MasterRank.GotFocus += DangerousControl_GotFocus;
+            //MasterXp.GotFocus += DangerousControl_GotFocus;
         }
 
         private void DangerousControl_GotFocus(object? sender, Avalonia.Input.GotFocusEventArgs e)

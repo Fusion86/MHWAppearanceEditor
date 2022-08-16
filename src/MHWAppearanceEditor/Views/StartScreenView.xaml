@@ -37,6 +37,6 @@
         </StackPanel>
 
         <TextBlock Grid.Row="1" Opacity="0.5" Margin="10" HorizontalAlignment="Center"
-                   Text="Thanks to: Monster Hunter World Modding Discord, SeiKur0, and especially legendff."/>
+                   Text="Thanks to: Monster Hunter World Modding Discord, SeiKur0, Marcus101RR, and legendff."/>
     </Grid>
 </UserControl>

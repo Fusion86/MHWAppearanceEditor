@@ -24,7 +24,7 @@ namespace MHWAppearanceEditor.Controls
         private NumericUpDown NumericSkinColorX => this.FindControl<NumericUpDown>("NumericSkinColorX");
         private NumericUpDown NumericSkinColorY => this.FindControl<NumericUpDown>("NumericSkinColorY");
 
-        private SixLabors.ImageSharp.Image<Rgba32>? skinImage;
+        private readonly SixLabors.ImageSharp.Image<Rgba32>? skinImage;
 
         public SkinColorEdit()
         {
