@@ -1,9 +1,9 @@
-﻿using System;
-using System.Globalization;
-using Avalonia.Data.Converters;
+﻿using Avalonia.Data.Converters;
 using Avalonia.Media;
 using MHWAppearanceEditor.Extensions;
 using ReactiveUI;
+using System;
+using System.Globalization;
 using MediaColor = Avalonia.Media.Color;
 using SDColor = System.Drawing.Color;
 
@@ -50,7 +50,8 @@ namespace MHWAppearanceEditor.ValueConverters
                     result = sdcolor.ToMediaColor();
                     return true;
                 }
-            } else if (from is MediaColor color)
+            }
+            else if (from is MediaColor color)
             {
                 if (toType == typeof(SDColor))
                 {

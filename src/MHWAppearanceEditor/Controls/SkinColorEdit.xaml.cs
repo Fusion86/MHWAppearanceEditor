@@ -10,7 +10,6 @@ using MHWAppearanceEditor.Services;
 using SixLabors.ImageSharp.PixelFormats;
 using Splat;
 using System;
-using System.Threading.Tasks;
 
 namespace MHWAppearanceEditor.Controls
 {

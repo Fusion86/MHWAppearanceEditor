@@ -2,11 +2,11 @@
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Media;
-using System.IO;
 using Cirilla.Core.Extensions;
 using System;
-using System.Runtime.InteropServices;
 using System.Diagnostics;
+using System.IO;
+using System.Runtime.InteropServices;
 
 namespace MHWAppearanceEditor.Helpers
 {

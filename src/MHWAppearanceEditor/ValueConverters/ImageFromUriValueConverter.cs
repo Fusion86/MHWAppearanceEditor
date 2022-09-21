@@ -1,7 +1,7 @@
-﻿using System;
-using System.Globalization;
-using Avalonia.Data.Converters;
+﻿using Avalonia.Data.Converters;
 using Avalonia.Media.Imaging;
+using System;
+using System.Globalization;
 
 namespace MHWAppearanceEditor.ValueConverters
 {

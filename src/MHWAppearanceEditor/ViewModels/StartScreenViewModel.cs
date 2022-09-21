@@ -9,7 +9,6 @@ using Serilog;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
 

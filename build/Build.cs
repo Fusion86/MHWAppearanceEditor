@@ -1,10 +1,10 @@
+using Nuke.Common;
+using Nuke.Common.Execution;
+using Nuke.Common.Tools.DotNet;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using Nuke.Common;
-using Nuke.Common.Execution;
-using Nuke.Common.Tools.DotNet;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;

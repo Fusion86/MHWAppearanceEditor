@@ -17,8 +17,8 @@ namespace MHWAppearanceEditor.Helpers
 
         public static string? GetSteamRoot()
         {
-           if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-               return null;
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                return null;
 
             string reg = Environment.Is64BitOperatingSystem ? @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Valve\Steam" : @"HKEY_LOCAL_MACHINE\SOFTWARE\Valve\Steam";
             var val = Registry.GetValue(reg, "InstallPath", null);

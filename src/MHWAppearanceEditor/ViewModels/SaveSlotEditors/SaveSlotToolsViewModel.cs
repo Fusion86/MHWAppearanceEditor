@@ -26,7 +26,7 @@ namespace MHWAppearanceEditor.ViewModels.SaveSlotEditors
 
         // This is the SaveData from where we want to import from
         [Reactive] public SaveData SourceSaveData { get; private set; }
-        public List<ReadOnlySaveSlotViewModel> SourceSaveSlots { [ObservableAsProperty]get; }
+        public List<ReadOnlySaveSlotViewModel> SourceSaveSlots { [ObservableAsProperty] get; }
 
         public ReactiveCommand<Unit, Unit> SelectSaveDataCommand { get; }
         public ReactiveCommand<SaveSlot, SerializableAppearance> ImportFromSaveSlotCommand { get; }

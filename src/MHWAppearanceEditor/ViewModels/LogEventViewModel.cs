@@ -1,5 +1,5 @@
-﻿using System;
-using Serilog.Events;
+﻿using Serilog.Events;
+using System;
 
 namespace MHWAppearanceEditor.ViewModels
 {

@@ -1,8 +1,8 @@
-﻿using Avalonia.Markup.Xaml;
+﻿using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
-using Avalonia.Controls;
-using MHWAppearanceEditor.ViewModels.Tabs;
 using MHWAppearanceEditor.ViewModels;
+using MHWAppearanceEditor.ViewModels.Tabs;
 
 namespace MHWAppearanceEditor.Views.SaveSlotEditors
 {

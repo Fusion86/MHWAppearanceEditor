@@ -4,7 +4,6 @@ using Avalonia.Threading;
 using Cirilla.Core.Models;
 using DynamicData;
 using MHWAppearanceEditor.Extensions;
-using MHWAppearanceEditor.Helpers;
 using MHWAppearanceEditor.Models;
 using MHWAppearanceEditor.Services;
 using MHWAppearanceEditor.ViewModels.Tabs;
