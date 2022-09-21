@@ -67,14 +67,14 @@ namespace MHWAppearanceEditor.ViewModels
             if (initialPath != null)
                 ofd.Directory = initialPath;
 
-            var filePath = (await ofd.ShowAsync()).FirstOrDefault();
-            if (filePath == null)
+            var filePaths = await ofd.ShowAsync();
+            if (filePaths == null || filePaths.Length == 0)
             {
                 CtxLog.Information("No file selected");
             }
             else
             {
-                MainWindowViewModel.Instance.SetActiveViewModel(new SaveDataViewModel(filePath));
+                MainWindowViewModel.Instance.SetActiveViewModel(new SaveDataViewModel(filePaths[0]));
             }
         }
     }

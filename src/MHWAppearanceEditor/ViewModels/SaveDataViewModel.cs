@@ -34,6 +34,7 @@ namespace MHWAppearanceEditor.ViewModels
 
         public SteamAccount? SteamAccount { get; set; }
         [Reactive] public bool IsLoading { get; private set; } = true;
+        [Reactive] public int SelectedTabIndex { get; set; } = 0;
 
         public ObservableCollection<object> Tabs { get; } = new ObservableCollection<object>();
 
@@ -65,7 +66,7 @@ namespace MHWAppearanceEditor.ViewModels
                 {
                     Tabs.Clear();
                     Tabs.Add(new SaveDataInfoViewModel(saveData));
-                    Tabs.AddRange(saveData.SaveSlots.Select(x => new SaveSlotViewModel(x)));
+                    Tabs.AddRange(saveData.SaveSlots.Select(x => new SaveSlotViewModel(this, x)));
                 });
 
                 IsLoading = false;

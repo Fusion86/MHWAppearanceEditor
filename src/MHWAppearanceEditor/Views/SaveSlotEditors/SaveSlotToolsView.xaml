@@ -43,7 +43,7 @@
                 <Button Grid.Column="4" Content="Select other SaveData file" Command="{Binding SelectSaveDataCommand}"/>
             </Grid>
 
-            <StackPanel Grid.Row="2" Orientation="Vertical" IsVisible="{Binding !!SourceSaveSlots}">
+            <StackPanel Grid.Row="2" Orientation="Vertical" IsVisible="{Binding !!SourceSaveSlots.Count}">
                 <TextBlock Text="Click on a SaveSlot to import that hunter's appearance." Margin="0,0,0,5" HorizontalAlignment="Center"/>
 
                 <ItemsControl Items="{Binding SourceSaveSlots}">

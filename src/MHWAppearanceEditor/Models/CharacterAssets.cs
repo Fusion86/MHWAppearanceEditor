@@ -49,6 +49,8 @@ namespace MHWAppearanceEditor.Models
         public List<CharacterAssetViewModel> PalicoEarTypes { get; } = new List<CharacterAssetViewModel>();
         public List<CharacterAssetViewModel> PalicoEyeTypes { get; } = new List<CharacterAssetViewModel>();
         public List<CharacterAssetViewModel> PalicoTailTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> PalicoOutlineTypes { get; } = new List<CharacterAssetViewModel>();
+        public List<CharacterAssetViewModel> PalicoPupilTypes { get; } = new List<CharacterAssetViewModel>();
 
         private static readonly ILogger CtxLog = Log.ForContext<CharacterAssets>();
 
@@ -144,20 +146,28 @@ namespace MHWAppearanceEditor.Models
                         dest = FemaleMakeupTypes;
                         break;
                     case "Palico Coat Types":
-                        name = "Palico Coat Type";
+                        name = "Coat Type";
                         dest = PalicoCoatTypes;
                         break;
                     case "Palico Ears":
-                        name = "Palico Ear Type";
+                        name = "Ear Type";
                         dest = PalicoEarTypes;
                         break;
                     case "Palico Eyes":
-                        name = "Palico Eye Type";
+                        name = "Eye Type";
                         dest = PalicoEyeTypes;
                         break;
                     case "Palico Tails":
-                        name = "Palico Tail Type";
+                        name = "Tail Type";
                         dest = PalicoTailTypes;
+                        break;
+                    case "Palico Outlines":
+                        name = "Outline Type";
+                        dest = PalicoOutlineTypes;
+                        break;
+                    case "Palico Pupils":
+                        name = "Pupil Type";
+                        dest = PalicoPupilTypes;
                         break;
                     default:
                         CtxLog.Warning($"Unrecognized name '{def.Name}'");

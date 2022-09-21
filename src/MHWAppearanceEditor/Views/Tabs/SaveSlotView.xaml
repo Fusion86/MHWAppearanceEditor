@@ -3,115 +3,118 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:editor="clr-namespace:MHWAppearanceEditor.Views.SaveSlotEditors"
+			 xmlns:vm="clr-namespace:MHWAppearanceEditor.ViewModels.Tabs"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="MHWAppearanceEditor.Views.Tabs.SaveSlotView">
+             x:Class="MHWAppearanceEditor.Views.Tabs.SaveSlotView"
+			 x:CompileBindings="True"
+			 x:DataType="vm:SaveSlotViewModel">
 
-    <TabControl Name="TabControl">
-        <TabControl.Styles>
-            <Style Selector="TabItem">
-                <Setter Property="Padding" Value="0"/>
-            </Style>
+	<TabControl Name="TabControl" SelectedIndex="{Binding Parent.SelectedTabIndex}">
+		<TabControl.Styles>
+			<Style Selector="TabItem">
+				<Setter Property="Padding" Value="0"/>
+			</Style>
 
-            <Style Selector="TabItem:selected">
-                <Setter Property="Background" Value="Transparent"/>
-            </Style>
+			<Style Selector="TabItem:selected">
+				<Setter Property="Background" Value="Transparent"/>
+			</Style>
 
-            <Style Selector="TabItem:pointerover">
-                <Setter Property="Background" Value="Transparent"/>
-            </Style>
+			<Style Selector="TabItem:pointerover">
+				<Setter Property="Background" Value="Transparent"/>
+			</Style>
 
-            <Style Selector="TabItem:pointerover:selected">
-                <Setter Property="Background" Value="Transparent"/>
-            </Style>
+			<Style Selector="TabItem:pointerover:selected">
+				<Setter Property="Background" Value="Transparent"/>
+			</Style>
 
-            <Style Selector="TabItem > Grid > Rectangle">
-                <Setter Property="Fill" Value="{DynamicResource FusionDarkSlateBrush}"/>
-            </Style>
+			<Style Selector="TabItem > Grid > Rectangle">
+				<Setter Property="Fill" Value="{DynamicResource FusionDarkSlateBrush}"/>
+			</Style>
 
-            <Style Selector="TabItem:selected > Grid > Rectangle">
-                <Setter Property="Fill" Value="{DynamicResource ThemeAccentBrush}"/>
-            </Style>
-        </TabControl.Styles>
+			<Style Selector="TabItem:selected > Grid > Rectangle">
+				<Setter Property="Fill" Value="{DynamicResource ThemeAccentBrush}"/>
+			</Style>
+		</TabControl.Styles>
 
-        <TabControl.Template>
-            <ControlTemplate>
-                <Border
+		<TabControl.Template>
+			<ControlTemplate>
+				<Border
                     Margin="{TemplateBinding Margin}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
                     Background="{TemplateBinding Background}"
                     HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                     VerticalAlignment="{TemplateBinding VerticalAlignment}">
-                    <DockPanel>
-                        <Grid DockPanel.Dock="Top">
-                            <Rectangle Height="3" VerticalAlignment="Bottom" Fill="{DynamicResource FusionDarkSlateBrush}"/>
-                            <ItemsPresenter
+					<DockPanel>
+						<Grid DockPanel.Dock="Top">
+							<Rectangle Height="3" VerticalAlignment="Bottom" Fill="{DynamicResource FusionDarkSlateBrush}"/>
+							<ItemsPresenter
                                 Name="PART_ItemsPresenter"
                                 Items="{TemplateBinding Items}"
                                 ItemsPanel="{TemplateBinding ItemsPanel}"
                                 ItemTemplate="{TemplateBinding ItemTemplate}">
-                            </ItemsPresenter>
-                        </Grid>
+							</ItemsPresenter>
+						</Grid>
 
-                        <ScrollViewer>
-                            <ContentPresenter
+						<ScrollViewer>
+							<ContentPresenter
                                 Name="PART_SelectedContentHost"
                                 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                 Content="{TemplateBinding SelectedContent}"
                                 ContentTemplate="{TemplateBinding SelectedContentTemplate}">
-                            </ContentPresenter>
-                        </ScrollViewer>
-                    </DockPanel>
-                </Border>
-            </ControlTemplate>
-        </TabControl.Template>
+							</ContentPresenter>
+						</ScrollViewer>
+					</DockPanel>
+				</Border>
+			</ControlTemplate>
+		</TabControl.Template>
 
-        <TabControl.ItemTemplate>
-            <DataTemplate>
-                <Grid>
-                    <Rectangle Height="3" VerticalAlignment="Bottom"/>
-                    <TextBlock Text="{Binding}" VerticalAlignment="Center" Margin="10"/>
-                </Grid>
-            </DataTemplate>
-        </TabControl.ItemTemplate>
+		<TabControl.ItemTemplate>
+			<DataTemplate x:CompileBindings="False">
+				<Grid>
+					<Rectangle Height="3" VerticalAlignment="Bottom"/>
+					<TextBlock Text="{Binding}" VerticalAlignment="Center" Margin="10"/>
+				</Grid>
+			</DataTemplate>
+		</TabControl.ItemTemplate>
 
-        <!-- Some TabItems have a Width binding, this is required for the WrapPanel inside those views to work correctly -->
+		<!-- Some TabItems have a Width binding, this is required for the WrapPanel inside those views to work correctly -->
 
-        <TabItem Header="General">
-            <editor:SaveSlotInfoView DataContext="{Binding}" MaxWidth="800" HorizontalContentAlignment="Stretch"/>
-        </TabItem>
+		<TabItem Header="General">
+			<editor:SaveSlotInfoView DataContext="{Binding}" MaxWidth="800" HorizontalContentAlignment="Stretch"/>
+		</TabItem>
 
-        <TabItem Header="Face">
-            <editor:SaveSlotFaceView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
-        </TabItem>
+		<TabItem Header="Face">
+			<editor:SaveSlotFaceView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
+		</TabItem>
 
-        <TabItem Header="Skin">
-            <editor:SaveSlotSkinView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
-        </TabItem>
+		<TabItem Header="Skin">
+			<editor:SaveSlotSkinView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
+		</TabItem>
 
-        <TabItem Header="Hair">
-            <editor:SaveSlotHairView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
-        </TabItem>
+		<TabItem Header="Hair">
+			<editor:SaveSlotHairView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
+		</TabItem>
 
-        <TabItem Header="Eyes">
-            <editor:SaveSlotEyesView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
-        </TabItem>
+		<TabItem Header="Eyes">
+			<editor:SaveSlotEyesView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
+		</TabItem>
 
-        <TabItem Header="Makeup">
-            <editor:SaveSlotMakeupView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
-        </TabItem>
+		<TabItem Header="Makeup">
+			<editor:SaveSlotMakeupView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
+		</TabItem>
 
-        <TabItem Header="Other">
-            <editor:SaveSlotOtherView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
-        </TabItem>
+		<TabItem Header="Other">
+			<editor:SaveSlotOtherView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
+		</TabItem>
 
-        <TabItem Header="Palico">
-            <editor:SaveSlotPalicoView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
-        </TabItem>
+		<TabItem Header="Palico">
+			<editor:SaveSlotPalicoView DataContext="{Binding}" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
+		</TabItem>
 
-        <TabItem Header="Tools">
-            <editor:SaveSlotToolsView Name="SaveSlotToolsView" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
-        </TabItem>
-    </TabControl>
+		<TabItem Header="Tools">
+			<editor:SaveSlotToolsView Name="SaveSlotToolsView" Width="{Binding $parent[TabControl].Bounds.Right}" HorizontalContentAlignment="Center"/>
+		</TabItem>
+	</TabControl>
 </UserControl>

@@ -6,80 +6,86 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MHWAppearanceEditor.Views.SaveSlotEditors.SaveSlotPalicoView">
 
-    <Grid Margin="20,20,20,0" RowDefinitions="Auto,10,Auto">
-        <Grid Grid.Row="0"
+	<Grid Margin="20,20,20,0" RowDefinitions="Auto,10,Auto">
+		<Grid Grid.Row="0"
               HorizontalAlignment="Center"
               RowDefinitions="Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto,5,Auto"
               ColumnDefinitions="Auto,10,140,20,Auto,10,Auto">
-            
-            <Grid.Styles>
-                <Style Selector="TextBlock">
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                    <Setter Property="TextAlignment" Value="Right"/>
-                </Style>
 
-                <Style Selector="NumericUpDown">
-                    <Setter Property="Minimum" Value="0"/>
-                    <Setter Property="Maximum" Value="100"/>
-                    <Setter Property="ParsingNumberStyle" Value="Float"/>
-                    <Setter Property="FormatString" Value="0.00"/>
-                </Style>
-            </Grid.Styles>
+			<Grid.Styles>
+				<Style Selector="TextBlock">
+					<Setter Property="VerticalAlignment" Value="Center"/>
+					<Setter Property="TextAlignment" Value="Right"/>
+				</Style>
 
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="Pattern Color 1 Color"/>
-            <controls:ColorEdit Name="PatternColor1Edit" Grid.Column="2" Grid.Row="0"/>
+				<Style Selector="NumericUpDown">
+					<Setter Property="Minimum" Value="0"/>
+					<Setter Property="Maximum" Value="100"/>
+					<Setter Property="ParsingNumberStyle" Value="Float"/>
+					<Setter Property="FormatString" Value="0.00"/>
+				</Style>
+			</Grid.Styles>
 
-            <TextBlock Grid.Column="0" Grid.Row="2" Text="Pattern Color 2 Color"/>
-            <controls:ColorEdit Name="PatternColor2Edit" Grid.Column="2" Grid.Row="2"/>
+			<TextBlock Grid.Column="0" Grid.Row="0" Text="Pattern Color 1 Color"/>
+			<controls:ColorEdit Name="PatternColor1Edit" Grid.Column="2" Grid.Row="0"/>
 
-            <TextBlock Grid.Column="0" Grid.Row="4" Text="Pattern Color 3 Color"/>
-            <controls:ColorEdit Name="PatternColor3Edit" Grid.Column="2" Grid.Row="4"/>
+			<TextBlock Grid.Column="0" Grid.Row="2" Text="Pattern Color 2 Color"/>
+			<controls:ColorEdit Name="PatternColor2Edit" Grid.Column="2" Grid.Row="2"/>
 
-            <TextBlock Grid.Column="0" Grid.Row="6" Text="Fur Color"/>
-            <controls:ColorEdit Name="FurColorEdit" Grid.Column="2" Grid.Row="6"/>
+			<TextBlock Grid.Column="0" Grid.Row="4" Text="Pattern Color 3 Color"/>
+			<controls:ColorEdit Name="PatternColor3Edit" Grid.Column="2" Grid.Row="4"/>
 
-            <TextBlock Grid.Column="0" Grid.Row="8" Text="Left Eye Color"/>
-            <controls:ColorEdit Name="LeftEyeColorEdit" Grid.Column="2" Grid.Row="8"/>
+			<TextBlock Grid.Column="0" Grid.Row="6" Text="Fur Color"/>
+			<controls:ColorEdit Name="FurColorEdit" Grid.Column="2" Grid.Row="6"/>
 
-            <TextBlock Grid.Column="0" Grid.Row="10" Text="Right Eye Color"/>
-            <controls:ColorEdit Name="RightEyeColorEdit" Grid.Column="2" Grid.Row="10"/>
+			<TextBlock Grid.Column="0" Grid.Row="8" Text="Left Eye Color"/>
+			<controls:ColorEdit Name="LeftEyeColorEdit" Grid.Column="2" Grid.Row="8"/>
 
-            <TextBlock Grid.Column="4" Grid.Row="0" Text="Clothing Color"/>
-            <controls:ColorEdit Name="ClothingColorEdit" Grid.Column="6" Grid.Row="0" Width="140" HorizontalAlignment="Left"/>
+			<TextBlock Grid.Column="0" Grid.Row="10" Text="Right Eye Color"/>
+			<controls:ColorEdit Name="RightEyeColorEdit" Grid.Column="2" Grid.Row="10"/>
 
-            <TextBlock Grid.Column="4" Grid.Row="2" Text="Fur Length"/>
-            <NumericUpDown Grid.Column="6" Grid.Row="2" Value="{Binding PalicoFurLength}" Width="140" HorizontalAlignment="Left"/>
+			<TextBlock Grid.Column="4" Grid.Row="0" Text="Clothing Color"/>
+			<controls:ColorEdit Name="ClothingColorEdit" Grid.Column="6" Grid.Row="0" Width="140" HorizontalAlignment="Left"/>
 
-            <TextBlock Grid.Column="4" Grid.Row="4" Text="Fur Thickness"/>
-            <NumericUpDown Grid.Column="6" Grid.Row="4" Value="{Binding PalicoFurThickness}" Width="140" HorizontalAlignment="Left"/>
+			<TextBlock Grid.Column="4" Grid.Row="2" Text="Fur Length"/>
+			<NumericUpDown Grid.Column="6" Grid.Row="2" Value="{Binding PalicoFurLength}" Width="140" HorizontalAlignment="Left"/>
 
-            <TextBlock Grid.Column="4" Grid.Row="6" Text="Voice Type" VerticalAlignment="Center" TextAlignment="Right"/>
-            <ListBox Grid.Column="6"
+			<TextBlock Grid.Column="4" Grid.Row="4" Text="Fur Thickness"/>
+			<NumericUpDown Grid.Column="6" Grid.Row="4" Value="{Binding PalicoFurThickness}" Width="140" HorizontalAlignment="Left"/>
+
+			<TextBlock Grid.Column="4" Grid.Row="6" Text="Voice Type" VerticalAlignment="Center" TextAlignment="Right"/>
+			<ListBox Grid.Column="6"
                      Grid.Row="6"
                      Classes="FusionListBox"
                      Items="{Binding PalicoVoiceTypes}"
                      SelectedItem="{Binding PalicoVoiceType}"/>
 
-            <TextBlock Grid.Column="4" Grid.Row="8" Text="Voice Pitch" VerticalAlignment="Center" TextAlignment="Right"/>
-            <ListBox Grid.Column="6"
+			<TextBlock Grid.Column="4" Grid.Row="8" Text="Voice Pitch" VerticalAlignment="Center" TextAlignment="Right"/>
+			<ListBox Grid.Column="6"
                      Grid.Row="8"
                      Classes="FusionListBox"
                      Items="{Binding PalicoVoicePitches}"
                      SelectedItem="{Binding PalicoVoicePitch}"/>
-        </Grid>
+		</Grid>
 
-        <WrapPanel Grid.Row="2" HorizontalAlignment="Center">
-            <WrapPanel.Styles>
-                <Style Selector="ComboBox">
-                    <Setter Property="Margin" Value="0,0,10,10"/>
-                    <Setter Property="VerticalAlignment" Value="Top"/>
-                </Style>
-            </WrapPanel.Styles>
+		<WrapPanel Grid.Row="2" HorizontalAlignment="Center">
+			<WrapPanel.Styles>
+				<Style Selector="ComboBox">
+					<Setter Property="Margin" Value="0,0,10,10"/>
+					<Setter Property="VerticalAlignment" Value="Top"/>
+				</Style>
+			</WrapPanel.Styles>
 
-            <ComboBox Classes="CharaSelect" Items="{Binding PalicoPatternTypes}" SelectedItem="{Binding PalicoPatternType}"/>
-            <ComboBox Classes="CharaSelect" Items="{Binding PalicoEyeTypes}" SelectedItem="{Binding PalicoEyeType}"/>
-            <ComboBox Classes="CharaSelect" Items="{Binding PalicoEarTypes}" SelectedItem="{Binding PalicoEarType}"/>
-            <ComboBox Classes="CharaSelect" Items="{Binding PalicoTailTypes}" SelectedItem="{Binding PalicoTailType}"/>
-        </WrapPanel>
-    </Grid>
+			<ComboBox Classes="CharaSelect" Items="{Binding PalicoOutlineTypes}" SelectedItem="{Binding PalicoOutlineType}"/>
+			<ComboBox Classes="CharaSelect" Items="{Binding PalicoPatternTypes}" SelectedItem="{Binding PalicoPatternType}"/>
+
+			<StackPanel>
+				<ComboBox Classes="CharaSelect" Items="{Binding PalicoEyeTypes}" SelectedItem="{Binding PalicoEyeType}"/>
+				<ComboBox Classes="CharaSelect" Items="{Binding PalicoPupilTypes}" SelectedItem="{Binding PalicoPupilType}"/>
+			</StackPanel>
+
+			<ComboBox Classes="CharaSelect" Items="{Binding PalicoEarTypes}" SelectedItem="{Binding PalicoEarType}"/>
+			<ComboBox Classes="CharaSelect" Items="{Binding PalicoTailTypes}" SelectedItem="{Binding PalicoTailType}"/>
+		</WrapPanel>
+	</Grid>
 </UserControl>

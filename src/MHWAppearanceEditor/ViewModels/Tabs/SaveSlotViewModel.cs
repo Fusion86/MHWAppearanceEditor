@@ -24,6 +24,7 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
     {
         private static readonly Serilog.ILogger CtxLog = Log.ForContext<SaveSlotViewModel>();
 
+        public SaveDataViewModel Parent { get; }
         public string Title { [ObservableAsProperty] get; } = "";
         public string ToolTipText => $"{HunterName} (Rank: {HunterRank})";
 
@@ -354,6 +355,18 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
             set { if (value != null) SaveSlot.PalicoAppearance.TailType = (byte)value.Value; this.RaisePropertyChanged(); }
         }
 
+        public CharacterAssetViewModel PalicoOutlineType
+        {
+            get => PalicoOutlineTypes.FirstOrDefault(x => x.Value == SaveSlot.PalicoAppearance.OutlineType);
+            set { if (value != null) SaveSlot.PalicoAppearance.OutlineType = (byte)value.Value; this.RaisePropertyChanged(); }
+        }
+
+        public CharacterAssetViewModel PalicoPupilType
+        {
+            get => PalicoPupilTypes.FirstOrDefault(x => x.Value == SaveSlot.PalicoAppearance.PupilType);
+            set { if (value != null) SaveSlot.PalicoAppearance.PupilType = (byte)value.Value; this.RaisePropertyChanged(); }
+        }
+
         // Collections of possible values
         public List<Gender> Genders { get; } = new List<Gender>() { Gender.Male, Gender.Female };
         public List<EyelashLength> EyelashLengths { get; } = new List<EyelashLength>() { EyelashLength.Short, EyelashLength.Average, EyelashLength.Long };
@@ -370,12 +383,14 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         [Reactive] public List<CharacterAssetViewModel> EyeTypes { get; private set; }
         [Reactive] public List<CharacterAssetViewModel> ClothingTypes { get; private set; }
         [Reactive] public List<CharacterAssetViewModel> MakeupTypes { get; private set; }
-        [Reactive] public List<CharacterAssetViewModel> VoiceTypes { get; private set; }
-        [Reactive] public List<CharacterAssetViewModel> ExpressionTypes { get; private set; }
-        [Reactive] public List<CharacterAssetViewModel> PalicoPatternTypes { get; private set; }
-        [Reactive] public List<CharacterAssetViewModel> PalicoEyeTypes { get; private set; }
-        [Reactive] public List<CharacterAssetViewModel> PalicoEarTypes { get; private set; }
-        [Reactive] public List<CharacterAssetViewModel> PalicoTailTypes { get; private set; }
+        public List<CharacterAssetViewModel> VoiceTypes { get; private set; }
+        public List<CharacterAssetViewModel> ExpressionTypes { get; private set; }
+        public List<CharacterAssetViewModel> PalicoPatternTypes { get; private set; }
+        public List<CharacterAssetViewModel> PalicoEyeTypes { get; private set; }
+        public List<CharacterAssetViewModel> PalicoEarTypes { get; private set; }
+        public List<CharacterAssetViewModel> PalicoTailTypes { get; private set; }
+        public List<CharacterAssetViewModel> PalicoOutlineTypes { get; private set; }
+        public List<CharacterAssetViewModel> PalicoPupilTypes { get; private set; }
 
         public ReactiveCommand<Unit, Unit> CalculateHunterXpCommand { get; }
         public ReactiveCommand<Unit, Unit> CalculateMasterXpCommand { get; }
@@ -389,8 +404,9 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
 
         private readonly CharacterAssets characterAssets;
 
-        public SaveSlotViewModel(SaveSlot saveSlot, AssetsService? assetsService = null)
+        public SaveSlotViewModel(SaveDataViewModel parent, SaveSlot saveSlot, AssetsService? assetsService = null)
         {
+            Parent = parent;
             SaveSlot = saveSlot;
             assetsService ??= Locator.Current.GetService<AssetsService>()!;
             characterAssets = assetsService.CharacterAssets;
@@ -435,6 +451,8 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
                 PalicoEyeTypes = characterAssets.PalicoEyeTypes;
                 PalicoEarTypes = characterAssets.PalicoEarTypes;
                 PalicoTailTypes = characterAssets.PalicoTailTypes;
+                PalicoOutlineTypes = characterAssets.PalicoOutlineTypes;
+                PalicoPupilTypes = characterAssets.PalicoPupilTypes;
             }
             catch (Exception ex)
             {
