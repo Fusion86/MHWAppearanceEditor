@@ -1,4 +1,5 @@
-﻿using Avalonia.Media;
+﻿using Avalonia.Data;
+using Avalonia.Media;
 using Cirilla.Core.Enums;
 using Cirilla.Core.Interfaces;
 using Cirilla.Core.Models;
@@ -37,7 +38,21 @@ namespace MHWAppearanceEditor.ViewModels.Tabs
         public int MasterXp { get => SaveSlot.MasterXp; set => SaveSlot.MasterXp = value; }
         public int Zenny { get => SaveSlot.Zenny; set => SaveSlot.Zenny = value; }
         public int ResearchPoints { get => SaveSlot.ResearchPoints; set => SaveSlot.ResearchPoints = value; }
-        public TimeSpan PlayTime { get => TimeSpan.FromSeconds(SaveSlot.PlayTime); }
+        public TimeSpan PlayTime
+        {
+            get => TimeSpan.FromSeconds(SaveSlot.PlayTime); set
+            {
+                // The game only displays up to 9999 hours.
+                if (value.TotalSeconds < int.MaxValue && value.TotalSeconds > 0)
+                {
+                    SaveSlot.PlayTime = (int)value.TotalSeconds;
+                }
+                else
+                {
+                    throw new DataValidationException("Invalid value.");
+                }
+            }
+        }
 
         public double NoseHeight
         {

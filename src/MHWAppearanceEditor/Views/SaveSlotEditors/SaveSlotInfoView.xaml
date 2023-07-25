@@ -51,7 +51,7 @@
 		<TextBox Grid.Column="2" Grid.Row="14" Text="{Binding ResearchPoints}"/>
 
 		<TextBlock Grid.Column="0" Grid.Row="16" Text="PlayTime" VerticalAlignment="Center" TextAlignment="Right"/>
-		<TextBox Grid.Column="2" Grid.Row="16" Text="{Binding PlayTime, Converter={StaticResource TimeSpanConverter}}" IsReadOnly="True"/>
+		<TextBox Grid.Column="2" Grid.Row="16" Text="{Binding PlayTime, Converter={StaticResource TimeSpanConverter}}"/>
 
 		<TextBlock Grid.Column="0" Grid.Row="18" Text="Gender" VerticalAlignment="Center" TextAlignment="Right"/>
 		<ListBox Name="GenderListBox" Grid.Column="2" Grid.Row="18" Classes="FusionListBox" Items="{Binding Genders}" SelectedItem="{Binding Gender}"/>

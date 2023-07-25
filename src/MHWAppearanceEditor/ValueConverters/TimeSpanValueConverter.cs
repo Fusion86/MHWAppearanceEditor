@@ -27,7 +27,7 @@ namespace MHWAppearanceEditor.ValueConverters
                 }
             }
 
-            throw new NotImplementedException();
+            return null!;
         }
     }
 }
