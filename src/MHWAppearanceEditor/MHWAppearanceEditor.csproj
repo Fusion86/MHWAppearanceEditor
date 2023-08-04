@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFrameworks>net461;net5.0</TargetFrameworks>
+        <TargetFrameworks>net461;net7.0</TargetFrameworks>
         <Version>1.7.1</Version>
         <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
         <Nullable>enable</Nullable>

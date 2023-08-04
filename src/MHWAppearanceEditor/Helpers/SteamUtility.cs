@@ -17,16 +17,24 @@ namespace MHWAppearanceEditor.Helpers
 
         public static string? GetSteamRoot()
         {
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                return null;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                string reg = Environment.Is64BitOperatingSystem ? @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Valve\Steam" : @"HKEY_LOCAL_MACHINE\SOFTWARE\Valve\Steam";
+                var val = Registry.GetValue(reg, "InstallPath", null);
 
-            string reg = Environment.Is64BitOperatingSystem ? @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Valve\Steam" : @"HKEY_LOCAL_MACHINE\SOFTWARE\Valve\Steam";
-            var val = Registry.GetValue(reg, "InstallPath", null);
-
-            if (val != null)
-                return (string)val;
+                if (val != null)
+                    return (string)val;
+                else
+                    return null;
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".steam", "steam");
+            }
             else
+            {
                 return null;
+            }
         }
 
         public static string? GetMhwSaveDir()
