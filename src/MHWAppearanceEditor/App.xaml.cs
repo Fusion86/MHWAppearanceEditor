@@ -12,6 +12,8 @@ using MHWAppearanceEditor.Views.Tabs;
 using ReactiveUI;
 using Serilog;
 using Splat;
+using System;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -21,24 +23,28 @@ namespace MHWAppearanceEditor
     {
         public override void Initialize()
         {
-            InitializeLogging();
+            string writableAppDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MHWAppearanceEditor");
+            Directory.CreateDirectory(writableAppDir);
+            InitializeLogging(writableAppDir);
 
             RxApp.DefaultExceptionHandler = new RxExceptionHandler();
 
             // Need to call ForContext *afer* calling InitializeLogging()
             var log = Log.ForContext<App>();
+            log.Information("AppData directory: {Dir}", writableAppDir);
             log.Information("MHWAppearanceEditor v" + Assembly.GetExecutingAssembly()!.GetName().Version);
             log.Information("Cirilla.Core v" + Assembly.GetAssembly(typeof(Cirilla.Core.Models.SaveData))!.GetName().Version);
 
             // Settings
-            var settingsService = new SettingsService();
+            var settingsService = new SettingsService(Path.Combine(writableAppDir, "config.json"));
             Locator.CurrentMutable.RegisterConstant(settingsService);
 
             // Backup service
-            Locator.CurrentMutable.RegisterConstant(new BackupService());
+            Locator.CurrentMutable.RegisterConstant(new BackupService(Path.Combine(writableAppDir, "backup")));
 
             // Start assets loading
-            AssetsService assetsService = new AssetsService("assets");
+            string appdir = Environment.GetEnvironmentVariable("APPDIR") ?? ".";
+            AssetsService assetsService = new AssetsService(Path.Combine(appdir, "assets"));
             Task.Run(() => assetsService.Initialize());
             Locator.CurrentMutable.RegisterConstant(assetsService);
 
@@ -65,7 +71,7 @@ namespace MHWAppearanceEditor
             base.OnFrameworkInitializationCompleted();
         }
 
-        private static void InitializeLogging()
+        private static void InitializeLogging(string logDir)
         {
             // Cirilla and MHWAppearanceEditor logging
             var logSink = new LogSink();
@@ -74,7 +80,7 @@ namespace MHWAppearanceEditor
             {
                 var logger = new LoggerConfiguration()
                 .WriteTo.Sink(logSink)
-                .WriteTo.File("MHWAppearanceEditor-.log", rollingInterval: RollingInterval.Day, outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] <{SourceContext}> {Message:lj}{NewLine}{Exception}")
+                .WriteTo.File(Path.Combine(logDir, "MHWAppearanceEditor-.log"), rollingInterval: RollingInterval.Day, outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] <{SourceContext}> {Message:lj}{NewLine}{Exception}")
                 .CreateLogger();
                 Log.Logger = logger;
             }
