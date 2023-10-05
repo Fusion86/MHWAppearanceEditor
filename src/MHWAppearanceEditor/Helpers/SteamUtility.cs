@@ -29,7 +29,12 @@ namespace MHWAppearanceEditor.Helpers
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".steam", "steam");
+                var steamFolders = new[] {
+                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".var", "app", "com.valvesoftware.Steam", "data", "Steam"),
+                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".steam", "steam"),
+                };
+
+                return steamFolders.FirstOrDefault(Directory.Exists);
             }
             else
             {
