@@ -27,7 +27,7 @@ jobs:
           chmod +x appimagetool-x86_64.AppImage
 
           /tmp/appimagetool-x86_64.AppImage --appimage-extract
-          mv squashfs-root/usr/bin/* /usr/bin/
+          sudo mv squashfs-root/usr/bin/* /usr/bin/
 
       - name: Download required assets
         uses: prewk/s3-cp-action@v2
