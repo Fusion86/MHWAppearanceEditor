@@ -46,12 +46,12 @@ jobs:
       - name: Insert secret
         run: sed -i 's/STEAM_WEB_API_KEY = "";/STEAM_WEB_API_KEY = "${{ secrets.STEAM_WEB_API_KEY }}";/g' src/MHWAppearanceEditor/SuperSecret.cs
 
-      - name: Build app and appimage
+      - name: Build app and AppImage
         run: |
           chmod +x publish-appimage
           ./publish-appimage -y
 
-      - name: Archive code coverage results
+      - name: Upload AppImage
         uses: actions/upload-artifact@v3
         with:
           name: AppImage
