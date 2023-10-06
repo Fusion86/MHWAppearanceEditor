@@ -1,0 +1,56 @@
+name: dotnet package
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install desktop-file-utils -y
+
+      - name: Setup dotnet 7.0.x
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
+
+      # I can't believe that this works.
+      - name: Setup appimagetool
+        run: |
+          cd /tmp
+          wget https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
+          chmod +x appimagetool-x86_64.AppImage
+
+          /tmp/appimagetool-x86_64.AppImage --appimage-extract
+          mv squashfs-root/usr/bin/* /usr/bin/
+
+      - name: Download required assets
+        uses: prewk/s3-cp-action@v2
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          source: "s3://mhwappearanceeditor/assets-0.0.3.zip"
+          dest: "./assets.zip"
+          aws_s3_endpoint: ${{ secrets.AWS_ENDPOINT }}
+
+      - name: Extract assets
+        run: unzip assets.zip -d scripts/assets
+
+      - name: Insert secret
+        run: sed -i 's/STEAM_WEB_API_KEY = "";/STEAM_WEB_API_KEY = "${{ secrets.STEAM_WEB_API_KEY }}";/g' src/MHWAppearanceEditor/SuperSecret.cs
+
+      - name: Build app and appimage
+        run: |
+          chmod +x publish-appimage
+          ./publish-appimage -y
+
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: AppImage
+          path: AppImages/MHWAppearanceEditor-x86_64.AppImage

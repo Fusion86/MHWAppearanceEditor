@@ -1,0 +1,3 @@
+[submodule "external/Cirilla"]
+	path = external/Cirilla
+	url = git@github.com:Fusion86/Cirilla.git
